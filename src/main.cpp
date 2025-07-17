@@ -13,13 +13,11 @@ int main()
     while (!window.ShouldClose())
     {
         BeginDrawing();
-        funkin->draw();
+        window.ClearBackground(BLACK);
+        funkin->update(window.GetFrameTime());
         EndDrawing();
     }
 
     CloseAudioDevice();
-
-    // UnloadTexture() and CloseWindow() are called automatically.
-
     return 0;
 }

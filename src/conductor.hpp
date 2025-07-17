@@ -20,7 +20,7 @@ private:
 public:
     conductor(vector<raylib::Music *> tracks);
     ~conductor();
-    void update();
+    void update(double delta);
 
     int getStep();
     double getCrochet();

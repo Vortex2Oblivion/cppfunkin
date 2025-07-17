@@ -8,9 +8,11 @@ class state
 {
 private:
     /* data */
-    vector<object*> members;
+    vector<object *> members;
+
 public:
     state(/* args */);
     ~state();
-    void add(object* obj);
+    void add(object *obj);
+    virtual void update(double delta);
 };

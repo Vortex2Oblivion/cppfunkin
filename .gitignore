@@ -2,6 +2,7 @@ build
 out
 .vscode
 
+CMakePresets.json
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles

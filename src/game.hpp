@@ -10,5 +10,5 @@ private:
 public:
     game(state *initalState);
     ~game();
-    void draw();
+    void update(double delta);
 };

@@ -8,7 +8,7 @@ private:
     /* data */
 public:
     object(double x, double y);
-    ~object();
+    virtual ~object();
     virtual void update(double delta);
     raylib::Vector2 position;
 };

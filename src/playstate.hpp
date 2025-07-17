@@ -1,12 +1,18 @@
 #pragma once
 
 #include "state.hpp"
+#include "conductor.hpp"
+#include "note.hpp"
 
 class playstate : public state
 {
 private:
-    /* data */
+    conductor* _conductor;
 public:
-    playstate(/* args */);
+    playstate();
     ~playstate();
+    void loadSong(string song, string difficulty);
+    void update(double delta);
+    vector<raylib::Music *> tracks = {};
+    vector<note *> notes = {};
 };

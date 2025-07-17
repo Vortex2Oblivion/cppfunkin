@@ -16,14 +16,14 @@ conductor::~conductor()
 {
 }
 
-void conductor::update()
+void conductor::update(double delta)
 {
     for (auto track : tracks)
     {
         double resyncTimer = 0;
         if (track->GetTimePlayed() == _lastTime)
         {
-            resyncTimer += GetFrameTime() * 0.001;
+            resyncTimer += delta * 0.001;
         }
         else
         {

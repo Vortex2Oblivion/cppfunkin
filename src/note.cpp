@@ -1,6 +1,7 @@
 #include "raylib-cpp.hpp"
 
 #include "note.hpp"
+#include <iostream>
 
 note::note(double strumTime, int lane, double speed) : sprite(0, 0)
 {

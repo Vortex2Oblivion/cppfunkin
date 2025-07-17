@@ -9,4 +9,6 @@ object::~object()
 {
 }
 
-void object::update(double delta){}
+void object::update(double delta)
+{
+}

@@ -1,4 +1,5 @@
 #include "sprite.hpp"
+#include <iostream>
 
 sprite::sprite(double x, double y) : object(x, y)
 {
@@ -17,6 +18,7 @@ void sprite::loadGraphic(string path)
     angle = 0;
     color = WHITE;
 }
+
 
 void sprite::update(double delta)
 {
