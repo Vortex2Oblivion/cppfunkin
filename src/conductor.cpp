@@ -67,7 +67,7 @@ int conductor::getStep(){
 }
 
 double conductor::getCrochet(){
-    return (60/bpm);
+    return (60.0/bpm);
 }
 
 double conductor::getStepCrochet(){

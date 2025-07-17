@@ -26,7 +26,7 @@ int main()
 
     tracks[0]->Play();
     tracks[1]->Play();
-    SetTargetFPS(60);
+    SetTargetFPS(0);
 
     while (!window.ShouldClose())
     {
@@ -34,7 +34,8 @@ int main()
 
         window.ClearBackground(RAYWHITE);
 
-        DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+        window.DrawFPS();
+
 
         tracks[0]->Update();
         tracks[1]->Update();
