@@ -1,5 +1,6 @@
 #include "raylib-cpp.hpp"
 #include "conductor.cpp"
+#include "note.cpp"
 #include <nlohmann/json.hpp>
 #include <fstream>
 
@@ -17,29 +18,33 @@ int main()
 
     raylib::Window window(screenWidth, screenHeight, "raylib-cpp - basic window");
 
-    vector<raylib::Vector2> notes = {};
-
-    for(auto note : data["song"]["notes"]){
-        for(auto sectionNote : note["sectionNotes"]){
-            notes.push_back(raylib::Vector2(sectionNote[0], sectionNote[1]));
-        }
-    }
-
-
+    
+    Texture noteTexture = LoadTexture("assets/images/slungus.png");
+    
     InitAudioDevice();
-
+    
     vector<raylib::Music *> tracks = {};
     tracks.push_back(new raylib::Music("assets/songs/parasitic/Inst.ogg"));
     tracks.push_back(new raylib::Music("assets/songs/parasitic/Voices.ogg"));
-
+    
     conductor *_conductor = new conductor(tracks);
     _conductor->bpm = data["song"]["bpm"];
-
+    
     tracks[0]->Play();
     tracks[1]->Play();
     SetTargetFPS(0);
-
+    
     vector<Color> colors = {PURPLE, BLUE, GREEN, RED};
+    
+    vector<note> notes = {};
+    for(auto _note : data["song"]["notes"]){
+        for(auto sectionNote : _note["sectionNotes"]){
+            note __note = note(noteTexture, sectionNote[0], sectionNote[1], speed);
+            __note.color = colors[(int)sectionNote[1]%4];
+            notes.push_back(__note);
+        }
+    }
+
 
     while (!window.ShouldClose())
     {
@@ -55,7 +60,8 @@ int main()
         _conductor->update();
 
         for(auto note : notes){
-            DrawRectangle(note.y*100, -0.45 * ( _conductor->time * 1000 - note.x) * speed, 100, 100, colors[((int)note.y)%4]);
+            note.time = _conductor->time;
+            note.draw();
         }
         EndDrawing();
     }
