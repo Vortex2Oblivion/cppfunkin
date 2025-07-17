@@ -10,7 +10,6 @@ int main()
 {
     ifstream f("assets/songs/parasitic/hard.json");
     json data = json::parse(f);
-    cout << data["song"]["bpm"] << "\n";
     int screenWidth = 1280;
     int screenHeight = 720;
 
@@ -18,11 +17,12 @@ int main()
 
     InitAudioDevice();
 
-    vector<raylib::Music* > tracks = {};
+    vector<raylib::Music *> tracks = {};
     tracks.push_back(new raylib::Music("assets/songs/parasitic/Inst.ogg"));
     tracks.push_back(new raylib::Music("assets/songs/parasitic/Voices.ogg"));
 
-    conductor * _conductor = new conductor(tracks);
+    conductor *_conductor = new conductor(tracks);
+    _conductor->bpm = 235;
 
     tracks[0]->Play();
     tracks[1]->Play();
@@ -42,6 +42,8 @@ int main()
 
         EndDrawing();
     }
+
+    CloseAudioDevice();
 
     // UnloadTexture() and CloseWindow() are called automatically.
 

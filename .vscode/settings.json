@@ -3,6 +3,7 @@
         "*.hscript": "haxe",
         "*.info": "json",
         "iosfwd": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "csignal": "cpp"
     }
 }

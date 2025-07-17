@@ -9,18 +9,25 @@ class conductor
 private:
     double _lastTime;
     int step;
+    int beat;
 
-    void updateCurStep();
+    void updateStep();
+    void updateBeat();
+
+    void stepHit();
+    void beatHit();
 public:
     conductor(vector<raylib::Music *> tracks);
     ~conductor();
     void update();
 
     int getStep();
+    double getCrochet();
+    double getStepCrochet();
 
     vector<raylib::Music *> tracks;
     double time;
-    short bpm;
+    double bpm;
 };
 
 conductor::conductor(vector<raylib::Music *> tracks)
@@ -45,13 +52,42 @@ void conductor::update(){
         time = track->GetTimePlayed() + resyncTimer;
         _lastTime = track->GetTimePlayed();
     }
-    updateCurStep();
+    int oldStep = step;
+    updateStep();
+    updateBeat();
+    if(oldStep != step){
+        stepHit();
+    }
 }
+
+
 
 int conductor::getStep(){
     return step;
 }
 
-void conductor::updateCurStep(){
-    
+double conductor::getCrochet(){
+    return (60/bpm);
+}
+
+double conductor::getStepCrochet(){
+    return getCrochet() / 4;
+}
+
+void conductor::updateStep(){
+    step = floor(time / getStepCrochet());
+}
+
+void conductor::updateBeat(){
+    beat = floor(step / 4);
+}
+
+void conductor::stepHit(){
+    if(step % 4 == 0){
+        beatHit();
+    }
+}
+
+void conductor::beatHit(){
+    cout << "Beat Hit! " << beat << "\n";
 }
