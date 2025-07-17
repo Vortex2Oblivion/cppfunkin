@@ -1,3 +1,5 @@
+external/** linguist-vendored
+
 # Sources
 *.c     text diff=cpp
 *.cc    text diff=cpp
