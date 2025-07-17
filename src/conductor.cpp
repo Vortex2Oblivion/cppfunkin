@@ -8,13 +8,19 @@ class conductor
 {
 private:
     double _lastTime;
+    int step;
+
+    void updateCurStep();
 public:
     conductor(vector<raylib::Music *> tracks);
     ~conductor();
     void update();
 
+    int getStep();
+
     vector<raylib::Music *> tracks;
     double time;
+    short bpm;
 };
 
 conductor::conductor(vector<raylib::Music *> tracks)
@@ -39,4 +45,13 @@ void conductor::update(){
         time = track->GetTimePlayed() + resyncTimer;
         _lastTime = track->GetTimePlayed();
     }
+    updateCurStep();
+}
+
+int conductor::getStep(){
+    return step;
+}
+
+void conductor::updateCurStep(){
+    
 }
