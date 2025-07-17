@@ -39,7 +39,8 @@ int main()
     vector<note> notes = {};
     for(auto _note : data["song"]["notes"]){
         for(auto sectionNote : _note["sectionNotes"]){
-            note __note = note(noteTexture, sectionNote[0], sectionNote[1], speed);
+            bool playerNote = (sectionNote[1] < 4) ? (!_note["mustHitSection"]) : (bool)(_note["mustHitSection"]);
+            note __note = note(noteTexture, sectionNote[0], ((int)sectionNote[1] % 4) + (playerNote ? 0 : 4), speed);
             __note.color = colors[(int)sectionNote[1]%4];
             notes.push_back(__note);
         }
