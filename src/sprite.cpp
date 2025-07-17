@@ -4,6 +4,10 @@ sprite::sprite(double x, double y) : object(x, y)
 {
 }
 
+sprite::~sprite() {
+    
+}
+
 void sprite::loadGraphic(string path)
 {
     texture = raylib::Texture(path);
