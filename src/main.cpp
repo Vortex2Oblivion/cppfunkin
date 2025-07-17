@@ -39,6 +39,8 @@ int main()
     tracks[1]->Play();
     SetTargetFPS(0);
 
+    vector<Color> colors = {PURPLE, BLUE, GREEN, RED};
+
     while (!window.ShouldClose())
     {
         BeginDrawing();
@@ -53,7 +55,7 @@ int main()
         _conductor->update();
 
         for(auto note : notes){
-            DrawRectangle(note.y*100, -0.45 * ( _conductor->time * 1000 - note.x) * speed, 100, 100, RED);
+            DrawRectangle(note.y*100, -0.45 * ( _conductor->time * 1000 - note.x) * speed, 100, 100, colors[((int)note.y)%4]);
         }
         EndDrawing();
     }
