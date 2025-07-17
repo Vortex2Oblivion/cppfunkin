@@ -4,6 +4,9 @@
         "*.info": "json",
         "iosfwd": "cpp",
         "iostream": "cpp",
-        "csignal": "cpp"
+        "csignal": "cpp",
+        "deque": "cpp",
+        "string": "cpp",
+        "vector": "cpp"
     }
 }
