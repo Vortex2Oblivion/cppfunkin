@@ -1,0 +1,86 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"external/raylib-cpp-5.5.0/include/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 54,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "include",
+			"paths" : 
+			[
+				"external/raylib-cpp-5.5.0/include/AudioDevice.hpp",
+				"external/raylib-cpp-5.5.0/include/AudioStream.hpp",
+				"external/raylib-cpp-5.5.0/include/AutomationEventList.hpp",
+				"external/raylib-cpp-5.5.0/include/BoundingBox.hpp",
+				"external/raylib-cpp-5.5.0/include/Camera2D.hpp",
+				"external/raylib-cpp-5.5.0/include/Camera3D.hpp",
+				"external/raylib-cpp-5.5.0/include/Color.hpp",
+				"external/raylib-cpp-5.5.0/include/FileData.hpp",
+				"external/raylib-cpp-5.5.0/include/FileText.hpp",
+				"external/raylib-cpp-5.5.0/include/Font.hpp",
+				"external/raylib-cpp-5.5.0/include/Functions.hpp",
+				"external/raylib-cpp-5.5.0/include/Gamepad.hpp",
+				"external/raylib-cpp-5.5.0/include/Image.hpp",
+				"external/raylib-cpp-5.5.0/include/Keyboard.hpp",
+				"external/raylib-cpp-5.5.0/include/Material.hpp",
+				"external/raylib-cpp-5.5.0/include/Matrix.hpp",
+				"external/raylib-cpp-5.5.0/include/Mesh.hpp",
+				"external/raylib-cpp-5.5.0/include/MeshUnmanaged.hpp",
+				"external/raylib-cpp-5.5.0/include/Model.hpp",
+				"external/raylib-cpp-5.5.0/include/ModelAnimation.hpp",
+				"external/raylib-cpp-5.5.0/include/Mouse.hpp",
+				"external/raylib-cpp-5.5.0/include/Music.hpp",
+				"external/raylib-cpp-5.5.0/include/Ray.hpp",
+				"external/raylib-cpp-5.5.0/include/RayCollision.hpp",
+				"external/raylib-cpp-5.5.0/include/RaylibException.hpp",
+				"external/raylib-cpp-5.5.0/include/raylib-cpp-utils.hpp",
+				"external/raylib-cpp-5.5.0/include/raylib-cpp.hpp",
+				"external/raylib-cpp-5.5.0/include/raylib.hpp",
+				"external/raylib-cpp-5.5.0/include/raymath.hpp",
+				"external/raylib-cpp-5.5.0/include/Rectangle.hpp",
+				"external/raylib-cpp-5.5.0/include/RenderTexture.hpp",
+				"external/raylib-cpp-5.5.0/include/ShaderUnmanaged.hpp",
+				"external/raylib-cpp-5.5.0/include/Shader.hpp",
+				"external/raylib-cpp-5.5.0/include/Sound.hpp",
+				"external/raylib-cpp-5.5.0/include/Text.hpp",
+				"external/raylib-cpp-5.5.0/include/Texture.hpp",
+				"external/raylib-cpp-5.5.0/include/TextureUnmanaged.hpp",
+				"external/raylib-cpp-5.5.0/include/Touch.hpp",
+				"external/raylib-cpp-5.5.0/include/Vector2.hpp",
+				"external/raylib-cpp-5.5.0/include/Vector3.hpp",
+				"external/raylib-cpp-5.5.0/include/Vector4.hpp",
+				"external/raylib-cpp-5.5.0/include/VrStereoConfig.hpp",
+				"external/raylib-cpp-5.5.0/include/Wave.hpp",
+				"external/raylib-cpp-5.5.0/include/Window.hpp"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "external/raylib-cpp-5.5.0/include",
+		"source" : "external/raylib-cpp-5.5.0/include"
+	}
+}

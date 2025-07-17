@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.hscript": "haxe",
+        "*.info": "json",
+        "iosfwd": "cpp",
+        "iostream": "cpp"
+    }
+}

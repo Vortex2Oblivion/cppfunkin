@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "external/raylib-cpp-5.5.0",
+		"source" : "external/raylib-cpp-5.5.0"
+	}
+}
