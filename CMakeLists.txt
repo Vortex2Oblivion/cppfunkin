@@ -3,7 +3,8 @@ project(cppfunkin VERSION 0.1.0 LANGUAGES C CXX)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
-add_executable(cppfunkin src/main.cpp)
+file(GLOB SOURCES "src/*.cpp")
+add_executable(cppfunkin ${SOURCES})
 
 add_subdirectory(external/raylib-5.5)
 target_link_libraries(cppfunkin raylib)

@@ -1,8 +1,8 @@
-#include "raylib-cpp.hpp"
-#include "conductor.cpp"
-#include "note.cpp"
 #include <nlohmann/json.hpp>
 #include <fstream>
+#include <raylib-cpp.hpp>
+#include "conductor.hpp"
+#include "note.hpp"
 
 using json = nlohmann::json;
 using namespace std;
@@ -32,7 +32,7 @@ int main()
     
     tracks[0]->Play();
     tracks[1]->Play();
-    SetTargetFPS(0);
+    SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
     
     vector<Color> colors = {PURPLE, BLUE, GREEN, RED};
     
