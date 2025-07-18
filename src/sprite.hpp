@@ -4,6 +4,7 @@
 #include <string>
 
 #include "object.hpp"
+#include <map>
 
 using namespace std;
 
@@ -11,14 +12,15 @@ class sprite : public object
 {
 private:
     virtual void draw();
-    raylib::Texture texture;
+    raylib::Texture *texture;
     raylib::Rectangle source;
     raylib::Rectangle dest;
+    static map<string, raylib::Texture*> texturePool;
+
 public:
     sprite(double x, double y);
     virtual ~sprite();
     void loadGraphic(string path);
-    void loadGraphic(raylib::Texture tex);
     virtual void update(double delta);
     bool isOnScreen();
 
