@@ -1,26 +1,18 @@
 #pragma once
 
-#include "raylib-cpp.hpp"
+#include "sprite.hpp"
 
-class note
+class note : public sprite
 {
 private:
-    Texture texture;
 
 public:
-    note(Texture texture, double strumTime, int lane, double speed);
-    ~note();
-
-    void draw();
-    bool isOnScreen();
-
-    int x;
-    int y;
-
-    Color color;
+    note(double strumTime, int lane, double speed);
+    virtual ~note();
+    virtual void update(double delta);
 
     double strumTime;
     int lane;
     double speed;
-    double time;
+    double songPos;
 };
