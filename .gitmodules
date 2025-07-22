@@ -1,0 +1,9 @@
+[submodule "external/json"]
+	path = external/json
+	url = https://github.com/nlohmann/json
+[submodule "external/raylib"]
+	path = external/raylib
+	url = https://github.com/raysan5/raylib
+[submodule "external/raylib-cpp"]
+	path = external/raylib-cpp
+	url = https://github.com/RobLoach/raylib-cpp

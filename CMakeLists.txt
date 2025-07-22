@@ -6,11 +6,11 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/assets DESTINATION ${CMAKE_CURRENT_BINARY_
 file(GLOB SOURCES "src/*.cpp")
 add_executable(cppfunkin ${SOURCES})
 
-add_subdirectory(external/raylib-5.5)
+add_subdirectory(external/raylib)
 target_link_libraries(cppfunkin raylib)
-add_subdirectory(external/raylib-cpp-5.5.0)
+add_subdirectory(external/raylib-cpp)
 target_link_libraries(cppfunkin raylib_cpp)
-add_subdirectory(external/json-3.12.0)
+add_subdirectory(external/json)
 target_link_libraries(cppfunkin nlohmann_json)
 
 include(CTest)
