@@ -1,6 +1,6 @@
 build
 out
-.vscode
+.vscode/
 
 CMakePresets.json
 CMakeLists.txt.user

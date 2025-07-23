@@ -7,6 +7,7 @@ object::object(double x, double y)
 
 object::~object()
 {
+    alive = false;
 }
 
 void object::update(double delta)

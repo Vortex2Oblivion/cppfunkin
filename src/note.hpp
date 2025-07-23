@@ -18,4 +18,6 @@ public:
     int lane;
     double speed;
     double songPos;
+    
+    bool canBeHit;
 };

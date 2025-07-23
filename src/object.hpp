@@ -11,4 +11,5 @@ public:
     virtual ~object();
     virtual void update(double delta);
     raylib::Vector2 position;
+    bool alive = true;
 };

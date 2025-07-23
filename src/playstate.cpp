@@ -4,6 +4,7 @@
 #include <filesystem>
 #include <fstream>
 #include <nlohmann/json.hpp>
+#include <iostream>
 
 using namespace std::filesystem;
 using json = nlohmann::json;
@@ -52,7 +53,45 @@ void playstate::update(double delta)
     _conductor->update(delta);
     for (auto note : notes)
     {
+        if (!note->alive)
+        {
+            continue;
+        }
         note->songPos = _conductor->time;
+    }
+
+    // inputs
+    // thanks for helping my dumbass with this rudy
+    double closestDistance = INFINITY;
+    double minHitTime = 0;
+    double maxHitTime = 180;
+    for (auto note : notes)
+    {
+        if (!note->alive)
+        {
+            continue;
+        }
+        bool hittable = false;
+        if (note->strumTime < (_conductor->time * 1000 + minHitTime) && note->strumTime > (_conductor->time * 1000 - maxHitTime))
+        {
+            hittable = true;
+        }
+        if (!hittable)
+        {
+            continue;
+        }
+        double rawHitTime = note->strumTime - _conductor->time * 1000;
+        double distance = abs(rawHitTime);
+        if (distance < closestDistance)
+        {
+            closestDistance = distance;
+        }
+        else
+        {
+            continue;
+        }
+        notes.erase(find(notes.begin(), notes.end(), note));
+        delete note;
     }
     for (auto track : tracks)
     {

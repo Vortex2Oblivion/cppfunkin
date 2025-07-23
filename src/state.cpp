@@ -14,6 +14,9 @@ void state::add(object* obj){
 
 void state::update(double delta){
     for(auto member : members){
+        if(!member->alive){
+            continue;
+        }
         member->update(delta);
     }
 }

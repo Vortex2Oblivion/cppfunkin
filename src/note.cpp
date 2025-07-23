@@ -2,6 +2,7 @@
 
 #include "note.hpp"
 #include "strumnote.hpp"
+#include <iostream>
 
 note::note(double strumTime, int lane, double speed, strumnote *strum) : sprite(0, 0)
 {
