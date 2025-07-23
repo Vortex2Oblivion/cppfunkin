@@ -13,6 +13,7 @@ private:
 public:
     state(/* args */);
     ~state();
+    void remove(object *obj);
     void add(object *obj);
     virtual void update(double delta);
 };

@@ -4,7 +4,6 @@
 #include <filesystem>
 #include <fstream>
 #include <nlohmann/json.hpp>
-#include <iostream>
 
 using namespace std::filesystem;
 using json = nlohmann::json;
@@ -64,7 +63,7 @@ void playstate::update(double delta)
     // inputs
     // thanks for helping my dumbass with this rudy
     double closestDistance = INFINITY;
-    
+
     double minHitTime = 180;
     double maxHitTime = 180;
 
@@ -100,7 +99,7 @@ void playstate::update(double delta)
     for (auto note : notesToDelete)
     {
         notes.erase(find(notes.begin(), notes.end(), note));
-        delete note;
+        remove(note);
     }
     for (auto track : tracks)
     {
