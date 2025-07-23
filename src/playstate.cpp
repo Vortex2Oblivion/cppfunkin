@@ -1,6 +1,6 @@
 #include "playstate.hpp"
 #include "note.hpp"
-#include <iostream>
+#include "strumnote.hpp"
 #include <filesystem>
 #include <fstream>
 #include <nlohmann/json.hpp>
@@ -26,12 +26,15 @@ void playstate::loadSong(string song, string difficulty)
     tracks.push_back(new raylib::Music(basePath + "Voices.ogg"));
 
     vector<Color> colors = {PURPLE, BLUE, GREEN, RED};
+    generateStaticArrows(false);
+    generateStaticArrows(true);
     for (auto _note : parsedChart["song"]["notes"])
     {
         for (auto sectionNote : _note["sectionNotes"])
         {
             bool playerNote = (sectionNote[1] < 4) ? (!_note["mustHitSection"]) : (bool)(_note["mustHitSection"]);
-            note * __note = new note(sectionNote[0], ((int)sectionNote[1] % 4) + (playerNote ? 0 : 4), parsedChart["song"]["speed"]);
+            int lane = ((int)sectionNote[1] % 4) + (playerNote ? 4 : 0);
+            note *__note = new note(sectionNote[0], lane, parsedChart["song"]["speed"], strumLineNotes[lane]);
             __note->loadGraphic("assets/images/slungus.png");
             __note->color = colors[(int)sectionNote[1] % 4];
             notes.push_back(__note);
@@ -51,7 +54,20 @@ void playstate::update(double delta)
     {
         note->songPos = _conductor->time;
     }
-    for(auto track : tracks){
+    for (auto track : tracks)
+    {
         track->Update();
+    }
+}
+
+void playstate::generateStaticArrows(bool player)
+{
+    for (int i = 0; i < 4; i++)
+    {
+        strumnote *babyArrow = new strumnote(42, 50, i, player);
+        babyArrow->setPosition();
+        babyArrow->loadGraphic("assets/images/slungus.png");
+        strumLineNotes.push_back(babyArrow);
+        add(babyArrow);
     }
 }

@@ -11,8 +11,10 @@ private:
 public:
     playstate();
     ~playstate();
+    void generateStaticArrows(bool player);
     void loadSong(string song, string difficulty);
     void update(double delta);
     vector<raylib::Music *> tracks = {};
     vector<note *> notes = {};
+    vector<strumnote *> strumLineNotes = {};
 };
