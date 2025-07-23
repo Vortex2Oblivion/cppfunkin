@@ -8,6 +8,7 @@ class playstate : public state
 {
 private:
     conductor* _conductor;
+    vector<bool> justHitArray = {false, false, false, false};
 public:
     playstate();
     ~playstate();

@@ -35,9 +35,10 @@ void playstate::loadSong(string song, string difficulty)
         {
             bool playerNote = (sectionNote[1] < 4) ? (!_note["mustHitSection"]) : (bool)(_note["mustHitSection"]);
             int lane = ((int)sectionNote[1] % 4) + (playerNote ? 4 : 0);
-            note *__note = new note(sectionNote[0], lane, parsedChart["song"]["speed"], strumLineNotes[lane]);
+            note *__note = new note(sectionNote[0], lane % 4, parsedChart["song"]["speed"], strumLineNotes[lane]);
             __note->loadGraphic("assets/images/slungus.png");
             __note->color = colors[(int)sectionNote[1] % 4];
+            __note->isPlayer = playerNote;
             notes.push_back(__note);
             add(__note);
         }
@@ -63,11 +64,15 @@ void playstate::update(double delta)
     // inputs
     // thanks for helping my dumbass with this rudy
     double closestDistance = INFINITY;
-    double minHitTime = 0;
+    
+    double minHitTime = 180;
     double maxHitTime = 180;
+
+    vector<note *> notesToDelete = {};
+    justHitArray = {IsKeyPressed(KEY_D), IsKeyPressed(KEY_F), IsKeyPressed(KEY_J), IsKeyPressed(KEY_K)};
     for (auto note : notes)
     {
-        if (!note->alive)
+        if (note == nullptr || !note->alive)
         {
             continue;
         }
@@ -76,7 +81,7 @@ void playstate::update(double delta)
         {
             hittable = true;
         }
-        if (!hittable)
+        if (!hittable || !justHitArray[note->lane])
         {
             continue;
         }
@@ -90,6 +95,10 @@ void playstate::update(double delta)
         {
             continue;
         }
+        notesToDelete.push_back(note);
+    }
+    for (auto note : notesToDelete)
+    {
         notes.erase(find(notes.begin(), notes.end(), note));
         delete note;
     }

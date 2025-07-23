@@ -20,4 +20,5 @@ public:
     double songPos;
     
     bool canBeHit;
+    bool isPlayer;
 };
