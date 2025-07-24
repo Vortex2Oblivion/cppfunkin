@@ -7,6 +7,9 @@ state::state(/* args */)
 
 state::~state()
 {
+    for(auto member : members){
+        remove(member);
+    }
 }
 
 void state::remove(object *obj)

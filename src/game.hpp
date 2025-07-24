@@ -11,4 +11,5 @@ public:
     game(state *initalState);
     ~game();
     void update(double delta);
+    void switchState(state* nextState);
 };

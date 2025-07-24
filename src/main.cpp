@@ -7,7 +7,7 @@ int main()
 {
     raylib::Window window(1280, 720, "cppfunkin");
     InitAudioDevice();
-    window.SetTargetFPS(GetMonitorRefreshRate(window.GetMonitor()) * 2);
+    window.SetTargetFPS(0);
 
 
     game *funkin = new game(new playstate());
