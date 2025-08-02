@@ -15,5 +15,6 @@ public:
     virtual ~state();
     void remove(object *obj);
     void add(object *obj);
+    void addToFront(object* obj);
     virtual void update(double delta);
 };

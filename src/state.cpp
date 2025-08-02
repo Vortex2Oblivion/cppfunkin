@@ -18,6 +18,11 @@ void state::remove(object *obj)
     delete obj;
 }
 
+void state::addToFront(object *obj)
+{
+    members.insert(members.begin(), obj);
+}
+
 void state::add(object *obj)
 {
     members.push_back(obj);

@@ -6,6 +6,10 @@ game::game(state *initalState)
     this->_state = initalState;
 }
 
+game::~game()
+{
+}
+
 void game::update(double delta)
 {
     if (_state != nullptr)
