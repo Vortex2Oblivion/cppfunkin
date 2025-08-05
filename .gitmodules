@@ -10,6 +10,3 @@
 [submodule "external/pugixml"]
 	path = external/pugixml
 	url = https://github.com/zeux/pugixml
-[submodule "build/external/pugixml"]
-	path = build/external/pugixml
-	url = https://github.com/zeux/pugixml
