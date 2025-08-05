@@ -7,3 +7,6 @@
 [submodule "external/raylib-cpp"]
 	path = external/raylib-cpp
 	url = https://github.com/RobLoach/raylib-cpp
+[submodule "external/pugixml"]
+	path = external/pugixml
+	url = https://github.com/zeux/pugixml

@@ -1,6 +1,7 @@
 #include "playstate.hpp"
 #include "note.hpp"
 #include "strumnote.hpp"
+#include "sparrowsprite.hpp"
 #include <filesystem>
 #include <fstream>
 #include <nlohmann/json.hpp>
@@ -8,6 +9,9 @@
 funkin::PlayState::PlayState()
 {
     loadSong("parasitic", "hard");
+    SparrowSprite *animatedNote = new SparrowSprite(0, 0);
+    animatedNote->loadGraphic("assets/images/notes.png");
+    add(animatedNote);
 }
 
 funkin::PlayState::~PlayState()
