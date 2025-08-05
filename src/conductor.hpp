@@ -4,29 +4,32 @@
 
 using namespace std;
 
-class conductor
+namespace funkin
 {
-private:
-    double _lastTime;
-    int step;
-    int beat;
+    class Conductor
+    {
+    private:
+        double _lastTime;
+        int step;
+        int beat;
 
-    void updateStep();
-    void updateBeat();
+        void updateStep();
+        void updateBeat();
 
-    void stepHit();
-    void beatHit();
+        void stepHit();
+        void beatHit();
 
-public:
-    conductor(vector<raylib::Music *> tracks);
-    ~conductor();
-    void update(double delta);
+    public:
+        Conductor(vector<raylib::Music *> tracks);
+        ~Conductor();
+        void update(double delta);
 
-    int getStep();
-    double getCrochet();
-    double getStepCrochet();
+        int getStep();
+        double getCrochet();
+        double getStepCrochet();
 
-    vector<raylib::Music *> tracks;
-    double time;
-    double bpm;
-};
+        vector<raylib::Music *> tracks;
+        double time;
+        double bpm;
+    };
+}

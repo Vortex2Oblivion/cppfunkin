@@ -1,16 +1,16 @@
 #include "game.hpp"
 #include <iostream>
 
-game::game(state *initalState)
+funkin::Game::Game(State *initalState)
 {
     this->_state = initalState;
 }
 
-game::~game()
+funkin::Game::~Game()
 {
 }
 
-void game::update(double delta)
+void funkin::Game::update(double delta)
 {
     if (_state != nullptr)
     {
@@ -18,7 +18,7 @@ void game::update(double delta)
     }
 }
 
-void game::switchState(state *nextState)
+void funkin::Game::switchState(State *nextState)
 {
     delete _state;
     this->_state = nextState;

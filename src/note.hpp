@@ -3,22 +3,24 @@
 #include "sprite.hpp"
 #include "strumnote.hpp"
 
-
-class note : public sprite
+namespace funkin
 {
-private:
-    strumnote *strum;
+    class Note : public Sprite
+    {
+    private:
+        StrumNote *strum;
 
-public:
-    note(double strumTime, int lane, double speed, strumnote *strum);
-    virtual ~note();
-    virtual void update(double delta);
+    public:
+        Note(double strumTime, int lane, double speed, StrumNote *strum);
+        virtual ~Note();
+        virtual void update(double delta);
 
-    double strumTime;
-    int lane;
-    double speed;
-    double songPos;
-    
-    bool canBeHit;
-    bool isPlayer;
-};
+        double strumTime;
+        int lane;
+        double speed;
+        double songPos;
+
+        bool canBeHit;
+        bool isPlayer;
+    };
+}

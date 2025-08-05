@@ -4,7 +4,7 @@
 #include "strumnote.hpp"
 #include <iostream>
 
-note::note(double strumTime, int lane, double speed, strumnote *strum) : sprite(0, 0)
+funkin::Note::Note(double strumTime, int lane, double speed, StrumNote *strum) : Sprite(0, 0)
 {
     this->strumTime = strumTime;
     this->lane = lane;
@@ -12,13 +12,13 @@ note::note(double strumTime, int lane, double speed, strumnote *strum) : sprite(
     this->strum = strum;
 }
 
-note::~note()
+funkin::Note::~Note()
 {
 }
 
-void note::update(double delta)
+void funkin::Note::update(double delta)
 {
-    sprite::update(delta);
+    Sprite::update(delta);
     position.x = strum->position.x;
     position.y = 50 + -0.45 * (songPos * 1000 - strumTime) * speed;
 }

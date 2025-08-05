@@ -4,18 +4,22 @@
 #include "conductor.hpp"
 #include "note.hpp"
 
-class playstate : public state
+namespace funkin
 {
-private:
-    conductor* _conductor;
-    vector<bool> justHitArray = {false, false, false, false};
-public:
-    playstate();
-    ~playstate();
-    void generateStaticArrows(bool player);
-    void loadSong(string song, string difficulty);
-    void update(double delta);
-    vector<raylib::Music *> tracks = {};
-    vector<note *> notes = {};
-    vector<strumnote *> strumLineNotes = {};
-};
+    class PlayState : public State
+    {
+    private:
+        Conductor *_conductor;
+        vector<bool> justHitArray = {false, false, false, false};
+
+    public:
+        PlayState();
+        ~PlayState();
+        void generateStaticArrows(bool player);
+        void loadSong(string song, string difficulty);
+        void update(double delta);
+        vector<raylib::Music *> tracks = {};
+        vector<Note *> notes = {};
+        vector<StrumNote *> strumLineNotes = {};
+    };
+}

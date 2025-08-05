@@ -1,15 +1,19 @@
 #pragma once
 #include "state.hpp"
 
-class game
+namespace funkin
 {
-private:
-    /* data */
-    state *_state;
+    class Game
+    {
+    private:
+        /* data */
+        State *_state;
 
-public:
-    game(state *initalState);
-    ~game();
-    void update(double delta);
-    void switchState(state* nextState);
-};
+    public:
+        Game(State *initalState);
+        ~Game();
+        void update(double delta);
+        void switchState(State *nextState);
+    };
+
+}

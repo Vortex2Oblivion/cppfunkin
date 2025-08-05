@@ -1,16 +1,16 @@
 #include "strumnote.hpp"
 
-strumnote::strumnote(double x, double y, int lane, bool player) : sprite(x, y)
+funkin::StrumNote::StrumNote(double x, double y, int lane, bool player) : Sprite(x, y)
 {
     this->lane = lane;
     this->player = player;
 }
 
-strumnote::~strumnote()
+funkin::StrumNote::~StrumNote()
 {
 }
 
-void strumnote::setPosition()
+void funkin::StrumNote::setPosition()
 {
     position.x += 100 * lane + 50 + (GetRenderWidth() / 2 * (player ? 0 : 1));
 }

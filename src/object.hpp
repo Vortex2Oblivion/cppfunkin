@@ -2,14 +2,17 @@
 
 #include <raylib-cpp.hpp>
 
-class object
+namespace funkin
 {
-private:
-    /* data */
-public:
-    object(double x, double y);
-    virtual ~object();
-    virtual void update(double delta);
-    raylib::Vector2 position;
-    bool alive = true;
-};
+    class Object
+    {
+    private:
+        /* data */
+    public:
+        Object(double x, double y);
+        virtual ~Object();
+        virtual void update(double delta);
+        raylib::Vector2 position;
+        bool alive = true;
+    };
+}

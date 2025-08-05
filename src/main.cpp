@@ -8,7 +8,7 @@ int main()
     raylib::Window window(1280, 720, "cppfunkin");
     InitAudioDevice();
 
-    game funkin = game(new playstate());
+    funkin::Game funkin = funkin::Game(new funkin::PlayState());
 
     while (!window.ShouldClose())
     {

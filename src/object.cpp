@@ -1,15 +1,15 @@
 #include "object.hpp"
 
-object::object(double x, double y)
+funkin::Object::Object(double x, double y)
 {
     this->position = raylib::Vector2(x, y);
 }
 
-object::~object()
+funkin::Object::~Object()
 {
     alive = false;
 }
 
-void object::update(double delta)
+void funkin::Object::update(double delta)
 {
 }

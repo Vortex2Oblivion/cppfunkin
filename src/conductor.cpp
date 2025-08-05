@@ -6,17 +6,16 @@
 
 using namespace std;
 
-
-conductor::conductor(vector<raylib::Music *> tracks)
+funkin::Conductor::Conductor(vector<raylib::Music *> tracks)
 {
     this->tracks = tracks;
 }
 
-conductor::~conductor()
+funkin::Conductor::~Conductor()
 {
 }
 
-void conductor::update(double delta)
+void funkin::Conductor::update(double delta)
 {
     for (auto track : tracks)
     {
@@ -41,32 +40,32 @@ void conductor::update(double delta)
     }
 }
 
-int conductor::getStep()
+int funkin::Conductor::getStep()
 {
     return step;
 }
 
-double conductor::getCrochet()
+double funkin::Conductor::getCrochet()
 {
     return (60.0 / bpm);
 }
 
-double conductor::getStepCrochet()
+double funkin::Conductor::getStepCrochet()
 {
     return getCrochet() / 4;
 }
 
-void conductor::updateStep()
+void funkin::Conductor::updateStep()
 {
     step = floor(time / getStepCrochet());
 }
 
-void conductor::updateBeat()
+void funkin::Conductor::updateBeat()
 {
     beat = floor(step / 4);
 }
 
-void conductor::stepHit()
+void funkin::Conductor::stepHit()
 {
     if (step % 4 == 0)
     {
@@ -74,6 +73,6 @@ void conductor::stepHit()
     }
 }
 
-void conductor::beatHit()
+void funkin::Conductor::beatHit()
 {
 }

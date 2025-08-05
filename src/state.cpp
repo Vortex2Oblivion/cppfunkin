@@ -1,34 +1,35 @@
 #include "state.hpp"
 #include <algorithm>
 
-state::state(/* args */)
+funkin::State::State(/* args */)
 {
 }
 
-state::~state()
+funkin::State::~State()
 {
-    for(auto member : members){
+    for (auto member : members)
+    {
         remove(member);
     }
 }
 
-void state::remove(object *obj)
+void funkin::State::remove(Object *obj)
 {
     members.erase(find(members.begin(), members.end(), obj));
     delete obj;
 }
 
-void state::addToFront(object *obj)
+void funkin::State::addToFront(Object *obj)
 {
     members.insert(members.begin(), obj);
 }
 
-void state::add(object *obj)
+void funkin::State::add(Object *obj)
 {
     members.push_back(obj);
 }
 
-void state::update(double delta)
+void funkin::State::update(double delta)
 {
     for (auto member : members)
     {

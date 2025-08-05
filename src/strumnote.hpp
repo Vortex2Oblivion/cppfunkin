@@ -2,15 +2,19 @@
 
 #include "sprite.hpp"
 
-class strumnote : public sprite
+namespace funkin
 {
-private:
-    /* data */
-public:
-    strumnote(double x, double y, int lane, bool player);
-    virtual ~strumnote();
-    void setPosition();
 
-    int lane;
-    bool player;
-};
+    class StrumNote : public Sprite
+    {
+    private:
+        /* data */
+    public:
+        StrumNote(double x, double y, int lane, bool player);
+        virtual ~StrumNote();
+        void setPosition();
+
+        int lane;
+        bool player;
+    };
+}

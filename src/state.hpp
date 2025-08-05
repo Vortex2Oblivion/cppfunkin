@@ -4,17 +4,21 @@
 
 using namespace std;
 
-class state
+namespace funkin
 {
-private:
-    /* data */
-    vector<object *> members;
 
-public:
-    state(/* args */);
-    virtual ~state();
-    void remove(object *obj);
-    void add(object *obj);
-    void addToFront(object* obj);
-    virtual void update(double delta);
-};
+    class State
+    {
+    private:
+        /* data */
+        vector<Object *> members;
+
+    public:
+        State(/* args */);
+        virtual ~State();
+        void remove(Object *obj);
+        void add(Object *obj);
+        void addToFront(Object *obj);
+        virtual void update(double delta);
+    };
+}

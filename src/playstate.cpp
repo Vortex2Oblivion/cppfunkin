@@ -8,16 +8,16 @@
 using namespace std::filesystem;
 using json = nlohmann::json;
 
-playstate::playstate()
+funkin::PlayState::PlayState()
 {
     loadSong("parasitic", "hard");
 }
 
-playstate::~playstate()
+funkin::PlayState::~PlayState()
 {
 }
 
-void playstate::loadSong(string song, string difficulty)
+void funkin::PlayState::loadSong(string song, string difficulty)
 {
     string basePath = "assets/songs/" + song + "/";
     ifstream chartFile(basePath + difficulty + ".json");
@@ -34,7 +34,7 @@ void playstate::loadSong(string song, string difficulty)
         {
             bool playerNote = (sectionNote[1] < 4) ? (!_note["mustHitSection"]) : (bool)(_note["mustHitSection"]);
             int lane = ((int)sectionNote[1] % 4) + (playerNote ? 4 : 0);
-            note *__note = new note(sectionNote[0], lane % 4, parsedChart["song"]["speed"], strumLineNotes[lane]);
+            Note *__note = new Note(sectionNote[0], lane % 4, parsedChart["song"]["speed"], strumLineNotes[lane]);
             __note->loadGraphic("assets/images/slungus.png");
             __note->color = colors[(int)sectionNote[1] % 4];
             __note->isPlayer = !playerNote;
@@ -42,14 +42,14 @@ void playstate::loadSong(string song, string difficulty)
             add(__note);
         }
     }
-    _conductor = new conductor(tracks);
+    _conductor = new Conductor(tracks);
     tracks[0]->Play();
     tracks[1]->Play();
 }
 
-void playstate::update(double delta)
+void funkin::PlayState::update(double delta)
 {
-    state::update(delta);
+    State::update(delta);
     _conductor->update(delta);
     for (auto note : notes)
     {
@@ -64,7 +64,7 @@ void playstate::update(double delta)
     // thanks for helping my dumbass with this rudy
     double closestDistance = INFINITY;
 
-    vector<note *> notesToDelete = {};
+    vector<Note *> notesToDelete = {};
     justHitArray = {IsKeyPressed(KEY_D), IsKeyPressed(KEY_F), IsKeyPressed(KEY_J), IsKeyPressed(KEY_K)};
     for (auto note : notes)
     {
@@ -111,11 +111,11 @@ void playstate::update(double delta)
     }
 }
 
-void playstate::generateStaticArrows(bool player)
+void funkin::PlayState::generateStaticArrows(bool player)
 {
     for (int i = 0; i < 4; i++)
     {
-        strumnote *babyArrow = new strumnote(42, 50, i, player);
+        StrumNote *babyArrow = new StrumNote(42, 50, i, player);
         babyArrow->setPosition();
         babyArrow->loadGraphic("assets/images/slungus.png");
         strumLineNotes.push_back(babyArrow);

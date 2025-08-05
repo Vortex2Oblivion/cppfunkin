@@ -1,17 +1,17 @@
 #include "sprite.hpp"
 #include <iostream>
 
-map<string, raylib::Texture*> sprite::texturePool;
+map<string, raylib::Texture *> funkin::Sprite::texturePool;
 
-sprite::sprite(double x, double y) : object(x, y)
+funkin::Sprite::Sprite(double x, double y) : Object(x, y)
 {
 }
 
-sprite::~sprite()
+funkin::Sprite::~Sprite()
 {
 }
 
-void sprite::loadGraphic(string path)
+void funkin::Sprite::loadGraphic(string path)
 {
     if (!texturePool.count(path))
     {
@@ -26,21 +26,22 @@ void sprite::loadGraphic(string path)
     color = WHITE;
 }
 
-void sprite::update(double delta)
+void funkin::Sprite::update(double delta)
 {
     draw();
 }
 
-void sprite::draw()
+void funkin::Sprite::draw()
 {
     dest.x = (texture->width / 2) + position.x;
     dest.y = (texture->height / 2) + position.y;
-    if(isOnScreen()){
+    if (isOnScreen())
+    {
         texture->Draw(source, dest, origin, angle, color);
     }
 }
 
-bool sprite::isOnScreen()
+bool funkin::Sprite::isOnScreen()
 {
     return !((position.y + texture->height < 0 || position.y > GetScreenHeight()) || (position.x + texture->width < 0 || position.x > GetScreenWidth()));
 }
