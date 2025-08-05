@@ -7,9 +7,10 @@ namespace funkin
     class SparrowSprite : public Sprite
     {
     private:
-        /* data */
+        void draw();
     public:
         SparrowSprite(double x, double y);
         ~SparrowSprite();
+        void loadGraphic(std::string imagePath, std::string xmlPath);
     };
 }

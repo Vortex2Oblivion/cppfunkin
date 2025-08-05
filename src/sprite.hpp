@@ -6,17 +6,18 @@
 #include "object.hpp"
 #include <map>
 
-
 namespace funkin
 {
     class Sprite : public Object
     {
     private:
-        virtual void draw();
         raylib::Texture *texture;
+        static std::map<std::string, raylib::Texture *> texturePool;
+
+    protected:
+        virtual void draw();
         raylib::Rectangle source;
         raylib::Rectangle dest;
-        static std::map<std::string, raylib::Texture *> texturePool;
 
     public:
         Sprite(double x, double y);

@@ -10,7 +10,7 @@ funkin::PlayState::PlayState()
 {
     loadSong("parasitic", "hard");
     SparrowSprite *animatedNote = new SparrowSprite(0, 0);
-    animatedNote->loadGraphic("assets/images/notes.png");
+    animatedNote->loadGraphic("assets/images/notes.png", "assets/images/notes.xml");
     add(animatedNote);
 }
 

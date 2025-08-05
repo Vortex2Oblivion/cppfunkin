@@ -8,10 +8,15 @@ add_executable(cppfunkin ${SOURCES})
 
 add_subdirectory(external/raylib)
 target_link_libraries(cppfunkin raylib)
+
 add_subdirectory(external/raylib-cpp)
 target_link_libraries(cppfunkin raylib_cpp)
+
 add_subdirectory(external/json)
 target_link_libraries(cppfunkin nlohmann_json)
+
+add_subdirectory(external/pugixml)
+target_link_libraries(cppfunkin pugixml)
 
 include(CTest)
 enable_testing()
