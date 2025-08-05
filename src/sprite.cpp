@@ -1,7 +1,7 @@
 #include "sprite.hpp"
 #include <iostream>
 
-map<string, raylib::Texture *> funkin::Sprite::texturePool;
+std::map<std::string, raylib::Texture *> funkin::Sprite::texturePool;
 
 funkin::Sprite::Sprite(double x, double y) : Object(x, y)
 {
@@ -11,7 +11,7 @@ funkin::Sprite::~Sprite()
 {
 }
 
-void funkin::Sprite::loadGraphic(string path)
+void funkin::Sprite::loadGraphic(std::string path)
 {
     if (!texturePool.count(path))
     {

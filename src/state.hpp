@@ -2,7 +2,7 @@
 #include "object.hpp"
 #include <vector>
 
-using namespace std;
+
 
 namespace funkin
 {
@@ -11,7 +11,7 @@ namespace funkin
     {
     private:
         /* data */
-        vector<Object *> members;
+        std::vector<Object *> members;
 
     public:
         State(/* args */);

@@ -6,7 +6,7 @@
 #include "object.hpp"
 #include <map>
 
-using namespace std;
+
 namespace funkin
 {
     class Sprite : public Object
@@ -16,12 +16,12 @@ namespace funkin
         raylib::Texture *texture;
         raylib::Rectangle source;
         raylib::Rectangle dest;
-        static map<string, raylib::Texture *> texturePool;
+        static std::map<std::string, raylib::Texture *> texturePool;
 
     public:
         Sprite(double x, double y);
         virtual ~Sprite();
-        void loadGraphic(string path);
+        void loadGraphic(std::string path);
         virtual void update(double delta);
         bool isOnScreen();
 

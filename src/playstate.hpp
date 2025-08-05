@@ -10,16 +10,16 @@ namespace funkin
     {
     private:
         Conductor *_conductor;
-        vector<bool> justHitArray = {false, false, false, false};
+        std::vector<bool> justHitArray = {false, false, false, false};
 
     public:
         PlayState();
         ~PlayState();
         void generateStaticArrows(bool player);
-        void loadSong(string song, string difficulty);
+        void loadSong(std::string song, std::string difficulty);
         void update(double delta);
-        vector<raylib::Music *> tracks = {};
-        vector<Note *> notes = {};
-        vector<StrumNote *> strumLineNotes = {};
+        std::vector<raylib::Music *> tracks = {};
+        std::vector<Note *> notes = {};
+        std::vector<StrumNote *> strumLineNotes = {};
     };
 }

@@ -2,7 +2,7 @@
 #include <vector>
 #include <raylib-cpp.hpp>
 
-using namespace std;
+
 
 namespace funkin
 {
@@ -20,7 +20,7 @@ namespace funkin
         void beatHit();
 
     public:
-        Conductor(vector<raylib::Music *> tracks);
+        Conductor(std::vector<raylib::Music *> tracks);
         ~Conductor();
         void update(double delta);
 
@@ -28,7 +28,7 @@ namespace funkin
         double getCrochet();
         double getStepCrochet();
 
-        vector<raylib::Music *> tracks;
+        std::vector<raylib::Music *> tracks;
         double time;
         double bpm;
     };

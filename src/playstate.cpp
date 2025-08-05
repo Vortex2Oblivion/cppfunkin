@@ -5,9 +5,6 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 
-using namespace std::filesystem;
-using json = nlohmann::json;
-
 funkin::PlayState::PlayState()
 {
     loadSong("parasitic", "hard");
@@ -17,15 +14,15 @@ funkin::PlayState::~PlayState()
 {
 }
 
-void funkin::PlayState::loadSong(string song, string difficulty)
+void funkin::PlayState::loadSong(std::string song, std::string difficulty)
 {
-    string basePath = "assets/songs/" + song + "/";
-    ifstream chartFile(basePath + difficulty + ".json");
-    json parsedChart = json::parse(chartFile);
+    std::string basePath = "assets/songs/" + song + "/";
+    std::ifstream chartFile(basePath + difficulty + ".json");
+    nlohmann::json parsedChart = nlohmann::json::parse(chartFile);
     tracks.push_back(new raylib::Music(basePath + "Inst.ogg"));
     tracks.push_back(new raylib::Music(basePath + "Voices.ogg"));
 
-    vector<Color> colors = {PURPLE, BLUE, GREEN, RED};
+    std::vector<raylib::Color> colors = {PURPLE, BLUE, GREEN, RED};
     generateStaticArrows(false);
     generateStaticArrows(true);
     for (auto _note : parsedChart["song"]["notes"])
@@ -64,7 +61,7 @@ void funkin::PlayState::update(double delta)
     // thanks for helping my dumbass with this rudy
     double closestDistance = INFINITY;
 
-    vector<Note *> notesToDelete = {};
+    std::vector<Note *> notesToDelete = {};
     justHitArray = {IsKeyPressed(KEY_D), IsKeyPressed(KEY_F), IsKeyPressed(KEY_J), IsKeyPressed(KEY_K)};
     for (auto note : notes)
     {

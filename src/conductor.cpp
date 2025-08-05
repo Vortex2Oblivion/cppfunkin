@@ -4,9 +4,9 @@
 
 #include "conductor.hpp"
 
-using namespace std;
 
-funkin::Conductor::Conductor(vector<raylib::Music *> tracks)
+
+funkin::Conductor::Conductor(std::vector<raylib::Music *> tracks)
 {
     this->tracks = tracks;
 }
