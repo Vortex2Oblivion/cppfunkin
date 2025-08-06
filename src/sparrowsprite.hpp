@@ -7,7 +7,9 @@ namespace funkin
     class SparrowSprite : public Sprite
     {
     private:
+        std::map<std::string, raylib::Rectangle> animations;
         void draw();
+
     public:
         SparrowSprite(double x, double y);
         ~SparrowSprite();

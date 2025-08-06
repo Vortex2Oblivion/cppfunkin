@@ -21,13 +21,20 @@ void funkin::SparrowSprite::loadGraphic(std::string imagePath, std::string xmlPa
     for (auto frame : doc.child("TextureAtlas").children("SubTexture"))
     {
         std::cout << frame.attribute("name").as_string() << "\n";
+
+        int x = frame.attribute("x").as_int();
+        int y = frame.attribute("y").as_int();
+        int width = frame.attribute("width").as_int();
+        int height = frame.attribute("height").as_int();
+
+        animations[frame.attribute("name").as_string()] =  raylib::Rectangle(x, y, width, height);
     }
 }
 
-void funkin::SparrowSprite::draw(){
+void funkin::SparrowSprite::draw()
+{
     funkin::Sprite::draw();
-    dest.width = source.width = 154;
-    dest.height = source.height = 157;
-    source.x = 223;
-    source.y = 678;
+    source = animations["right confirm instance 10000"];
+    dest.width = source.width;
+    dest.height = source.height;
 }
