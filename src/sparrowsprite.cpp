@@ -58,8 +58,10 @@ void funkin::SparrowSprite::playAnimation(std::string name)
 
     source.x = animations[name]->frames[frame]->x;
     source.y = animations[name]->frames[frame]->y;
-    dest.width = source.width = animations[name]->frames[frame]->width;
-    dest.height = source.height = animations[name]->frames[frame]->height;
+    source.width = animations[name]->frames[frame]->width;
+    source.height = animations[name]->frames[frame]->height;
+    dest.width = source.width * scale.x;
+    dest.height = source.height * scale.y;
 }
 
 void funkin::SparrowSprite::update(double delta)

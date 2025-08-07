@@ -15,6 +15,8 @@ funkin::PlayState::PlayState()
     animatedNote->addAnimationByPrefix("down confirm", "down confirm", 24);
     animatedNote->addAnimationByPrefix("right confirm", "right confirm", 24);
     animatedNote->addAnimationByPrefix("left confirm", "left confirm", 24);
+    animatedNote->scale.x = 0.7f;
+    animatedNote->scale.y = 0.7f;
 
     animatedNote->playAnimation("up confirm");
     add(animatedNote);

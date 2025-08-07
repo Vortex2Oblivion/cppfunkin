@@ -11,11 +11,11 @@ namespace funkin
     class Sprite : public Object
     {
     private:
-        raylib::Texture *texture;
         static std::map<std::string, raylib::Texture *> texturePool;
 
     protected:
         virtual void draw();
+        raylib::Texture *texture;
         raylib::Rectangle source;
         raylib::Rectangle dest;
 
@@ -27,7 +27,8 @@ namespace funkin
         bool isOnScreen();
 
         raylib::Vector2 origin;
-        double angle;
+        raylib::Vector2 scale = raylib::Vector2(1.0f, 1.0f);
+        float angle;
         raylib::Color color;
     };
 }

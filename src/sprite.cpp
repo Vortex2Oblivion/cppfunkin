@@ -19,9 +19,10 @@ void funkin::Sprite::loadGraphic(std::string path)
     }
 
     texture = texturePool[path];
-    origin = raylib::Vector2(texture->width / 2, texture->height / 2);
-    source = raylib::Rectangle(0, 0, texture->width, texture->height);
-    dest = raylib::Rectangle(0, 0, texture->width, texture->height);
+    texture->SetFilter(TEXTURE_FILTER_BILINEAR);
+    origin = raylib::Vector2(texture->width / 2.0f, texture->height / 2.0f);
+    source = raylib::Rectangle(0, 0, (float)(texture->width), (float)(texture->height));
+    dest = raylib::Rectangle(0, 0, (float)(texture->width), (float)(texture->height));
     angle = 0;
     color = WHITE;
 }

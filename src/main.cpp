@@ -5,8 +5,8 @@
 
 int main()
 {
+    SetConfigFlags(FLAG_MSAA_4X_HINT);
     raylib::Window window(1280, 720, "cppfunkin");
-
 
     InitAudioDevice();
 
