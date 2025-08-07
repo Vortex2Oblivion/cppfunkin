@@ -6,6 +6,8 @@
 int main()
 {
     raylib::Window window(1280, 720, "cppfunkin");
+
+
     InitAudioDevice();
 
     funkin::Game funkin = funkin::Game(new funkin::PlayState());
