@@ -12,6 +12,10 @@ funkin::PlayState::PlayState()
     animatedNote = new SparrowSprite(0, 0);
     animatedNote->loadGraphic("assets/images/notes.png", "assets/images/notes.xml");
     animatedNote->addAnimationByPrefix("up confirm", "up confirm", 24);
+    animatedNote->addAnimationByPrefix("down confirm", "down confirm", 24);
+    animatedNote->addAnimationByPrefix("right confirm", "right confirm", 24);
+    animatedNote->addAnimationByPrefix("left confirm", "left confirm", 24);
+
     animatedNote->playAnimation("up confirm");
     add(animatedNote);
 }
@@ -113,9 +117,21 @@ void funkin::PlayState::update(double delta)
         track->Update();
     }
 
-    if (IsKeyPressed(KEY_SPACE))
+    if (IsKeyPressed(KEY_F))
+    {
+        animatedNote->playAnimation("down confirm");
+    }
+    else if (IsKeyPressed(KEY_D))
+    {
+        animatedNote->playAnimation("left confirm");
+    }
+    else if (IsKeyPressed(KEY_J))
     {
         animatedNote->playAnimation("up confirm");
+    }
+    else if (IsKeyPressed(KEY_K))
+    {
+        animatedNote->playAnimation("right confirm");
     }
 }
 
