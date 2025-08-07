@@ -28,10 +28,10 @@ void funkin::SparrowSprite::addAnimationByPrefix(std::string name, std::string p
     {
         if (strncmp(prefix.c_str(), frame.attribute("name").as_string(), strlen(prefix.c_str())) == 0)
         {
-            int x = frame.attribute("x").as_int();
-            int y = frame.attribute("y").as_int();
-            int width = frame.attribute("width").as_int();
-            int height = frame.attribute("height").as_int();
+            float x = frame.attribute("x").as_float();
+            float y = frame.attribute("y").as_float();
+            float width = frame.attribute("width").as_float();
+            float height = frame.attribute("height").as_float();
             foundFrames.push_back(new Frame(x, y, width, height));
 
             std::cout << "found frame: " << frame.attribute("name").as_string() << "\n";
@@ -54,10 +54,17 @@ void funkin::SparrowSprite::playAnimation(std::string name)
         std::cerr << "Animation not found or has no frames: " << name << "\n";
         return;
     }
-    source.x = animations[name]->frames.front()->x;
-    source.y = animations[name]->frames.front()->y;
-    dest.width = source.width = animations[name]->frames.front()->width;
-    dest.height = source.height = animations[name]->frames.front()->height;
+    int frame = 0;
+
+    source.x = animations[name]->frames[frame]->x;
+    source.y = animations[name]->frames[frame]->y;
+    dest.width = source.width = animations[name]->frames[frame]->width;
+    dest.height = source.height = animations[name]->frames[frame]->height;
+}
+
+void funkin::SparrowSprite::update(double delta)
+{
+    funkin::Sprite::update(delta);
 }
 
 void funkin::SparrowSprite::draw()

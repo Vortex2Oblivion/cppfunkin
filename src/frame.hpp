@@ -10,12 +10,12 @@ namespace funkin
         /* data */
     public:
         Frame(raylib::Rectangle rect);
-        Frame(int x, int y, int width, int height);
+        Frame(float x, float y, float width, float height);
         ~Frame();
 
-        int x;
-        int y;
-        int width;
-        int height;
+        float x;
+        float y;
+        float width;
+        float height;
     };
 }

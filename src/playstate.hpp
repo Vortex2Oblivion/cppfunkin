@@ -3,6 +3,7 @@
 #include "state.hpp"
 #include "conductor.hpp"
 #include "note.hpp"
+#include "sparrowsprite.hpp"
 
 namespace funkin
 {
@@ -11,6 +12,7 @@ namespace funkin
     private:
         Conductor *_conductor;
         std::vector<bool> justHitArray = {false, false, false, false};
+        SparrowSprite *animatedNote;
 
     public:
         PlayState();

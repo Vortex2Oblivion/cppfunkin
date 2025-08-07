@@ -9,7 +9,7 @@
 funkin::PlayState::PlayState()
 {
     loadSong("parasitic", "hard");
-    SparrowSprite *animatedNote = new SparrowSprite(0, 0);
+    animatedNote = new SparrowSprite(0, 0);
     animatedNote->loadGraphic("assets/images/notes.png", "assets/images/notes.xml");
     animatedNote->addAnimationByPrefix("up confirm", "up confirm", 24);
     animatedNote->playAnimation("up confirm");
@@ -111,6 +111,11 @@ void funkin::PlayState::update(double delta)
     for (auto track : tracks)
     {
         track->Update();
+    }
+
+    if (IsKeyPressed(KEY_SPACE))
+    {
+        animatedNote->playAnimation("up confirm");
     }
 }
 

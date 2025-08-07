@@ -19,6 +19,8 @@ namespace funkin
 
         void playAnimation(std::string name);
 
+        void update(double delta);
+
         std::string xmlPath;
     };
 }
