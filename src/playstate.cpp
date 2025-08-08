@@ -107,6 +107,7 @@ void funkin::PlayState::update(double delta)
         {
             continue;
         }
+        strumLineNotes[note->lane]->playAnimation("confirm");
         notesToDelete.push_back(note);
     }
     for (auto note : notesToDelete)
