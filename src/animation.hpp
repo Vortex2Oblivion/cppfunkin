@@ -7,9 +7,10 @@ namespace funkin
     class Animation
     {
     public:
-        Animation(std::vector<funkin::Frame *> frames);
+        Animation(std::vector<funkin::Frame *> frames, int framerate);
         ~Animation();
         std::vector<funkin::Frame *> frames = {};
+        int framerate;
     };
 
 }

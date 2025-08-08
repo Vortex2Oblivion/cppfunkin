@@ -19,7 +19,7 @@ void funkin::SparrowSprite::loadGraphic(std::string imagePath, std::string xmlPa
     this->xmlPath = xmlPath;
 }
 
-void funkin::SparrowSprite::addAnimationByPrefix(std::string name, std::string prefix, double framerate)
+void funkin::SparrowSprite::addAnimationByPrefix(std::string name, std::string prefix, int framerate)
 {
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(xmlPath.c_str());
@@ -40,7 +40,7 @@ void funkin::SparrowSprite::addAnimationByPrefix(std::string name, std::string p
     }
     if (!foundFrames.empty())
     {
-        animations[name] = new Animation(foundFrames);
+        animations[name] = new Animation(foundFrames, framerate);
     }
     else
     {
@@ -57,10 +57,12 @@ void funkin::SparrowSprite::playAnimation(std::string name)
     }
     int frame = 0;
 
-    source.x = animations[name]->frames[frame]->x;
-    source.y = animations[name]->frames[frame]->y;
-    source.width = animations[name]->frames[frame]->width;
-    source.height = animations[name]->frames[frame]->height;
+    currentAnimation = animations[name];
+
+    source.x = currentAnimation->frames[frame]->x;
+    source.y = currentAnimation->frames[frame]->y;
+    source.width = currentAnimation->frames[frame]->width;
+    source.height = currentAnimation->frames[frame]->height;
     dest.width = source.width * scale.x;
     dest.height = source.height * scale.y;
 }

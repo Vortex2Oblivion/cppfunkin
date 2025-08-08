@@ -15,12 +15,13 @@ namespace funkin
         SparrowSprite(double x, double y);
         ~SparrowSprite();
         void loadGraphic(std::string imagePath, std::string xmlPath);
-        void addAnimationByPrefix(std::string name, std::string prefix, double framerate);
+        void addAnimationByPrefix(std::string name, std::string prefix, int framerate);
 
         void playAnimation(std::string name);
 
         void update(double delta);
 
         std::string xmlPath;
+        funkin::Animation *currentAnimation;
     };
 }

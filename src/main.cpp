@@ -5,22 +5,19 @@
 
 int main()
 {
-    SetConfigFlags(FLAG_MSAA_4X_HINT);
-    raylib::Window window(1280, 720, "cppfunkin");
-
-    InitAudioDevice();
+    raylib::Window window = raylib::Window(1280, 720, "cppfunkin");
+    raylib::AudioDevice audioDevice = raylib::AudioDevice();
 
     funkin::Game funkin = funkin::Game(new funkin::PlayState());
 
     while (!window.ShouldClose())
     {
-        BeginDrawing();
+        window.BeginDrawing();
         window.ClearBackground(BLACK);
         funkin.update(window.GetFrameTime());
         window.DrawFPS();
-        EndDrawing();
+        window.EndDrawing();
     }
 
-    CloseAudioDevice();
     return 0;
 }
