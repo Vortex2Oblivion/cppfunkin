@@ -2,6 +2,7 @@
 
 #include <pugixml.hpp>
 #include <iostream>
+#include <cstring>
 
 funkin::SparrowSprite::SparrowSprite(double x, double y) : Sprite(x, y)
 {
