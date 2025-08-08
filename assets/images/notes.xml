@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TextureAtlas imagePath="notes.png" width="1042" height="991">
-	<SubTexture name="arrow static instance 10000" x="223" y="678" width="154" height="157" frameX="-1" frameY="-0" frameWidth="155" frameHeight="158"/>
-	<SubTexture name="arrow static instance 20000" x="378" y="678" width="157" height="154" frameX="-0" frameY="-1" frameWidth="157" frameHeight="155"/>
-	<SubTexture name="arrow static instance 30000" x="536" y="668" width="154" height="157" frameX="-1" frameY="-0" frameWidth="155" frameHeight="157"/>
-	<SubTexture name="arrow static instance 40000" x="691" y="632" width="157" height="154" frameX="-0" frameY="-0" frameWidth="157" frameHeight="154"/>
+	<SubTexture name="left static0000" x="223" y="678" width="154" height="157" frameX="-1" frameY="-0" frameWidth="155" frameHeight="158"/>
+	<SubTexture name="down static0000" x="378" y="678" width="157" height="154" frameX="-0" frameY="-1" frameWidth="157" frameHeight="155"/>
+	<SubTexture name="right static0000" x="536" y="668" width="154" height="157" frameX="-1" frameY="-0" frameWidth="155" frameHeight="157"/>
+	<SubTexture name="up static0000" x="691" y="632" width="157" height="154" frameX="-0" frameY="-0" frameWidth="157" frameHeight="154"/>
 	<SubTexture name="blue hold end instance 10000" x="988" y="723" width="51" height="64" frameX="-0" frameY="-0" frameWidth="51" frameHeight="64"/>
 	<SubTexture name="blue hold piece instance 10000" x="837" y="865" width="51" height="44" frameX="-0" frameY="-0" frameWidth="51" frameHeight="44"/>
 	<SubTexture name="blue instance 10000" x="1" y="681" width="158" height="154" frameX="-0" frameY="-0" frameWidth="158" frameHeight="154"/>

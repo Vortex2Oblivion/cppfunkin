@@ -33,7 +33,11 @@ void funkin::SparrowSprite::addAnimationByPrefix(std::string name, std::string p
             float y = frame.attribute("y").as_float();
             float width = frame.attribute("width").as_float();
             float height = frame.attribute("height").as_float();
-            foundFrames.push_back(new Frame(x, y, width, height));
+            float frameX = frame.attribute("frameX").as_float();
+            float frameY = frame.attribute("frameY").as_float();
+            float frameWidth = frame.attribute("frameWidth").as_float();
+            float frameHeight = frame.attribute("frameHeight").as_float();
+            foundFrames.push_back(new Frame(x, y, width, height, frameX, frameY, frameWidth, frameHeight));
 
             std::cout << "found frame: " << frame.attribute("name").as_string() << "\n";
         }
@@ -69,12 +73,13 @@ void funkin::SparrowSprite::update(double delta)
 
         int frame = currentAnimation->currentFrame;
 
+
         source.x = currentAnimation->frames[frame]->x;
         source.y = currentAnimation->frames[frame]->y;
         source.width = currentAnimation->frames[frame]->width;
         source.height = currentAnimation->frames[frame]->height;
-        dest.width = source.width * scale.x;
-        dest.height = source.height * scale.y;
+        dest.width = currentAnimation->frames[frame]->frameWidth * scale.x;
+        dest.height = currentAnimation->frames[frame]->frameHeight * scale.y;
     }
 }
 

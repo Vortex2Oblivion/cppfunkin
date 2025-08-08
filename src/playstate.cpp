@@ -143,7 +143,6 @@ void funkin::PlayState::generateStaticArrows(bool player)
     {
         StrumNote *babyArrow = new StrumNote(42, 50, i, player);
         babyArrow->setPosition();
-        babyArrow->loadGraphic("assets/images/slungus.png");
         strumLineNotes.push_back(babyArrow);
         add(babyArrow);
     }

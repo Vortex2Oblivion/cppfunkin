@@ -13,7 +13,7 @@ namespace funkin
         Animation(std::vector<funkin::Frame *> frames, int framerate);
         ~Animation();
         std::vector<funkin::Frame *> frames = {};
-        int framerate;
+        int framerate = 24;
         int currentFrame = 0;
         void update(double delta);
     };

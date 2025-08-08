@@ -9,13 +9,16 @@ namespace funkin
     private:
         /* data */
     public:
-        Frame(raylib::Rectangle rect);
-        Frame(float x, float y, float width, float height);
+        Frame(float x, float y, float width, float height, float frameX, float frameY, float frameWidth, float frameHeight);
         ~Frame();
 
         float x;
         float y;
         float width;
         float height;
+        float frameX;
+        float frameY;
+        float frameWidth;
+        float frameHeight;
     };
 }
