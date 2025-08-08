@@ -55,21 +55,27 @@ void funkin::SparrowSprite::playAnimation(std::string name)
         std::cerr << "Animation not found or has no frames: " << name << "\n";
         return;
     }
-    int frame = 0;
 
     currentAnimation = animations[name];
-
-    source.x = currentAnimation->frames[frame]->x;
-    source.y = currentAnimation->frames[frame]->y;
-    source.width = currentAnimation->frames[frame]->width;
-    source.height = currentAnimation->frames[frame]->height;
-    dest.width = source.width * scale.x;
-    dest.height = source.height * scale.y;
+    currentAnimation->currentFrame = 0;
 }
 
 void funkin::SparrowSprite::update(double delta)
 {
     funkin::Sprite::update(delta);
+    if (currentAnimation != nullptr)
+    {
+        currentAnimation->update(delta);
+
+        int frame = currentAnimation->currentFrame;
+
+        source.x = currentAnimation->frames[frame]->x;
+        source.y = currentAnimation->frames[frame]->y;
+        source.width = currentAnimation->frames[frame]->width;
+        source.height = currentAnimation->frames[frame]->height;
+        dest.width = source.width * scale.x;
+        dest.height = source.height * scale.y;
+    }
 }
 
 void funkin::SparrowSprite::draw()
