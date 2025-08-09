@@ -5,21 +5,11 @@
 #include <filesystem>
 #include <fstream>
 #include <nlohmann/json.hpp>
+#include <iostream>
 
 funkin::PlayState::PlayState()
 {
     loadSong("parasitic", "hard");
-    animatedNote = new SparrowSprite(0, 0);
-    animatedNote->loadGraphic("assets/images/notes.png", "assets/images/notes.xml");
-    animatedNote->addAnimationByPrefix("up confirm", "up confirm", 24);
-    animatedNote->addAnimationByPrefix("down confirm", "down confirm", 24);
-    animatedNote->addAnimationByPrefix("right confirm", "right confirm", 24);
-    animatedNote->addAnimationByPrefix("left confirm", "left confirm", 24);
-    animatedNote->scale.x = 0.7f;
-    animatedNote->scale.y = 0.7f;
-
-    animatedNote->playAnimation("up confirm");
-    add(animatedNote);
 }
 
 funkin::PlayState::~PlayState()
@@ -107,9 +97,14 @@ void funkin::PlayState::update(double delta)
         {
             continue;
         }
-        strumLineNotes[note->lane]->playAnimation("confirm");
-        strumLineNotes[note->lane]->offset.x = -25;
-        strumLineNotes[note->lane]->offset.y = -30;
+        int lane = note->lane;
+        if (!note->isPlayer)
+        {
+            lane += 4;
+        }
+        strumLineNotes[lane]->playAnimation("confirm");
+        strumLineNotes[lane]->offset.x = -25;
+        strumLineNotes[lane]->offset.y = -30;
         notesToDelete.push_back(note);
     }
     for (auto note : notesToDelete)
@@ -120,23 +115,6 @@ void funkin::PlayState::update(double delta)
     for (auto track : tracks)
     {
         track->Update();
-    }
-
-    if (IsKeyPressed(KEY_F))
-    {
-        animatedNote->playAnimation("down confirm");
-    }
-    else if (IsKeyPressed(KEY_D))
-    {
-        animatedNote->playAnimation("left confirm");
-    }
-    else if (IsKeyPressed(KEY_J))
-    {
-        animatedNote->playAnimation("up confirm");
-    }
-    else if (IsKeyPressed(KEY_K))
-    {
-        animatedNote->playAnimation("right confirm");
     }
 
     for (auto strum : strumLineNotes)

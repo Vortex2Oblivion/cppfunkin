@@ -12,7 +12,6 @@ namespace funkin
     private:
         Conductor *_conductor;
         std::vector<bool> justHitArray = {false, false, false, false};
-        SparrowSprite *animatedNote;
 
     public:
         PlayState();
