@@ -59,7 +59,7 @@ void funkin::PlayState::update(double delta)
 
     // inputs
     // thanks for helping my dumbass with this rudy
-    double closestDistance = INFINITY;
+    float closestDistance = INFINITY;
 
     std::vector<Note *> notesToDelete = {};
     justHitArray = {IsKeyPressed(KEY_D), IsKeyPressed(KEY_F), IsKeyPressed(KEY_J), IsKeyPressed(KEY_K)};
@@ -70,8 +70,8 @@ void funkin::PlayState::update(double delta)
             continue;
         }
         bool hittable = false;
-        double minHitTime = 180;
-        double maxHitTime = 180;
+        float minHitTime = 180.0f;
+        float maxHitTime = 180.0f;
 
         if (!note->isPlayer)
         {
@@ -120,7 +120,7 @@ void funkin::PlayState::update(double delta)
         if (strum->currentAnimation->currentFrame >= strum->currentAnimation->frames.size() - 1)
         {
             strum->playAnimation("static");
-            strum->offset = 0.0;
+            strum->offset.x = strum->offset.y = 0.0;
         }
     }
 }
