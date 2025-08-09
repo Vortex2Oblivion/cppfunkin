@@ -1,11 +1,11 @@
 #pragma once
 
-#include "sprite.hpp"
+#include "sparrowsprite.hpp"
 #include "strumnote.hpp"
 
 namespace funkin
 {
-    class Note : public Sprite
+    class Note : public SparrowSprite
     {
     private:
         StrumNote *strum;

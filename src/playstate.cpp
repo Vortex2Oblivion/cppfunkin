@@ -33,12 +33,10 @@ void funkin::PlayState::loadSong(std::string song, std::string difficulty)
         {
             bool playerNote = (sectionNote[1] < 4) ? (!_note["mustHitSection"]) : (bool)(_note["mustHitSection"]);
             int lane = ((int)sectionNote[1] % 4) + (playerNote ? 4 : 0);
-            Note *__note = new Note(sectionNote[0], lane % 4, parsedChart["song"]["speed"], strumLineNotes[lane]);
-            __note->loadGraphic("assets/images/slungus.png");
-            __note->color = colors[(int)sectionNote[1] % 4];
-            __note->isPlayer = !playerNote;
-            notes.push_back(__note);
-            add(__note);
+            Note *note = new Note(sectionNote[0], lane % 4, parsedChart["song"]["speed"], strumLineNotes[lane]);
+            note->isPlayer = !playerNote;
+            notes.push_back(note);
+            add(note);
         }
     }
     _conductor = new Conductor(tracks);

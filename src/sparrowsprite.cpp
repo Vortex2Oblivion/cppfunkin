@@ -39,7 +39,7 @@ void funkin::SparrowSprite::addAnimationByPrefix(std::string name, std::string p
             float frameHeight = frame.attribute("frameHeight").as_float();
             foundFrames.push_back(new Frame(x, y, width, height, frameX, frameY, frameWidth, frameHeight));
 
-            std::cout << "found frame: " << frame.attribute("name").as_string() << "\n";
+            // std::cout << "found frame: " << frame.attribute("name").as_string() << "\n";
         }
     }
     if (!foundFrames.empty())
