@@ -21,6 +21,8 @@ namespace funkin
 
         void update(double delta);
 
+        void centerOffsets();
+
         std::string xmlPath;
         funkin::Animation *currentAnimation;
     };

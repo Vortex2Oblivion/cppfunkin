@@ -73,7 +73,6 @@ void funkin::SparrowSprite::update(double delta)
 
         int frame = currentAnimation->currentFrame;
 
-
         source.x = currentAnimation->frames[frame]->x;
         source.y = currentAnimation->frames[frame]->y;
         source.width = currentAnimation->frames[frame]->width;
@@ -81,6 +80,14 @@ void funkin::SparrowSprite::update(double delta)
         dest.width = currentAnimation->frames[frame]->frameWidth * scale.x;
         dest.height = currentAnimation->frames[frame]->frameHeight * scale.y;
     }
+}
+
+void funkin::SparrowSprite::centerOffsets()
+{
+    int frame = currentAnimation->currentFrame;
+
+    offset.x = (dest.width - currentAnimation->frames[frame]->width) / 2;
+    offset.y = (dest.height - currentAnimation->frames[frame]->height) / 2;
 }
 
 void funkin::SparrowSprite::draw()

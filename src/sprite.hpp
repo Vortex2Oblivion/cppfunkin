@@ -28,6 +28,7 @@ namespace funkin
 
         raylib::Vector2 origin;
         raylib::Vector2 scale = raylib::Vector2(1.0f, 1.0f);
+        raylib::Vector2 offset = raylib::Vector2();
         float angle;
         raylib::Color color;
     };

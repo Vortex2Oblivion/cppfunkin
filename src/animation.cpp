@@ -13,7 +13,6 @@ funkin::Animation::~Animation()
 
 void funkin::Animation::update(double delta)
 {
-    std::cout << currentFrame << "\n";
     frameCounter++;
 
     if (frameCounter >= (GetFPS() / framerate))

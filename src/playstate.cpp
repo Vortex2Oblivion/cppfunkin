@@ -108,6 +108,8 @@ void funkin::PlayState::update(double delta)
             continue;
         }
         strumLineNotes[note->lane]->playAnimation("confirm");
+        strumLineNotes[note->lane]->offset.x = -25;
+        strumLineNotes[note->lane]->offset.y = -30;
         notesToDelete.push_back(note);
     }
     for (auto note : notesToDelete)
@@ -135,6 +137,15 @@ void funkin::PlayState::update(double delta)
     else if (IsKeyPressed(KEY_K))
     {
         animatedNote->playAnimation("right confirm");
+    }
+
+    for (auto strum : strumLineNotes)
+    {
+        if (strum->currentAnimation->currentFrame >= strum->currentAnimation->frames.size() - 1)
+        {
+            strum->playAnimation("static");
+            strum->offset = 0.0;
+        }
     }
 }
 

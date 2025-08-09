@@ -34,8 +34,8 @@ void funkin::Sprite::update(double delta)
 
 void funkin::Sprite::draw()
 {
-    dest.x = (texture->width / 2) + position.x;
-    dest.y = (texture->height / 2) + position.y;
+    dest.x = (texture->width / 2) + position.x + offset.x;
+    dest.y = (texture->height / 2) + position.y + offset.y;
     if (isOnScreen())
     {
         texture->Draw(source, dest, origin, angle, color);
