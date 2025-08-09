@@ -103,7 +103,7 @@ void funkin::PlayState::update(double delta)
             lane += 4;
         }
         strumLineNotes[lane]->playAnimation("confirm");
-        strumLineNotes[lane]->offset.x = -25;
+        strumLineNotes[lane]->offset.x = -30;
         strumLineNotes[lane]->offset.y = -30;
         notesToDelete.push_back(note);
     }
