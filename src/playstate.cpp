@@ -27,14 +27,14 @@ void funkin::PlayState::loadSong(std::string song, std::string difficulty)
     std::vector<raylib::Color> colors = {PURPLE, BLUE, GREEN, RED};
     generateStaticArrows(false);
     generateStaticArrows(true);
-    for (auto _note : parsedChart["song"]["notes"])
+    for (auto sectionNotes : parsedChart["song"]["notes"])
     {
-        for (auto sectionNote : _note["sectionNotes"])
+        for (auto sectionNote : sectionNotes["sectionNotes"])
         {
-            bool playerNote = (sectionNote[1] < 4) ? (!_note["mustHitSection"]) : (bool)(_note["mustHitSection"]);
-            int lane = ((int)sectionNote[1] % 4) + (playerNote ? 4 : 0);
+            bool playerNote = (sectionNote[1] < 4) ? (bool)(sectionNotes["mustHitSection"]) : (!sectionNotes["mustHitSection"]);
+            int lane = ((int)sectionNote[1] % 4) + (playerNote ? 0 : 4);
             Note *note = new Note(sectionNote[0], lane % 4, parsedChart["song"]["speed"], strumLineNotes[lane]);
-            note->isPlayer = !playerNote;
+            note->isPlayer = playerNote;
             notes.push_back(note);
             add(note);
         }
