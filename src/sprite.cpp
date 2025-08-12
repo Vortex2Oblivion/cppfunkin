@@ -16,6 +16,10 @@ void funkin::Sprite::loadGraphic(std::string path)
     if (!texturePool.count(path))
     {
         texturePool[path] = new raylib::Texture(path);
+        if (!texturePool[path])
+        {
+            std::cerr << "Could not find image at path \"" << path << "\"\n";
+        }
     }
 
     texture = texturePool[path];

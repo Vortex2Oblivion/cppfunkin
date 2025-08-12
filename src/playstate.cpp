@@ -7,9 +7,9 @@
 #include <nlohmann/json.hpp>
 #include <iostream>
 
-funkin::PlayState::PlayState()
+funkin::PlayState::PlayState(std::string song, std::string difficulty)
 {
-    loadSong("parasitic", "hard");
+    loadSong(song, difficulty);
 }
 
 funkin::PlayState::~PlayState()

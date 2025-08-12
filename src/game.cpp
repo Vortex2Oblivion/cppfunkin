@@ -1,13 +1,10 @@
 #include "game.hpp"
-#include <iostream>
 
-funkin::Game::Game(State *initalState)
-{
-    this->_state = initalState;
-}
+static funkin::State *_state = nullptr;
 
-funkin::Game::~Game()
+void funkin::Game::start(State *initialState)
 {
+    _state = initialState;
 }
 
 void funkin::Game::update(double delta)
@@ -21,5 +18,5 @@ void funkin::Game::update(double delta)
 void funkin::Game::switchState(State *nextState)
 {
     delete _state;
-    this->_state = nextState;
+    _state = nextState;
 }

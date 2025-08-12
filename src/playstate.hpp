@@ -4,6 +4,7 @@
 #include "conductor.hpp"
 #include "note.hpp"
 #include "sparrowsprite.hpp"
+#include "character.hpp"
 
 namespace funkin
 {
@@ -14,7 +15,7 @@ namespace funkin
         std::vector<bool> justHitArray = {false, false, false, false};
 
     public:
-        PlayState();
+        PlayState(std::string song, std::string difficulty);
         ~PlayState();
         void generateStaticArrows(bool player);
         void loadSong(std::string song, std::string difficulty);
@@ -22,5 +23,6 @@ namespace funkin
         std::vector<raylib::Music *> tracks = {};
         std::vector<Note *> notes = {};
         std::vector<StrumNote *> strumLineNotes = {};
+        Character *dad;
     };
 }
