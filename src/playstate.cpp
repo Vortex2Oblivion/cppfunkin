@@ -24,7 +24,6 @@ void funkin::PlayState::loadSong(std::string song, std::string difficulty)
     tracks.push_back(new raylib::Music(basePath + "Inst.ogg"));
     tracks.push_back(new raylib::Music(basePath + "Voices.ogg"));
 
-    std::vector<raylib::Color> colors = {PURPLE, BLUE, GREEN, RED};
     generateStaticArrows(false);
     generateStaticArrows(true);
     for (auto sectionNotes : parsedChart["song"]["notes"])
