@@ -7,7 +7,7 @@
 namespace funkin
 {
 
-    class State
+    class State : public Object
     {
     private:
         /* data */
@@ -16,9 +16,9 @@ namespace funkin
     public:
         State(/* args */);
         virtual ~State();
-        void remove(Object *obj);
-        void add(Object *obj);
-        void addToFront(Object *obj);
+        virtual void remove(Object *obj);
+        virtual void add(Object *obj);
         virtual void update(double delta);
+        virtual void addToFront(Object *obj);
     };
 }

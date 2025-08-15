@@ -1,7 +1,7 @@
 #include "state.hpp"
 #include <algorithm>
 
-funkin::State::State(/* args */)
+funkin::State::State(/* args */) : Object(0, 0)
 {
 }
 
