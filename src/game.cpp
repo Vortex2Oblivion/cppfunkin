@@ -15,7 +15,6 @@ void funkin::Game::update(double delta)
         if (camera != nullptr)
         {
             camera->BeginMode();
-            camera->rotation = 45;
         }
     }
     if (_state != nullptr)
