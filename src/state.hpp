@@ -2,16 +2,11 @@
 #include "object.hpp"
 #include <vector>
 
-
-
 namespace funkin
 {
 
     class State : public Object
     {
-    private:
-        /* data */
-        std::vector<Object *> members;
 
     public:
         State(/* args */);
@@ -20,5 +15,6 @@ namespace funkin
         virtual void add(Object *obj);
         virtual void update(double delta);
         virtual void addToFront(Object *obj);
+        std::vector<Object *> members;
     };
 }

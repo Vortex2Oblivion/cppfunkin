@@ -12,6 +12,7 @@ namespace funkin
         Object(double x, double y);
         virtual ~Object();
         virtual void update(double delta);
+        virtual void draw();
         raylib::Vector2 position;
         bool alive = true;
         raylib::Camera2D *camera;

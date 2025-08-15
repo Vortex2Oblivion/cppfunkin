@@ -33,11 +33,12 @@ void funkin::Sprite::loadGraphic(std::string path)
 
 void funkin::Sprite::update(double delta)
 {
-    draw();
 }
 
 void funkin::Sprite::draw()
 {
+    funkin::Object::draw();
+
     dest.x = (texture->width / 2) + position.x + offset.x;
     dest.y = (texture->height / 2) + position.y + offset.y;
     if (isOnScreen())

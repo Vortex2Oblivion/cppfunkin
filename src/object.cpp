@@ -1,5 +1,6 @@
 #include "object.hpp"
 #include "game.hpp"
+#include <iostream>
 
 funkin::Object::Object(double x, double y)
 {
@@ -12,5 +13,9 @@ funkin::Object::~Object()
 }
 
 void funkin::Object::update(double delta)
+{
+}
+
+void funkin::Object::draw()
 {
 }
