@@ -6,9 +6,21 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 #include <iostream>
+#include "game.hpp"
 
 funkin::PlayState::PlayState(std::string song, std::string difficulty)
 {
+    camHUD = new raylib::Camera2D(raylib::Vector2(0, 0), raylib::Vector2(0, 0), 0.0f, 1.0f);
+    funkin::Game::cameras.push_back(camHUD);
+
+    funkin::Game::defaultCamera->zoom = 0.45f;
+
+    dad = new Character(0, 0);
+    dad->loadGraphic("assets/images/defected.png", "assets/images/defected.xml");
+    dad->addAnimationByPrefix("idle", "defected idle", 24);
+    dad->playAnimation("idle");
+    add(dad);
+
     loadSong(song, difficulty);
 }
 
@@ -33,6 +45,7 @@ void funkin::PlayState::loadSong(std::string song, std::string difficulty)
             bool playerNote = (sectionNote[1] < 4) ? (bool)(sectionNotes["mustHitSection"]) : (!sectionNotes["mustHitSection"]);
             int lane = ((int)sectionNote[1] % 4) + (playerNote ? 0 : 4);
             Note *note = new Note(sectionNote[0], lane % 4, parsedChart["song"]["speed"], strumLineNotes[lane]);
+            note->camera = camHUD;
             note->isPlayer = playerNote;
             notes.push_back(note);
             add(note);
@@ -47,6 +60,11 @@ void funkin::PlayState::update(double delta)
 {
     State::update(delta);
     _conductor->update(delta);
+
+    if (IsKeyPressed(KEY_SPACE))
+    {
+        dad->playAnimation("idle");
+    }
     for (auto note : notes)
     {
         if (!note->alive)
@@ -130,6 +148,7 @@ void funkin::PlayState::generateStaticArrows(bool player)
     {
         StrumNote *babyArrow = new StrumNote(42, 50, i, player);
         babyArrow->setPosition();
+        babyArrow->camera = camHUD;
         strumLineNotes.push_back(babyArrow);
         add(babyArrow);
     }

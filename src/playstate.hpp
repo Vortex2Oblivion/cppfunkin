@@ -24,5 +24,6 @@ namespace funkin
         std::vector<Note *> notes = {};
         std::vector<StrumNote *> strumLineNotes = {};
         Character *dad;
+        raylib::Camera2D *camHUD;
     };
 }
