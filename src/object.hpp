@@ -14,5 +14,6 @@ namespace funkin
         virtual void update(double delta);
         raylib::Vector2 position;
         bool alive = true;
+        raylib::Camera2D *camera;
     };
 }

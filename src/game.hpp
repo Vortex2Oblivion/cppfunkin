@@ -13,6 +13,7 @@ namespace funkin
         static void update(double delta);
         static void switchState(State *nextState);
         static std::vector<raylib::Camera2D *> cameras;
+        static raylib::Camera2D *defaultCamera;
     };
 
 }
