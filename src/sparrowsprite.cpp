@@ -27,8 +27,11 @@ void funkin::SparrowSprite::addAnimationByPrefix(std::string name, std::string p
     std::vector<Frame *> foundFrames = {};
     for (auto frame : doc.child("TextureAtlas").children("SubTexture"))
     {
-        if (strncmp(prefix.c_str(), frame.attribute("name").as_string(), strlen(prefix.c_str())) == 0)
+        const char *name = frame.attribute("name").as_string();
+        if (strncmp(prefix.c_str(), name, strlen(prefix.c_str())) == 0) // find all animations that start with `prefix`
         {
+            bool trimmed = frame.attribute("frameX");
+
             float x = frame.attribute("x").as_float();
             float y = frame.attribute("y").as_float();
             float width = frame.attribute("width").as_float();
@@ -37,7 +40,15 @@ void funkin::SparrowSprite::addAnimationByPrefix(std::string name, std::string p
             float frameY = frame.attribute("frameY").as_float();
             float frameWidth = frame.attribute("frameWidth").as_float();
             float frameHeight = frame.attribute("frameHeight").as_float();
-            foundFrames.push_back(new Frame(x, y, width, height, frameX, frameY, frameWidth, frameHeight));
+
+            raylib::Rectangle rect = raylib::Rectangle(x, y, width, height);
+            raylib::Rectangle size = trimmed ? raylib::Rectangle(frameX, frameY, frameWidth, frameHeight) : raylib::Rectangle(0, 0, width, height);
+
+            raylib::Vector2 offset = raylib::Vector2(-size.x, -size.y);
+            raylib::Vector2 sourceSize = raylib::Vector2(size.width, size.height);
+
+            // foundFrames.push_back(new Frame(x, y, width, height, frameX, frameY, frameWidth, frameHeight));
+            foundFrames.push_back(new Frame(rect, sourceSize, offset));
 
             // std::cout << "found frame: " << frame.attribute("name").as_string() << "\n";
         }
@@ -70,15 +81,6 @@ void funkin::SparrowSprite::update(double delta)
     if (currentAnimation != nullptr)
     {
         currentAnimation->update(delta);
-
-        int frame = currentAnimation->currentFrame;
-
-        source.x = currentAnimation->frames[frame]->x;
-        source.y = currentAnimation->frames[frame]->y;
-        source.width = currentAnimation->frames[frame]->width;
-        source.height = currentAnimation->frames[frame]->height;
-        dest.width = currentAnimation->frames[frame]->frameWidth * scale.x;
-        dest.height = currentAnimation->frames[frame]->frameHeight * scale.y;
     }
 }
 
@@ -92,5 +94,24 @@ void funkin::SparrowSprite::centerOffsets()
 
 void funkin::SparrowSprite::draw()
 {
-    funkin::Sprite::draw();
+
+    if (currentAnimation != nullptr)
+    {
+        int frame = currentAnimation->currentFrame;
+
+        source.x = currentAnimation->frames[frame]->x;
+        source.y = currentAnimation->frames[frame]->y;
+        source.width = currentAnimation->frames[frame]->width;
+        source.height = currentAnimation->frames[frame]->height;
+        dest.width = currentAnimation->frames[frame]->frameWidth * scale.x;
+        dest.height = currentAnimation->frames[frame]->frameHeight * scale.y;
+
+        dest.x = (texture->width / 2) + position.x + currentAnimation->frames[frame]->frameX;
+        dest.y = (texture->height / 2) + position.y + currentAnimation->frames[frame]->frameY;
+    }
+
+    if (isOnScreen())
+    {
+        texture->Draw(source, dest, origin, angle, color);
+    }
 }
