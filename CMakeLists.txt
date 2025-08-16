@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.10.0)
 project(cppfunkin VERSION 0.1.0 LANGUAGES C CXX)
 
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-
 file(GLOB SOURCES "src/*.cpp")
 add_executable(cppfunkin ${SOURCES})
 
@@ -26,5 +24,8 @@ set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
 
 if(MSVC)
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
+else()
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 endif(MSVC)
