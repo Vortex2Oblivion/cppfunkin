@@ -33,7 +33,7 @@ void funkin::SongSelectState::update(double delta)
     }
     if (IsKeyPressed(KEY_ENTER))
     {
-        funkin::Game::switchState(new funkin::PlayState(songs[selectedSong], "hard"));
         delete songText;
+        funkin::Game::switchState(new funkin::PlayState(songs[selectedSong], "hard"));
     }
 }

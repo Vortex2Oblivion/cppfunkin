@@ -42,10 +42,8 @@ void funkin::SparrowSprite::addAnimationByPrefix(std::string name, std::string p
             float frameHeight = frame.attribute("frameHeight").as_float();
 
             raylib::Rectangle rect = raylib::Rectangle(x, y, width, height);
-            raylib::Rectangle size = trimmed ? raylib::Rectangle(frameX, frameY, frameWidth, frameHeight) : raylib::Rectangle(0, 0, width, height);
-
-            raylib::Vector2 offset = raylib::Vector2(-size.x, -size.y);
-            raylib::Vector2 sourceSize = raylib::Vector2(size.width, size.height);
+            raylib::Vector2 offset = trimmed ? raylib::Vector2(-frameX, -frameY) : raylib::Vector2::Zero();
+            raylib::Vector2 sourceSize = trimmed ? raylib::Vector2(frameWidth, frameHeight) : raylib::Vector2(width, height);
 
             // foundFrames.push_back(new Frame(x, y, width, height, frameX, frameY, frameWidth, frameHeight));
             foundFrames.push_back(new Frame(rect, sourceSize, offset));
@@ -103,11 +101,11 @@ void funkin::SparrowSprite::draw()
         source.y = currentAnimation->frames[frame]->y;
         source.width = currentAnimation->frames[frame]->width;
         source.height = currentAnimation->frames[frame]->height;
-        dest.width = currentAnimation->frames[frame]->frameWidth * scale.x;
-        dest.height = currentAnimation->frames[frame]->frameHeight * scale.y;
 
         dest.x = (texture->width / 2) + position.x + currentAnimation->frames[frame]->frameX;
         dest.y = (texture->height / 2) + position.y + currentAnimation->frames[frame]->frameY;
+        dest.width = currentAnimation->frames[frame]->width * scale.x;
+        dest.height = currentAnimation->frames[frame]->height * scale.y;
     }
 
     if (isOnScreen())
