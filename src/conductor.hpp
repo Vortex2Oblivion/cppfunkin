@@ -9,7 +9,6 @@ namespace funkin
     class Conductor
     {
     private:
-        double _lastTime;
         int step;
         int beat;
 

@@ -28,6 +28,10 @@ funkin::PlayState::~PlayState()
 {
 }
 
+bool noteDataSorter(funkin::NoteData a, funkin::NoteData b) {
+    return a.time < b.time;
+}
+
 void funkin::PlayState::loadSong(std::string song, std::string difficulty)
 {
     std::string basePath = "assets/songs/" + song + "/";
@@ -38,19 +42,25 @@ void funkin::PlayState::loadSong(std::string song, std::string difficulty)
 
     generateStaticArrows(false);
     generateStaticArrows(true);
+
+    scrollSpeed = parsedChart["song"]["speed"];
+
     for (auto sectionNotes : parsedChart["song"]["notes"])
     {
         for (auto sectionNote : sectionNotes["sectionNotes"])
         {
             bool playerNote = (sectionNote[1] < 4) ? (bool)(sectionNotes["mustHitSection"]) : (!sectionNotes["mustHitSection"]);
             int lane = ((int)sectionNote[1] % 4) + (playerNote ? 0 : 4);
-            Note *note = new Note(sectionNote[0], lane % 4, parsedChart["song"]["speed"], strumLineNotes[lane]);
-            note->camera = camHUD;
-            note->isPlayer = playerNote;
-            notes.push_back(note);
-            add(note);
+            noteDatas.push_back(NoteData {
+                double(sectionNote[0]) / 1000.0, // time
+                lane % 4, // lane
+                playerNote, // isPlayer
+            });
         }
     }
+
+    std::sort(noteDatas.begin(), noteDatas.end(), noteDataSorter);
+
     _conductor = new Conductor(tracks);
     tracks[0]->Play();
     tracks[1]->Play();
@@ -58,13 +68,24 @@ void funkin::PlayState::loadSong(std::string song, std::string difficulty)
 
 void funkin::PlayState::update(double delta)
 {
-    State::update(delta);
     _conductor->update(delta);
+    while (noteDataIndex < noteDatas.size() - 1 && _conductor->time > noteDatas[noteDataIndex].time - 1.0) {
+        NoteData data = noteDatas[noteDataIndex];
+        Note *note = new Note(data.time * 1000.0, data.lane, scrollSpeed, strumLineNotes[data.lane + (!data.isPlayer ? 4 : 0)]);
+        note->camera = camHUD;
+        note->isPlayer = data.isPlayer;
+        notes.push_back(note);
+        add(note);
+        noteDataIndex++;
+    }
+
+    State::update(delta);
 
     if (IsKeyPressed(KEY_SPACE))
     {
         dad->playAnimation("idle");
     }
+
     for (auto note : notes)
     {
         if (!note->alive)
@@ -78,7 +99,7 @@ void funkin::PlayState::update(double delta)
     // thanks for helping my dumbass with this rudy
     float closestDistance = INFINITY;
 
-    std::vector<Note *> notesToDelete = {};
+    std::vector<Note *> notesToDelete;
     justHitArray = {IsKeyPressed(KEY_D), IsKeyPressed(KEY_F), IsKeyPressed(KEY_J), IsKeyPressed(KEY_K)};
     for (auto note : notes)
     {
@@ -118,8 +139,10 @@ void funkin::PlayState::update(double delta)
             lane += 4;
         }
         strumLineNotes[lane]->playAnimation("confirm");
-        strumLineNotes[lane]->offset.x = -30;
-        strumLineNotes[lane]->offset.y = -30;
+        strumLineNotes[lane]->centerOffsets();
+        strumLineNotes[lane]->offset = strumLineNotes[lane]->offset.Scale(0.5f);
+        // strumLineNotes[lane]->offset.x = -30;
+        // strumLineNotes[lane]->offset.y = -30;
         notesToDelete.push_back(note);
     }
     for (auto note : notesToDelete)

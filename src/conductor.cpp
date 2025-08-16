@@ -17,20 +17,18 @@ funkin::Conductor::~Conductor()
 
 void funkin::Conductor::update(double delta)
 {
-    for (auto track : tracks)
-    {
-        double resyncTimer = 0;
-        if (track->GetTimePlayed() == _lastTime)
+    if (!tracks.empty()) {
+        auto track = tracks[0];
+        if (track->GetTimePlayed() > time || time > track->GetTimePlayed() + 0.020)
         {
-            resyncTimer += delta * 0.001;
+            time = track->GetTimePlayed();
         }
         else
         {
-            resyncTimer = 0;
+            time += delta;
         }
-        time = track->GetTimePlayed() + resyncTimer;
-        _lastTime = track->GetTimePlayed();
     }
+
     int oldStep = step;
     updateStep();
     updateBeat();
