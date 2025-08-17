@@ -2,26 +2,20 @@ cmake_minimum_required(VERSION 3.10.0)
 project(cppfunkin VERSION 0.1.0 LANGUAGES C CXX)
 
 file(GLOB SOURCES "src/*.cpp")
-add_executable(cppfunkin ${SOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES})
 
 add_subdirectory(external/raylib)
-target_link_libraries(cppfunkin raylib)
+target_link_libraries(${PROJECT_NAME} raylib)
 
 add_subdirectory(external/raylib-cpp)
-target_link_libraries(cppfunkin raylib_cpp)
+target_link_libraries(${PROJECT_NAME} raylib_cpp)
 
 add_subdirectory(external/json)
-target_link_libraries(cppfunkin nlohmann_json)
+target_link_libraries(${PROJECT_NAME} nlohmann_json)
 
 add_subdirectory(external/pugixml)
-target_link_libraries(cppfunkin pugixml)
+target_link_libraries(${PROJECT_NAME} pugixml)
 
-include(CTest)
-enable_testing()
-
-set(CPACK_PROJECT_NAME ${PROJECT_NAME})
-set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
-include(CPack)
 
 add_dependencies(${PROJECT_NAME} copy_assets)
 if(MSVC)
