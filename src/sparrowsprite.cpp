@@ -110,10 +110,12 @@ void funkin::SparrowSprite::draw()
         source.width = currentAnimation->frames[frame]->width;
         source.height = currentAnimation->frames[frame]->height;
 
-        dest.x = (texture->width / 2) + position.x + offset.x - animationOffset.x + currentAnimation->frames[frame]->frameX;
-        dest.y = (texture->height / 2) + position.y + offset.y - animationOffset.y + currentAnimation->frames[frame]->frameY;
         dest.width = currentAnimation->frames[frame]->width * scale.x;
         dest.height = currentAnimation->frames[frame]->height * scale.y;
+        dest.x = (dest.width / 2) + position.x + offset.x - animationOffset.x + currentAnimation->frames[frame]->frameX;
+        dest.y = (dest.height / 2) + position.y + offset.y - animationOffset.y + currentAnimation->frames[frame]->frameY;
+
+        origin = raylib::Vector2(dest.width / 2.0f, dest.height / 2.0f);
 
         if (isOnScreen())
         {
