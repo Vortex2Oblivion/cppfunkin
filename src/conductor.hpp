@@ -9,6 +9,7 @@ namespace funkin
     class Conductor
     {
     private:
+        float lastAudioTime = 0.0f;
         int step;
         int beat;
 

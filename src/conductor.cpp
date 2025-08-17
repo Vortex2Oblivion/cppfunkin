@@ -19,7 +19,7 @@ void funkin::Conductor::update(double delta)
 {
     if (!tracks.empty()) {
         auto track = tracks[0];
-        if (track->GetTimePlayed() > time || time > track->GetTimePlayed() + 0.020)
+        if (track->GetTimePlayed() != lastAudioTime)
         {
             time = track->GetTimePlayed();
         }
@@ -27,6 +27,7 @@ void funkin::Conductor::update(double delta)
         {
             time += delta;
         }
+        lastAudioTime = track->GetTimePlayed();
     }
 
     int oldStep = step;
