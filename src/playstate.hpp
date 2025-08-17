@@ -8,7 +8,8 @@
 
 namespace funkin
 {
-    struct NoteData {
+    struct NoteData
+    {
         double time;
         int lane;
         bool isPlayer;
@@ -32,6 +33,7 @@ namespace funkin
         std::vector<raylib::Music *> tracks = {};
         std::vector<Note *> notes = {};
         std::vector<StrumNote *> strumLineNotes = {};
+        Character *boyfriend;
         Character *dad;
         raylib::Camera2D *camHUD;
     };

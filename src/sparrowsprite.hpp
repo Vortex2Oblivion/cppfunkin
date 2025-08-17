@@ -26,5 +26,6 @@ namespace funkin
         std::string xmlPath;
         funkin::Animation *currentAnimation;
         std::map<std::string, raylib::Vector2> offsets;
+        raylib::Vector2 animationOffset;
     };
 }

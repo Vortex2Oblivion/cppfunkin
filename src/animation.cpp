@@ -5,6 +5,7 @@ funkin::Animation::Animation(std::vector<funkin::Frame *> frames, int framerate)
 {
     this->frames = frames;
     this->framerate = framerate;
+    this->currentFrame = 0;
 }
 
 funkin::Animation::~Animation()

@@ -15,11 +15,12 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
 
     funkin::Game::defaultCamera->zoom = 0.45f;
 
-    dad = new Character(0, 0);
-    dad->loadGraphic("assets/images/defected.png", "assets/images/defected.xml");
-    dad->addAnimationByPrefix("idle", "defected idle", 24);
-    dad->playAnimation("idle");
+    dad = new Character(-550, 0, "defected");
+    funkin::Game::defaultCamera->target = dad->position;
     add(dad);
+
+    boyfriend = new Character(100, 0, "bf");
+    add(boyfriend);
 
     loadSong(song, difficulty);
 }
@@ -28,7 +29,8 @@ funkin::PlayState::~PlayState()
 {
 }
 
-bool noteDataSorter(funkin::NoteData a, funkin::NoteData b) {
+bool noteDataSorter(funkin::NoteData a, funkin::NoteData b)
+{
     return a.time < b.time;
 }
 
@@ -51,10 +53,10 @@ void funkin::PlayState::loadSong(std::string song, std::string difficulty)
         {
             bool playerNote = (sectionNote[1] < 4) ? (bool)(sectionNotes["mustHitSection"]) : (!sectionNotes["mustHitSection"]);
             int lane = ((int)sectionNote[1] % 4) + (playerNote ? 0 : 4);
-            noteDatas.push_back(NoteData {
+            noteDatas.push_back(NoteData{
                 double(sectionNote[0]) / 1000.0, // time
-                lane % 4, // lane
-                playerNote, // isPlayer
+                lane % 4,                        // lane
+                playerNote,                      // isPlayer
             });
         }
     }
@@ -69,7 +71,8 @@ void funkin::PlayState::loadSong(std::string song, std::string difficulty)
 void funkin::PlayState::update(double delta)
 {
     _conductor->update(delta);
-    while (noteDataIndex < noteDatas.size() && _conductor->time > noteDatas[noteDataIndex].time - 1.0) {
+    while (noteDataIndex < noteDatas.size() && _conductor->time > noteDatas[noteDataIndex].time - 1.0)
+    {
         NoteData data = noteDatas[noteDataIndex];
         Note *note = new Note(data.time * 1000.0, data.lane, scrollSpeed, strumLineNotes[data.lane + (!data.isPlayer ? 4 : 0)]);
         note->camera = camHUD;
@@ -85,7 +88,7 @@ void funkin::PlayState::update(double delta)
     {
         dad->playAnimation("idle");
     }
-    
+
     std::vector<Note *> notesToDelete;
     for (auto note : notes)
     {
@@ -94,10 +97,13 @@ void funkin::PlayState::update(double delta)
             continue;
         }
 
-        if (_conductor->time * 1000.0 > note->strumTime + 180.0) {
+        if (_conductor->time * 1000.0 > note->strumTime + 180.0)
+        {
             notesToDelete.push_back(note);
             note->alive = false;
-        } else {
+        }
+        else
+        {
             note->songPos = _conductor->time;
         }
     }
@@ -107,6 +113,7 @@ void funkin::PlayState::update(double delta)
     float closestDistance = INFINITY;
 
     justHitArray = {IsKeyPressed(KEY_D), IsKeyPressed(KEY_F), IsKeyPressed(KEY_J), IsKeyPressed(KEY_K)};
+    std::vector<std::string> singAnimArray = {"singLEFT", "singDOWN", "singUP", "singRIGHT"};
     for (auto note : notes)
     {
         if (note == nullptr || !note->alive)
@@ -142,7 +149,12 @@ void funkin::PlayState::update(double delta)
         int lane = note->lane;
         if (!note->isPlayer)
         {
+            dad->playAnimation(singAnimArray[lane]);
             lane += 4;
+        }
+        else
+        {
+            boyfriend->playAnimation(singAnimArray[lane]);
         }
         strumLineNotes[lane]->playAnimation("confirm");
         strumLineNotes[lane]->centerOffsets();

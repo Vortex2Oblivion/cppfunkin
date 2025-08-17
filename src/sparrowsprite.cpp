@@ -75,9 +75,9 @@ void funkin::SparrowSprite::playAnimation(std::string name)
 
     currentAnimation = animations[name];
     currentAnimation->currentFrame = 0;
-    if (!offsets.count(name))
+    if (offsets.count(name))
     {
-        offset = offsets[name];
+        animationOffset = offsets[name];
     }
 }
 
@@ -110,14 +110,14 @@ void funkin::SparrowSprite::draw()
         source.width = currentAnimation->frames[frame]->width;
         source.height = currentAnimation->frames[frame]->height;
 
-        dest.x = (texture->width / 2) + position.x + offset.x + currentAnimation->frames[frame]->frameX;
-        dest.y = (texture->height / 2) + position.y + offset.y + currentAnimation->frames[frame]->frameY;
+        dest.x = (texture->width / 2) + position.x + offset.x - animationOffset.x + currentAnimation->frames[frame]->frameX;
+        dest.y = (texture->height / 2) + position.y + offset.y - animationOffset.y + currentAnimation->frames[frame]->frameY;
         dest.width = currentAnimation->frames[frame]->width * scale.x;
         dest.height = currentAnimation->frames[frame]->height * scale.y;
-    }
 
-    if (isOnScreen())
-    {
-        texture->Draw(source, dest, origin, angle, color);
+        if (isOnScreen())
+        {
+            texture->Draw(source, dest, origin, angle, color);
+        }
     }
 }
