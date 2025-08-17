@@ -85,21 +85,27 @@ void funkin::PlayState::update(double delta)
     {
         dad->playAnimation("idle");
     }
-
+    
+    std::vector<Note *> notesToDelete;
     for (auto note : notes)
     {
         if (!note->alive)
         {
             continue;
         }
-        note->songPos = _conductor->time;
+
+        if (_conductor->time * 1000.0 > note->strumTime + 180.0) {
+            notesToDelete.push_back(note);
+            note->alive = false;
+        } else {
+            note->songPos = _conductor->time;
+        }
     }
 
     // inputs
     // thanks for helping my dumbass with this rudy
     float closestDistance = INFINITY;
 
-    std::vector<Note *> notesToDelete;
     justHitArray = {IsKeyPressed(KEY_D), IsKeyPressed(KEY_F), IsKeyPressed(KEY_J), IsKeyPressed(KEY_K)};
     for (auto note : notes)
     {
@@ -145,6 +151,7 @@ void funkin::PlayState::update(double delta)
         // strumLineNotes[lane]->offset.y = -30;
         notesToDelete.push_back(note);
     }
+
     for (auto note : notesToDelete)
     {
         notes.erase(find(notes.begin(), notes.end(), note));
