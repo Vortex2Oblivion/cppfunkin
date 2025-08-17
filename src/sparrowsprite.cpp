@@ -54,6 +54,10 @@ void funkin::SparrowSprite::addAnimationByPrefix(std::string name, std::string p
     if (!foundFrames.empty())
     {
         animations[name] = new Animation(foundFrames, framerate);
+        if (!offsets.count(name))
+        {
+            offsets[name] = raylib::Vector2(0, 0);
+        }
     }
     else
     {
@@ -71,6 +75,10 @@ void funkin::SparrowSprite::playAnimation(std::string name)
 
     currentAnimation = animations[name];
     currentAnimation->currentFrame = 0;
+    if (!offsets.count(name))
+    {
+        offset = offsets[name];
+    }
 }
 
 void funkin::SparrowSprite::update(double delta)
