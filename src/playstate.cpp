@@ -13,13 +13,31 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
     camHUD = new raylib::Camera2D(raylib::Vector2(0, 0), raylib::Vector2(0, 0), 0.0f, 1.0f);
     funkin::Game::cameras.push_back(camHUD);
 
-    funkin::Game::defaultCamera->zoom = 0.45f;
+    funkin::Game::defaultCamera->zoom = 0.575f;
+
+    Sprite *sky = new Sprite(-1250, -900);
+    sky->loadGraphic("assets/images/Fsky.png");
+    add(sky);
+
+    Sprite *ground = new Sprite(-1600, -900);
+    ground->loadGraphic("assets/images/ground.png");
+    add(ground);
+
+    Sprite *banner = new Sprite(-1600, -700);
+    banner->loadGraphic("assets/images/sexcatch.png");
+    add(banner);
+
+    Sprite *beach = new Sprite(-1600, -900);
+    beach->loadGraphic("assets/images/ggg.png");
+    add(beach);
 
     dad = new Character(-550, 0, "defected");
     funkin::Game::defaultCamera->target = dad->position;
+    funkin::Game::defaultCamera->target.x -= 500;
+    funkin::Game::defaultCamera->target.y -= 250;
     add(dad);
 
-    boyfriend = new Character(100, 0, "bf");
+    boyfriend = new Character(100, 250, "bf");
     add(boyfriend);
 
     loadSong(song, difficulty);

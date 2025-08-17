@@ -16,6 +16,9 @@ void funkin::SparrowSprite::loadGraphic(std::string imagePath, std::string xmlPa
 {
     funkin::Sprite::loadGraphic(imagePath);
 
+    if(!raylib::FileExists(xmlPath)){
+        std::cerr << "Could not find XML at path: " << xmlPath << "\n";
+    }
     this->xmlPath = xmlPath;
 }
 
