@@ -104,7 +104,7 @@ void funkin::SparrowSprite::centerOffsets()
 void funkin::SparrowSprite::draw()
 {
 
-    if (currentAnimation != nullptr)
+    if (currentAnimation != nullptr && animations.size() > 0)
     {
         int frame = currentAnimation->currentFrame;
 
@@ -124,5 +124,8 @@ void funkin::SparrowSprite::draw()
         {
             texture->Draw(source, dest, origin, angle, color);
         }
+    }
+    else{
+        funkin::Sprite::draw();
     }
 }
