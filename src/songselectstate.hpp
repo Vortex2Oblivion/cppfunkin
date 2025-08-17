@@ -8,7 +8,7 @@ namespace funkin
     {
     private:
         int selectedSong = 0;
-        std::vector<std::string> songs = {"parasitic", "boxing-match-wg", "bitch"};
+        std::vector<std::string> songs = {"decoded", "parasitic", "boxing-match-wg", "bitch"};
         raylib::Text *songText;
 
     public:

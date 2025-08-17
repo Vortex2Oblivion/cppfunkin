@@ -69,7 +69,7 @@ void funkin::PlayState::loadSong(std::string song, std::string difficulty)
 void funkin::PlayState::update(double delta)
 {
     _conductor->update(delta);
-    while (noteDataIndex < noteDatas.size() - 1 && _conductor->time > noteDatas[noteDataIndex].time - 1.0) {
+    while (noteDataIndex < noteDatas.size() && _conductor->time > noteDatas[noteDataIndex].time - 1.0) {
         NoteData data = noteDatas[noteDataIndex];
         Note *note = new Note(data.time * 1000.0, data.lane, scrollSpeed, strumLineNotes[data.lane + (!data.isPlayer ? 4 : 0)]);
         note->camera = camHUD;
