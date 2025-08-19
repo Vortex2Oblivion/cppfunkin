@@ -1,0 +1,54 @@
+{
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "defected idle",
+            "framerate": 24,
+            "looped": true,
+            "offsets": [
+                0,
+                0
+            ]
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "defected down",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                0,
+                0
+            ]
+        },
+        {
+            "name": "singUP",
+            "prefix": "defected up",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                0,
+                0
+            ]
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "defected right",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                0,
+                0
+            ]
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "defected left",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                0,
+                0
+            ]
+        }
+    ]
+}

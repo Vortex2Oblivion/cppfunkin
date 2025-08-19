@@ -1,0 +1,54 @@
+{
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "BF idle dance",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                -5,
+                0
+            ]
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "BF NOTE DOWN0",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                -20,
+                -51
+            ]
+        },
+        {
+            "name": "singUP",
+            "prefix": "BF NOTE UP0",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                -46,
+                27
+            ]
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "BF NOTE RIGHT0",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                -48,
+                -7
+            ]
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "BF NOTE LEFT0",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                5,
+                -6
+            ]
+        }
+    ]
+}

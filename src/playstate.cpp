@@ -57,6 +57,7 @@ void funkin::PlayState::loadSong(std::string song, std::string difficulty)
     std::string basePath = "assets/songs/" + song + "/";
     std::ifstream chartFile(basePath + difficulty + ".json");
     nlohmann::json parsedChart = nlohmann::json::parse(chartFile);
+    chartFile.close();
     tracks.push_back(new raylib::Music(basePath + "Inst.ogg"));
     tracks.push_back(new raylib::Music(basePath + "Voices.ogg"));
 
