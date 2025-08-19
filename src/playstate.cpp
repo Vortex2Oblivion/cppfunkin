@@ -58,13 +58,13 @@ void funkin::PlayState::loadSong(std::string song, std::string difficulty)
     std::ifstream chartFile(basePath + difficulty + ".json");
     nlohmann::json parsedChart = nlohmann::json::parse(chartFile);
     chartFile.close();
-    tracks.push_back(new raylib::Music(basePath + "Inst.ogg"));
-    tracks.push_back(new raylib::Music(basePath + "Voices.ogg"));
+    bool needsVoices;
 
     generateStaticArrows(false);
     generateStaticArrows(true);
 
     scrollSpeed = parsedChart["song"]["speed"];
+    needsVoices = parsedChart["song"]["needsVoices"];
 
     for (auto sectionNotes : parsedChart["song"]["notes"])
     {
@@ -80,11 +80,19 @@ void funkin::PlayState::loadSong(std::string song, std::string difficulty)
         }
     }
 
+    tracks.push_back(new raylib::Music(basePath + "Inst.ogg"));
+    if (needsVoices)
+    {
+        tracks.push_back(new raylib::Music(basePath + "Voices.ogg"));
+    }
+
     std::sort(noteDatas.begin(), noteDatas.end(), noteDataSorter);
 
     _conductor = new Conductor(tracks);
-    tracks[0]->Play();
-    tracks[1]->Play();
+    for (auto track : tracks)
+    {
+        track->Play();
+    }
 }
 
 void funkin::PlayState::update(double delta)
