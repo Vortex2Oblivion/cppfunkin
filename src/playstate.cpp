@@ -13,34 +13,36 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
     camHUD = new raylib::Camera2D(raylib::Vector2(0, 0), raylib::Vector2(0, 0), 0.0f, 1.0f);
     funkin::Game::cameras.push_back(camHUD);
 
-    funkin::Game::defaultCamera->zoom = 0.575f;
+    loadSong(song, difficulty);
 
-    Sprite *sky = new Sprite(-1250, -900);
-    sky->loadGraphic("assets/images/Fsky.png");
-    add(sky);
+    std::string stagePath = "assets/stages/" + curStage + "/";
+    std::ifstream stageFile(stagePath + "stage.json");
+    nlohmann::json parsedStage = nlohmann::json::parse(stageFile);
+    stageFile.close();
 
-    Sprite *ground = new Sprite(-1600, -900);
-    ground->loadGraphic("assets/images/ground.png");
-    add(ground);
+    
+    for (auto objects : parsedStage["objects"])
+    {
+        Sprite *object = new Sprite(objects["position"][0], objects["position"][1]);
+        object->loadGraphic(stagePath + (std::string)objects["file"] + ".png");
+        if (objects.count("scale"))
+        {
+            object->scale.x = objects["scale"][0];
+            object->scale.y = objects["scale"][1];
+        }
+        add(object);
+    }
 
-    Sprite *banner = new Sprite(-1600, -700);
-    banner->loadGraphic("assets/images/sexcatch.png");
-    add(banner);
+    funkin::Game::defaultCamera->zoom = parsedStage["zoom"];
 
-    Sprite *beach = new Sprite(-1600, -900);
-    beach->loadGraphic("assets/images/ggg.png");
-    add(beach);
-
-    dad = new Character(-550, 0, "defected");
-    funkin::Game::defaultCamera->target = dad->position;
-    funkin::Game::defaultCamera->target.x -= 500;
-    funkin::Game::defaultCamera->target.y -= 250;
+    dad = new Character(parsedStage["characters"]["dad"]["x"], parsedStage["characters"]["dad"]["y"], player2);
     add(dad);
 
-    boyfriend = new Character(100, 250, "bf");
+    boyfriend = new Character(parsedStage["characters"]["bf"]["x"], parsedStage["characters"]["bf"]["y"], player1);
     add(boyfriend);
 
-    loadSong(song, difficulty);
+    funkin::Game::defaultCamera->target.x = dad->position.x;
+    funkin::Game::defaultCamera->target.y = dad->position.y;
 }
 
 funkin::PlayState::~PlayState()
@@ -65,6 +67,9 @@ void funkin::PlayState::loadSong(std::string song, std::string difficulty)
 
     scrollSpeed = parsedChart["song"]["speed"];
     needsVoices = parsedChart["song"]["needsVoices"];
+    curStage = parsedChart["song"]["stage"];
+    player1 = parsedChart["song"]["player1"];
+    player2 = parsedChart["song"]["player2"];
 
     for (auto sectionNotes : parsedChart["song"]["notes"])
     {

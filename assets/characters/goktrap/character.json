@@ -1,0 +1,59 @@
+{
+    "globalOffset": [
+        0,
+        0
+    ],
+    "scale": 1.6,
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "IDLE",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                0,
+                0
+            ]
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "DOWN",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                140,
+                0
+            ]
+        },
+        {
+            "name": "singUP",
+            "prefix": "UP",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                -30,
+                50
+            ]
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "RIGHT",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                -40,
+                -40
+            ]
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "LEFT",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                170,
+                -50
+            ]
+        }
+    ]
+}

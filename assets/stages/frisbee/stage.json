@@ -1,0 +1,43 @@
+{
+    "objects": [
+        {
+            "file": "Fsky",
+            "position": [
+                0,
+                0
+            ]
+        },
+        {
+            "file": "ground",
+            "position": [
+                0,
+                0
+            ]
+        },
+        {
+            "file": "sexcatch",
+            "position": [
+                0,
+                0
+            ]
+        },
+        {
+            "file": "ggg",
+            "position": [
+                0,
+                0
+            ]
+        }
+    ],
+    "zoom": 0.575,
+    "characters": {
+        "bf": {
+            "x": 1300,
+            "y": 550
+        },
+        "dad": {
+            "x": 550,
+            "y": 550
+        }
+    }
+}

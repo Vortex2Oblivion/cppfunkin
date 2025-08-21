@@ -1,0 +1,26 @@
+{
+    "objects": [
+        {
+            "file": "goktrapbg",
+            "position": [
+                -300,
+                -450
+            ],
+            "scale": [
+                2.5,
+                2.5
+            ]
+        }
+    ],
+    "zoom": 1,
+    "characters": {
+        "bf": {
+            "x": 700,
+            "y": 0
+        },
+        "dad": {
+            "x": 100,
+            "y": 0
+        }
+    }
+}

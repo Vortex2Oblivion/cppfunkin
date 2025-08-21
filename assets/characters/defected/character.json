@@ -1,4 +1,6 @@
 {
+    "globalOffset": [0, -500],
+    "scale": 1.0,
     "animations": [
         {
             "name": "idle",

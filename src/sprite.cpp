@@ -44,6 +44,8 @@ void funkin::Sprite::draw()
 
     dest.x = (texture->width / 2) + position.x + offset.x;
     dest.y = (texture->height / 2) + position.y + offset.y;
+    dest.width = (float)(texture->width) * scale.x;
+    dest.height = (float)(texture->height) * scale.y;
     if (isOnScreen())
     {
         texture->Draw(source, dest, origin, angle, color);

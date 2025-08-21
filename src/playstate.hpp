@@ -36,5 +36,8 @@ namespace funkin
         Character *boyfriend;
         Character *dad;
         raylib::Camera2D *camHUD;
+        std::string curStage = "stage";
+        std::string player1 = "bf";
+        std::string player2 = "dad";
     };
 }
