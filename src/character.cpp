@@ -7,6 +7,11 @@ funkin::Character::Character(double x, double y, std::string characterName) : Sp
 
     std::string characterBasePath = "assets/characters/" + characterName;
     std::ifstream characterFile(characterBasePath + "/character.json");
+    if (characterFile.fail()) {
+        characterBasePath = "assets/characters/bf";
+        characterFile = std::ifstream(characterBasePath + "/character.json");
+    }
+
     nlohmann::json parsedCharacter = nlohmann::json::parse(characterFile);
     characterFile.close();
 

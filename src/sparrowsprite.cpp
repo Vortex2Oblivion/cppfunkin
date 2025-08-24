@@ -77,7 +77,7 @@ void funkin::SparrowSprite::playAnimation(std::string name)
     }
 
     currentAnimation = animations[name];
-    currentAnimation->currentFrame = 0;
+    currentAnimation->resetFrame();
     if (offsets.count(name))
     {
         animationOffset = offsets[name];

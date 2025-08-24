@@ -14,13 +14,18 @@ funkin::Animation::~Animation()
 
 void funkin::Animation::update(double delta)
 {
-    frameCounter++;
+    frameTimer += delta;
 
-    if (frameCounter >= (GetFPS() / framerate))
+    while (frameTimer >= 1.0 / (double)framerate)
     {
-        frameCounter = 0;
+        frameTimer -= 1.0 / (double)framerate;
         if(currentFrame + 1 < frames.size()){
             currentFrame++;
         }
     }
+}
+
+void funkin::Animation::resetFrame(void) {
+    currentFrame = 0;
+    frameTimer = 0.0;
 }

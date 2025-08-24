@@ -7,7 +7,7 @@ namespace funkin
     class Animation
     {
     private:
-        int frameCounter = 0;
+        double frameTimer = 0.0;
 
     public:
         Animation(std::vector<funkin::Frame *> frames, int framerate);
@@ -16,6 +16,7 @@ namespace funkin
         int framerate = 24;
         int currentFrame = 0;
         void update(double delta);
+        void resetFrame(void);
     };
 
 }

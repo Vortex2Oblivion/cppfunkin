@@ -15,30 +15,33 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
 
     loadSong(song, difficulty);
 
+    dad = new Character(0, 0, player2);
+    boyfriend = new Character(400, 0, player1);
+
     std::string stagePath = "assets/stages/" + curStage + "/";
     std::ifstream stageFile(stagePath + "stage.json");
-    nlohmann::json parsedStage = nlohmann::json::parse(stageFile);
-    stageFile.close();
-
-    
-    for (auto objects : parsedStage["objects"])
-    {
-        Sprite *object = new Sprite(objects["position"][0], objects["position"][1]);
-        object->loadGraphic(stagePath + (std::string)objects["file"] + ".png");
-        if (objects.count("scale"))
+    if (!stageFile.fail()) {
+        nlohmann::json parsedStage = nlohmann::json::parse(stageFile);
+        stageFile.close();
+        
+        for (auto objects : parsedStage["objects"])
         {
-            object->scale.x = objects["scale"][0];
-            object->scale.y = objects["scale"][1];
+            Sprite *object = new Sprite(objects["position"][0], objects["position"][1]);
+            object->loadGraphic(stagePath + (std::string)objects["file"] + ".png");
+            if (objects.count("scale"))
+            {
+                object->scale.x = objects["scale"][0];
+                object->scale.y = objects["scale"][1];
+            }
+            add(object);
         }
-        add(object);
+
+        funkin::Game::defaultCamera->zoom = parsedStage["zoom"];
+        dad->position = raylib::Vector2(parsedStage["characters"]["dad"]["x"], parsedStage["characters"]["dad"]["y"]);
+        boyfriend->position = raylib::Vector2(parsedStage["characters"]["bf"]["x"], parsedStage["characters"]["bf"]["y"]);
     }
 
-    funkin::Game::defaultCamera->zoom = parsedStage["zoom"];
-
-    dad = new Character(parsedStage["characters"]["dad"]["x"], parsedStage["characters"]["dad"]["y"], player2);
     add(dad);
-
-    boyfriend = new Character(parsedStage["characters"]["bf"]["x"], parsedStage["characters"]["bf"]["y"], player1);
     add(boyfriend);
 
     funkin::Game::defaultCamera->target.x = dad->position.x;
@@ -59,11 +62,10 @@ void funkin::PlayState::loadSong(std::string song, std::string difficulty)
     std::string basePath = "assets/songs/" + song + "/";
     std::ifstream chartFile(basePath + difficulty + ".json");
     nlohmann::json parsedChart = nlohmann::json::parse(chartFile);
-    chartFile.close();
     bool needsVoices;
 
-    generateStaticArrows(false);
     generateStaticArrows(true);
+    generateStaticArrows(false);
 
     scrollSpeed = parsedChart["song"]["speed"];
     needsVoices = parsedChart["song"]["needsVoices"];
@@ -98,6 +100,8 @@ void funkin::PlayState::loadSong(std::string song, std::string difficulty)
     {
         track->Play();
     }
+
+    chartFile.close();
 }
 
 void funkin::PlayState::update(double delta)
@@ -144,8 +148,17 @@ void funkin::PlayState::update(double delta)
     // thanks for helping my dumbass with this rudy
     float closestDistance = INFINITY;
 
+    pressedArray = {IsKeyDown(KEY_D), IsKeyDown(KEY_F), IsKeyDown(KEY_J), IsKeyDown(KEY_K)};
     justHitArray = {IsKeyPressed(KEY_D), IsKeyPressed(KEY_F), IsKeyPressed(KEY_J), IsKeyPressed(KEY_K)};
     std::vector<std::string> singAnimArray = {"singLEFT", "singDOWN", "singUP", "singRIGHT"};
+
+    for (int lane = 0; lane < justHitArray.size(); lane++) {
+        if (justHitArray[lane]) {
+            strumLineNotes[lane]->playAnimation("press");
+            strumLineNotes[lane]->offset = strumLineNotes[lane]->offset.Scale(0.0f);
+        }
+    }
+
     for (auto note : notes)
     {
         if (note == nullptr || !note->alive)
@@ -208,10 +221,16 @@ void funkin::PlayState::update(double delta)
 
     for (auto strum : strumLineNotes)
     {
-        if (strum->currentAnimation->currentFrame >= strum->currentAnimation->frames.size() - 1)
-        {
-            strum->playAnimation("static");
-            strum->offset.x = strum->offset.y = 0.0;
+        if (strum->player) {
+            if (!pressedArray[strum->lane]) {
+                strum->playAnimation("static");
+                strum->offset.x = strum->offset.y = 0.0;
+            }
+        } else {
+            if (strum->currentAnimation->currentFrame >= strum->currentAnimation->frames.size() - 1) {
+                strum->playAnimation("static");
+                strum->offset.x = strum->offset.y = 0.0;
+            }
         }
     }
 }

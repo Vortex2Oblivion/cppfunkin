@@ -12,12 +12,15 @@ int main()
 
     funkin::Game::start(new funkin::SongSelectState());
 
+    raylib::Text fpsCounter("0 FPS", 20.0f, GREEN, GetFontDefault(), 2.0f);
+
     while (!window.ShouldClose())
     {
         window.BeginDrawing();
         window.ClearBackground(BLACK);
         funkin::Game::update(window.GetFrameTime());
-        window.DrawFPS();
+        fpsCounter.SetText(TextFormat("%d FPS", ::GetFPS()));
+        fpsCounter.Draw(10, 10);
         window.EndDrawing();
     }
 
