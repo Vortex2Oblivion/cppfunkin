@@ -84,7 +84,7 @@ void funkin::PlayState::loadSong(std::string song, std::string difficulty)
             bool playerNote = (sectionNote[1] < 4) ? (bool)(sectionNotes["mustHitSection"]) : (!sectionNotes["mustHitSection"]);
             int lane = ((int)sectionNote[1] % 4) + (playerNote ? 0 : 4);
             noteDatas.push_back(NoteData{
-                sectionNote[0] / 1000.0f, // time
+                (float)sectionNote[0] / 1000.0f, // time
                 lane % 4,                        // lane
                 playerNote,                      // isPlayer
             });

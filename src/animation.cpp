@@ -1,7 +1,7 @@
 #include "animation.hpp"
 #include <iostream>
 
-funkin::Animation::Animation(std::vector<funkin::Frame *> frames, int framerate)
+funkin::Animation::Animation(std::vector<funkin::Frame *> frames, uint8_t framerate)
 {
     this->frames = frames;
     this->framerate = framerate;

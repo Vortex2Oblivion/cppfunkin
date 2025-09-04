@@ -23,8 +23,8 @@ funkin::Character::Character(float x, float y, std::string characterName) : Spar
 
     if (parsedCharacter.count("globalOffset"))
     {
-        position.x += parsedCharacter["globalOffset"][0];
-        position.y += parsedCharacter["globalOffset"][1];
+        position.x += (float)parsedCharacter["globalOffset"][0];
+        position.y += (float)parsedCharacter["globalOffset"][1];
     }
 
     loadGraphic(characterBasePath + "/spritesheet.png", characterBasePath + "/spritesheet.xml");

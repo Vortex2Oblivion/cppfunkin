@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+#include <cstdint>
+
 #include "frame.hpp"
 
 namespace funkin
@@ -10,7 +12,7 @@ namespace funkin
         float frameTimer = 0.0;
 
     public:
-        Animation(std::vector<funkin::Frame *> frames, int framerate);
+        Animation(std::vector<funkin::Frame *> frames, uint8_t framerate);
         ~Animation();
         std::vector<funkin::Frame *> frames = {};
         uint8_t framerate = 24;
