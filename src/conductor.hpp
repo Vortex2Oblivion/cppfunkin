@@ -27,6 +27,7 @@ namespace funkin
         void start();
         void update(float delta);
 
+        int getBeat();
         int getStep();
         float getCrochet();
         float getStepCrochet();

@@ -23,7 +23,6 @@ namespace funkin
         std::vector<bool> pressedArray = {false, false, false, false};
         std::vector<NoteData> noteDatas;
         size_t noteDataIndex = 0;
-        float scrollSpeed = 1.0;
 
     public:
         PlayState(std::string song, std::string difficulty);
@@ -41,5 +40,7 @@ namespace funkin
         std::string curStage = "stage";
         std::string player1 = "bf";
         std::string player2 = "dad";
+        float scrollSpeed = 1.0f;
+        float defaultCameraZoom = 1.0f;
     };
 }

@@ -11,5 +11,6 @@ namespace funkin
     public:
         Character(float x, float y, std::string charName);
         ~Character();
+        void dance();
     };
 }

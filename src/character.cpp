@@ -7,7 +7,8 @@ funkin::Character::Character(float x, float y, std::string characterName) : Spar
 
     std::string characterBasePath = "assets/characters/" + characterName;
     std::ifstream characterFile(characterBasePath + "/character.json");
-    if (characterFile.fail()) {
+    if (characterFile.fail())
+    {
         characterBasePath = "assets/characters/bf";
         characterFile = std::ifstream(characterBasePath + "/character.json");
     }
@@ -44,4 +45,13 @@ funkin::Character::Character(float x, float y, std::string characterName) : Spar
 
 funkin::Character::~Character()
 {
+}
+
+void funkin::Character::dance()
+{
+    if (!currentAnimation->isFinished())
+    {
+        return;
+    }
+    playAnimation("idle");
 }

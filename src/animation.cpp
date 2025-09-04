@@ -19,13 +19,20 @@ void funkin::Animation::update(float delta)
     while (frameTimer >= 1.0f / framerate)
     {
         frameTimer -= 1.0f / framerate;
-        if(currentFrame + 1 < frames.size()){
+        if (currentFrame + 1 < frames.size())
+        {
             currentFrame++;
         }
     }
 }
 
-void funkin::Animation::resetFrame(void) {
+void funkin::Animation::resetFrame()
+{
     currentFrame = 0;
     frameTimer = 0.0;
+}
+
+bool funkin::Animation::isFinished()
+{
+    return currentFrame + 1 >= frames.size();
 }

@@ -16,6 +16,7 @@ funkin::Note::Note(float strumTime, int lane, float speed, StrumNote *strum) : S
     playAnimation("default");
     scale.x = 0.7f;
     scale.y = 0.7f;
+    position.y += 2000;
 }
 
 funkin::Note::~Note()

@@ -1,0 +1,47 @@
+{
+    "objects": [
+        {
+            "file": "stageback",
+            "position": [
+                -600,
+                -200
+            ],
+            "scale": [
+                1,
+                1
+            ]
+        },
+        {
+            "file": "stagefront",
+            "position": [
+                -650,
+                600
+            ],
+            "scale": [
+                1.1,
+                1.1
+            ]
+        },
+        {
+            "file": "stagecurtains",
+            "position": [
+                -500, -300
+            ],
+            "scale": [
+                0.9,
+                0.9
+            ]
+        }
+    ],
+    "zoom": 1.1,
+    "characters": {
+        "bf": {
+            "x": 770,
+            "y": 100
+        },
+        "dad": {
+            "x": 100,
+            "y": 100
+        }
+    }
+}

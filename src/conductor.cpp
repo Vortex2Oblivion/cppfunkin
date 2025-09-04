@@ -69,6 +69,11 @@ void funkin::Conductor::update(float delta)
     }
 }
 
+int funkin::Conductor::getBeat()
+{
+    return beat;
+}
+
 int funkin::Conductor::getStep()
 {
     return step;

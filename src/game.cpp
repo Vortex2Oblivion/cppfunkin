@@ -2,7 +2,7 @@
 #include <iostream>
 
 funkin::State *funkin::Game::_state = nullptr;
-raylib::Camera2D *funkin::Game::defaultCamera = new raylib::Camera2D(raylib::Vector2(0, 0), raylib::Vector2(0, 0), 0.0f, 1.0f);
+raylib::Camera2D *funkin::Game::defaultCamera = new raylib::Camera2D(raylib::Vector2(), raylib::Vector2(0, 0), 0.0f, 1.0f);
 std::vector<raylib::Camera2D *> funkin::Game::cameras = {funkin::Game::defaultCamera};
 
 void funkin::Game::start(State *initialState)

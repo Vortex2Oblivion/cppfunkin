@@ -6,6 +6,7 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 #include <iostream>
+#include <raymath.hpp>
 #include "game.hpp"
 
 funkin::PlayState::PlayState(std::string song, std::string difficulty)
@@ -37,11 +38,12 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
             add(object);
         }
 
-        funkin::Game::defaultCamera->zoom = parsedStage["zoom"];
+        defaultCameraZoom = funkin::Game::defaultCamera->zoom = parsedStage["zoom"];
         dad->position += raylib::Vector2(parsedStage["characters"]["dad"]["x"], parsedStage["characters"]["dad"]["y"]);
         boyfriend->position += raylib::Vector2(parsedStage["characters"]["bf"]["x"], parsedStage["characters"]["bf"]["y"]);
     }
-    else{
+    else
+    {
         boyfriend->position.x = 400;
     }
 
@@ -107,8 +109,16 @@ void funkin::PlayState::loadSong(std::string song, std::string difficulty)
 void funkin::PlayState::beatHit()
 {
     funkin::MusicBeatState::beatHit();
-    dad->playAnimation("idle");
-    boyfriend->playAnimation("idle");
+    dad->dance();
+    boyfriend->dance();
+    if (conductor->getBeat() % 4 == 0)
+    {
+        if (funkin::Game::defaultCamera->zoom < 1.35f)
+        {
+            funkin::Game::defaultCamera->zoom += 0.015f;
+            camHUD->zoom += 0.03f;
+        }
+    }
 }
 
 void funkin::PlayState::update(float delta)
@@ -239,6 +249,9 @@ void funkin::PlayState::update(float delta)
             }
         }
     }
+
+    funkin::Game::defaultCamera->zoom = Lerp(defaultCameraZoom, funkin::Game::defaultCamera->zoom, exp(-delta * 3.125));
+    camHUD->zoom = Lerp(1, camHUD->zoom, exp(-delta * 3.125));
 }
 
 void funkin::PlayState::generateStaticArrows(bool player)
