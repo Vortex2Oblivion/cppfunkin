@@ -18,6 +18,7 @@ namespace funkin
     class PlayState : public MusicBeatState
     {
     private:
+        const std::vector<std::string> singAnimArray = {"singLEFT", "singDOWN", "singUP", "singRIGHT"};
         std::vector<bool> justHitArray = {false, false, false, false};
         std::vector<bool> pressedArray = {false, false, false, false};
         std::vector<NoteData> noteDatas;

@@ -16,7 +16,7 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
     loadSong(song, difficulty);
 
     dad = new Character(0, 0, player2);
-    boyfriend = new Character(400, 0, player1);
+    boyfriend = new Character(0, 0, player1);
 
     std::string stagePath = "assets/stages/" + curStage + "/";
     std::ifstream stageFile(stagePath + "stage.json");
@@ -38,8 +38,11 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
         }
 
         funkin::Game::defaultCamera->zoom = parsedStage["zoom"];
-        dad->position = raylib::Vector2(parsedStage["characters"]["dad"]["x"], parsedStage["characters"]["dad"]["y"]);
-        boyfriend->position = raylib::Vector2(parsedStage["characters"]["bf"]["x"], parsedStage["characters"]["bf"]["y"]);
+        dad->position += raylib::Vector2(parsedStage["characters"]["dad"]["x"], parsedStage["characters"]["dad"]["y"]);
+        boyfriend->position += raylib::Vector2(parsedStage["characters"]["bf"]["x"], parsedStage["characters"]["bf"]["y"]);
+    }
+    else{
+        boyfriend->position.x = 400;
     }
 
     add(dad);
@@ -147,7 +150,6 @@ void funkin::PlayState::update(float delta)
 
     pressedArray = {IsKeyDown(KEY_D), IsKeyDown(KEY_F), IsKeyDown(KEY_J), IsKeyDown(KEY_K)};
     justHitArray = {IsKeyPressed(KEY_D), IsKeyPressed(KEY_F), IsKeyPressed(KEY_J), IsKeyPressed(KEY_K)};
-    std::vector<std::string> singAnimArray = {"singLEFT", "singDOWN", "singUP", "singRIGHT"};
 
     for (size_t lane = 0; lane < justHitArray.size(); lane++)
     {
