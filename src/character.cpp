@@ -15,7 +15,7 @@ funkin::Character::Character(double x, double y, std::string characterName) : Sp
     nlohmann::json parsedCharacter = nlohmann::json::parse(characterFile);
     characterFile.close();
 
-    double scale = 1;
+    float scale = 1.0f;
     if (parsedCharacter.count("scale"))
     {
         scale = parsedCharacter["scale"];

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "state.hpp"
+#include "musicbeatstate.hpp"
 #include "conductor.hpp"
 #include "note.hpp"
 #include "sparrowsprite.hpp"
@@ -15,10 +15,9 @@ namespace funkin
         bool isPlayer;
     };
 
-    class PlayState : public State
+    class PlayState : public MusicBeatState
     {
     private:
-        Conductor *_conductor;
         std::vector<bool> justHitArray = {false, false, false, false};
         std::vector<bool> pressedArray = {false, false, false, false};
         std::vector<NoteData> noteDatas;
@@ -31,6 +30,7 @@ namespace funkin
         void generateStaticArrows(bool player);
         void loadSong(std::string song, std::string difficulty);
         void update(double delta);
+        void beatHit();
         std::vector<raylib::Music *> tracks = {};
         std::vector<Note *> notes = {};
         std::vector<StrumNote *> strumLineNotes = {};

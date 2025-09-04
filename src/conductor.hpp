@@ -9,9 +9,9 @@ namespace funkin
     class Conductor
     {
     private:
-        float lastAudioTime = 0.0f;
-        int step;
-        int beat;
+        double lastAudioTime = 0;
+        int step = 0;
+        int beat = 0;
 
         void updateStep();
         void updateBeat();
@@ -20,8 +20,11 @@ namespace funkin
         void beatHit();
 
     public:
+        Conductor();
         Conductor(std::vector<raylib::Music *> tracks);
         ~Conductor();
+        void start(std::vector<raylib::Music *> tracks);
+        void start();
         void update(double delta);
 
         int getStep();
@@ -29,7 +32,7 @@ namespace funkin
         double getStepCrochet();
 
         std::vector<raylib::Music *> tracks;
-        double time;
-        double bpm;
+        double time = 0.0;
+        double bpm = 60.0;
     };
 }

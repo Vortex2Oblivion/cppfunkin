@@ -20,10 +20,11 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
 
     std::string stagePath = "assets/stages/" + curStage + "/";
     std::ifstream stageFile(stagePath + "stage.json");
-    if (!stageFile.fail()) {
+    if (!stageFile.fail())
+    {
         nlohmann::json parsedStage = nlohmann::json::parse(stageFile);
         stageFile.close();
-        
+
         for (auto objects : parsedStage["objects"])
         {
             Sprite *object = new Sprite(objects["position"][0], objects["position"][1]);
@@ -95,19 +96,22 @@ void funkin::PlayState::loadSong(std::string song, std::string difficulty)
 
     std::sort(noteDatas.begin(), noteDatas.end(), noteDataSorter);
 
-    _conductor = new Conductor(tracks);
-    for (auto track : tracks)
-    {
-        track->Play();
-    }
+    conductor->start(tracks);
 
     chartFile.close();
 }
 
+void funkin::PlayState::beatHit()
+{
+    funkin::MusicBeatState::beatHit();
+    dad->playAnimation("idle");
+    boyfriend->playAnimation("idle");
+}
+
 void funkin::PlayState::update(double delta)
 {
-    _conductor->update(delta);
-    while (noteDataIndex < noteDatas.size() && _conductor->time > noteDatas[noteDataIndex].time - 1.0)
+    MusicBeatState::update(delta);
+    while (noteDataIndex < noteDatas.size() && conductor->time > noteDatas[noteDataIndex].time - 1.0)
     {
         NoteData data = noteDatas[noteDataIndex];
         Note *note = new Note(data.time * 1000.0, data.lane, scrollSpeed, strumLineNotes[data.lane + (!data.isPlayer ? 4 : 0)]);
@@ -118,13 +122,6 @@ void funkin::PlayState::update(double delta)
         noteDataIndex++;
     }
 
-    State::update(delta);
-
-    if (IsKeyPressed(KEY_SPACE))
-    {
-        dad->playAnimation("idle");
-    }
-
     std::vector<Note *> notesToDelete;
     for (auto note : notes)
     {
@@ -133,14 +130,14 @@ void funkin::PlayState::update(double delta)
             continue;
         }
 
-        if (_conductor->time * 1000.0 > note->strumTime + 180.0)
+        if (conductor->time * 1000.0 > note->strumTime + 180.0)
         {
             notesToDelete.push_back(note);
             note->alive = false;
         }
         else
         {
-            note->songPos = _conductor->time;
+            note->songPos = conductor->time;
         }
     }
 
@@ -152,8 +149,10 @@ void funkin::PlayState::update(double delta)
     justHitArray = {IsKeyPressed(KEY_D), IsKeyPressed(KEY_F), IsKeyPressed(KEY_J), IsKeyPressed(KEY_K)};
     std::vector<std::string> singAnimArray = {"singLEFT", "singDOWN", "singUP", "singRIGHT"};
 
-    for (int lane = 0; lane < justHitArray.size(); lane++) {
-        if (justHitArray[lane]) {
+    for (size_t lane = 0; lane < justHitArray.size(); lane++)
+    {
+        if (justHitArray[lane])
+        {
             strumLineNotes[lane]->playAnimation("press");
             strumLineNotes[lane]->offset = strumLineNotes[lane]->offset.Scale(0.0f);
         }
@@ -173,7 +172,7 @@ void funkin::PlayState::update(double delta)
         {
             minHitTime = 0;
         }
-        if (note->strumTime < (_conductor->time * 1000 + minHitTime) && note->strumTime > (_conductor->time * 1000 - maxHitTime))
+        if (note->strumTime < (conductor->time * 1000 + minHitTime) && note->strumTime > (conductor->time * 1000 - maxHitTime))
         {
             hittable = true;
         }
@@ -181,7 +180,7 @@ void funkin::PlayState::update(double delta)
         {
             continue;
         }
-        double rawHitTime = note->strumTime - _conductor->time * 1000;
+        double rawHitTime = note->strumTime - conductor->time * 1000;
         double distance = abs(rawHitTime);
         if (distance < closestDistance)
         {
@@ -221,13 +220,18 @@ void funkin::PlayState::update(double delta)
 
     for (auto strum : strumLineNotes)
     {
-        if (strum->player) {
-            if (!pressedArray[strum->lane]) {
+        if (strum->player)
+        {
+            if (!pressedArray[strum->lane])
+            {
                 strum->playAnimation("static");
                 strum->offset.x = strum->offset.y = 0.0;
             }
-        } else {
-            if (strum->currentAnimation->currentFrame >= strum->currentAnimation->frames.size() - 1) {
+        }
+        else
+        {
+            if (strum->currentAnimation->currentFrame >= strum->currentAnimation->frames.size() - 1)
+            {
                 strum->playAnimation("static");
                 strum->offset.x = strum->offset.y = 0.0;
             }

@@ -4,7 +4,10 @@
 
 #include "conductor.hpp"
 
-
+funkin::Conductor::Conductor()
+{
+    this->tracks = {};
+}
 
 funkin::Conductor::Conductor(std::vector<raylib::Music *> tracks)
 {
@@ -13,11 +16,39 @@ funkin::Conductor::Conductor(std::vector<raylib::Music *> tracks)
 
 funkin::Conductor::~Conductor()
 {
+    if (tracks.empty())
+    {
+        return;
+    }
+    for (auto track : tracks)
+    {
+        track->Stop();
+        delete track;
+    }
+}
+
+void funkin::Conductor::start(std::vector<raylib::Music *> tracks)
+{
+    this->tracks = tracks;
+    start();
+}
+
+void funkin::Conductor::start()
+{
+    if (tracks.empty())
+    {
+        return;
+    }
+    for (auto track : tracks)
+    {
+        track->Play();
+    }
 }
 
 void funkin::Conductor::update(double delta)
 {
-    if (!tracks.empty()) {
+    if (!tracks.empty())
+    {
         auto track = tracks[0];
         if (track->GetTimePlayed() != lastAudioTime)
         {
@@ -56,14 +87,14 @@ double funkin::Conductor::getStepCrochet()
 
 void funkin::Conductor::updateStep()
 {
-    step = floor(time / getStepCrochet());
+    step = (int)(time / getStepCrochet());
+    std::cout << step << "\n";
 }
 
 void funkin::Conductor::updateBeat()
 {
-    beat = floor(step / 4);
+    beat = (int)(step / 4);
 }
-
 void funkin::Conductor::stepHit()
 {
     if (step % 4 == 0)
