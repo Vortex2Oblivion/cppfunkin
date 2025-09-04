@@ -11,7 +11,7 @@
 
 funkin::PlayState::PlayState(std::string song, std::string difficulty)
 {
-    camHUD = new raylib::Camera2D(raylib::Vector2(0, 0), raylib::Vector2(0, 0), 0.0f, 1.0f);
+    camHUD = new raylib::Camera2D(raylib::Vector2(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f), raylib::Vector2(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f), 0.0f, 1.0f);
     funkin::Game::cameras.push_back(camHUD);
 
     loadSong(song, difficulty);
