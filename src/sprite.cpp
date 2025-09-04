@@ -3,7 +3,7 @@
 
 std::map<std::string, raylib::Texture *> funkin::Sprite::texturePool;
 
-funkin::Sprite::Sprite(double x, double y) : Object(x, y)
+funkin::Sprite::Sprite(float x, float y) : Object(x, y)
 {
 }
 
@@ -34,7 +34,7 @@ void funkin::Sprite::loadGraphic(std::string path)
     color = WHITE;
 }
 
-void funkin::Sprite::update(double delta)
+void funkin::Sprite::update(float delta)
 {
 }
 

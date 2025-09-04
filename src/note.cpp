@@ -3,7 +3,7 @@
 #include "note.hpp"
 #include "strumnote.hpp"
 
-funkin::Note::Note(double strumTime, int lane, double speed, StrumNote *strum) : SparrowSprite(0, 0)
+funkin::Note::Note(float strumTime, int lane, float speed, StrumNote *strum) : SparrowSprite(0, 0)
 {
     this->strumTime = strumTime;
     this->lane = lane;
@@ -14,17 +14,17 @@ funkin::Note::Note(double strumTime, int lane, double speed, StrumNote *strum) :
     loadGraphic("assets/images/notes.png", "assets/images/notes.xml");
     addAnimationByPrefix("default", directions[lane % 4] + " instance", 24);
     playAnimation("default");
-    scale.x = 0.7;
-    scale.y = 0.7;
+    scale.x = 0.7f;
+    scale.y = 0.7f;
 }
 
 funkin::Note::~Note()
 {
 }
 
-void funkin::Note::update(double delta)
+void funkin::Note::update(float delta)
 {
     SparrowSprite::update(delta);
     position.x = strum->position.x;
-    position.y = 50 + -0.45 * (songPos * 1000 - strumTime) * speed;
+    position.y = 50 + -0.45f * (songPos * 1000 - strumTime) * speed;
 }

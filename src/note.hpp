@@ -11,14 +11,14 @@ namespace funkin
         StrumNote *strum;
 
     public:
-        Note(double strumTime, int lane, double speed, StrumNote *strum);
+        Note(float strumTime, int lane, float speed, StrumNote *strum);
         virtual ~Note();
-        virtual void update(double delta);
+        virtual void update(float delta);
 
-        double strumTime;
+        float strumTime;
         int lane;
-        double speed;
-        double songPos;
+        float speed;
+        float songPos;
 
         bool canBeHit;
         bool isPlayer;

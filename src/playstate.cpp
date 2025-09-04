@@ -81,7 +81,7 @@ void funkin::PlayState::loadSong(std::string song, std::string difficulty)
             bool playerNote = (sectionNote[1] < 4) ? (bool)(sectionNotes["mustHitSection"]) : (!sectionNotes["mustHitSection"]);
             int lane = ((int)sectionNote[1] % 4) + (playerNote ? 0 : 4);
             noteDatas.push_back(NoteData{
-                double(sectionNote[0]) / 1000.0, // time
+                sectionNote[0] / 1000.0f, // time
                 lane % 4,                        // lane
                 playerNote,                      // isPlayer
             });
@@ -108,13 +108,13 @@ void funkin::PlayState::beatHit()
     boyfriend->playAnimation("idle");
 }
 
-void funkin::PlayState::update(double delta)
+void funkin::PlayState::update(float delta)
 {
     MusicBeatState::update(delta);
-    while (noteDataIndex < noteDatas.size() && conductor->time > noteDatas[noteDataIndex].time - 1.0)
+    while (noteDataIndex < noteDatas.size() && conductor->time >= noteDatas[noteDataIndex].time - 1.0)
     {
         NoteData data = noteDatas[noteDataIndex];
-        Note *note = new Note(data.time * 1000.0, data.lane, scrollSpeed, strumLineNotes[data.lane + (!data.isPlayer ? 4 : 0)]);
+        Note *note = new Note(data.time * 1000.0f, data.lane, scrollSpeed, strumLineNotes[data.lane + (!data.isPlayer ? 4 : 0)]);
         note->camera = camHUD;
         note->isPlayer = data.isPlayer;
         notes.push_back(note);
@@ -180,8 +180,8 @@ void funkin::PlayState::update(double delta)
         {
             continue;
         }
-        double rawHitTime = note->strumTime - conductor->time * 1000;
-        double distance = abs(rawHitTime);
+        float rawHitTime = note->strumTime - conductor->time * 1000.f;
+        float distance = abs(rawHitTime);
         if (distance < closestDistance)
         {
             closestDistance = distance;

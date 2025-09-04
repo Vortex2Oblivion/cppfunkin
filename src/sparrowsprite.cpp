@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cstring>
 
-funkin::SparrowSprite::SparrowSprite(double x, double y) : Sprite(x, y)
+funkin::SparrowSprite::SparrowSprite(float x, float y) : Sprite(x, y)
 {
 }
 
@@ -84,7 +84,7 @@ void funkin::SparrowSprite::playAnimation(std::string name)
     }
 }
 
-void funkin::SparrowSprite::update(double delta)
+void funkin::SparrowSprite::update(float delta)
 {
     funkin::Sprite::update(delta);
     if (currentAnimation != nullptr)

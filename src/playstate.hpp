@@ -10,7 +10,7 @@ namespace funkin
 {
     struct NoteData
     {
-        double time;
+        float time;
         int lane;
         bool isPlayer;
     };
@@ -22,14 +22,14 @@ namespace funkin
         std::vector<bool> pressedArray = {false, false, false, false};
         std::vector<NoteData> noteDatas;
         size_t noteDataIndex = 0;
-        double scrollSpeed = 1.0;
+        float scrollSpeed = 1.0;
 
     public:
         PlayState(std::string song, std::string difficulty);
         ~PlayState();
         void generateStaticArrows(bool player);
         void loadSong(std::string song, std::string difficulty);
-        void update(double delta);
+        void update(float delta);
         void beatHit();
         std::vector<raylib::Music *> tracks = {};
         std::vector<Note *> notes = {};

@@ -1,6 +1,6 @@
 #include "strumnote.hpp"
 
-funkin::StrumNote::StrumNote(double x, double y, int lane, bool player) : SparrowSprite(x, y)
+funkin::StrumNote::StrumNote(float x, float y, int lane, bool player) : SparrowSprite(x, y)
 {
     this->lane = lane;
     this->player = player;
@@ -11,8 +11,8 @@ funkin::StrumNote::StrumNote(double x, double y, int lane, bool player) : Sparro
     addAnimationByPrefix("confirm", directions[lane % 4] + " confirm", 24);
     addAnimationByPrefix("static", directions[lane % 4] + " static", 24);
     playAnimation("static");
-    scale.x = 0.7;
-    scale.y = 0.7;
+    scale.x = 0.7f;
+    scale.y = 0.7f;
 }
 
 funkin::StrumNote::~StrumNote()

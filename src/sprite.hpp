@@ -20,10 +20,10 @@ namespace funkin
         raylib::Rectangle dest;
 
     public:
-        Sprite(double x, double y);
+        Sprite(float x, float y);
         virtual ~Sprite();
         void loadGraphic(std::string path);
-        virtual void update(double delta);
+        virtual void update(float delta);
         bool isOnScreen();
 
         raylib::Vector2 origin;

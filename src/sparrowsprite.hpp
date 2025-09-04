@@ -11,14 +11,14 @@ namespace funkin
         std::map<std::string, funkin::Animation *> animations;
 
     public:
-        SparrowSprite(double x, double y);
+        SparrowSprite(float x, float y);
         ~SparrowSprite();
         void loadGraphic(std::string imagePath, std::string xmlPath);
         void addAnimationByPrefix(std::string name, std::string prefix, int framerate);
 
         void playAnimation(std::string name);
 
-        void update(double delta);
+        void update(float delta);
         void draw();
 
         void centerOffsets();

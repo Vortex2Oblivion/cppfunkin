@@ -9,7 +9,7 @@ namespace funkin
     private:
         /* data */
     public:
-        Character(double x, double y, std::string charName);
+        Character(float x, float y, std::string charName);
         ~Character();
     };
 }

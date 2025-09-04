@@ -12,13 +12,13 @@ funkin::Animation::~Animation()
 {
 }
 
-void funkin::Animation::update(double delta)
+void funkin::Animation::update(float delta)
 {
     frameTimer += delta;
 
-    while (frameTimer >= 1.0 / (double)framerate)
+    while (frameTimer >= 1.0f / framerate)
     {
-        frameTimer -= 1.0 / (double)framerate;
+        frameTimer -= 1.0f / framerate;
         if(currentFrame + 1 < frames.size()){
             currentFrame++;
         }

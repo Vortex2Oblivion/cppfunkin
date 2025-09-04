@@ -13,7 +13,7 @@ namespace funkin
         virtual ~State();
         virtual void remove(Object *obj);
         virtual void add(Object *obj);
-        virtual void update(double delta);
+        virtual void update(float delta);
         virtual void addToFront(Object *obj);
         std::vector<Object *> members;
     };

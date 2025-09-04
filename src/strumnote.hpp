@@ -10,7 +10,7 @@ namespace funkin
     private:
         /* data */
     public:
-        StrumNote(double x, double y, int lane, bool player);
+        StrumNote(float x, float y, int lane, bool player);
         virtual ~StrumNote();
         void setPosition();
 

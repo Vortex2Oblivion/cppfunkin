@@ -7,15 +7,15 @@ namespace funkin
     class Animation
     {
     private:
-        double frameTimer = 0.0;
+        float frameTimer = 0.0;
 
     public:
         Animation(std::vector<funkin::Frame *> frames, int framerate);
         ~Animation();
         std::vector<funkin::Frame *> frames = {};
         uint8_t framerate = 24;
-        uint8_t currentFrame = 0;
-        void update(double delta);
+        size_t currentFrame = 0;
+        void update(float delta);
         void resetFrame(void);
     };
 

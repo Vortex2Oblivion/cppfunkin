@@ -10,7 +10,7 @@ funkin::MusicBeatState::~MusicBeatState()
     delete conductor;
 }
 
-void funkin::MusicBeatState::update(double delta)
+void funkin::MusicBeatState::update(float delta)
 {
     funkin::State::update(delta);
     int lastStep = conductor->getStep();

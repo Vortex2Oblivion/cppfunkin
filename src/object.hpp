@@ -9,9 +9,9 @@ namespace funkin
     private:
         /* data */
     public:
-        Object(double x, double y);
+        Object(float x, float y);
         virtual ~Object();
-        virtual void update(double delta);
+        virtual void update(float delta);
         virtual void draw();
         raylib::Vector2 position;
         bool alive = true;

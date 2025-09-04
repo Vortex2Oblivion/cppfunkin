@@ -10,7 +10,7 @@ void funkin::Game::start(State *initialState)
     _state = initialState;
 }
 
-void funkin::Game::update(double delta)
+void funkin::Game::update(float delta)
 {
 
     _state->update(delta);

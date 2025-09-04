@@ -2,7 +2,7 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 
-funkin::Character::Character(double x, double y, std::string characterName) : SparrowSprite(x, y)
+funkin::Character::Character(float x, float y, std::string characterName) : SparrowSprite(x, y)
 {
 
     std::string characterBasePath = "assets/characters/" + characterName;

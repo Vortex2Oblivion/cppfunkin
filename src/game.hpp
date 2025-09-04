@@ -10,7 +10,7 @@ namespace funkin
 
     public:
         static void start(State *initialState);
-        static void update(double delta);
+        static void update(float delta);
         static void switchState(State *nextState);
         static std::vector<raylib::Camera2D *> cameras;
         static raylib::Camera2D *defaultCamera;

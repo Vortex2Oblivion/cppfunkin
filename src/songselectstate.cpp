@@ -11,14 +11,12 @@ funkin::SongSelectState::~SongSelectState()
 {
 }
 
-void funkin::SongSelectState::update(double delta)
+void funkin::SongSelectState::update(float delta)
 {
-    songText->Draw(100, 100);
-    songText->text = songs[selectedSong];
     if (IsKeyPressed(KEY_RIGHT))
     {
         selectedSong++;
-        if (selectedSong >= songs.size())
+        if (selectedSong >= (int)songs.size())
         {
             selectedSong = 0;
         }
@@ -31,6 +29,8 @@ void funkin::SongSelectState::update(double delta)
             selectedSong = songs.size() - 1;
         }
     }
+    songText->Draw(100, 100);
+    songText->text = songs[selectedSong];
     if (IsKeyPressed(KEY_ENTER))
     {
         delete songText;

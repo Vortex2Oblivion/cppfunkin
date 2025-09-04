@@ -1,6 +1,5 @@
 #include <vector>
 #include <raylib-cpp.hpp>
-#include <iostream>
 
 #include "conductor.hpp"
 
@@ -45,7 +44,7 @@ void funkin::Conductor::start()
     }
 }
 
-void funkin::Conductor::update(double delta)
+void funkin::Conductor::update(float delta)
 {
     if (!tracks.empty())
     {
@@ -75,12 +74,12 @@ int funkin::Conductor::getStep()
     return step;
 }
 
-double funkin::Conductor::getCrochet()
+float funkin::Conductor::getCrochet()
 {
-    return (60.0 / bpm);
+    return (60.0f / bpm);
 }
 
-double funkin::Conductor::getStepCrochet()
+float funkin::Conductor::getStepCrochet()
 {
     return getCrochet() / 4;
 }
@@ -88,7 +87,6 @@ double funkin::Conductor::getStepCrochet()
 void funkin::Conductor::updateStep()
 {
     step = (int)(time / getStepCrochet());
-    std::cout << step << "\n";
 }
 
 void funkin::Conductor::updateBeat()

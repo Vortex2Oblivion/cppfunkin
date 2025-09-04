@@ -29,7 +29,7 @@ void funkin::State::add(Object *obj)
     members.push_back(obj);
 }
 
-void funkin::State::update(double delta)
+void funkin::State::update(float delta)
 {
     for (auto member : members)
     {
