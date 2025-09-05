@@ -5,6 +5,7 @@
 #include "note.hpp"
 #include "sparrowsprite.hpp"
 #include "character.hpp"
+#include "camera.hpp"
 
 namespace funkin
 {
@@ -36,7 +37,7 @@ namespace funkin
         std::vector<StrumNote *> strumLineNotes = {};
         Character *boyfriend;
         Character *dad;
-        raylib::Camera2D *camHUD;
+        funkin::Camera *camHUD;
         std::string curStage = "stage";
         std::string player1 = "bf";
         std::string player2 = "dad";

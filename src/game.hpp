@@ -1,5 +1,6 @@
 #pragma once
 #include "state.hpp"
+#include "camera.hpp"
 
 namespace funkin
 {
@@ -12,8 +13,8 @@ namespace funkin
         static void start(State *initialState);
         static void update(float delta);
         static void switchState(State *nextState);
-        static std::vector<raylib::Camera2D *> cameras;
-        static raylib::Camera2D *defaultCamera;
+        static std::vector<funkin::Camera *> cameras;
+        static funkin::Camera *defaultCamera;
     };
 
 }

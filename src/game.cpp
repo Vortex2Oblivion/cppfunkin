@@ -1,9 +1,10 @@
 #include "game.hpp"
+#include "camera.hpp"
 #include <iostream>
 
 funkin::State *funkin::Game::_state = nullptr;
-raylib::Camera2D *funkin::Game::defaultCamera = new raylib::Camera2D(raylib::Vector2(), raylib::Vector2(0, 0), 0.0f, 1.0f);
-std::vector<raylib::Camera2D *> funkin::Game::cameras = {funkin::Game::defaultCamera};
+funkin::Camera *funkin::Game::defaultCamera = new funkin::Camera();
+std::vector<funkin::Camera *> funkin::Game::cameras = {funkin::Game::defaultCamera};
 
 void funkin::Game::start(State *initialState)
 {

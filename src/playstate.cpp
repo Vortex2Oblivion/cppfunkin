@@ -8,10 +8,11 @@
 #include <iostream>
 #include <raymath.hpp>
 #include "game.hpp"
+#include "camera.hpp"
 
 funkin::PlayState::PlayState(std::string song, std::string difficulty)
 {
-    camHUD = new raylib::Camera2D(raylib::Vector2(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f), raylib::Vector2(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f), 0.0f, 1.0f);
+    camHUD = new funkin::Camera();
     funkin::Game::cameras.push_back(camHUD);
 
     loadSong(song, difficulty);
