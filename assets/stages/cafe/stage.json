@@ -1,0 +1,22 @@
+{
+    "objects": [
+        {
+            "file": "catshitbg",
+            "position": [
+                 -600, -300
+            ],
+            "scale": [1.25, 1.25]
+        }
+    ],
+    "zoom": 0.7,
+    "characters": {
+        "bf": {
+            "x": 750,
+            "y": 0
+        },
+        "dad": {
+            "x": 0,
+            "y": 0
+        }
+    }
+}

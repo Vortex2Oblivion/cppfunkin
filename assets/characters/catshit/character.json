@@ -1,0 +1,58 @@
+{
+    "globalOffset": [
+       -300, -100
+    ],
+    "scale": 0.4,
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "catshit idle",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                0,
+                0
+            ]
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "catshit down",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                0,
+                0
+            ]
+        },
+        {
+            "name": "singUP",
+            "prefix": "catshit up",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                0,
+                0
+            ]
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "catshit right",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                0,
+                0
+            ]
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "catshit left",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                0,
+                0
+            ]
+        }
+    ]
+}
