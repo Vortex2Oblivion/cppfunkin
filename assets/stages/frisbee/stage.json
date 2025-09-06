@@ -3,29 +3,29 @@
         {
             "file": "Fsky",
             "position": [
-                0,
-                0
+                1000,
+                -900
             ]
         },
         {
             "file": "ground",
             "position": [
-                0,
-                0
+                -1600,
+                -900
             ]
         },
         {
             "file": "sexcatch",
             "position": [
-                0,
-                0
+                -1600,
+                -900
             ]
         },
         {
             "file": "ggg",
             "position": [
-                0,
-                0
+                -1600,
+                -900
             ]
         }
     ],

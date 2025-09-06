@@ -51,8 +51,8 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
     add(dad);
     add(boyfriend);
 
-    funkin::Game::defaultCamera->target.x = dad->position.x;
-    funkin::Game::defaultCamera->target.y = dad->position.y;
+    funkin::Game::defaultCamera->cameraPosition.x = dad->position.x;
+    funkin::Game::defaultCamera->cameraPosition.y = dad->position.y;
 }
 
 funkin::PlayState::~PlayState()
