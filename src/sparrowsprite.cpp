@@ -16,7 +16,8 @@ void funkin::SparrowSprite::loadGraphic(std::string imagePath, std::string xmlPa
 {
     funkin::Sprite::loadGraphic(imagePath);
 
-    if(!raylib::FileExists(xmlPath)){
+    if (!raylib::FileExists(xmlPath))
+    {
         std::cerr << "Could not find XML at path: " << xmlPath << "\n";
     }
     this->xmlPath = xmlPath;
@@ -125,7 +126,12 @@ void funkin::SparrowSprite::draw()
             texture->Draw(source, dest, origin, angle, color);
         }
     }
-    else{
+    else
+    {
         funkin::Sprite::draw();
     }
+}
+raylib::Vector2 funkin::SparrowSprite::getMidpoint()
+{
+    return raylib::Vector2(position.x + (currentAnimation->frames[0]->frameWidth) - (1280 / 2), position.y + (currentAnimation->frames[0]->frameHeight) - 720);
 }

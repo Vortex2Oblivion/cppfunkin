@@ -56,3 +56,7 @@ bool funkin::Sprite::isOnScreen()
 {
     return !((position.y + texture->height < 0 || position.y > GetScreenHeight()) || (position.x + texture->width < 0 || position.x > GetScreenWidth()));
 }
+
+raylib::Vector2 funkin::Sprite::getMidpoint(){
+    return raylib::Vector2(position.x + texture->width * 0.5f, position.y+ texture->height * 0.5f);
+}

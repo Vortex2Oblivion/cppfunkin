@@ -25,6 +25,7 @@ namespace funkin
         void loadGraphic(std::string path);
         virtual void update(float delta);
         bool isOnScreen();
+        raylib::Vector2 getMidpoint();
 
         raylib::Vector2 origin;
         raylib::Vector2 scale = raylib::Vector2(1.0f, 1.0f);

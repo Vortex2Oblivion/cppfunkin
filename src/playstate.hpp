@@ -6,6 +6,7 @@
 #include "sparrowsprite.hpp"
 #include "character.hpp"
 #include "camera.hpp"
+#include <nlohmann/json.hpp>
 
 namespace funkin
 {
@@ -43,5 +44,6 @@ namespace funkin
         std::string player2 = "dad";
         float scrollSpeed = 1.0f;
         float defaultCameraZoom = 1.0f;
+        nlohmann::json_abi_v3_12_0::json song;
     };
 }

@@ -21,6 +21,8 @@ namespace funkin
         void update(float delta);
         void draw();
 
+        raylib::Vector2 getMidpoint();
+
         void centerOffsets();
 
         std::string xmlPath;

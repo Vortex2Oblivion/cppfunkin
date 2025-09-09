@@ -9,6 +9,8 @@
 #include <raymath.hpp>
 #include "game.hpp"
 #include "camera.hpp"
+#include <exception>
+#include <algorithm>
 
 funkin::PlayState::PlayState(std::string song, std::string difficulty)
 {
@@ -50,9 +52,6 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
 
     add(dad);
     add(boyfriend);
-
-    funkin::Game::defaultCamera->cameraPosition.x = dad->position.x;
-    funkin::Game::defaultCamera->cameraPosition.y = dad->position.y;
 }
 
 funkin::PlayState::~PlayState()
@@ -64,23 +63,24 @@ bool noteDataSorter(funkin::NoteData a, funkin::NoteData b)
     return a.time < b.time;
 }
 
-void funkin::PlayState::loadSong(std::string song, std::string difficulty)
+void funkin::PlayState::loadSong(std::string songName, std::string difficulty)
 {
-    std::string basePath = "assets/songs/" + song + "/";
+    std::string basePath = "assets/songs/" + songName + "/";
     std::ifstream chartFile(basePath + difficulty + ".json");
     nlohmann::json parsedChart = nlohmann::json::parse(chartFile);
     bool needsVoices;
+    song = parsedChart["song"];
 
     generateStaticArrows(true);
     generateStaticArrows(false);
 
-    scrollSpeed = parsedChart["song"]["speed"];
-    needsVoices = parsedChart["song"]["needsVoices"];
-    curStage = parsedChart["song"]["stage"];
-    player1 = parsedChart["song"]["player1"];
-    player2 = parsedChart["song"]["player2"];
+    scrollSpeed = song["speed"];
+    needsVoices = song["needsVoices"];
+    curStage = song["stage"];
+    player1 = song["player1"];
+    player2 = song["player2"];
 
-    for (auto sectionNotes : parsedChart["song"]["notes"])
+    for (auto sectionNotes : song["notes"])
     {
         for (auto sectionNote : sectionNotes["sectionNotes"])
         {
@@ -253,6 +253,15 @@ void funkin::PlayState::update(float delta)
 
     funkin::Game::defaultCamera->zoom = Lerp(defaultCameraZoom, funkin::Game::defaultCamera->zoom, exp(-delta * 3.125));
     camHUD->zoom = Lerp(1, camHUD->zoom, exp(-delta * 3.125));
+
+        if (song["notes"][fmaxf(0, floor(conductor->getStep() / 8.0f))]["mustHitSection"])
+        {
+            funkin::Game::defaultCamera->cameraPosition = Vector2Lerp(funkin::Game::defaultCamera->cameraPosition, boyfriend->getMidpoint() - raylib::Vector2(100, 100), 1 - pow(1.0 - 0.04, delta * 60));
+        }
+        else
+        {
+            funkin::Game::defaultCamera->cameraPosition = Vector2Lerp(funkin::Game::defaultCamera->cameraPosition, dad->getMidpoint() + raylib::Vector2(150, -100), 1 - pow(1.0 - 0.04, delta * 60));
+        }
 }
 
 void funkin::PlayState::generateStaticArrows(bool player)
