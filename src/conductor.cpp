@@ -63,7 +63,7 @@ void funkin::Conductor::update(float delta)
     int oldStep = step;
     updateStep();
     updateBeat();
-    if (oldStep != step)
+    if (oldStep < step)
     {
         stepHit();
     }
@@ -96,7 +96,7 @@ void funkin::Conductor::updateStep()
 
 void funkin::Conductor::updateBeat()
 {
-    beat = (int)(step / 4);
+    beat = (int)(time / getCrochet());
 }
 void funkin::Conductor::stepHit()
 {

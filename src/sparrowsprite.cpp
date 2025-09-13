@@ -133,5 +133,6 @@ void funkin::SparrowSprite::draw()
 }
 raylib::Vector2 funkin::SparrowSprite::getMidpoint()
 {
-    return raylib::Vector2(position.x + (currentAnimation->frames[0]->frameWidth) - (1280 / 2), position.y + (currentAnimation->frames[0]->frameHeight) - 720);
+    int frame = currentAnimation->currentFrame;
+    return raylib::Vector2(position.x + (currentAnimation->frames[frame]->width / 2.0f), position.y + (currentAnimation->frames[frame]->height / 2.0f));
 }

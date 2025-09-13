@@ -103,6 +103,8 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty)
     std::sort(noteDatas.begin(), noteDatas.end(), noteDataSorter);
 
     conductor->start(tracks);
+    // TODO: BPM Changes
+    conductor->bpm = song["bpm"];
 
     chartFile.close();
 }
@@ -254,13 +256,13 @@ void funkin::PlayState::update(float delta)
     funkin::Game::defaultCamera->zoom = Lerp(defaultCameraZoom, funkin::Game::defaultCamera->zoom, exp(-delta * 3.125));
     camHUD->zoom = Lerp(1, camHUD->zoom, exp(-delta * 3.125));
 
-        if (song["notes"][fmaxf(0, floor(conductor->getStep() / 8.0f))]["mustHitSection"])
+        if (song["notes"][fmaxf(0, floor(conductor->getBeat() / 4.0f))]["mustHitSection"])
         {
-            funkin::Game::defaultCamera->cameraPosition = Vector2Lerp(funkin::Game::defaultCamera->cameraPosition, boyfriend->getMidpoint() - raylib::Vector2(100, 100), 1 - pow(1.0 - 0.04, delta * 60));
+            funkin::Game::defaultCamera->cameraPosition = Vector2Lerp(funkin::Game::defaultCamera->cameraPosition, boyfriend->getMidpoint() - raylib::Vector2(640, 360) - raylib::Vector2(100, 100), 1 - pow(1.0 - 0.04, delta * 60));
         }
         else
         {
-            funkin::Game::defaultCamera->cameraPosition = Vector2Lerp(funkin::Game::defaultCamera->cameraPosition, dad->getMidpoint() + raylib::Vector2(150, -100), 1 - pow(1.0 - 0.04, delta * 60));
+            funkin::Game::defaultCamera->cameraPosition = Vector2Lerp(funkin::Game::defaultCamera->cameraPosition, dad->getMidpoint() - raylib::Vector2(640, 360) + raylib::Vector2(150, -100), 1 - pow(1.0 - 0.04, delta * 60));
         }
 }
 
