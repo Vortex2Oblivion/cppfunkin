@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="pngscott.png">
+	<!-- Created with Adobe Animate version 20.0.3.25487 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Scott Sing Note DOWN0000" x="20" y="20" width="647" height="527" frameX="0" frameY="-9" frameWidth="647" frameHeight="539"/>
+	<SubTexture name="Scott Sing Note DOWN0001" x="20" y="20" width="647" height="527" frameX="0" frameY="-9" frameWidth="647" frameHeight="539"/>
+	<SubTexture name="Scott Sing Note DOWN0002" x="687" y="20" width="615" height="539" frameX="-16" frameY="0" frameWidth="647" frameHeight="539"/>
+	<SubTexture name="Scott Sing Note DOWN0003" x="687" y="20" width="615" height="539" frameX="-16" frameY="0" frameWidth="647" frameHeight="539"/>
+	<SubTexture name="Scott Sing Note DOWN0004" x="687" y="20" width="615" height="539" frameX="-16" frameY="0" frameWidth="647" frameHeight="539"/>
+	<SubTexture name="Scott Sing Note DOWN0005" x="687" y="20" width="615" height="539" frameX="-16" frameY="0" frameWidth="647" frameHeight="539"/>
+	<SubTexture name="Scott Sing Note DOWN0006" x="687" y="20" width="615" height="539" frameX="-16" frameY="0" frameWidth="647" frameHeight="539"/>
+	<SubTexture name="Scott Sing Note DOWN0007" x="687" y="20" width="615" height="539" frameX="-16" frameY="0" frameWidth="647" frameHeight="539"/>
+	<SubTexture name="Scott Sing Note DOWN0008" x="687" y="20" width="615" height="539" frameX="-16" frameY="0" frameWidth="647" frameHeight="539"/>
+	<SubTexture name="Scott Sing Note DOWN0009" x="687" y="20" width="615" height="539" frameX="-16" frameY="0" frameWidth="647" frameHeight="539"/>
+	<SubTexture name="Scott Sing Note DOWN0010" x="687" y="20" width="615" height="539" frameX="-16" frameY="0" frameWidth="647" frameHeight="539"/>
+	<SubTexture name="Scott Sing Note DOWN0011" x="687" y="20" width="615" height="539" frameX="-16" frameY="0" frameWidth="647" frameHeight="539"/>
+	<SubTexture name="Scott Sing Note DOWN0012" x="687" y="20" width="615" height="539" frameX="-16" frameY="0" frameWidth="647" frameHeight="539"/>
+	<SubTexture name="Scott Sing Note DOWN0013" x="687" y="20" width="615" height="539" frameX="-16" frameY="0" frameWidth="647" frameHeight="539"/>
+	<SubTexture name="Scott Sing Note LEFT0000" x="1322" y="20" width="861" height="559" frameX="0" frameY="0" frameWidth="861" frameHeight="560"/>
+	<SubTexture name="Scott Sing Note LEFT0001" x="1322" y="20" width="861" height="559" frameX="0" frameY="0" frameWidth="861" frameHeight="560"/>
+	<SubTexture name="Scott Sing Note LEFT0002" x="2203" y="20" width="843" height="560" frameX="-16" frameY="0" frameWidth="861" frameHeight="560"/>
+	<SubTexture name="Scott Sing Note LEFT0003" x="2203" y="20" width="843" height="560" frameX="-16" frameY="0" frameWidth="861" frameHeight="560"/>
+	<SubTexture name="Scott Sing Note LEFT0004" x="2203" y="20" width="843" height="560" frameX="-16" frameY="0" frameWidth="861" frameHeight="560"/>
+	<SubTexture name="Scott Sing Note LEFT0005" x="2203" y="20" width="843" height="560" frameX="-16" frameY="0" frameWidth="861" frameHeight="560"/>
+	<SubTexture name="Scott Sing Note LEFT0006" x="2203" y="20" width="843" height="560" frameX="-16" frameY="0" frameWidth="861" frameHeight="560"/>
+	<SubTexture name="Scott Sing Note LEFT0007" x="2203" y="20" width="843" height="560" frameX="-16" frameY="0" frameWidth="861" frameHeight="560"/>
+	<SubTexture name="Scott Sing Note LEFT0008" x="2203" y="20" width="843" height="560" frameX="-16" frameY="0" frameWidth="861" frameHeight="560"/>
+	<SubTexture name="Scott Sing Note LEFT0009" x="2203" y="20" width="843" height="560" frameX="-16" frameY="0" frameWidth="861" frameHeight="560"/>
+	<SubTexture name="Scott Sing Note LEFT0010" x="2203" y="20" width="843" height="560" frameX="-16" frameY="0" frameWidth="861" frameHeight="560"/>
+	<SubTexture name="Scott Sing Note LEFT0011" x="2203" y="20" width="843" height="560" frameX="-16" frameY="0" frameWidth="861" frameHeight="560"/>
+	<SubTexture name="Scott Sing Note LEFT0012" x="2203" y="20" width="843" height="560" frameX="-16" frameY="0" frameWidth="861" frameHeight="560"/>
+	<SubTexture name="Scott Sing Note LEFT0013" x="2203" y="20" width="843" height="560" frameX="-16" frameY="0" frameWidth="861" frameHeight="560"/>
+	<SubTexture name="Scott Sing Note RIGHT0000" x="3066" y="20" width="691" height="563" frameX="-2" frameY="0" frameWidth="693" frameHeight="564"/>
+	<SubTexture name="Scott Sing Note RIGHT0001" x="3066" y="20" width="691" height="563" frameX="-2" frameY="0" frameWidth="693" frameHeight="564"/>
+	<SubTexture name="Scott Sing Note RIGHT0002" x="20" y="603" width="681" height="564" frameX="0" frameY="0" frameWidth="693" frameHeight="564"/>
+	<SubTexture name="Scott Sing Note RIGHT0003" x="20" y="603" width="681" height="564" frameX="0" frameY="0" frameWidth="693" frameHeight="564"/>
+	<SubTexture name="Scott Sing Note RIGHT0004" x="20" y="603" width="681" height="564" frameX="0" frameY="0" frameWidth="693" frameHeight="564"/>
+	<SubTexture name="Scott Sing Note RIGHT0005" x="20" y="603" width="681" height="564" frameX="0" frameY="0" frameWidth="693" frameHeight="564"/>
+	<SubTexture name="Scott Sing Note RIGHT0006" x="20" y="603" width="681" height="564" frameX="0" frameY="0" frameWidth="693" frameHeight="564"/>
+	<SubTexture name="Scott Sing Note RIGHT0007" x="20" y="603" width="681" height="564" frameX="0" frameY="0" frameWidth="693" frameHeight="564"/>
+	<SubTexture name="Scott Sing Note RIGHT0008" x="20" y="603" width="681" height="564" frameX="0" frameY="0" frameWidth="693" frameHeight="564"/>
+	<SubTexture name="Scott Sing Note RIGHT0009" x="20" y="603" width="681" height="564" frameX="0" frameY="0" frameWidth="693" frameHeight="564"/>
+	<SubTexture name="Scott Sing Note RIGHT0010" x="20" y="603" width="681" height="564" frameX="0" frameY="0" frameWidth="693" frameHeight="564"/>
+	<SubTexture name="Scott Sing Note RIGHT0011" x="20" y="603" width="681" height="564" frameX="0" frameY="0" frameWidth="693" frameHeight="564"/>
+	<SubTexture name="Scott Sing Note RIGHT0012" x="20" y="603" width="681" height="564" frameX="0" frameY="0" frameWidth="693" frameHeight="564"/>
+	<SubTexture name="Scott Sing Note RIGHT0013" x="20" y="603" width="681" height="564" frameX="0" frameY="0" frameWidth="693" frameHeight="564"/>
+	<SubTexture name="Scott Sing Note UP0000" x="721" y="603" width="582" height="572" frameX="0" frameY="0" frameWidth="583" frameHeight="573"/>
+	<SubTexture name="Scott Sing Note UP0001" x="721" y="603" width="582" height="572" frameX="0" frameY="0" frameWidth="583" frameHeight="573"/>
+	<SubTexture name="Scott Sing Note UP0002" x="1323" y="603" width="582" height="564" frameX="-1" frameY="-9" frameWidth="583" frameHeight="573"/>
+	<SubTexture name="Scott Sing Note UP0003" x="1323" y="603" width="582" height="564" frameX="-1" frameY="-9" frameWidth="583" frameHeight="573"/>
+	<SubTexture name="Scott Sing Note UP0004" x="1323" y="603" width="582" height="564" frameX="-1" frameY="-9" frameWidth="583" frameHeight="573"/>
+	<SubTexture name="Scott Sing Note UP0005" x="1323" y="603" width="582" height="564" frameX="-1" frameY="-9" frameWidth="583" frameHeight="573"/>
+	<SubTexture name="Scott Sing Note UP0006" x="1323" y="603" width="582" height="564" frameX="-1" frameY="-9" frameWidth="583" frameHeight="573"/>
+	<SubTexture name="Scott Sing Note UP0007" x="1323" y="603" width="582" height="564" frameX="-1" frameY="-9" frameWidth="583" frameHeight="573"/>
+	<SubTexture name="Scott Sing Note UP0008" x="1323" y="603" width="582" height="564" frameX="-1" frameY="-9" frameWidth="583" frameHeight="573"/>
+	<SubTexture name="Scott Sing Note UP0009" x="1323" y="603" width="582" height="564" frameX="-1" frameY="-9" frameWidth="583" frameHeight="573"/>
+	<SubTexture name="Scott Sing Note UP0010" x="1323" y="603" width="582" height="564" frameX="-1" frameY="-9" frameWidth="583" frameHeight="573"/>
+	<SubTexture name="Scott Sing Note UP0011" x="1323" y="603" width="582" height="564" frameX="-1" frameY="-9" frameWidth="583" frameHeight="573"/>
+	<SubTexture name="Scott Sing Note UP0012" x="1323" y="603" width="582" height="564" frameX="-1" frameY="-9" frameWidth="583" frameHeight="573"/>
+	<SubTexture name="Scott Sing Note UP0013" x="1323" y="603" width="582" height="564" frameX="-1" frameY="-9" frameWidth="583" frameHeight="573"/>
+	<SubTexture name="Scott idle dance0000" x="1925" y="603" width="659" height="539" frameX="0" frameY="-18" frameWidth="659" frameHeight="557"/>
+	<SubTexture name="Scott idle dance0001" x="1925" y="603" width="659" height="539" frameX="0" frameY="-18" frameWidth="659" frameHeight="557"/>
+	<SubTexture name="Scott idle dance0002" x="2604" y="603" width="647" height="545" frameX="-6" frameY="-12" frameWidth="659" frameHeight="557"/>
+	<SubTexture name="Scott idle dance0003" x="2604" y="603" width="647" height="545" frameX="-6" frameY="-12" frameWidth="659" frameHeight="557"/>
+	<SubTexture name="Scott idle dance0004" x="3271" y="603" width="629" height="557" frameX="-15" frameY="0" frameWidth="659" frameHeight="557"/>
+	<SubTexture name="Scott idle dance0005" x="3271" y="603" width="629" height="557" frameX="-15" frameY="0" frameWidth="659" frameHeight="557"/>
+	<SubTexture name="Scott idle dance0006" x="3271" y="603" width="629" height="557" frameX="-15" frameY="0" frameWidth="659" frameHeight="557"/>
+	<SubTexture name="Scott idle dance0007" x="3271" y="603" width="629" height="557" frameX="-15" frameY="0" frameWidth="659" frameHeight="557"/>
+	<SubTexture name="Scott idle dance0008" x="3271" y="603" width="629" height="557" frameX="-15" frameY="0" frameWidth="659" frameHeight="557"/>
+	<SubTexture name="Scott idle dance0009" x="3271" y="603" width="629" height="557" frameX="-15" frameY="0" frameWidth="659" frameHeight="557"/>
+	<SubTexture name="Scott idle dance0010" x="3271" y="603" width="629" height="557" frameX="-15" frameY="0" frameWidth="659" frameHeight="557"/>
+	<SubTexture name="Scott idle dance0011" x="3271" y="603" width="629" height="557" frameX="-15" frameY="0" frameWidth="659" frameHeight="557"/>
+	<SubTexture name="Scott idle dance0012" x="3271" y="603" width="629" height="557" frameX="-15" frameY="0" frameWidth="659" frameHeight="557"/>
+	<SubTexture name="Scott idle dance0013" x="3271" y="603" width="629" height="557" frameX="-15" frameY="0" frameWidth="659" frameHeight="557"/>
+</TextureAtlas>

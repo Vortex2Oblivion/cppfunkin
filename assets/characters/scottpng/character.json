@@ -1,0 +1,59 @@
+{
+    "globalOffset": [
+        0,
+        0
+    ],
+    "scale": 1,
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "Scott idle dance0",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                0,
+                0
+            ]
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "Scott Sing Note DOWN0",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                -6,
+                -20
+            ]
+        },
+        {
+            "name": "singUP",
+            "prefix": "Scott Sing Note UP0",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                -43,
+                17
+            ]
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "Scott Sing Note RIGHT0",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+                -6,
+                9
+            ]
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "Scott Sing Note LEFT0",
+            "framerate": 24,
+            "looped": false,
+            "offsets": [
+               	215,
+				-1
+            ]
+        }
+    ]
+}
