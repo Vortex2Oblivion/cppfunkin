@@ -2,6 +2,8 @@
 
 #include "sprite.hpp"
 #include "animation.hpp"
+#include <pugixml.hpp>
+
 
 namespace funkin
 {
@@ -9,6 +11,7 @@ namespace funkin
     {
     private:
         std::map<std::string, funkin::Animation *> animations;
+        pugi::xml_document doc;
 
     public:
         SparrowSprite(float x, float y);

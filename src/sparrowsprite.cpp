@@ -21,13 +21,11 @@ void funkin::SparrowSprite::loadGraphic(std::string imagePath, std::string xmlPa
         std::cerr << "Could not find XML at path: " << xmlPath << "\n";
     }
     this->xmlPath = xmlPath;
+    pugi::xml_parse_result result = doc.load_file(xmlPath.c_str());
 }
 
 void funkin::SparrowSprite::addAnimationByPrefix(std::string name, std::string prefix, int framerate)
 {
-    pugi::xml_document doc;
-    pugi::xml_parse_result result = doc.load_file(xmlPath.c_str());
-
     std::vector<Frame *> foundFrames = {};
     for (auto frame : doc.child("TextureAtlas").children("SubTexture"))
     {
