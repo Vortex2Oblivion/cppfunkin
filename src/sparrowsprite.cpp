@@ -57,7 +57,7 @@ void funkin::SparrowSprite::addAnimationByPrefix(std::string name, std::string p
     }
     if (!foundFrames.empty())
     {
-        animations[name] = new Animation(foundFrames, framerate);
+        animations[name] = new Animation(foundFrames, framerate, name);
         if (!offsets.count(name))
         {
             offsets[name] = raylib::Vector2(0, 0);
@@ -133,6 +133,6 @@ void funkin::SparrowSprite::draw()
 }
 raylib::Vector2 funkin::SparrowSprite::getMidpoint()
 {
-    int frame = currentAnimation->currentFrame;
-    return raylib::Vector2(position.x + (currentAnimation->frames[frame]->width / 2.0f), position.y + (currentAnimation->frames[frame]->height / 2.0f));
+    auto animFrame = animations[animations.begin()->first]->frames[0];
+    return raylib::Vector2(position.x + (animFrame->width / 2.0f), position.y + (animFrame->height / 2.0f));
 }

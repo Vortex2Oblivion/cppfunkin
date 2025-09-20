@@ -12,7 +12,7 @@ namespace funkin
         float frameTimer = 0.0;
 
     public:
-        Animation(std::vector<funkin::Frame *> frames, uint8_t framerate);
+        Animation(std::vector<funkin::Frame *> frames, uint8_t framerate, std::string name);
         ~Animation();
         std::vector<funkin::Frame *> frames = {};
         uint8_t framerate = 24;
@@ -20,6 +20,7 @@ namespace funkin
         void update(float delta);
         void resetFrame();
         bool isFinished();
+        std::string name;
     };
 
 }

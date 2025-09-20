@@ -2,15 +2,14 @@
 #include "note.hpp"
 #include "strumnote.hpp"
 #include "sparrowsprite.hpp"
-#include <filesystem>
-#include <fstream>
-#include <nlohmann/json.hpp>
-#include <iostream>
-#include <raymath.hpp>
 #include "game.hpp"
 #include "camera.hpp"
+#include <filesystem>
+#include <fstream>
+#include <raymath.hpp>
 #include <exception>
 #include <algorithm>
+#include <nlohmann/json.hpp>
 
 funkin::PlayState::PlayState(std::string song, std::string difficulty)
 {
@@ -121,7 +120,20 @@ void funkin::PlayState::beatHit()
             funkin::Game::defaultCamera->zoom += 0.015f;
             camHUD->zoom += 0.03f;
         }
+        if (song["notes"][fmaxf(0, floor(conductor->getBeat() / 4.0f))]["mustHitSection"])
+        {
+            cameraTarget = boyfriend->getMidpoint() - raylib::Vector2(640, 360) - raylib::Vector2(100, 100);
+        }
+        else
+        {
+            cameraTarget = dad->getMidpoint() - raylib::Vector2(640, 360) + raylib::Vector2(150, -100);
+        }
     }
+}
+
+void funkin::PlayState::stepHit()
+{
+    funkin::MusicBeatState::stepHit();
 }
 
 void funkin::PlayState::update(float delta)
@@ -255,15 +267,7 @@ void funkin::PlayState::update(float delta)
 
     funkin::Game::defaultCamera->zoom = Lerp(defaultCameraZoom, funkin::Game::defaultCamera->zoom, exp(-delta * 3.125));
     camHUD->zoom = Lerp(1, camHUD->zoom, exp(-delta * 3.125));
-
-        if (song["notes"][fmaxf(0, floor(conductor->getBeat() / 4.0f))]["mustHitSection"])
-        {
-            funkin::Game::defaultCamera->cameraPosition = Vector2Lerp(funkin::Game::defaultCamera->cameraPosition, boyfriend->getMidpoint() - raylib::Vector2(640, 360) - raylib::Vector2(100, 100), 1 - pow(1.0 - 0.04, delta * 60));
-        }
-        else
-        {
-            funkin::Game::defaultCamera->cameraPosition = Vector2Lerp(funkin::Game::defaultCamera->cameraPosition, dad->getMidpoint() - raylib::Vector2(640, 360) + raylib::Vector2(150, -100), 1 - pow(1.0 - 0.04, delta * 60));
-        }
+    funkin::Game::defaultCamera->cameraPosition = Vector2Lerp(funkin::Game::defaultCamera->cameraPosition, cameraTarget, 1 - pow(1.0 - 0.04, delta * 60));
 }
 
 void funkin::PlayState::generateStaticArrows(bool player)

@@ -25,6 +25,7 @@ namespace funkin
         std::vector<bool> pressedArray = {false, false, false, false};
         std::vector<NoteData> noteDatas;
         size_t noteDataIndex = 0;
+        raylib::Vector2 cameraTarget = raylib::Vector2();
 
     public:
         PlayState(std::string song, std::string difficulty);
@@ -33,6 +34,7 @@ namespace funkin
         void loadSong(std::string song, std::string difficulty);
         void update(float delta);
         void beatHit();
+        void stepHit();
         std::vector<raylib::Music *> tracks = {};
         std::vector<Note *> notes = {};
         std::vector<StrumNote *> strumLineNotes = {};
