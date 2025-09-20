@@ -26,7 +26,7 @@ void funkin::SongSelectState::update(float delta)
         selectedSong--;
         if (selectedSong < 0)
         {
-            selectedSong = songs.size() - 1;
+            selectedSong = (int)songs.size() - 1;
         }
     }
     songText->Draw(100, 100);

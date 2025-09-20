@@ -120,7 +120,7 @@ void funkin::PlayState::beatHit()
             funkin::Game::defaultCamera->zoom += 0.015f;
             camHUD->zoom += 0.03f;
         }
-        if (song["notes"][fmaxf(0, floor(conductor->getBeat() / 4.0f))]["mustHitSection"])
+        if (song["notes"][(int)fmaxf(0, floor(conductor->getBeat() / 4.0f))]["mustHitSection"])
         {
             cameraTarget = boyfriend->getMidpoint() - raylib::Vector2(640, 360) - raylib::Vector2(100, 100);
         }
@@ -265,9 +265,9 @@ void funkin::PlayState::update(float delta)
         }
     }
 
-    funkin::Game::defaultCamera->zoom = Lerp(defaultCameraZoom, funkin::Game::defaultCamera->zoom, exp(-delta * 3.125));
-    camHUD->zoom = Lerp(1, camHUD->zoom, exp(-delta * 3.125));
-    funkin::Game::defaultCamera->cameraPosition = Vector2Lerp(funkin::Game::defaultCamera->cameraPosition, cameraTarget, 1 - pow(1.0 - 0.04, delta * 60));
+    funkin::Game::defaultCamera->zoom = Lerp(defaultCameraZoom, funkin::Game::defaultCamera->zoom, expf(-delta * 3.125f));
+    camHUD->zoom = Lerp(1, camHUD->zoom, expf(-delta * 3.125f));
+    funkin::Game::defaultCamera->cameraPosition = Vector2Lerp(funkin::Game::defaultCamera->cameraPosition, cameraTarget, 1.0f - powf(1.0 - 0.04, delta * 60.0f));
 }
 
 void funkin::PlayState::generateStaticArrows(bool player)

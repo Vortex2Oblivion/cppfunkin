@@ -96,7 +96,7 @@ void funkin::SparrowSprite::update(float delta)
 
 void funkin::SparrowSprite::centerOffsets()
 {
-    int frame = currentAnimation->currentFrame;
+    size_t frame = currentAnimation->currentFrame;
 
     offset.x = (dest.width - currentAnimation->frames[frame]->width) / 2;
     offset.y = (dest.height - currentAnimation->frames[frame]->height) / 2;
@@ -107,7 +107,7 @@ void funkin::SparrowSprite::draw()
 
     if (currentAnimation != nullptr && animations.size() > 0)
     {
-        int frame = currentAnimation->currentFrame;
+        size_t frame = currentAnimation->currentFrame;
 
         source.x = currentAnimation->frames[frame]->x;
         source.y = currentAnimation->frames[frame]->y;

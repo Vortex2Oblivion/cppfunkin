@@ -47,5 +47,5 @@ namespace funkin
         float scrollSpeed = 1.0f;
         float defaultCameraZoom = 1.0f;
         nlohmann::json_abi_v3_12_0::json song;
-    };
+        };
 }
