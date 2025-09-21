@@ -4,6 +4,7 @@
 #include "sparrowsprite.hpp"
 #include "game.hpp"
 #include "camera.hpp"
+#include "text.hpp"
 #include <filesystem>
 #include <fstream>
 #include <raymath.hpp>
@@ -51,6 +52,12 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
 
     add(dad);
     add(boyfriend);
+
+    scoreText = new funkin::Text("Score: 0 | Misses: 0 | Accuracy: 0", 32, 100, 100);
+    scoreText->position.y = GetScreenHeight() * 0.89f;
+    scoreText->camera = camHUD;
+    scoreText->screenCenter();
+    add(scoreText);
 }
 
 funkin::PlayState::~PlayState()
@@ -225,7 +232,13 @@ void funkin::PlayState::update(float delta)
         }
         else
         {
+            totalNotes++;
             boyfriend->playAnimation(singAnimArray[lane]);
+            int addScore = abs(500 - (note->strumTime - conductor->time) / 1000.0f);
+            score += addScore;
+            accuracy = (100.0f / (totalNotes / hitNotes));
+            scoreText->text = TextFormat("Score: %i | Misses: %i | Accuracy: %f", score, 0, accuracy);
+            scoreText->screenCenter();
         }
         strumLineNotes[lane]->playAnimation("confirm");
         strumLineNotes[lane]->centerOffsets();

@@ -7,6 +7,7 @@
 #include "character.hpp"
 #include "camera.hpp"
 #include <nlohmann/json.hpp>
+#include "text.hpp"
 
 namespace funkin
 {
@@ -25,9 +26,8 @@ namespace funkin
         std::vector<bool> pressedArray = {false, false, false, false};
         std::vector<NoteData> noteDatas;
         size_t noteDataIndex = 0;
-        raylib::Vector2 cameraTarget = raylib::Vector2();
-
-    public:
+        
+        public:
         PlayState(std::string song, std::string difficulty);
         ~PlayState();
         void generateStaticArrows(bool player);
@@ -47,5 +47,11 @@ namespace funkin
         float scrollSpeed = 1.0f;
         float defaultCameraZoom = 1.0f;
         nlohmann::json_abi_v3_12_0::json song;
-        };
+        funkin::Text *scoreText;
+        int score = 0;
+        float accuracy = 100.0f;
+        raylib::Vector2 cameraTarget = raylib::Vector2();
+        int totalNotes = 0;
+        float hitNotes = 0.0f;
+    };
 }
