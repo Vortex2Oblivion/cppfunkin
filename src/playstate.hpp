@@ -29,6 +29,7 @@ namespace funkin
 
         void invalidateNote(Note *note);
         void updateScoreText();
+        void calculateAccuracy();
 
     public:
         PlayState(std::string song, std::string difficulty);
@@ -55,7 +56,6 @@ namespace funkin
         float accuracy = 100.0f;
         raylib::Vector2 cameraTarget = raylib::Vector2();
         int totalNotes = 0;
-        float hitNotes = 0.0f;
         unsigned int misses = 0;
     };
 }

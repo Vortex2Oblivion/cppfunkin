@@ -59,7 +59,7 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
     scoreText->position.y = GetScreenHeight() * 0.9f;
     scoreText->setFont("assets/fonts/vcr.ttf");
     scoreText->camera = camHUD;
-    scoreText->screenCenter();
+    updateScoreText();
     add(scoreText);
 }
 
@@ -102,6 +102,10 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty)
                 lane % 4,                        // lane
                 playerNote,                      // isPlayer
             });
+            if (playerNote)
+            {
+                totalNotes++;
+            }
         }
     }
 
@@ -153,9 +157,15 @@ void funkin::PlayState::invalidateNote(funkin::Note *note)
     remove(note);
 }
 
+void funkin::PlayState::calculateAccuracy()
+{
+    accuracy = 100.0f * ((float)totalNotes / (totalNotes + misses));
+}
+
 void funkin::PlayState::updateScoreText()
 {
-    scoreText->setText(TextFormat("Score: %i | Misses: %i | Accuracy: %f", score, misses, accuracy));
+    calculateAccuracy();
+    scoreText->setText(TextFormat("Score: %i | Misses: %i | Accuracy: %.2f%%", score, misses, accuracy));
     scoreText->screenCenter();
 }
 
@@ -248,11 +258,9 @@ void funkin::PlayState::update(float delta)
         }
         else
         {
-            totalNotes++;
             boyfriend->playAnimation(singAnimArray[lane]);
             int addScore = abs(500 - (note->strumTime - conductor->time) / 1000.0f);
             score += addScore;
-            accuracy = (100.0f / (totalNotes / hitNotes));
             updateScoreText();
         }
         strumLineNotes[lane]->playAnimation("confirm");
