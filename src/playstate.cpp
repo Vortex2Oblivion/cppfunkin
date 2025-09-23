@@ -12,6 +12,7 @@
 #include <exception>
 #include <algorithm>
 #include <nlohmann/json.hpp>
+#include <iostream>
 
 funkin::PlayState::PlayState(std::string song, std::string difficulty)
 {
@@ -145,6 +146,19 @@ void funkin::PlayState::stepHit()
     funkin::MusicBeatState::stepHit();
 }
 
+void funkin::PlayState::invalidateNote(funkin::Note *note)
+{
+    note->alive = false;
+    notes.erase(find(notes.begin(), notes.end(), note));
+    remove(note);
+}
+
+void funkin::PlayState::updateScoreText()
+{
+    scoreText->setText(TextFormat("Score: %i | Misses: %i | Accuracy: %f", score, misses, accuracy));
+    scoreText->screenCenter();
+}
+
 void funkin::PlayState::update(float delta)
 {
     MusicBeatState::update(delta);
@@ -159,7 +173,6 @@ void funkin::PlayState::update(float delta)
         noteDataIndex++;
     }
 
-    std::vector<Note *> notesToDelete;
     for (auto note : notes)
     {
         if (!note->alive)
@@ -169,8 +182,9 @@ void funkin::PlayState::update(float delta)
 
         if (conductor->time * 1000.0 > note->strumTime + 180.0)
         {
-            notesToDelete.push_back(note);
-            note->alive = false;
+            invalidateNote(note);
+            misses++;
+            updateScoreText();
         }
         else
         {
@@ -239,22 +253,16 @@ void funkin::PlayState::update(float delta)
             int addScore = abs(500 - (note->strumTime - conductor->time) / 1000.0f);
             score += addScore;
             accuracy = (100.0f / (totalNotes / hitNotes));
-            scoreText->setText(TextFormat("Score: %i | Misses: %i | Accuracy: %f", score, 0, accuracy));
-            scoreText->screenCenter();
+            updateScoreText();
         }
         strumLineNotes[lane]->playAnimation("confirm");
         strumLineNotes[lane]->centerOffsets();
         strumLineNotes[lane]->offset = strumLineNotes[lane]->offset.Scale(0.5f);
         // strumLineNotes[lane]->offset.x = -30;
         // strumLineNotes[lane]->offset.y = -30;
-        notesToDelete.push_back(note);
+        invalidateNote(note);
     }
 
-    for (auto note : notesToDelete)
-    {
-        notes.erase(find(notes.begin(), notes.end(), note));
-        remove(note);
-    }
     for (auto track : tracks)
     {
         track->Update();

@@ -26,8 +26,11 @@ namespace funkin
         std::vector<bool> pressedArray = {false, false, false, false};
         std::vector<NoteData> noteDatas;
         size_t noteDataIndex = 0;
-        
-        public:
+
+        void invalidateNote(Note *note);
+        void updateScoreText();
+
+    public:
         PlayState(std::string song, std::string difficulty);
         ~PlayState();
         void generateStaticArrows(bool player);
@@ -53,5 +56,6 @@ namespace funkin
         raylib::Vector2 cameraTarget = raylib::Vector2();
         int totalNotes = 0;
         float hitNotes = 0.0f;
+        unsigned int misses = 0;
     };
 }
