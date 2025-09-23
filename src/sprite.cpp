@@ -42,8 +42,8 @@ void funkin::Sprite::draw()
 {
     funkin::Object::draw();
 
-    dest.x = (texture->width / 2) + position.x + offset.x;
-    dest.y = (texture->height / 2) + position.y + offset.y;
+    dest.x = (texture->width / 2) + position.x * scale.x + offset.x;
+    dest.y = (texture->height / 2) + position.y * scale.y + offset.y;
     dest.width = (float)(texture->width) * scale.x;
     dest.height = (float)(texture->height) * scale.y;
     if (isOnScreen())
@@ -57,6 +57,7 @@ bool funkin::Sprite::isOnScreen()
     return !((position.y + texture->height < 0 || position.y > GetScreenHeight()) || (position.x + texture->width < 0 || position.x > GetScreenWidth()));
 }
 
-raylib::Vector2 funkin::Sprite::getMidpoint(){
-    return raylib::Vector2(position.x + texture->width * 0.5f, position.y+ texture->height * 0.5f);
+raylib::Vector2 funkin::Sprite::getMidpoint()
+{
+    return raylib::Vector2(position.x + texture->width * 0.5f, position.y + texture->height * 0.5f);
 }

@@ -1,0 +1,59 @@
+{
+    "globalOffset": [
+		-650,
+		-480
+    ],
+    "scale": 0.5,
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "valk idle",
+            "framerate": 10,
+            "looped": false,
+            "offsets": [
+                0,
+                0
+            ]
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "valk down",
+            "framerate": 10,
+            "looped": false,
+            "offsets": [
+                10,
+                -3
+            ]
+        },
+        {
+            "name": "singUP",
+            "prefix": "valk up",
+            "framerate": 10,
+            "looped": false,
+            "offsets": [
+                -15,
+                -1
+            ]
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "valk right",
+            "framerate": 10,
+            "looped": false,
+            "offsets": [
+                -5,
+                0
+            ]
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "valk left",
+            "framerate": 10,
+            "looped": false,
+            "offsets": [
+                85,
+                -6
+            ]
+        }
+    ]
+}

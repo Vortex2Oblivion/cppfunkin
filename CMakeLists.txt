@@ -19,6 +19,7 @@ target_link_libraries(${PROJECT_NAME} pugixml)
 
 add_dependencies(${PROJECT_NAME} copy_assets)
 if(MSVC)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
 add_custom_target(copy_assets ALL
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_SOURCE_DIR}/assets
@@ -26,7 +27,6 @@ add_custom_target(copy_assets ALL
     COMMENT "COPYING ASSETS"
 )
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
 else()
 add_custom_target(copy_assets ALL
     COMMAND ${CMAKE_COMMAND} -E copy_directory

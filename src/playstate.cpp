@@ -39,6 +39,7 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
             {
                 object->scale.x = objects["scale"][0];
                 object->scale.y = objects["scale"][1];
+                object->origin *= object->scale;
             }
             add(object);
         }
@@ -82,32 +83,16 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty)
     generateStaticArrows(true);
     generateStaticArrows(false);
 
-    // TODO: Move more of this into its own class
-    // TODO: Load Psych V1 charts properly.
+    nlohmann::json_abi_v3_12_0::json parsedSong = song.parsedSong;
 
-    scrollSpeed = song["speed"];
-    needsVoices = song["needsVoices"];
-    curStage = song["stage"];
-    player1 = song["player1"];
-    player2 = song["player2"];
+    scrollSpeed = parsedSong["speed"];
+    needsVoices = parsedSong["needsVoices"];
+    curStage = parsedSong["stage"];
+    player1 = parsedSong["player1"];
+    player2 = parsedSong["player2"];
 
-    for (auto sectionNotes : song["notes"])
-    {
-        for (auto sectionNote : sectionNotes["sectionNotes"])
-        {
-            bool playerNote = (sectionNote[1] < 4) ? (bool)(sectionNotes["mustHitSection"]) : (!sectionNotes["mustHitSection"]);
-            int lane = ((int)sectionNote[1] % 4) + (playerNote ? 0 : 4);
-            noteDatas.push_back(NoteData{
-                (float)sectionNote[0] / 1000.0f, // time
-                lane % 4,                        // lane
-                playerNote,                      // isPlayer
-            });
-            if (playerNote)
-            {
-                totalNotes++;
-            }
-        }
-    }
+    noteDatas = song.notes;
+    playerNotes = song.playerNotes;
 
     tracks.push_back(new raylib::Music(basePath + "Inst.ogg"));
     if (needsVoices)
@@ -119,7 +104,7 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty)
 
     conductor->start(tracks);
     // TODO: BPM Changes
-    conductor->bpm = song["bpm"];
+    conductor->bpm = parsedSong["bpm"];
 }
 
 void funkin::PlayState::beatHit()
@@ -134,7 +119,7 @@ void funkin::PlayState::beatHit()
             funkin::Game::defaultCamera->zoom += 0.015f;
             camHUD->zoom += 0.03f;
         }
-        if (song["notes"][(int)fmaxf(0, floor(conductor->getBeat() / 4.0f))]["mustHitSection"])
+        if (song.parsedSong["notes"][(int)fmaxf(0, floor(conductor->getBeat() / 4.0f))]["mustHitSection"])
         {
             cameraTarget = boyfriend->getMidpoint() - raylib::Vector2(640, 360) - raylib::Vector2(100, 100);
         }
@@ -159,7 +144,7 @@ void funkin::PlayState::invalidateNote(funkin::Note *note)
 
 void funkin::PlayState::calculateAccuracy()
 {
-    accuracy = 100.0f * ((float)totalNotes / (totalNotes + misses));
+    accuracy = 100.0f * ((float)playerNotes / (playerNotes + misses));
 }
 
 void funkin::PlayState::updateScoreText()

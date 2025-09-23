@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="valk.png"><SubTexture name="valk down0000" x="4623" y="0" width="1013" height="1216" frameX="-407" frameY="-425" frameWidth="1837" frameHeight="1819" />
+<SubTexture name="valk down0001" x="3051" y="2666" width="992" height="1219" frameX="-423" frameY="-413" frameWidth="1837" frameHeight="1819" />
+<SubTexture name="valk up0000" x="0" y="2666" width="1133" height="1314" frameX="-435" frameY="-265" frameWidth="1837" frameHeight="1819" />
+<SubTexture name="valk up0001" x="1909" y="0" width="1121" height="1328" frameX="-442" frameY="-274" frameWidth="1837" frameHeight="1819" />
+<SubTexture name="valk right0000" x="0" y="0" width="961" height="1339" frameX="-444" frameY="-308" frameWidth="1837" frameHeight="1819" />
+<SubTexture name="valk right0001" x="961" y="0" width="948" height="1336" frameX="-427" frameY="-310" frameWidth="1837" frameHeight="1819" />
+<SubTexture name="valk left0000" x="2097" y="2666" width="954" height="1244" frameX="-374" frameY="-326" frameWidth="1837" frameHeight="1819" />
+<SubTexture name="valk left0001" x="1133" y="2666" width="964" height="1246" frameX="-370" frameY="-323" frameWidth="1837" frameHeight="1819" />
+<SubTexture name="valk idle0000" x="798" y="1339" width="817" height="1325" frameX="-445" frameY="-321" frameWidth="1837" frameHeight="1819" />
+<SubTexture name="valk idle0001" x="3804" y="0" width="819" height="1321" frameX="-464" frameY="-326" frameWidth="1837" frameHeight="1819" />
+<SubTexture name="valk idle0002" x="1615" y="1339" width="813" height="1325" frameX="-458" frameY="-321" frameWidth="1837" frameHeight="1819" />
+<SubTexture name="valk idle0003" x="798" y="1339" width="817" height="1325" frameX="-445" frameY="-321" frameWidth="1837" frameHeight="1819" />
+<SubTexture name="valk idle0004" x="3030" y="0" width="774" height="1325" frameX="-438" frameY="-321" frameWidth="1837" frameHeight="1819" />
+<SubTexture name="valk idle0005" x="0" y="1339" width="798" height="1327" frameX="-438" frameY="-319" frameWidth="1837" frameHeight="1819" />
+</TextureAtlas>
