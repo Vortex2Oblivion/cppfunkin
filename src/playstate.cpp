@@ -5,6 +5,7 @@
 #include "game.hpp"
 #include "camera.hpp"
 #include "text.hpp"
+#include "song.hpp"
 #include <filesystem>
 #include <fstream>
 #include <raymath.hpp>
@@ -53,8 +54,9 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
     add(dad);
     add(boyfriend);
 
-    scoreText = new funkin::Text("Score: 0 | Misses: 0 | Accuracy: 0", 32, 100, 100);
-    scoreText->position.y = GetScreenHeight() * 0.89f;
+    scoreText = new funkin::Text("Score: 0 | Misses: 0 | Accuracy: 0", 24, 100, 100);
+    scoreText->position.y = GetScreenHeight() * 0.9f;
+    scoreText->setFont("assets/fonts/vcr.ttf");
     scoreText->camera = camHUD;
     scoreText->screenCenter();
     add(scoreText);
@@ -71,14 +73,16 @@ bool noteDataSorter(funkin::NoteData a, funkin::NoteData b)
 
 void funkin::PlayState::loadSong(std::string songName, std::string difficulty)
 {
-    std::string basePath = "assets/songs/" + songName + "/";
-    std::ifstream chartFile(basePath + difficulty + ".json");
-    nlohmann::json parsedChart = nlohmann::json::parse(chartFile);
     bool needsVoices;
-    song = parsedChart["song"];
+    std::string basePath = "assets/songs/" + songName + "/";
+
+    song = funkin::Song::parseChart(songName, difficulty);
 
     generateStaticArrows(true);
     generateStaticArrows(false);
+
+    // TODO: Move more of this into its own class
+    // TODO: Load Psych V1 charts properly.
 
     scrollSpeed = song["speed"];
     needsVoices = song["needsVoices"];
@@ -111,8 +115,6 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty)
     conductor->start(tracks);
     // TODO: BPM Changes
     conductor->bpm = song["bpm"];
-
-    chartFile.close();
 }
 
 void funkin::PlayState::beatHit()
@@ -237,7 +239,7 @@ void funkin::PlayState::update(float delta)
             int addScore = abs(500 - (note->strumTime - conductor->time) / 1000.0f);
             score += addScore;
             accuracy = (100.0f / (totalNotes / hitNotes));
-            scoreText->text = TextFormat("Score: %i | Misses: %i | Accuracy: %f", score, 0, accuracy);
+            scoreText->setText(TextFormat("Score: %i | Misses: %i | Accuracy: %f", score, 0, accuracy));
             scoreText->screenCenter();
         }
         strumLineNotes[lane]->playAnimation("confirm");
