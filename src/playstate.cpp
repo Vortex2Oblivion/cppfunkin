@@ -180,8 +180,10 @@ void funkin::PlayState::update(float delta)
         {
             note->alive = false;
             toInvalidate.push_back(note);
-            misses++;
-            updateScoreText();
+            if (note->isPlayer) {
+                misses++;
+                updateScoreText();
+            }
         }
         else
         {
