@@ -195,8 +195,8 @@ void funkin::PlayState::update(float delta)
     // thanks for helping my dumbass with this rudy
     float closestDistance = INFINITY;
 
-    pressedArray = {IsKeyDown(KEY_A), IsKeyDown(KEY_S), IsKeyDown(KEY_K), IsKeyDown(KEY_L)};
-    justHitArray = {IsKeyPressed(KEY_A), IsKeyPressed(KEY_S), IsKeyPressed(KEY_K), IsKeyPressed(KEY_L)};
+    pressedArray = {IsKeyDown(KEY_D), IsKeyDown(KEY_F), IsKeyDown(KEY_J), IsKeyDown(KEY_K)};
+    justHitArray = {IsKeyPressed(KEY_D), IsKeyPressed(KEY_F), IsKeyPressed(KEY_J), IsKeyPressed(KEY_K)};
 
     for (size_t lane = 0; lane < justHitArray.size(); lane++)
     {
