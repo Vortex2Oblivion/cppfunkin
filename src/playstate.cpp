@@ -168,6 +168,7 @@ void funkin::PlayState::update(float delta)
         noteDataIndex++;
     }
 
+    std::vector<funkin::Note*> toInvalidate;
     for (auto note : notes)
     {
         if (!note->alive)
@@ -177,7 +178,8 @@ void funkin::PlayState::update(float delta)
 
         if (conductor->time * 1000.0 > note->strumTime + 180.0)
         {
-            invalidateNote(note);
+            note->alive = false;
+            toInvalidate.push_back(note);
             misses++;
             updateScoreText();
         }
@@ -191,8 +193,8 @@ void funkin::PlayState::update(float delta)
     // thanks for helping my dumbass with this rudy
     float closestDistance = INFINITY;
 
-    pressedArray = {IsKeyDown(KEY_D), IsKeyDown(KEY_F), IsKeyDown(KEY_J), IsKeyDown(KEY_K)};
-    justHitArray = {IsKeyPressed(KEY_D), IsKeyPressed(KEY_F), IsKeyPressed(KEY_J), IsKeyPressed(KEY_K)};
+    pressedArray = {IsKeyDown(KEY_A), IsKeyDown(KEY_S), IsKeyDown(KEY_K), IsKeyDown(KEY_L)};
+    justHitArray = {IsKeyPressed(KEY_A), IsKeyPressed(KEY_S), IsKeyPressed(KEY_K), IsKeyPressed(KEY_L)};
 
     for (size_t lane = 0; lane < justHitArray.size(); lane++)
     {
@@ -253,7 +255,12 @@ void funkin::PlayState::update(float delta)
         strumLineNotes[lane]->offset = strumLineNotes[lane]->offset.Scale(0.5f);
         // strumLineNotes[lane]->offset.x = -30;
         // strumLineNotes[lane]->offset.y = -30;
-        invalidateNote(note);
+        note->alive = false;
+        toInvalidate.push_back(note);
+    }
+
+    for (size_t i = 0; i < toInvalidate.size(); i++) {
+        invalidateNote(toInvalidate[i]);
     }
 
     for (auto track : tracks)
