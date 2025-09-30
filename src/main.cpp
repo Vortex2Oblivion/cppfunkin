@@ -22,8 +22,6 @@ int main()
         fpsCounter.Draw(10, 10);
         window.EndDrawing();
     }
-    audioDevice.Close();
-    window.Close();
 
     return 0;
 }

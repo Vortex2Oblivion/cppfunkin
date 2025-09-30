@@ -1,6 +1,8 @@
 build
 out
 .vscode/
+.cache/
+**.DS_Store
 
 CMakePresets.json
 CMakeLists.txt.user
