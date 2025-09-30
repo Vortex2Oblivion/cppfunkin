@@ -5,7 +5,7 @@
 
 int main()
 {
-    raylib::Window window = raylib::Window(1280, 720, "cppfunkin");
+    raylib::Window window = raylib::Window(1280, 720, "Friday Night Funkin'");
     //window.SetTargetFPS(GetMonitorRefreshRate(window.GetMonitor()) * 2);
     raylib::AudioDevice audioDevice = raylib::AudioDevice();
 
@@ -22,6 +22,8 @@ int main()
         fpsCounter.Draw(10, 10);
         window.EndDrawing();
     }
+    audioDevice.Close();
+    window.Close();
 
     return 0;
 }

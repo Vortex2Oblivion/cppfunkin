@@ -119,7 +119,8 @@ void funkin::PlayState::beatHit()
             engine::Game::defaultCamera->zoom += 0.015f;
             camHUD->zoom += 0.03f;
         }
-        if (song.parsedSong["notes"][(int)fmaxf(0, floor(conductor->getBeat() / 4.0f))]["mustHitSection"])
+        int targetSection = (int)fminf(song.parsedSong["notes"].size() - 1, fmaxf(0, floor(conductor->getBeat() / 4.0f)));
+        if (song.parsedSong["notes"][targetSection]["mustHitSection"])
         {
             cameraTarget = boyfriend->getMidpoint() - raylib::Vector2(640, 360) - raylib::Vector2(100, 100);
         }
