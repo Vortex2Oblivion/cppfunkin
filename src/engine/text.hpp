@@ -2,7 +2,7 @@
 
 #include "sprite.hpp"
 
-namespace funkin
+namespace engine
 {
     class Text : public Sprite
     {

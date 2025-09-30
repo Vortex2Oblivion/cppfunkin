@@ -4,7 +4,7 @@
 
 #include "frame.hpp"
 
-namespace funkin
+namespace engine
 {
     class Animation
     {
@@ -12,9 +12,9 @@ namespace funkin
         float frameTimer = 0.0;
 
     public:
-        Animation(std::vector<funkin::Frame *> frames, uint8_t framerate, std::string name);
+        Animation(std::vector<engine::Frame *> frames, uint8_t framerate, std::string name);
         ~Animation();
-        std::vector<funkin::Frame *> frames = {};
+        std::vector<engine::Frame *> frames = {};
         uint8_t framerate = 24;
         size_t currentFrame = 0;
         void update(float delta);

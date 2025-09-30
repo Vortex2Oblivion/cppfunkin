@@ -6,7 +6,7 @@
 #include "object.hpp"
 #include <map>
 
-namespace funkin
+namespace engine
 {
     class Sprite : public Object
     {

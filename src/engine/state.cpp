@@ -1,11 +1,11 @@
 #include "state.hpp"
 #include <algorithm>
 
-funkin::State::State(/* args */) : Object(0, 0)
+engine::State::State(/* args */) : Object(0, 0)
 {
 }
 
-funkin::State::~State()
+engine::State::~State()
 {
     for (auto member : members)
     {
@@ -13,23 +13,23 @@ funkin::State::~State()
     }
 }
 
-void funkin::State::remove(Object *obj)
+void engine::State::remove(Object *obj)
 {
     members.erase(find(members.begin(), members.end(), obj));
     delete obj;
 }
 
-void funkin::State::addToFront(Object *obj)
+void engine::State::addToFront(Object *obj)
 {
     members.insert(members.begin(), obj);
 }
 
-void funkin::State::add(Object *obj)
+void engine::State::add(Object *obj)
 {
     members.push_back(obj);
 }
 
-void funkin::State::update(float delta)
+void engine::State::update(float delta)
 {
     for (auto member : members)
     {

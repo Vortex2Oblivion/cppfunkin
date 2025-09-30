@@ -2,7 +2,7 @@
 #include "object.hpp"
 #include <vector>
 
-namespace funkin
+namespace engine
 {
 
     class State : public Object

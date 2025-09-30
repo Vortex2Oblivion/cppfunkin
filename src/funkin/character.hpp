@@ -1,10 +1,10 @@
 #pragma once
 
-#include "sparrowsprite.hpp"
+#include "../engine/sparrowsprite.hpp"
 
 namespace funkin
 {
-    class Character : public SparrowSprite
+    class Character : public engine::SparrowSprite
     {
     private:
         /* data */

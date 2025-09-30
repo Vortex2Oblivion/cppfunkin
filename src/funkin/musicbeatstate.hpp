@@ -1,11 +1,11 @@
 #pragma once
 
-#include "state.hpp"
 #include "conductor.hpp"
+#include "../engine/state.hpp"
 
 namespace funkin
 {
-    class MusicBeatState : public State
+    class MusicBeatState : public engine::State
     {
     private:
         /* data */

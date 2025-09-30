@@ -1,11 +1,11 @@
 #include "playstate.hpp"
 #include "note.hpp"
 #include "strumnote.hpp"
-#include "sparrowsprite.hpp"
-#include "game.hpp"
-#include "camera.hpp"
-#include "text.hpp"
 #include "song.hpp"
+#include "../engine/sparrowsprite.hpp"
+#include "../engine/game.hpp"
+#include "../engine/camera.hpp"
+#include "../engine/text.hpp"
 #include <filesystem>
 #include <fstream>
 #include <raymath.hpp>
@@ -16,8 +16,8 @@
 
 funkin::PlayState::PlayState(std::string song, std::string difficulty)
 {
-    camHUD = new funkin::Camera();
-    funkin::Game::cameras.push_back(camHUD);
+    camHUD = new engine::Camera();
+    engine::Game::cameras.push_back(camHUD);
 
     loadSong(song, difficulty);
 
@@ -33,7 +33,7 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
 
         for (auto objects : parsedStage["objects"])
         {
-            Sprite *object = new Sprite(objects["position"][0], objects["position"][1]);
+            engine::Sprite *object = new engine::Sprite(objects["position"][0], objects["position"][1]);
             object->loadGraphic(stagePath + (std::string)objects["file"] + ".png");
             if (objects.count("scale"))
             {
@@ -44,7 +44,7 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
             add(object);
         }
 
-        defaultCameraZoom = funkin::Game::defaultCamera->zoom = parsedStage["zoom"];
+        defaultCameraZoom = engine::Game::defaultCamera->zoom = parsedStage["zoom"];
         dad->position += raylib::Vector2(parsedStage["characters"]["dad"]["x"], parsedStage["characters"]["dad"]["y"]);
         boyfriend->position += raylib::Vector2(parsedStage["characters"]["bf"]["x"], parsedStage["characters"]["bf"]["y"]);
     }
@@ -56,7 +56,7 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
     add(dad);
     add(boyfriend);
 
-    scoreText = new funkin::Text("Score: 0 | Misses: 0 | Accuracy: 0", 24, 100, 100);
+    scoreText = new engine::Text("Score: 0 | Misses: 0 | Accuracy: 0", 24, 100, 100);
     scoreText->position.y = GetScreenHeight() * 0.9f;
     scoreText->setFont("assets/fonts/vcr.ttf");
     scoreText->camera = camHUD;
@@ -114,9 +114,9 @@ void funkin::PlayState::beatHit()
     boyfriend->dance();
     if (conductor->getBeat() % 4 == 0)
     {
-        if (funkin::Game::defaultCamera->zoom < 1.35f)
+        if (engine::Game::defaultCamera->zoom < 1.35f)
         {
-            funkin::Game::defaultCamera->zoom += 0.015f;
+            engine::Game::defaultCamera->zoom += 0.015f;
             camHUD->zoom += 0.03f;
         }
         if (song.parsedSong["notes"][(int)fmaxf(0, floor(conductor->getBeat() / 4.0f))]["mustHitSection"])
@@ -281,9 +281,9 @@ void funkin::PlayState::update(float delta)
         }
     }
 
-    funkin::Game::defaultCamera->zoom = Lerp(defaultCameraZoom, funkin::Game::defaultCamera->zoom, expf(-delta * 3.125f));
+    engine::Game::defaultCamera->zoom = Lerp(defaultCameraZoom, engine::Game::defaultCamera->zoom, expf(-delta * 3.125f));
     camHUD->zoom = Lerp(1, camHUD->zoom, expf(-delta * 3.125f));
-    funkin::Game::defaultCamera->cameraPosition = Vector2Lerp(funkin::Game::defaultCamera->cameraPosition, cameraTarget, 1.0f - powf(1.0 - 0.04, delta * 60.0f));
+    engine::Game::defaultCamera->cameraPosition = Vector2Lerp(engine::Game::defaultCamera->cameraPosition, cameraTarget, 1.0f - powf(1.0 - 0.04, delta * 60.0f));
 }
 
 void funkin::PlayState::generateStaticArrows(bool player)

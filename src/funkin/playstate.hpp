@@ -1,14 +1,14 @@
 #pragma once
 
-#include "musicbeatstate.hpp"
-#include "conductor.hpp"
-#include "note.hpp"
-#include "sparrowsprite.hpp"
 #include "character.hpp"
-#include "camera.hpp"
-#include <nlohmann/json.hpp>
-#include "text.hpp"
+#include "conductor.hpp"
+#include "musicbeatstate.hpp"
+#include "note.hpp"
 #include "song.hpp"
+#include "../engine/camera.hpp"
+#include "../engine/sparrowsprite.hpp"
+#include "../engine/text.hpp"
+#include <nlohmann/json.hpp>
 
 namespace funkin
 {
@@ -40,14 +40,14 @@ namespace funkin
         std::vector<StrumNote *> strumLineNotes = {};
         Character *boyfriend;
         Character *dad;
-        funkin::Camera *camHUD;
+        engine::Camera *camHUD;
         std::string curStage = "stage";
         std::string player1 = "bf";
         std::string player2 = "dad";
         float scrollSpeed = 1.0f;
         float defaultCameraZoom = 1.0f;
         funkin::SongData song;
-        funkin::Text *scoreText;
+        engine::Text *scoreText;
         int score = 0;
         float accuracy = 100.0f;
         raylib::Vector2 cameraTarget = raylib::Vector2();

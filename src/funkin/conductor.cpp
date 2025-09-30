@@ -1,7 +1,6 @@
+#include "conductor.hpp"
 #include <vector>
 #include <raylib-cpp.hpp>
-
-#include "conductor.hpp"
 
 funkin::Conductor::Conductor()
 {

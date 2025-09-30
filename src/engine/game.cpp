@@ -2,20 +2,20 @@
 #include "camera.hpp"
 #include <iostream>
 
-funkin::State *funkin::Game::_state = nullptr;
-funkin::Camera *funkin::Game::defaultCamera = new funkin::Camera();
-std::vector<funkin::Camera *> funkin::Game::cameras = {funkin::Game::defaultCamera};
+engine::State *engine::Game::_state = nullptr;
+engine::Camera *engine::Game::defaultCamera = new engine::Camera();
+std::vector<engine::Camera *> engine::Game::cameras = {engine::Game::defaultCamera};
 
-void funkin::Game::start(State *initialState)
+void engine::Game::start(State *initialState)
 {
     _state = initialState;
 }
 
-void funkin::Game::update(float delta)
+void engine::Game::update(float delta)
 {
 
     _state->update(delta);
-    for (auto camera : funkin::Game::cameras)
+    for (auto camera : engine::Game::cameras)
     {
         if (camera != nullptr)
         {
@@ -33,7 +33,7 @@ void funkin::Game::update(float delta)
     }
 }
 
-void funkin::Game::switchState(State *nextState)
+void engine::Game::switchState(State *nextState)
 {
     delete _state;
     _state = nextState;

@@ -2,7 +2,7 @@
 
 #include <raylib-cpp.hpp>
 
-namespace funkin
+namespace engine
 {
     class Camera : public raylib::Camera2D
     {
@@ -16,4 +16,4 @@ namespace funkin
         Camera2D& BeginMode();
     };
 
-} // namespace funkin
+} // namespace engine

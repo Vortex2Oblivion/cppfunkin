@@ -1,10 +1,10 @@
 #pragma once
 
-#include "state.hpp"
+#include "musicbeatstate.hpp"
 
 namespace funkin
 {
-    class SongSelectState : public State
+    class SongSelectState : public MusicBeatState
     {
     private:
         int selectedSong = 0;

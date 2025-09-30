@@ -4,17 +4,17 @@
 #include <iostream>
 #include <cstring>
 
-funkin::SparrowSprite::SparrowSprite(float x, float y) : Sprite(x, y)
+engine::SparrowSprite::SparrowSprite(float x, float y) : Sprite(x, y)
 {
 }
 
-funkin::SparrowSprite::~SparrowSprite()
+engine::SparrowSprite::~SparrowSprite()
 {
 }
 
-void funkin::SparrowSprite::loadGraphic(std::string imagePath, std::string xmlPath)
+void engine::SparrowSprite::loadGraphic(std::string imagePath, std::string xmlPath)
 {
-    funkin::Sprite::loadGraphic(imagePath);
+    engine::Sprite::loadGraphic(imagePath);
 
     if (!raylib::FileExists(xmlPath))
     {
@@ -24,7 +24,7 @@ void funkin::SparrowSprite::loadGraphic(std::string imagePath, std::string xmlPa
     pugi::xml_parse_result result = doc.load_file(xmlPath.c_str());
 }
 
-void funkin::SparrowSprite::addAnimationByPrefix(std::string name, std::string prefix, int framerate)
+void engine::SparrowSprite::addAnimationByPrefix(std::string name, std::string prefix, int framerate)
 {
     std::vector<Frame *> foundFrames = {};
     for (auto frame : doc.child("TextureAtlas").children("SubTexture"))
@@ -67,7 +67,7 @@ void funkin::SparrowSprite::addAnimationByPrefix(std::string name, std::string p
     }
 }
 
-void funkin::SparrowSprite::playAnimation(std::string name)
+void engine::SparrowSprite::playAnimation(std::string name)
 {
     if (animations.count(name) == 0 || animations[name]->frames.empty())
     {
@@ -83,16 +83,16 @@ void funkin::SparrowSprite::playAnimation(std::string name)
     }
 }
 
-void funkin::SparrowSprite::update(float delta)
+void engine::SparrowSprite::update(float delta)
 {
-    funkin::Sprite::update(delta);
+    engine::Sprite::update(delta);
     if (currentAnimation != nullptr)
     {
         currentAnimation->update(delta);
     }
 }
 
-void funkin::SparrowSprite::centerOffsets()
+void engine::SparrowSprite::centerOffsets()
 {
     size_t frame = currentAnimation->currentFrame;
 
@@ -100,7 +100,7 @@ void funkin::SparrowSprite::centerOffsets()
     offset.y = (dest.height - currentAnimation->frames[frame]->height) / 2;
 }
 
-void funkin::SparrowSprite::draw()
+void engine::SparrowSprite::draw()
 {
 
     if (currentAnimation != nullptr && animations.size() > 0)
@@ -126,10 +126,10 @@ void funkin::SparrowSprite::draw()
     }
     else
     {
-        funkin::Sprite::draw();
+        engine::Sprite::draw();
     }
 }
-raylib::Vector2 funkin::SparrowSprite::getMidpoint()
+raylib::Vector2 engine::SparrowSprite::getMidpoint()
 {
     auto animFrame = animations[animations.begin()->first]->frames[0];
     return raylib::Vector2(position.x + (animFrame->width / 2.0f), position.y + (animFrame->height / 2.0f));

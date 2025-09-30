@@ -1,0 +1,21 @@
+#include "object.hpp"
+#include "game.hpp"
+#include <iostream>
+
+engine::Object::Object(float x, float y)
+{
+    this->position = raylib::Vector2(x, y);
+    camera = engine::Game::defaultCamera;
+}
+engine::Object::~Object()
+{
+    alive = false;
+}
+
+void engine::Object::update(float delta)
+{
+}
+
+void engine::Object::draw()
+{
+}

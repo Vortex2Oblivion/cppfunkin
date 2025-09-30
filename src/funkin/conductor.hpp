@@ -1,8 +1,7 @@
 #pragma once
+
 #include <vector>
 #include <raylib-cpp.hpp>
-
-
 
 namespace funkin
 {

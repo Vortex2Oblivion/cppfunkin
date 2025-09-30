@@ -1,7 +1,7 @@
 #include "animation.hpp"
 #include <iostream>
 
-funkin::Animation::Animation(std::vector<funkin::Frame *> frames, uint8_t framerate, std::string name)
+engine::Animation::Animation(std::vector<engine::Frame *> frames, uint8_t framerate, std::string name)
 {
     this->frames = frames;
     this->framerate = framerate;
@@ -9,11 +9,11 @@ funkin::Animation::Animation(std::vector<funkin::Frame *> frames, uint8_t framer
     this->name = name;
 }
 
-funkin::Animation::~Animation()
+engine::Animation::~Animation()
 {
 }
 
-void funkin::Animation::update(float delta)
+void engine::Animation::update(float delta)
 {
     frameTimer += delta;
 
@@ -27,13 +27,13 @@ void funkin::Animation::update(float delta)
     }
 }
 
-void funkin::Animation::resetFrame()
+void engine::Animation::resetFrame()
 {
     currentFrame = 0;
     frameTimer = 0.0;
 }
 
-bool funkin::Animation::isFinished()
+bool engine::Animation::isFinished()
 {
     return currentFrame + 1 >= frames.size();
 }

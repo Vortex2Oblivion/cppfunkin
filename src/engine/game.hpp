@@ -2,19 +2,19 @@
 #include "state.hpp"
 #include "camera.hpp"
 
-namespace funkin
+namespace engine
 {
     class Game
     {
     private:
-        static funkin::State *_state;
+        static engine::State *_state;
 
     public:
         static void start(State *initialState);
         static void update(float delta);
         static void switchState(State *nextState);
-        static std::vector<funkin::Camera *> cameras;
-        static funkin::Camera *defaultCamera;
+        static std::vector<engine::Camera *> cameras;
+        static engine::Camera *defaultCamera;
     };
 
 }

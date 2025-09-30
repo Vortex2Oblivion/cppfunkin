@@ -2,7 +2,7 @@
 
 #include <raylib-cpp.hpp>
 
-namespace funkin
+namespace engine
 {
     class Frame
     {

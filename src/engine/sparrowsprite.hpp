@@ -5,12 +5,12 @@
 #include <pugixml.hpp>
 
 
-namespace funkin
+namespace engine
 {
     class SparrowSprite : public Sprite
     {
     private:
-        std::map<std::string, funkin::Animation *> animations;
+        std::map<std::string, engine::Animation *> animations;
         pugi::xml_document doc;
 
     public:
@@ -29,7 +29,7 @@ namespace funkin
         void centerOffsets();
 
         std::string xmlPath;
-        funkin::Animation *currentAnimation;
+        engine::Animation *currentAnimation;
         std::map<std::string, raylib::Vector2> offsets;
         raylib::Vector2 animationOffset;
     };

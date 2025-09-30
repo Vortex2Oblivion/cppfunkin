@@ -1,6 +1,6 @@
 #include "songselectstate.hpp"
-#include "game.hpp"
 #include "playstate.hpp"
+#include "../engine/game.hpp"
 
 funkin::SongSelectState::SongSelectState()
 {
@@ -34,6 +34,6 @@ void funkin::SongSelectState::update(float delta)
     if (IsKeyPressed(KEY_ENTER))
     {
         delete songText;
-        funkin::Game::switchState(new funkin::PlayState(songs[selectedSong], "hard"));
+        engine::Game::switchState(new funkin::PlayState(songs[selectedSong], "hard"));
     }
 }

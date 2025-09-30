@@ -1,17 +1,17 @@
 #include "sprite.hpp"
 #include <iostream>
 
-std::map<std::string, raylib::Texture *> funkin::Sprite::texturePool;
+std::map<std::string, raylib::Texture *> engine::Sprite::texturePool;
 
-funkin::Sprite::Sprite(float x, float y) : Object(x, y)
+engine::Sprite::Sprite(float x, float y) : Object(x, y)
 {
 }
 
-funkin::Sprite::~Sprite()
+engine::Sprite::~Sprite()
 {
 }
 
-void funkin::Sprite::loadGraphic(std::string path)
+void engine::Sprite::loadGraphic(std::string path)
 {
     if (!texturePool.count(path))
     {
@@ -34,13 +34,13 @@ void funkin::Sprite::loadGraphic(std::string path)
     color = WHITE;
 }
 
-void funkin::Sprite::update(float delta)
+void engine::Sprite::update(float delta)
 {
 }
 
-void funkin::Sprite::draw()
+void engine::Sprite::draw()
 {
-    funkin::Object::draw();
+    engine::Object::draw();
 
     dest.x = (texture->width / 2) + position.x * scale.x + offset.x;
     dest.y = (texture->height / 2) + position.y * scale.y + offset.y;
@@ -52,12 +52,12 @@ void funkin::Sprite::draw()
     }
 }
 
-bool funkin::Sprite::isOnScreen()
+bool engine::Sprite::isOnScreen()
 {
     return !((position.y + texture->height < 0 || position.y > GetScreenHeight()) || (position.x + texture->width < 0 || position.x > GetScreenWidth()));
 }
 
-raylib::Vector2 funkin::Sprite::getMidpoint()
+raylib::Vector2 engine::Sprite::getMidpoint()
 {
     return raylib::Vector2(position.x + texture->width * 0.5f, position.y + texture->height * 0.5f);
 }
