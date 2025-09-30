@@ -168,6 +168,7 @@ void funkin::PlayState::update(float delta)
         noteDataIndex++;
     }
 
+    std::vector<funkin::Note*> toInvalidate;
     for (auto note : notes)
     {
         if (!note->alive)
@@ -177,9 +178,12 @@ void funkin::PlayState::update(float delta)
 
         if (conductor->time * 1000.0 > note->strumTime + 180.0)
         {
-            invalidateNote(note);
-            misses++;
-            updateScoreText();
+            note->alive = false;
+            toInvalidate.push_back(note);
+            if (note->isPlayer) {
+                misses++;
+                updateScoreText();
+            }
         }
         else
         {
@@ -253,7 +257,12 @@ void funkin::PlayState::update(float delta)
         strumLineNotes[lane]->offset = strumLineNotes[lane]->offset.Scale(0.5f);
         // strumLineNotes[lane]->offset.x = -30;
         // strumLineNotes[lane]->offset.y = -30;
-        invalidateNote(note);
+        note->alive = false;
+        toInvalidate.push_back(note);
+    }
+
+    for (size_t i = 0; i < toInvalidate.size(); i++) {
+        invalidateNote(toInvalidate[i]);
     }
 
     for (auto track : tracks)
