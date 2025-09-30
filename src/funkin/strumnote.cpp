@@ -1,4 +1,5 @@
 #include "strumnote.hpp"
+#include "raylib.h"
 
 funkin::StrumNote::StrumNote(float x, float y, int lane, bool player) : SparrowSprite(x, y)
 {
@@ -21,5 +22,5 @@ funkin::StrumNote::~StrumNote()
 
 void funkin::StrumNote::setPosition()
 {
-    position.x += (160 * scale.x) * lane + 50 + (GetRenderWidth() / 2 * (player ? 1 : 0));
+    position.x += (160.0 * scale.x) * lane + 50.0 + (GetScreenWidth() / 2.0 * (player ? 1.0 : 0.0));
 }
