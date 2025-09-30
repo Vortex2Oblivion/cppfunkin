@@ -43,6 +43,18 @@ void funkin::Conductor::start()
     }
 }
 
+void funkin::Conductor::stop()
+{
+    if (tracks.empty())
+    {
+        return;
+    }
+    for (auto track : tracks)
+    {
+        track->Stop();
+    }
+}
+
 void funkin::Conductor::update(float delta)
 {
     if (!tracks.empty())
@@ -97,6 +109,8 @@ void funkin::Conductor::updateBeat()
 {
     beat = (int)(time / getCrochet());
 }
+
+
 void funkin::Conductor::stepHit()
 {
     if (step % 4 == 0)
@@ -105,6 +119,20 @@ void funkin::Conductor::stepHit()
     }
 }
 
+
 void funkin::Conductor::beatHit()
 {
+}
+
+float funkin::Conductor::getMaxAudioTime(){
+    if(tracks.empty()){
+        return 0.0f;
+    }
+    float maxAudioTime = 0.0f;
+    for(auto track :  tracks){
+        if(track->GetTimeLength() >= maxAudioTime){
+            maxAudioTime = track->GetTimeLength();
+        }
+    }
+    return maxAudioTime;
 }

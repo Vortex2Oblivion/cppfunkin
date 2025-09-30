@@ -1,5 +1,6 @@
 #include "playstate.hpp"
 #include "note.hpp"
+#include "songselectstate.hpp"
 #include "strumnote.hpp"
 #include "song.hpp"
 #include "../engine/sparrowsprite.hpp"
@@ -169,7 +170,7 @@ void funkin::PlayState::update(float delta)
         noteDataIndex++;
     }
 
-    std::vector<funkin::Note*> toInvalidate;
+    std::vector<funkin::Note *> toInvalidate;
     for (auto note : notes)
     {
         if (!note->alive)
@@ -181,7 +182,8 @@ void funkin::PlayState::update(float delta)
         {
             note->alive = false;
             toInvalidate.push_back(note);
-            if (note->isPlayer) {
+            if (note->isPlayer)
+            {
                 misses++;
                 updateScoreText();
             }
@@ -262,7 +264,8 @@ void funkin::PlayState::update(float delta)
         toInvalidate.push_back(note);
     }
 
-    for (size_t i = 0; i < toInvalidate.size(); i++) {
+    for (size_t i = 0; i < toInvalidate.size(); i++)
+    {
         invalidateNote(toInvalidate[i]);
     }
 
@@ -294,6 +297,11 @@ void funkin::PlayState::update(float delta)
     engine::Game::defaultCamera->zoom = Lerp(defaultCameraZoom, engine::Game::defaultCamera->zoom, expf(-delta * 3.125f));
     camHUD->zoom = Lerp(1, camHUD->zoom, expf(-delta * 3.125f));
     engine::Game::defaultCamera->cameraPosition = Vector2Lerp(engine::Game::defaultCamera->cameraPosition, cameraTarget, 1.0f - powf(1.0 - 0.04, delta * 60.0f));
+
+    if (conductor->time >= conductor->getMaxAudioTime())
+    {
+        engine::Game::switchState(new SongSelectState());
+    }
 }
 
 void funkin::PlayState::generateStaticArrows(bool player)

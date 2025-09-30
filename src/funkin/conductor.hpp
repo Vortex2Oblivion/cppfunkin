@@ -24,12 +24,15 @@ namespace funkin
         ~Conductor();
         void start(std::vector<raylib::Music *> tracks);
         void start();
+        void stop();
         void update(float delta);
 
         int getBeat();
         int getStep();
         float getCrochet();
         float getStepCrochet();
+        
+        float getMaxAudioTime(); 
 
         std::vector<raylib::Music *> tracks;
         float time = -1.0f;
