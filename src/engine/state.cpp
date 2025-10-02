@@ -9,18 +9,13 @@ engine::State::~State()
 {
     for (auto member : members)
     {
-        remove(member);
+        delete member;
     }
 }
 
 void engine::State::remove(Object *obj)
 {
-    obj->alive = false;
     members.erase(find(members.begin(), members.end(), obj));
-    if (obj != nullptr)
-    {
-        delete obj;
-    }
 }
 
 void engine::State::addToFront(Object *obj)
