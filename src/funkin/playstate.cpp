@@ -67,6 +67,8 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
 
 funkin::PlayState::~PlayState()
 {
+    conductor->stop();
+    tracks.clear();
 }
 
 bool noteDataSorter(funkin::NoteData a, funkin::NoteData b)

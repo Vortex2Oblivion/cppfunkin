@@ -7,10 +7,7 @@ engine::State::State(/* args */) : Object(0, 0)
 
 engine::State::~State()
 {
-    for (auto member : members)
-    {
-        delete member;
-    }
+    members.clear();
 }
 
 void engine::State::remove(Object *obj)

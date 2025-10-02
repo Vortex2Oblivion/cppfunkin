@@ -10,7 +10,7 @@ namespace funkin
     private:
         /* data */
     protected:
-        Conductor *conductor = new Conductor();
+        Conductor *conductor;
 
     public:
         MusicBeatState(/* args */);

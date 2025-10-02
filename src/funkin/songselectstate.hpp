@@ -1,6 +1,7 @@
 #pragma once
 
 #include "musicbeatstate.hpp"
+#include "../engine/text.hpp"
 
 namespace funkin
 {
@@ -9,7 +10,7 @@ namespace funkin
     private:
         int selectedSong = 0;
         std::vector<std::string> songs = {"ziplash", "dad-battle", "decoded", "parasitic", "boxing-match-wg", "bitch", "goktrap", "catshitdotmp3"};
-        raylib::Text *songText;
+        engine::Text *songText;
 
     public:
         SongSelectState(/* args */);

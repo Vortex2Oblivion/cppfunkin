@@ -4,8 +4,8 @@
 
 funkin::SongSelectState::SongSelectState()
 {
-    songText = new raylib::Text(songs[selectedSong], 20);
-    songText->spacing = 1.0f;
+    songText = new engine::Text(songs[selectedSong], 20, 100, 100);
+    add(songText);
 }
 funkin::SongSelectState::~SongSelectState()
 {
@@ -29,8 +29,7 @@ void funkin::SongSelectState::update(float delta)
             selectedSong = (int)songs.size() - 1;
         }
     }
-    songText->Draw(100, 100);
-    songText->text = songs[selectedSong];
+    songText->setText(songs[selectedSong]);
     if (IsKeyPressed(KEY_ENTER))
     {
         delete songText;

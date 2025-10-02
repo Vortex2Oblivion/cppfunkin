@@ -2,6 +2,7 @@
 
 funkin::MusicBeatState::MusicBeatState() : State()
 {
+    conductor = new Conductor();
 }
 
 funkin::MusicBeatState::~MusicBeatState()
