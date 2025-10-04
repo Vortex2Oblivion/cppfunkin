@@ -59,7 +59,8 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
 
     scoreText = new engine::Text("Score: 0 | Misses: 0 | Accuracy: 0", 24, 100, 100);
     scoreText->position.y = GetScreenHeight() * 0.9f;
-    scoreText->setFont("assets/fonts/vcr.ttf");
+    scoreText->font = LoadFont("assets/fonts/vcr.ttf");
+    scoreText->outlineSize = 2.0f;
     scoreText->camera = camHUD;
     updateScoreText();
     add(scoreText);
@@ -154,7 +155,7 @@ void funkin::PlayState::calculateAccuracy()
 void funkin::PlayState::updateScoreText()
 {
     calculateAccuracy();
-    scoreText->setText(TextFormat("Score: %i | Misses: %i | Accuracy: %.2f%%", score, misses, accuracy));
+    scoreText->text = TextFormat("Score: %i | Misses: %i | Accuracy: %.2f%%", score, misses, accuracy);
     scoreText->screenCenter();
 }
 

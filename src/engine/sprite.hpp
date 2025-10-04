@@ -31,6 +31,6 @@ namespace engine
         raylib::Vector2 scale = raylib::Vector2(1.0f, 1.0f);
         raylib::Vector2 offset = raylib::Vector2();
         float angle = 0.0f;
-        raylib::Color color;
+        raylib::Color color = WHITE;
     };
 }

@@ -29,7 +29,7 @@ void funkin::SongSelectState::update(float delta)
             selectedSong = (int)songs.size() - 1;
         }
     }
-    songText->setText(songs[selectedSong]);
+    songText->text = songs[selectedSong];
     if (IsKeyPressed(KEY_ENTER))
     {
         delete songText;

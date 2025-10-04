@@ -2,8 +2,9 @@
 
 engine::Text::Text(std::string text, float size, float x, float y) : Sprite(x, y)
 {
-    _text = new raylib::Text(text, size);
-    _text->spacing = 1.0f;
+    _text = new raylib::Text(text, size, WHITE, GetFontDefault(), 1.0f);
+    origin = _text->MeasureEx() / 2.0f;
+    this->size = size;
 }
 
 engine::Text::~Text()
@@ -14,22 +15,18 @@ engine::Text::~Text()
 
 void engine::Text::draw()
 {
-    _text->Draw(position, angle);
-}
-
-void engine::Text::setText(std::string text)
-{
-    _text->text = text;
-}
-
-void engine::Text::setFont(std::string fileName)
-{
-    _text->font = LoadFont(fileName.c_str());
-}
-
-void engine::Text::setFont(::Font font)
-{
-    _text->font = font;
+    // TODO: replace with shader maybe?
+    if (outlineSize > 0)
+    {
+        _text->Draw(font, text, position + raylib::Vector2(-outlineSize, 0), origin, angle, size, spacing, BLACK);
+        _text->Draw(font, text, position + raylib::Vector2(-outlineSize, outlineSize), origin, angle, size, spacing, BLACK);
+        _text->Draw(font, text, position + raylib::Vector2(0, outlineSize), origin, angle, size, spacing, BLACK);
+        _text->Draw(font, text, position + raylib::Vector2(outlineSize, outlineSize), origin, angle, size, spacing, BLACK);
+        _text->Draw(font, text, position + raylib::Vector2(outlineSize, 0), origin, angle, size, spacing, BLACK);
+        _text->Draw(font, text, position + raylib::Vector2(-outlineSize, -outlineSize), origin, angle, size, spacing, BLACK);
+        _text->Draw(font, text, position + raylib::Vector2(0, -outlineSize), origin, angle, size, spacing, BLACK);
+    }
+    _text->Draw(font, text, position, origin, angle, size, spacing, color);
 }
 
 void engine::Text::screenCenter()

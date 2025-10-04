@@ -15,9 +15,14 @@ namespace engine
     public:
         Text(std::string text, float size, float x, float y);
         ~Text();
-        void setText(std::string text);
-        void setFont(std::string fileName);
-        void setFont(::Font font);
+
+
+        Font font;
+        std::string text = "";
+        float outlineSize = 0.0f;
+        float size = 24.0f;
+        float spacing = 1.0f;
+
         void screenCenter();
     };
 }
