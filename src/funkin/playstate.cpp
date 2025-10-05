@@ -1,5 +1,6 @@
 #include "playstate.hpp"
-#include "Vector2.hpp"
+
+#include "playfield.hpp"
 #include "note.hpp"
 #include "songselectstate.hpp"
 #include "strumnote.hpp"
@@ -54,6 +55,11 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
     add(dad);
     add(boyfriend);
 
+    funkin::PlayField *playfield = new PlayField(this->song.notes);
+    playfield->camera = camHUD;
+    playfield->conductor = conductor;
+    add(playfield);
+
     scoreText = new engine::Text("Score: 0 | Misses: 0 | Accuracy: 0", 24, 100, 100);
     scoreText->position.y = GetScreenHeight() * 0.9f;
     scoreText->font = LoadFont("assets/fonts/vcr.ttf");
@@ -69,20 +75,12 @@ funkin::PlayState::~PlayState()
     tracks.clear();
 }
 
-bool noteDataSorter(funkin::NoteData a, funkin::NoteData b)
-{
-    return a.time < b.time;
-}
-
 void funkin::PlayState::loadSong(std::string songName, std::string difficulty)
 {
     bool needsVoices;
     std::string basePath = "assets/songs/" + songName + "/";
 
     song = funkin::Song::parseChart(songName, difficulty);
-
-    generateStaticArrows(true);
-    generateStaticArrows(false);
 
     nlohmann::json_abi_v3_12_0::json parsedSong = song.parsedSong;
 
@@ -92,7 +90,7 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty)
     player1 = parsedSong["player1"];
     player2 = parsedSong["player2"];
 
-    noteDatas = song.notes;
+    // noteDatas = song.notes;
     playerNotes = song.playerNotes;
 
     tracks.push_back(new raylib::Music(basePath + "Inst.ogg"));
@@ -100,8 +98,6 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty)
     {
         tracks.push_back(new raylib::Music(basePath + "Voices.ogg"));
     }
-
-    std::sort(noteDatas.begin(), noteDatas.end(), noteDataSorter);
 
     conductor->start(tracks);
     // TODO: BPM Changes
@@ -137,13 +133,6 @@ void funkin::PlayState::stepHit()
     funkin::MusicBeatState::stepHit();
 }
 
-void funkin::PlayState::invalidateNote(funkin::Note *note)
-{
-    note->alive = false;
-    notes.erase(find(notes.begin(), notes.end(), note));
-    remove(note);
-}
-
 void funkin::PlayState::calculateAccuracy()
 {
     accuracy = 100.0f * ((float)playerNotes / (playerNotes + misses));
@@ -159,159 +148,18 @@ void funkin::PlayState::updateScoreText()
 void funkin::PlayState::update(float delta)
 {
     MusicBeatState::update(delta);
-    while (noteDataIndex < noteDatas.size() && conductor->time >= noteDatas[noteDataIndex].time - 1.0)
-    {
-        NoteData data = noteDatas[noteDataIndex];
-        Note *note = new Note(data.time * 1000.0f, data.lane, scrollSpeed, strumLineNotes[data.lane + (!data.isPlayer ? 4 : 0)]);
-        note->camera = camHUD;
-        note->isPlayer = data.isPlayer;
-        notes.push_back(note);
-        add(note);
-        noteDataIndex++;
-    }
-
-    std::vector<funkin::Note *> toInvalidate;
-    for (auto note : notes)
-    {
-        if (!note->alive)
-        {
-            continue;
-        }
-
-        if (conductor->time * 1000.0 > note->strumTime + 180.0)
-        {
-            note->alive = false;
-            toInvalidate.push_back(note);
-            if (note->isPlayer)
-            {
-                misses++;
-                updateScoreText();
-            }
-        }
-        else
-        {
-            note->songPos = conductor->time;
-        }
-    }
-
-    // inputs
-    // thanks for helping my dumbass with this rudy
-    float closestDistance = INFINITY;
-
-    pressedArray = {IsKeyDown(KEY_D), IsKeyDown(KEY_F), IsKeyDown(KEY_J), IsKeyDown(KEY_K)};
-    justHitArray = {IsKeyPressed(KEY_D), IsKeyPressed(KEY_F), IsKeyPressed(KEY_J), IsKeyPressed(KEY_K)};
-
-    for (size_t lane = 0; lane < justHitArray.size(); lane++)
-    {
-        if (justHitArray[lane])
-        {
-            strumLineNotes[lane]->playAnimation("press");
-            strumLineNotes[lane]->offset = strumLineNotes[lane]->offset.Scale(0.0f);
-        }
-    }
-
-    for (auto note : notes)
-    {
-        if (note == nullptr || !note->alive)
-        {
-            continue;
-        }
-        bool hittable = false;
-        float minHitTime = 180.0f;
-        float maxHitTime = 180.0f;
-
-        if (!note->isPlayer)
-        {
-            minHitTime = 0;
-        }
-        if (note->strumTime < (conductor->time * 1000 + minHitTime) && note->strumTime > (conductor->time * 1000 - maxHitTime))
-        {
-            hittable = true;
-        }
-        if (!hittable || (!justHitArray[note->lane] && note->isPlayer))
-        {
-            continue;
-        }
-        float rawHitTime = note->strumTime - conductor->time * 1000.f;
-        float distance = abs(rawHitTime);
-        if (distance < closestDistance)
-        {
-            closestDistance = distance;
-        }
-        else
-        {
-            continue;
-        }
-        int lane = note->lane;
-        if (!note->isPlayer)
-        {
-            dad->playAnimation(singAnimArray[lane]);
-            lane += 4;
-        }
-        else
-        {
-            boyfriend->playAnimation(singAnimArray[lane]);
-            int addScore = (int)abs(500.0f - (note->strumTime - conductor->time) / 1000.0f);
-            score += addScore;
-            updateScoreText();
-        }
-        strumLineNotes[lane]->playAnimation("confirm");
-        strumLineNotes[lane]->centerOffsets();
-        strumLineNotes[lane]->offset = strumLineNotes[lane]->offset.Scale(0.5f);
-        // strumLineNotes[lane]->offset.x = -30;
-        // strumLineNotes[lane]->offset.y = -30;
-        note->alive = false;
-        toInvalidate.push_back(note);
-    }
-
-    for (size_t i = 0; i < toInvalidate.size(); i++)
-    {
-        invalidateNote(toInvalidate[i]);
-    }
 
     for (auto track : tracks)
     {
         track->Update();
     }
 
-    for (auto strum : strumLineNotes)
-    {
-        if (strum->player)
-        {
-            if (!pressedArray[strum->lane])
-            {
-                strum->playAnimation("static");
-                strum->offset.x = strum->offset.y = 0.0;
-            }
-        }
-        else
-        {
-            if (strum->currentAnimation->currentFrame >= strum->currentAnimation->frames.size() - 1)
-            {
-                strum->playAnimation("static");
-                strum->offset.x = strum->offset.y = 0.0;
-            }
-        }
-    }
-
     engine::Game::defaultCamera->zoom = Lerp(defaultCameraZoom, engine::Game::defaultCamera->zoom, expf(-delta * 3.125f));
     camHUD->zoom = Lerp(1, camHUD->zoom, expf(-delta * 3.125f));
-    engine::Game::defaultCamera->cameraPosition= engine::Game::defaultCamera->cameraPosition.Lerp(cameraTarget, 1.0f - powf(1.0f - 0.04f, delta * 60.0f));
+    engine::Game::defaultCamera->cameraPosition = engine::Game::defaultCamera->cameraPosition.Lerp(cameraTarget, 1.0f - powf(1.0f - 0.04f, delta * 60.0f));
 
     if (conductor->time >= conductor->getMaxAudioTime())
     {
         engine::Game::switchState(new SongSelectState());
-    }
-}
-
-void funkin::PlayState::generateStaticArrows(bool player)
-{
-    for (int i = 0; i < 4; i++)
-    {
-        StrumNote *babyArrow = new StrumNote(42, 50, i, player);
-        babyArrow->setPosition();
-        babyArrow->camera = camHUD;
-        strumLineNotes.push_back(babyArrow);
-        add(babyArrow);
     }
 }

@@ -17,20 +17,12 @@ namespace funkin
     class PlayState : public MusicBeatState
     {
     private:
-        const std::vector<std::string> singAnimArray = {"singLEFT", "singDOWN", "singUP", "singRIGHT"};
-        std::vector<bool> justHitArray = {false, false, false, false};
-        std::vector<bool> pressedArray = {false, false, false, false};
-        std::vector<funkin::NoteData> noteDatas;
-        size_t noteDataIndex = 0;
-
-        void invalidateNote(Note *note);
         void updateScoreText();
         void calculateAccuracy();
 
     public:
         PlayState(std::string song, std::string difficulty);
         ~PlayState();
-        void generateStaticArrows(bool player);
         void loadSong(std::string song, std::string difficulty);
         void update(float delta);
         void beatHit();

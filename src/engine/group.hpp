@@ -3,7 +3,6 @@
 #include "object.hpp"
 #include <algorithm>
 
-
 namespace engine
 {
     template <typename T = Object>
@@ -43,6 +42,14 @@ namespace engine
     template <typename T>
     void engine::Group<T>::draw()
     {
+        for (auto member : members)
+        {
+            if (member == nullptr || !member->alive)
+            {
+                continue;
+            }
+            member->draw();
+        }
     }
 
     template <typename T>
