@@ -1,10 +1,11 @@
 #pragma once
 
+#include "note.hpp"
 #include "../engine/group.hpp"
 
 namespace funkin
 {
-    class PlayField : public engine::Group
+    class PlayField : public engine::Group<engine::Object>
     {
     private:
         /* data */
@@ -12,6 +13,8 @@ namespace funkin
         PlayField(/* args */);
         ~PlayField();
         bool cpuControlled = true;
-        engine::Group notes;
+        engine::Group<Note> notes;
+        engine::Group<StrumNote> strums;
+        void update(float delta);
     };
 } // namespace funkin
