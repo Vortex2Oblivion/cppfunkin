@@ -5,6 +5,7 @@
 
 #include "object.hpp"
 #include <map>
+#include "axes.hpp"
 
 namespace engine
 {
@@ -26,6 +27,8 @@ namespace engine
         virtual void update(float delta);
         bool isOnScreen();
         raylib::Vector2 getMidpoint();
+        virtual void screenCenter();
+        virtual void screenCenter(engine::Axes axes);
 
         raylib::Vector2 origin;
         raylib::Vector2 scale = raylib::Vector2(1.0f, 1.0f);

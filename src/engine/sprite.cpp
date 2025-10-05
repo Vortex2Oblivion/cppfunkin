@@ -61,3 +61,23 @@ raylib::Vector2 engine::Sprite::getMidpoint()
 {
     return raylib::Vector2(position.x + texture->width * 0.5f, position.y + texture->height * 0.5f);
 }
+
+void engine::Sprite::screenCenter()
+{
+    position.x = (GetScreenWidth() - texture->width) / 2;
+    position.y = (GetScreenHeight() - texture->height) / 2;
+}
+void engine::Sprite::screenCenter(engine::Axes axes)
+{
+    switch (axes)
+    {
+    case X:
+        position.x = (GetScreenWidth() - texture->width) / 2;
+        break;
+    case Y:
+        position.y = (GetScreenHeight() - texture->height) / 2;
+        break;
+    default:
+        screenCenter();
+    }
+}

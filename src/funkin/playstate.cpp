@@ -156,7 +156,7 @@ void funkin::PlayState::updateScoreText()
 {
     calculateAccuracy();
     scoreText->text = TextFormat("Score: %i | Misses: %i | Accuracy: %.2f%%", score, misses, accuracy);
-    scoreText->screenCenter();
+    scoreText->screenCenter(engine::Axes::X);
 }
 
 void funkin::PlayState::update(float delta)

@@ -18,13 +18,13 @@ void engine::Text::draw()
     // TODO: replace with shader maybe?
     if (outlineSize > 0)
     {
-        _text->Draw(font, text, position + raylib::Vector2(-outlineSize, 0), origin, angle, size, spacing, BLACK);
-        _text->Draw(font, text, position + raylib::Vector2(-outlineSize, outlineSize), origin, angle, size, spacing, BLACK);
-        _text->Draw(font, text, position + raylib::Vector2(0, outlineSize), origin, angle, size, spacing, BLACK);
-        _text->Draw(font, text, position + raylib::Vector2(outlineSize, outlineSize), origin, angle, size, spacing, BLACK);
-        _text->Draw(font, text, position + raylib::Vector2(outlineSize, 0), origin, angle, size, spacing, BLACK);
-        _text->Draw(font, text, position + raylib::Vector2(-outlineSize, -outlineSize), origin, angle, size, spacing, BLACK);
-        _text->Draw(font, text, position + raylib::Vector2(0, -outlineSize), origin, angle, size, spacing, BLACK);
+        _text->Draw(font, text, position + raylib::Vector2(-outlineSize, 0), origin, angle, size, spacing, outlineColor);
+        _text->Draw(font, text, position + raylib::Vector2(-outlineSize, outlineSize), origin, angle, size, spacing, outlineColor);
+        _text->Draw(font, text, position + raylib::Vector2(0, outlineSize), origin, angle, size, spacing, outlineColor);
+        _text->Draw(font, text, position + raylib::Vector2(outlineSize, outlineSize), origin, angle, size, spacing, outlineColor);
+        _text->Draw(font, text, position + raylib::Vector2(outlineSize, 0), origin, angle, size, spacing, outlineColor);
+        _text->Draw(font, text, position + raylib::Vector2(-outlineSize, -outlineSize), origin, angle, size, spacing, outlineColor);
+        _text->Draw(font, text, position + raylib::Vector2(0, -outlineSize), origin, angle, size, spacing, outlineColor);
     }
     _text->Draw(font, text, position, origin, angle, size, spacing, color);
 }
@@ -32,4 +32,19 @@ void engine::Text::draw()
 void engine::Text::screenCenter()
 {
     position.x = (GetScreenWidth() - _text->MeasureEx().x) / 2;
+    position.y = (GetScreenHeight() - _text->MeasureEx().y) / 2;
+}
+void engine::Text::screenCenter(engine::Axes axes)
+{
+    switch (axes)
+    {
+    case X:
+        position.x = (GetScreenWidth() - _text->MeasureEx().x) / 2;
+        break;
+    case Y:
+        position.y = (GetScreenHeight() - _text->MeasureEx().y) / 2;
+        break;
+    default:
+        screenCenter();
+    }
 }
