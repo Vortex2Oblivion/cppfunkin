@@ -123,7 +123,7 @@ void funkin::PlayState::beatHit()
             engine::Game::defaultCamera->zoom += 0.015f;
             camHUD->zoom += 0.03f;
         }
-        int targetSection = (int)fminf(song.parsedSong["notes"].size() - 1, fmaxf(0, floor(conductor->getBeat() / 4.0f)));
+        int targetSection = (int)fminf((float)song.parsedSong["notes"].size() - 1.0f, fmaxf(0, floor(conductor->getBeat() / 4.0f)));
         if (song.parsedSong["notes"][targetSection]["mustHitSection"])
         {
             cameraTarget = boyfriend->getMidpoint() - raylib::Vector2(640, 360) - raylib::Vector2(100, 100);
@@ -254,7 +254,7 @@ void funkin::PlayState::update(float delta)
         else
         {
             boyfriend->playAnimation(singAnimArray[lane]);
-            int addScore = abs(500 - (note->strumTime - conductor->time) / 1000.0f);
+            int addScore = (int)abs(500.0f - (note->strumTime - conductor->time) / 1000.0f);
             score += addScore;
             updateScoreText();
         }

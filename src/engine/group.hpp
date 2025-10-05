@@ -13,8 +13,11 @@ namespace engine
         Group(/* args */);
         Group(float x, float y);
         ~Group();
-        void update(float delta);
-        void draw();
+        virtual void remove(Object *obj);
+        virtual void add(Object *obj);
+        virtual void update(float delta);
+        virtual void draw();
+        virtual void addToFront(Object *obj);
     };
 
 } // namespace engine

@@ -1,20 +1,15 @@
 #pragma once
-#include "object.hpp"
+#include "group.hpp"
 #include <vector>
 
 namespace engine
 {
 
-    class State : public Object
+    class State : public Group
     {
 
     public:
-        State(/* args */);
+        State();
         virtual ~State();
-        virtual void remove(Object *obj);
-        virtual void add(Object *obj);
-        virtual void update(float delta);
-        virtual void addToFront(Object *obj);
-        std::vector<Object *> members;
     };
 }

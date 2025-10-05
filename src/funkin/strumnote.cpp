@@ -22,5 +22,5 @@ funkin::StrumNote::~StrumNote()
 
 void funkin::StrumNote::setPosition()
 {
-    position.x += (160.0 * scale.x) * lane + 50.0 + (GetScreenWidth() / 2.0 * (player ? 1.0 : 0.0));
+    position.x += (160.0f * scale.x) * lane + 50.0f + (GetScreenWidth() / 2.0f * (player ? 1.0f : 0.0f));
 }

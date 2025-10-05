@@ -25,6 +25,7 @@ void engine::Text::draw()
         _text->Draw(font, text, position + raylib::Vector2(outlineSize, 0), origin, angle, size, spacing, outlineColor);
         _text->Draw(font, text, position + raylib::Vector2(-outlineSize, -outlineSize), origin, angle, size, spacing, outlineColor);
         _text->Draw(font, text, position + raylib::Vector2(0, -outlineSize), origin, angle, size, spacing, outlineColor);
+        _text->Draw(font, text, position + raylib::Vector2(outlineSize, -outlineSize), origin, angle, size, spacing, outlineColor);
     }
     _text->Draw(font, text, position, origin, angle, size, spacing, color);
 }
