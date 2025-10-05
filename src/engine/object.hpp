@@ -9,6 +9,7 @@ namespace engine
     private:
         /* data */
     public:
+        Object();
         Object(float x, float y);
         virtual ~Object();
         virtual void update(float delta);
