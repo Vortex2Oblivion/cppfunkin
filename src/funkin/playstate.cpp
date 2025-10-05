@@ -299,7 +299,7 @@ void funkin::PlayState::update(float delta)
 
     engine::Game::defaultCamera->zoom = Lerp(defaultCameraZoom, engine::Game::defaultCamera->zoom, expf(-delta * 3.125f));
     camHUD->zoom = Lerp(1, camHUD->zoom, expf(-delta * 3.125f));
-    engine::Game::defaultCamera->cameraPosition = Vector2Lerp(engine::Game::defaultCamera->cameraPosition, cameraTarget, 1.0f - powf(1.0 - 0.04, delta * 60.0f));
+    engine::Game::defaultCamera->cameraPosition = Vector2Lerp(engine::Game::defaultCamera->cameraPosition, cameraTarget, 1.0f - powf(1.0f - 0.04f, delta * 60.0f));
 
     if (conductor->time >= conductor->getMaxAudioTime())
     {

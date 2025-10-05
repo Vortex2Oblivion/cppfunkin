@@ -5,7 +5,7 @@
 namespace engine
 {
 
-    class State : public Group
+    class State : public Group<Object>
     {
 
     public:
