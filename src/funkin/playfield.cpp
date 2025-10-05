@@ -1,5 +1,6 @@
 #include "playfield.hpp"
 #include "strumnote.hpp"
+#include "../engine/group.hpp"
 #include <iostream>
 
 bool noteDataSorter(funkin::NoteData a, funkin::NoteData b)
@@ -36,6 +37,7 @@ void funkin::PlayField::setup(std::vector<NoteData> noteDatas)
 
 void funkin::PlayField::update(float delta)
 {
+    engine::Group<Object>::update(delta);
     while (noteDataIndex < noteDatas.size() && conductor->time >= noteDatas[noteDataIndex].time - 1.0)
     {
         NoteData data = noteDatas[noteDataIndex];
@@ -45,11 +47,6 @@ void funkin::PlayField::update(float delta)
         noteDataIndex++;
     }
 
-    for (auto note : notes->members)
-    {
-        note->update(delta);
-    }
-    
     std::vector<funkin::Note *> toInvalidate;
     for (auto note : notes->members)
     {
