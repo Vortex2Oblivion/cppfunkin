@@ -24,8 +24,13 @@ funkin::PlayField::~PlayField()
 
 void funkin::PlayField::setup(std::vector<NoteData> noteDatas)
 {
+
+    strums = new engine::Group<funkin::StrumNote>();
+    notes = new engine::Group<funkin::Note>();
     this->noteDatas = noteDatas;
     std::sort(noteDatas.begin(), noteDatas.end(), noteDataSorter);
+    add(strums);
+    add(notes);
     generateStaticArrows(true);
 }
 
@@ -34,14 +39,19 @@ void funkin::PlayField::update(float delta)
     while (noteDataIndex < noteDatas.size() && conductor->time >= noteDatas[noteDataIndex].time - 1.0)
     {
         NoteData data = noteDatas[noteDataIndex];
-        Note *note = new Note(data.time * 1000.0f, data.lane, scrollSpeed, strums.members[data.lane]);
+        Note *note = new Note(data.time * 1000.0f, data.lane, scrollSpeed, strums->members[data.lane]);
         note->isPlayer = data.isPlayer;
-        notes.add(note);
+        notes->add(note);
         noteDataIndex++;
     }
 
+    for (auto note : notes->members)
+    {
+        note->update(delta);
+    }
+    
     std::vector<funkin::Note *> toInvalidate;
-    for (auto note : notes.members)
+    for (auto note : notes->members)
     {
         if (!note->alive)
         {
@@ -52,11 +62,11 @@ void funkin::PlayField::update(float delta)
         {
             note->alive = false;
             toInvalidate.push_back(note);
-            if (note->isPlayer)
+            /*if (note->isPlayer)
             {
-                /*misses++;
-                updateScoreText();*/
-            }
+                misses++;
+                updateScoreText();
+            }*/
         }
         else
         {
@@ -75,12 +85,12 @@ void funkin::PlayField::update(float delta)
     {
         if (justHitArray[lane])
         {
-            strums.members[lane]->playAnimation("press");
-            strums.members[lane]->offset = strums.members[lane]->offset.Scale(0.0f);
+            strums->members[lane]->playAnimation("press");
+            strums->members[lane]->offset = strums->members[lane]->offset.Scale(0.0f);
         }
     }
 
-    for (auto note : notes.members)
+    for (auto note : notes->members)
     {
         if (note == nullptr || !note->alive)
         {
@@ -90,46 +100,47 @@ void funkin::PlayField::update(float delta)
         float minHitTime = 180.0f;
         float maxHitTime = 180.0f;
 
-        if (!note->isPlayer)
+        if (cpuControlled)
         {
             minHitTime = 0;
         }
+
         if (note->strumTime < (conductor->time * 1000 + minHitTime) && note->strumTime > (conductor->time * 1000 - maxHitTime))
         {
             hittable = true;
         }
+
         if (!hittable || (!justHitArray[note->lane] && note->isPlayer))
         {
             continue;
         }
+
         float rawHitTime = note->strumTime - conductor->time * 1000.f;
         float distance = abs(rawHitTime);
-        if (distance < closestDistance)
-        {
-            closestDistance = distance;
-        }
-        else
+
+        if (!distance < closestDistance)
         {
             continue;
         }
+
+        closestDistance = distance;
+
         int lane = note->lane;
-        if (!note->isPlayer)
+        /*if (!note->isPlayer)
         {
             // dad->playAnimation(singAnimArray[lane]);
             //lane += 4;
         }
         else
         {
-            /*boyfriend->playAnimation(singAnimArray[lane]);
+            boyfriend->playAnimation(singAnimArray[lane]);
             int addScore = (int)abs(500.0f - (note->strumTime - conductor->time) / 1000.0f);
             score += addScore;
-            updateScoreText();*/
-        }
-        strums.members[lane]->playAnimation("confirm");
-        strums.members[lane]->centerOffsets();
-        strums.members[lane]->offset = strums.members[lane]->offset.Scale(0.5f);
-        // strumLineNotes[lane]->offset.x = -30;
-        // strumLineNotes[lane]->offset.y = -30;
+            updateScoreText();
+        }*/
+        strums->members[lane]->playAnimation("confirm");
+        strums->members[lane]->offset.x = -30;
+        strums->members[lane]->offset.y = -30;
         note->alive = false;
         toInvalidate.push_back(note);
     }
@@ -139,9 +150,9 @@ void funkin::PlayField::update(float delta)
         invalidateNote(toInvalidate[i]);
     }
 
-    for (auto strum : strums.members)
+    for (auto strum : strums->members)
     {
-        if (!cpuControlled)
+        if (cpuControlled)
         {
             if (!pressedArray[strum->lane])
             {
@@ -163,7 +174,7 @@ void funkin::PlayField::update(float delta)
 void funkin::PlayField::invalidateNote(funkin::Note *note)
 {
     note->alive = false;
-    notes.remove(note);
+    notes->remove(note);
 }
 
 void funkin::PlayField::generateStaticArrows(bool player)
@@ -172,7 +183,6 @@ void funkin::PlayField::generateStaticArrows(bool player)
     {
         StrumNote *babyArrow = new StrumNote(42, 50, i, player);
         babyArrow->setPosition();
-        strums.add(babyArrow);
-        add(babyArrow);
+        strums->add(babyArrow);
     }
 }

@@ -27,8 +27,8 @@ namespace funkin
 
         bool cpuControlled = true;
         float scrollSpeed = 1.0f;
-        engine::Group<funkin::Note> notes = {};
-        engine::Group<funkin::StrumNote> strums = {};
+        engine::Group<funkin::Note> *notes;
+        engine::Group<funkin::StrumNote> *strums;
         std::vector<funkin::Character *> characters = {};
 
         funkin::Conductor *conductor;
