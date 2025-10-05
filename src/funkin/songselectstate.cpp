@@ -7,6 +7,7 @@ funkin::SongSelectState::SongSelectState()
     songText = new engine::Text(songs[selectedSong], 20, 100, 100);
     add(songText);
 }
+
 funkin::SongSelectState::~SongSelectState()
 {
 }
@@ -21,7 +22,7 @@ void funkin::SongSelectState::update(float delta)
             selectedSong = 0;
         }
     }
-    if (IsKeyPressed(KEY_LEFT))
+    else if (IsKeyPressed(KEY_LEFT))
     {
         selectedSong--;
         if (selectedSong < 0)

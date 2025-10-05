@@ -1,19 +1,16 @@
 #include "playstate.hpp"
+#include "Vector2.hpp"
 #include "note.hpp"
 #include "songselectstate.hpp"
 #include "strumnote.hpp"
 #include "song.hpp"
-#include "../engine/sparrowsprite.hpp"
 #include "../engine/game.hpp"
 #include "../engine/camera.hpp"
 #include "../engine/text.hpp"
-#include <filesystem>
 #include <fstream>
 #include <raymath.hpp>
-#include <exception>
 #include <algorithm>
 #include <nlohmann/json.hpp>
-#include <iostream>
 
 funkin::PlayState::PlayState(std::string song, std::string difficulty)
 {
@@ -299,7 +296,7 @@ void funkin::PlayState::update(float delta)
 
     engine::Game::defaultCamera->zoom = Lerp(defaultCameraZoom, engine::Game::defaultCamera->zoom, expf(-delta * 3.125f));
     camHUD->zoom = Lerp(1, camHUD->zoom, expf(-delta * 3.125f));
-    engine::Game::defaultCamera->cameraPosition = Vector2Lerp(engine::Game::defaultCamera->cameraPosition, cameraTarget, 1.0f - powf(1.0f - 0.04f, delta * 60.0f));
+    engine::Game::defaultCamera->cameraPosition= engine::Game::defaultCamera->cameraPosition.Lerp(cameraTarget, 1.0f - powf(1.0f - 0.04f, delta * 60.0f));
 
     if (conductor->time >= conductor->getMaxAudioTime())
     {
