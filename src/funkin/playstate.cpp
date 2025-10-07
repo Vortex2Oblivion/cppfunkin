@@ -58,6 +58,7 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
     funkin::PlayField *playfield = new PlayField(this->song.notes, {dad, boyfriend});
     playfield->camera = camHUD;
     playfield->conductor = conductor;
+    playfield->cpuControlled = true;
     add(playfield);
 
     scoreText = new engine::Text("Score: 0 | Misses: 0 | Accuracy: 0", 24, 100, 100);

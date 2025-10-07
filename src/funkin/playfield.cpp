@@ -74,12 +74,15 @@ void funkin::PlayField::update(float delta)
     pressedArray = {IsKeyDown(KEY_D), IsKeyDown(KEY_F), IsKeyDown(KEY_J), IsKeyDown(KEY_K)};
     justHitArray = {IsKeyPressed(KEY_D), IsKeyPressed(KEY_F), IsKeyPressed(KEY_J), IsKeyPressed(KEY_K)};
 
-    for (size_t lane = 0; lane < justHitArray.size(); lane++)
+    if (!cpuControlled)
     {
-        if (justHitArray[lane])
+        for (size_t lane = 0; lane < justHitArray.size(); lane++)
         {
-            strums->members[lane]->playAnimation("press");
-            strums->members[lane]->offset = strums->members[lane]->offset.Scale(0.0f);
+            if (justHitArray[lane])
+            {
+                strums->members[lane]->playAnimation("press");
+                strums->members[lane]->offset = strums->members[lane]->offset.Scale(0.0f);
+            }
         }
     }
 
@@ -103,7 +106,7 @@ void funkin::PlayField::update(float delta)
             hittable = true;
         }
 
-        if (!hittable || (!justHitArray[note->lane]))
+        if (!hittable || (!justHitArray[note->lane] && !cpuControlled))
         {
             continue;
         }
