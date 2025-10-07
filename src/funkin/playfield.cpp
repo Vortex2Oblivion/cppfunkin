@@ -59,11 +59,7 @@ void funkin::PlayField::update(float delta)
         {
             note->alive = false;
             toInvalidate.push_back(note);
-            /*if (note->isPlayer)
-            {
-                misses++;
-                updateScoreText();
-            }*/
+            misses++;
         }
         else
         {
@@ -107,7 +103,7 @@ void funkin::PlayField::update(float delta)
             hittable = true;
         }
 
-        if (!hittable || (!justHitArray[note->lane] && note->isPlayer))
+        if (!hittable || (!justHitArray[note->lane]))
         {
             continue;
         }
@@ -115,7 +111,7 @@ void funkin::PlayField::update(float delta)
         float rawHitTime = note->strumTime - conductor->time * 1000.f;
         float distance = abs(rawHitTime);
 
-        if (!distance < closestDistance)
+        if (distance >= closestDistance)
         {
             continue;
         }
@@ -123,18 +119,13 @@ void funkin::PlayField::update(float delta)
         closestDistance = distance;
 
         int lane = note->lane;
-        /*if (!note->isPlayer)
+
+        for (auto character : characters)
         {
-            // dad->playAnimation(singAnimArray[lane]);
-            //lane += 4;
+            character->playAnimation(singAnimArray[lane]);
         }
-        else
-        {
-            boyfriend->playAnimation(singAnimArray[lane]);
-            int addScore = (int)abs(500.0f - (note->strumTime - conductor->time) / 1000.0f);
-            score += addScore;
-            updateScoreText();
-        }*/
+        int addScore = (int)abs(500.0f - (note->strumTime - conductor->time) / 1000.0f);
+        score += addScore;
         strums->members[lane]->playAnimation("confirm");
         strums->members[lane]->offset.x = -30;
         strums->members[lane]->offset.y = -30;
@@ -149,7 +140,7 @@ void funkin::PlayField::update(float delta)
 
     for (auto strum : strums->members)
     {
-        if (cpuControlled)
+        if (!cpuControlled)
         {
             if (!pressedArray[strum->lane])
             {

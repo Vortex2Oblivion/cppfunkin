@@ -25,8 +25,11 @@ namespace funkin
         PlayField(std::vector<NoteData> noteDatas, std::vector<Character *> characters);
         ~PlayField();
 
-        bool cpuControlled = true;
-        float scrollSpeed = 1.0f;
+        bool cpuControlled = false;
+        float scrollSpeed = 2.3f;
+        unsigned int misses = 0;
+        int score = 0;
+
         engine::Group<funkin::Note> *notes;
         engine::Group<funkin::StrumNote> *strums;
         std::vector<funkin::Character *> characters = {};

@@ -55,7 +55,7 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
     add(dad);
     add(boyfriend);
 
-    funkin::PlayField *playfield = new PlayField(this->song.notes);
+    funkin::PlayField *playfield = new PlayField(this->song.notes, {dad, boyfriend});
     playfield->camera = camHUD;
     playfield->conductor = conductor;
     add(playfield);
@@ -148,11 +148,6 @@ void funkin::PlayState::updateScoreText()
 void funkin::PlayState::update(float delta)
 {
     MusicBeatState::update(delta);
-
-    for (auto track : tracks)
-    {
-        track->Update();
-    }
 
     engine::Game::defaultCamera->zoom = Lerp(defaultCameraZoom, engine::Game::defaultCamera->zoom, expf(-delta * 3.125f));
     camHUD->zoom = Lerp(1, camHUD->zoom, expf(-delta * 3.125f));
