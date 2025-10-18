@@ -3,7 +3,6 @@
 #include "object.hpp"
 #include <algorithm>
 
-
 namespace engine
 {
     template <typename T = Object>
@@ -15,6 +14,7 @@ namespace engine
         /* data */
     public:
         std::vector<T *> members = {};
+        raylib::Vector2 position = raylib::Vector2(0, 0);
         Group(/* args */);
         Group(float x, float y);
         ~Group();
@@ -22,6 +22,7 @@ namespace engine
         virtual void add(T *obj);
         virtual void update(float delta);
         virtual void draw();
+        virtual void draw(float x, float y);
         virtual void addToFront(T *obj);
     };
     template <typename T>
@@ -41,8 +42,22 @@ namespace engine
     }
 
     template <typename T>
+    void engine::Group<T>::draw(float x, float y)
+    {
+        for (auto member : members)
+        {
+            if (member == nullptr || !member->alive)
+            {
+                continue;
+            }
+            member->draw(position.x + x, position.y + y);
+        }
+    }
+
+    template <typename T>
     void engine::Group<T>::draw()
     {
+        draw(0, 0);
     }
 
     template <typename T>

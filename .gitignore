@@ -1,7 +1,9 @@
-build
-out
+build/
+cmake-build-debug/
+out/
 .vscode/
 .cache/
+.idea/
 **.DS_Store
 
 CMakePresets.json

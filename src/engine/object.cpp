@@ -25,3 +25,7 @@ void engine::Object::update(float delta)
 void engine::Object::draw()
 {
 }
+
+void engine::Object::draw(float x, float y)
+{
+}

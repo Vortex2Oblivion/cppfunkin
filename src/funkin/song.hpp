@@ -12,9 +12,9 @@ namespace funkin
     };
     struct SongData
     {
-        nlohmann::json_abi_v3_12_0::json parsedSong;
-        std::vector<NoteData> notes;
-        unsigned int playerNotes;
+        nlohmann::json_abi_v3_12_0::json parsedSong = {};
+        std::vector<NoteData> playerNotes = {};
+        std::vector<NoteData> opponentNotes = {};
     };
     class Song
     {

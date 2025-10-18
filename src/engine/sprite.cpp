@@ -40,10 +40,15 @@ void engine::Sprite::update(float delta)
 
 void engine::Sprite::draw()
 {
-    engine::Object::draw();
 
-    dest.x = (texture->width / 2) + position.x * scale.x + offset.x;
-    dest.y = (texture->height / 2) + position.y * scale.y + offset.y;
+    draw(0, 0);
+}
+
+void engine::Sprite::draw(float x, float y)
+{
+
+    dest.x = (texture->width / 2) + position.x * scale.x + offset.x + x;
+    dest.y = (texture->height / 2) + position.y * scale.y + offset.y + y;
     dest.width = (float)(texture->width) * scale.x;
     dest.height = (float)(texture->height) * scale.y;
     if (isOnScreen())
