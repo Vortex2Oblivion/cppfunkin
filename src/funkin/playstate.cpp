@@ -20,8 +20,8 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
 
     loadSong(song, difficulty);
 
-    dad = new Character(0, 0, player2);
-    boyfriend = new Character(0, 0, player1);
+    dad = new Character(100, 100, player2);
+    boyfriend = new Character(770, 100, player1);
 
     std::string stagePath = "assets/stages/" + curStage + "/";
     std::ifstream stageFile(stagePath + "stage.json");
@@ -49,10 +49,6 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
         auto boyfriendPosition = parsedStage["characters"]["bf"];
         dad->position += raylib::Vector2(dadPosition["x"], dadPosition["y"]);
         boyfriend->position += raylib::Vector2(boyfriendPosition["x"], boyfriendPosition["y"]);
-    }
-    else
-    {
-        boyfriend->position.x = 400;
     }
 
     add(dad);
@@ -171,6 +167,6 @@ void funkin::PlayState::update(float delta)
 
     if (conductor->time >= conductor->getMaxAudioTime())
     {
-        engine::Game::switchState(new SongSelectState());
+        engine::Game::switchState(new funkin::SongSelectState());
     }
 }
