@@ -27,10 +27,11 @@ namespace funkin
         void beatHit();
         void stepHit();
         std::vector<raylib::Music *> tracks = {};
+        std::vector<funkin::PlayField *> playfields = {};
         funkin::PlayField *playerField;
         funkin::PlayField *dadField;
-        Character *boyfriend;
-        Character *dad;
+        funkin::Character *boyfriend;
+        funkin::Character *dad;
         engine::Camera *camHUD;
         std::string curStage = "stage";
         std::string player1 = "bf";

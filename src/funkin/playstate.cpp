@@ -64,19 +64,24 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
     dadField->scrollSpeed = scrollSpeed;
     add(dadField);
 
+    playfields.push_back(dadField);
+
     playerField = new PlayField(raylib::Window::GetWidth() / 2.0f, 0, this->song.playerNotes, {boyfriend}, false);
     playerField->camera = camHUD;
     playerField->conductor = conductor;
     playerField->scrollSpeed = scrollSpeed;
     add(playerField);
 
+    playfields.push_back(playerField);
+
     scoreText = new engine::Text("Score: 0 | Misses: 0 | Accuracy: 0", 24, 100, 100);
     scoreText->position.y = GetScreenHeight() * 0.9f;
     scoreText->font = LoadFont("assets/fonts/vcr.ttf");
     scoreText->outlineSize = 2.0f;
     scoreText->camera = camHUD;
-    updateScoreText();
     add(scoreText);
+
+    updateScoreText();
 }
 
 funkin::PlayState::~PlayState()
@@ -117,8 +122,13 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty)
 void funkin::PlayState::beatHit()
 {
     funkin::MusicBeatState::beatHit();
-    dad->dance();
-    boyfriend->dance();
+    for (auto field : playfields)
+    {
+        for (auto character : field->characters)
+        {
+            character->dance();
+        }
+    }
     if (conductor->getBeat() % 4 == 0)
     {
         if (engine::Game::defaultCamera->zoom < 1.35f)
