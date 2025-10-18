@@ -18,12 +18,14 @@ namespace funkin
         size_t noteDataIndex = 0;
 
         void invalidateNote(Note *note);
+        void calculateAccuracy();
     public:
         PlayField(float x, float y, std::vector<NoteData> noteDatas, std::vector<Character *> characters, bool cpuControlled = false);
         ~PlayField();
 
         bool cpuControlled = false;
-        float scrollSpeed = 2.3f;
+        float scrollSpeed = 1.0f;
+        float accuracy = 100.0f;
         unsigned int misses = 0;
         int score = 0;
 

@@ -52,6 +52,7 @@ void funkin::PlayField::update(float delta)
             note->alive = false;
             toInvalidate.push_back(note);
             misses++;
+            calculateAccuracy();
         }
         else
         {
@@ -168,4 +169,10 @@ void funkin::PlayField::generateStaticArrows(bool player)
         babyArrow->setPosition();
         strums->add(babyArrow);
     }
+}
+
+
+void funkin::PlayField::calculateAccuracy()
+{
+    accuracy = 100.0f * ((float)noteDatas.size() / (noteDatas.size() + misses));
 }

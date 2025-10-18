@@ -44,8 +44,11 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
         }
 
         defaultCameraZoom = engine::Game::defaultCamera->zoom = parsedStage["zoom"];
-        dad->position += raylib::Vector2(parsedStage["characters"]["dad"]["x"], parsedStage["characters"]["dad"]["y"]);
-        boyfriend->position += raylib::Vector2(parsedStage["characters"]["bf"]["x"], parsedStage["characters"]["bf"]["y"]);
+
+        auto dadPosition = parsedStage["characters"]["dad"];
+        auto boyfriendPosition = parsedStage["characters"]["bf"];
+        dad->position += raylib::Vector2(dadPosition["x"], dadPosition["y"]);
+        boyfriend->position += raylib::Vector2(boyfriendPosition["x"], boyfriendPosition["y"]);
     }
     else
     {
@@ -61,12 +64,11 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
     dadField->scrollSpeed = scrollSpeed;
     add(dadField);
 
-    playerField = new PlayField(GetScreenWidth() / 2.0f, 0, this->song.playerNotes, {boyfriend}, false);
+    playerField = new PlayField(raylib::Window::GetWidth() / 2.0f, 0, this->song.playerNotes, {boyfriend}, false);
     playerField->camera = camHUD;
     playerField->conductor = conductor;
     playerField->scrollSpeed = scrollSpeed;
     add(playerField);
-
 
     scoreText = new engine::Text("Score: 0 | Misses: 0 | Accuracy: 0", 24, 100, 100);
     scoreText->position.y = GetScreenHeight() * 0.9f;
@@ -141,15 +143,9 @@ void funkin::PlayState::stepHit()
     funkin::MusicBeatState::stepHit();
 }
 
-void funkin::PlayState::calculateAccuracy()
-{
-    accuracy = 100.0f * ((float)totalPlayerNotes / (totalPlayerNotes + misses));
-}
-
 void funkin::PlayState::updateScoreText()
 {
-    calculateAccuracy();
-    scoreText->text = TextFormat("Score: %i | Misses: %i | Accuracy: %.2f%%", score, misses, accuracy);
+    scoreText->text = TextFormat("Score: %i | Misses: %i | Accuracy: %.2f%%", playerField->score, playerField->misses, playerField->accuracy);
     scoreText->screenCenter(engine::Axes::X);
 }
 
@@ -160,6 +156,8 @@ void funkin::PlayState::update(float delta)
     engine::Game::defaultCamera->zoom = Lerp(defaultCameraZoom, engine::Game::defaultCamera->zoom, expf(-delta * 3.125f));
     camHUD->zoom = Lerp(1, camHUD->zoom, expf(-delta * 3.125f));
     engine::Game::defaultCamera->cameraPosition = engine::Game::defaultCamera->cameraPosition.Lerp(cameraTarget, 1.0f - powf(1.0f - 0.04f, delta * 60.0f));
+
+    updateScoreText();
 
     if (conductor->time >= conductor->getMaxAudioTime())
     {

@@ -18,7 +18,6 @@ namespace funkin
     {
     private:
         void updateScoreText();
-        void calculateAccuracy();
 
     public:
         PlayState(std::string song, std::string difficulty);

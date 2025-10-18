@@ -10,6 +10,7 @@ funkin::SongSelectState::SongSelectState()
 
 funkin::SongSelectState::~SongSelectState()
 {
+    songs.clear();
 }
 
 void funkin::SongSelectState::update(float delta)
