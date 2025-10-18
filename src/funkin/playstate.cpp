@@ -59,6 +59,7 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
     playfield->camera = camHUD;
     playfield->conductor = conductor;
     playfield->cpuControlled = true;
+    playfield->scrollSpeed = scrollSpeed;
     add(playfield);
 
     scoreText = new engine::Text("Score: 0 | Misses: 0 | Accuracy: 0", 24, 100, 100);

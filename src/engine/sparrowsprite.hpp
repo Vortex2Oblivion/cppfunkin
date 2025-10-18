@@ -21,8 +21,10 @@ namespace engine
 
         void playAnimation(std::string name);
 
-        void update(float delta);
-        void draw();
+        virtual void update(float delta);
+        virtual void draw();
+        virtual void draw(float x, float y);
+
 
         raylib::Vector2 getMidpoint();
 

@@ -14,6 +14,7 @@ namespace engine
         /* data */
     public:
         std::vector<T *> members = {};
+        raylib::Vector2 position = raylib::Vector2(0, 0);
         Group(/* args */);
         Group(float x, float y);
         ~Group();
@@ -21,6 +22,7 @@ namespace engine
         virtual void add(T *obj);
         virtual void update(float delta);
         virtual void draw();
+        virtual void draw(float x, float y);
         virtual void addToFront(T *obj);
     };
     template <typename T>
@@ -48,8 +50,14 @@ namespace engine
             {
                 continue;
             }
-            member->draw();
+            member->draw(position.x, position.y);
         }
+    }
+
+    template <typename T>
+    void engine::Group<T>::draw(float x, float y)
+    {
+        draw();
     }
 
     template <typename T>

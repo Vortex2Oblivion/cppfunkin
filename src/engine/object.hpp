@@ -14,6 +14,7 @@ namespace engine
         virtual ~Object();
         virtual void update(float delta);
         virtual void draw();
+        virtual void draw(float x, float y);
         raylib::Vector2 position;
         bool alive = true;
         raylib::Camera2D *camera;

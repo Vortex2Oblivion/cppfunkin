@@ -102,7 +102,11 @@ void engine::SparrowSprite::centerOffsets()
 
 void engine::SparrowSprite::draw()
 {
+    draw(0, 0);
+}
 
+void engine::SparrowSprite::draw(float x, float y)
+{
     if (currentAnimation != nullptr && animations.size() > 0)
     {
         size_t frame = currentAnimation->currentFrame;
@@ -114,8 +118,8 @@ void engine::SparrowSprite::draw()
 
         dest.width = currentAnimation->frames[frame]->width * scale.x;
         dest.height = currentAnimation->frames[frame]->height * scale.y;
-        dest.x = (dest.width / 2) + position.x + offset.x - animationOffset.x + currentAnimation->frames[frame]->frameX;
-        dest.y = (dest.height / 2) + position.y + offset.y - animationOffset.y + currentAnimation->frames[frame]->frameY;
+        dest.x = (dest.width / 2) + position.x + offset.x - animationOffset.x + currentAnimation->frames[frame]->frameX + x;
+        dest.y = (dest.height / 2) + position.y + offset.y - animationOffset.y + currentAnimation->frames[frame]->frameY + y;
 
         origin = raylib::Vector2(dest.width / 2.0f, dest.height / 2.0f);
 
@@ -126,7 +130,7 @@ void engine::SparrowSprite::draw()
     }
     else
     {
-        engine::Sprite::draw();
+        engine::Sprite::draw(x, y);
     }
 }
 raylib::Vector2 engine::SparrowSprite::getMidpoint()

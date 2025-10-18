@@ -15,7 +15,6 @@ namespace engine
         static std::map<std::string, raylib::Texture *> texturePool;
 
     protected:
-        virtual void draw();
         raylib::Texture *texture;
         raylib::Rectangle source;
         raylib::Rectangle dest;
@@ -29,6 +28,8 @@ namespace engine
         raylib::Vector2 getMidpoint();
         virtual void screenCenter();
         virtual void screenCenter(engine::Axes axes);
+        virtual void draw();
+        virtual void draw(float x, float y);
 
         raylib::Vector2 origin;
         raylib::Vector2 scale = raylib::Vector2(1.0f, 1.0f);
