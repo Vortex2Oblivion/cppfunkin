@@ -47,8 +47,8 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
 
         auto dadPosition = parsedStage["characters"]["dad"];
         auto boyfriendPosition = parsedStage["characters"]["bf"];
-        dad->position += raylib::Vector2(dadPosition["x"], dadPosition["y"]);
-        boyfriend->position += raylib::Vector2(boyfriendPosition["x"], boyfriendPosition["y"]);
+        dad->position = raylib::Vector2(dadPosition["x"], dadPosition["y"]);
+        boyfriend->position = raylib::Vector2(boyfriendPosition["x"], boyfriendPosition["y"]);
     }
 
     add(dad);
