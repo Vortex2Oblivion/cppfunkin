@@ -55,12 +55,18 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
     add(dad);
     add(boyfriend);
 
-    funkin::PlayField *playfield = new PlayField(this->song.notes, {dad, boyfriend});
-    playfield->camera = camHUD;
-    playfield->conductor = conductor;
-    playfield->cpuControlled = true;
-    playfield->scrollSpeed = scrollSpeed;
-    add(playfield);
+    dadField = new PlayField(0, 0, this->song.opponentNotes, {dad}, true);
+    dadField->camera = camHUD;
+    dadField->conductor = conductor;
+    dadField->scrollSpeed = scrollSpeed;
+    add(dadField);
+
+    playerField = new PlayField(GetScreenWidth() / 2.0f, 0, this->song.playerNotes, {boyfriend}, false);
+    playerField->camera = camHUD;
+    playerField->conductor = conductor;
+    playerField->scrollSpeed = scrollSpeed;
+    add(playerField);
+
 
     scoreText = new engine::Text("Score: 0 | Misses: 0 | Accuracy: 0", 24, 100, 100);
     scoreText->position.y = GetScreenHeight() * 0.9f;
@@ -93,7 +99,7 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty)
     player2 = parsedSong["player2"];
 
     // noteDatas = song.notes;
-    playerNotes = song.playerNotes;
+    totalPlayerNotes = song.playerNotes.size();
 
     tracks.push_back(new raylib::Music(basePath + "Inst.ogg"));
     if (needsVoices)
@@ -137,7 +143,7 @@ void funkin::PlayState::stepHit()
 
 void funkin::PlayState::calculateAccuracy()
 {
-    accuracy = 100.0f * ((float)playerNotes / (playerNotes + misses));
+    accuracy = 100.0f * ((float)totalPlayerNotes / (totalPlayerNotes + misses));
 }
 
 void funkin::PlayState::updateScoreText()

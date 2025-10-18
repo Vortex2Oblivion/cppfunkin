@@ -42,7 +42,7 @@ namespace engine
     }
 
     template <typename T>
-    void engine::Group<T>::draw()
+    void engine::Group<T>::draw(float x, float y)
     {
         for (auto member : members)
         {
@@ -50,14 +50,14 @@ namespace engine
             {
                 continue;
             }
-            member->draw(position.x, position.y);
+            member->draw(position.x + x, position.y + y);
         }
     }
 
     template <typename T>
-    void engine::Group<T>::draw(float x, float y)
+    void engine::Group<T>::draw()
     {
-        draw();
+        draw(0, 0);
     }
 
     template <typename T>

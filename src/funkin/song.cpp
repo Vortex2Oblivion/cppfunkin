@@ -11,8 +11,8 @@ funkin::SongData funkin::Song::parseChart(std::string songName, std::string diff
 
     nlohmann::json_abi_v3_12_0::json song;
     bool isPsychV1 = false;
-    std::vector<NoteData> notes = {};
-    unsigned int playerNotes = 0;
+    std::vector<NoteData> playerNotes = {};
+    std::vector<NoteData> opponentNotes = {};
 
     if (parsedChart["song"].contains("song"))
     {
@@ -44,21 +44,27 @@ funkin::SongData funkin::Song::parseChart(std::string songName, std::string diff
             }
             bool playerNote = (sectionNote[1] < 4) ? (bool)(sectionNotes["mustHitSection"]) : (!sectionNotes["mustHitSection"]);
             int lane = ((int)sectionNote[1] % 4) + (playerNote ? 0 : 4);
-            notes.push_back(NoteData{
-                (float)sectionNote[0] / 1000.0f, // time
-                lane % 4,                        // lane
-                playerNote,                      // isPlayer
-            });
             if (playerNote)
             {
-                playerNotes++;
+                playerNotes.push_back(NoteData{
+                    (float)sectionNote[0] / 1000.0f, // time
+                    lane % 4,                        // lane
+                    playerNote,                      // isPlayer
+                });
+            }
+            else
+            {
+                opponentNotes.push_back(NoteData{
+                    (float)sectionNote[0] / 1000.0f, // time
+                    lane % 4,                        // lane
+                    playerNote,                      // isPlayer
+                });
             }
         }
-
     }
     return {
         .parsedSong = song,
-        .notes = notes,
         .playerNotes = playerNotes,
+        .opponentNotes = opponentNotes,
     };
 }

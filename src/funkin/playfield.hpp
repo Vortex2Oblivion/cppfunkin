@@ -18,11 +18,8 @@ namespace funkin
         size_t noteDataIndex = 0;
 
         void invalidateNote(Note *note);
-        void setup(std::vector<NoteData> noteDatas);
-
     public:
-        PlayField(std::vector<NoteData> noteDatas);
-        PlayField(std::vector<NoteData> noteDatas, std::vector<Character *> characters);
+        PlayField(float x, float y, std::vector<NoteData> noteDatas, std::vector<Character *> characters, bool cpuControlled = false);
         ~PlayField();
 
         bool cpuControlled = false;

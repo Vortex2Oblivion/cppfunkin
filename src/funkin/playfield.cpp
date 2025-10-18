@@ -8,31 +8,23 @@ bool noteDataSorter(funkin::NoteData a, funkin::NoteData b)
     return a.time < b.time;
 }
 
-funkin::PlayField::PlayField(std::vector<NoteData> noteDatas)
+funkin::PlayField::PlayField(float x, float y, std::vector<NoteData> noteDatas, std::vector<Character *> characters, bool cpuControlled)
 {
-    setup(noteDatas);
-}
-
-funkin::PlayField::PlayField(std::vector<NoteData> noteDatas, std::vector<Character *> characters)
-{
+    this->position.x = x;
+    this->position.y = y;
     this->characters = characters;
-    setup(noteDatas);
+    this->cpuControlled = cpuControlled;
+    this->noteDatas = noteDatas;
+    strums = new engine::Group<funkin::StrumNote>();
+    notes = new engine::Group<funkin::Note>();
+    std::sort(noteDatas.begin(), noteDatas.end(), noteDataSorter);
+    add(strums);
+    add(notes);
+    generateStaticArrows(cpuControlled);
 }
 
 funkin::PlayField::~PlayField()
 {
-}
-
-void funkin::PlayField::setup(std::vector<NoteData> noteDatas)
-{
-
-    strums = new engine::Group<funkin::StrumNote>();
-    notes = new engine::Group<funkin::Note>();
-    this->noteDatas = noteDatas;
-    std::sort(noteDatas.begin(), noteDatas.end(), noteDataSorter);
-    add(strums);
-    add(notes);
-    generateStaticArrows(true);
 }
 
 void funkin::PlayField::update(float delta)
