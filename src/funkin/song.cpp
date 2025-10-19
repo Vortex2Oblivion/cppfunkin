@@ -47,17 +47,17 @@ funkin::SongData funkin::Song::parseChart(std::string songName, std::string diff
             if (playerNote)
             {
                 playerNotes.push_back(NoteData{
-                    (float)sectionNote[0] / 1000.0f, // time
-                    lane % 4,                        // lane
-                    playerNote,                      // isPlayer
+                    .time = (float)sectionNote[0] / 1000.0f,
+                    .lane = lane % 4,
+                    .isPlayer = playerNote,
                 });
             }
             else
             {
                 opponentNotes.push_back(NoteData{
-                    (float)sectionNote[0] / 1000.0f, // time
-                    lane % 4,                        // lane
-                    playerNote,                      // isPlayer
+                    .time = (float)sectionNote[0] / 1000.0f,
+                    .lane = lane % 4,
+                    .isPlayer = playerNote,
                 });
             }
         }
