@@ -5,8 +5,10 @@
 
 int main()
 {
-    raylib::Window window = raylib::Window(1280, 720, "Friday Night Funkin'");
-    //window.SetTargetFPS(GetMonitorRefreshRate(window.GetMonitor()) * 2);
+    int windowWidth = 1280;
+    int windowHeight = 720;
+    raylib::Window window = raylib::Window(windowWidth, windowHeight, "Friday Night Funkin'");
+    // window.SetTargetFPS(GetMonitorRefreshRate(window.GetMonitor()) * 2);
 
     raylib::Image iconOG = raylib::Image("assets/images/iconOG.png");
     window.SetIcon(iconOG);
@@ -18,6 +20,10 @@ int main()
 
     while (!window.ShouldClose())
     {
+        if (IsKeyPressed(KEY_F11))
+        {
+            window.ToggleFullscreen();
+        }
         window.BeginDrawing();
         window.ClearBackground(BLACK);
         engine::Game::update(window.GetFrameTime());

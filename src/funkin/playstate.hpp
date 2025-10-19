@@ -6,6 +6,7 @@
 #include "note.hpp"
 #include "song.hpp"
 #include "playfield.hpp"
+#include "../engine/bar.hpp"
 #include "../engine/camera.hpp"
 #include "../engine/sparrowsprite.hpp"
 #include "../engine/text.hpp"
@@ -26,13 +27,20 @@ namespace funkin
         void update(float delta);
         void beatHit();
         void stepHit();
+
         std::vector<raylib::Music *> tracks = {};
         std::vector<funkin::PlayField *> playfields = {};
+
         funkin::PlayField *playerField;
         funkin::PlayField *dadField;
+
         funkin::Character *boyfriend;
         funkin::Character *dad;
+
+        engine::Bar *healthBar;
+
         engine::Camera *camHUD;
+
         std::string curStage = "stage";
         std::string player1 = "bf";
         std::string player2 = "dad";

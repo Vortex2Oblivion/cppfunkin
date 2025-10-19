@@ -13,8 +13,9 @@
 #include <raymath.hpp>
 #include <algorithm>
 #include <nlohmann/json.hpp>
+#include <iostream>
 
-funkin::PlayState::PlayState(std::string song, std::string difficulty)
+funkin::PlayState::PlayState(std::string song, std::string difficulty) : MusicBeatState()
 {
     camHUD = new engine::Camera();
     engine::Game::cameras.push_back(camHUD);
@@ -98,6 +99,11 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
     free(codepointsNoDups);
 
     updateScoreText();
+
+    healthBar = new engine::Bar(100.0f, scoreText->position.y - 30.0f, 601.0f - 8.0f, 19.0f - 8.0f, raylib::Color::Red(), raylib::Color::Green(), 8);
+    healthBar->camera = camHUD;
+    healthBar->screenCenter(engine::Axes::X);
+    add(healthBar);
 }
 
 funkin::PlayState::~PlayState()
@@ -189,4 +195,6 @@ void funkin::PlayState::update(float delta)
     {
         engine::Game::switchState(new SongSelectState());
     }
+
+    healthBar->percent = sinf((float)GetTime()) * 50.0f + 50.0f;
 }

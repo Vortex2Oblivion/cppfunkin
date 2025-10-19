@@ -32,8 +32,8 @@ void engine::Text::draw()
 
 void engine::Text::screenCenter()
 {
-    position.x = (GetScreenWidth() - MeasureTextEx(font, text.c_str(), size, spacing).x) / 2;
-    position.y = (GetScreenHeight() - MeasureTextEx(font, text.c_str(), size, spacing).y) / 2;
+    screenCenter(X);
+    screenCenter(Y);
 }
 void engine::Text::screenCenter(engine::Axes axes)
 {
