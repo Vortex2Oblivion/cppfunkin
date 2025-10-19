@@ -1,5 +1,6 @@
 #include "playstate.hpp"
 
+#include "coolutil.hpp"
 #include "playfield.hpp"
 #include "note.hpp"
 #include "songselectstate.hpp"
@@ -74,12 +75,27 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty)
 
     playfields.push_back(playerField);
 
-    scoreText = new engine::Text("Score: 0 | Misses: 0 | Accuracy: 0", 24, 100, 100);
+    // https://www.raylib.com/examples/text/loader.html?name=text_codepoints_loading
+    std::string defaultScoreText = "Score: 0123456789 • Misses: 0 • Accuracy: 100.0%";
+
+    // Convert each utf-8 character into its
+    // corresponding codepoint in the font file
+    int codepointCount = 0;
+    int *codepoints = LoadCodepoints(defaultScoreText.c_str(), &codepointCount);
+
+    // Removed duplicate codepoints to generate smaller font atlas
+    int codepointsNoDupsCount = 0;
+    int *codepointsNoDups = funkin::CoolUtil::codepointRemoveDuplicates(codepoints, codepointCount, &codepointsNoDupsCount);
+    UnloadCodepoints(codepoints);
+
+    scoreText = new engine::Text("", 24, 100, 100);
     scoreText->position.y = GetScreenHeight() * 0.9f;
-    scoreText->font = LoadFont("assets/fonts/vcr.ttf");
+    scoreText->font = LoadFontEx("assets/fonts/vcr.ttf", 24, codepointsNoDups, codepointsNoDupsCount);
     scoreText->outlineSize = 2.0f;
     scoreText->camera = camHUD;
     add(scoreText);
+
+    free(codepointsNoDups);
 
     updateScoreText();
 }
@@ -155,7 +171,7 @@ void funkin::PlayState::stepHit()
 
 void funkin::PlayState::updateScoreText()
 {
-    scoreText->text = TextFormat("Score: %i | Misses: %i | Accuracy: %.2f%%", playerField->score, playerField->misses, playerField->accuracy);
+    scoreText->text = TextFormat("Score: %i • Misses: %i • Accuracy: %.2f%%", playerField->score, playerField->misses, playerField->accuracy);
     scoreText->screenCenter(engine::Axes::X);
 }
 

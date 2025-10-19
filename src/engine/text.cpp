@@ -32,18 +32,18 @@ void engine::Text::draw()
 
 void engine::Text::screenCenter()
 {
-    position.x = (GetScreenWidth() - _text->MeasureEx().x) / 2;
-    position.y = (GetScreenHeight() - _text->MeasureEx().y) / 2;
+    position.x = (GetScreenWidth() - MeasureTextEx(font, text.c_str(), size, spacing).x) / 2;
+    position.y = (GetScreenHeight() - MeasureTextEx(font, text.c_str(), size, spacing).y) / 2;
 }
 void engine::Text::screenCenter(engine::Axes axes)
 {
     switch (axes)
     {
     case X:
-        position.x = (GetScreenWidth() - _text->MeasureEx().x) / 2;
+        position.x = (GetScreenWidth() - MeasureTextEx(font, text.c_str(), size, spacing).x) / 2;
         break;
     case Y:
-        position.y = (GetScreenHeight() - _text->MeasureEx().y) / 2;
+        position.y = (GetScreenHeight() - MeasureTextEx(font, text.c_str(), size, spacing).y) / 2;
         break;
     default:
         screenCenter();
