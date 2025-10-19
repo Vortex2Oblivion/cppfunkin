@@ -11,5 +11,7 @@ namespace engine
     public:
         State();
         virtual ~State();
+        virtual void create();
+        bool initalized = false;
     };
 }

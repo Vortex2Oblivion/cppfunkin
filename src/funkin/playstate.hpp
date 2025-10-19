@@ -21,9 +21,10 @@ namespace funkin
         void updateScoreText();
 
     public:
-        PlayState(std::string song, std::string difficulty);
+        PlayState(std::string songName, std::string difficulty);
         ~PlayState();
-        void loadSong(std::string song, std::string difficulty);
+        void create();
+        void loadSong(std::string songName, std::string difficulty);
         void update(float delta);
         void beatHit();
         void stepHit();
@@ -41,6 +42,8 @@ namespace funkin
 
         engine::Camera *camHUD;
 
+        std::string songName;
+        std::string difficulty;
         std::string curStage = "stage";
         std::string player1 = "bf";
         std::string player2 = "dad";

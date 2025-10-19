@@ -15,12 +15,25 @@
 #include <nlohmann/json.hpp>
 #include <iostream>
 
-funkin::PlayState::PlayState(std::string song, std::string difficulty) : MusicBeatState()
+funkin::PlayState::PlayState(std::string songName, std::string difficulty) : MusicBeatState()
 {
+    this->songName = songName;
+    this->difficulty = difficulty;
+}
+
+funkin::PlayState::~PlayState()
+{
+    conductor->stop();
+    tracks.clear();
+}
+
+void funkin::PlayState::create()
+{
+    funkin::MusicBeatState::create();
     camHUD = new engine::Camera();
     engine::Game::cameras.push_back(camHUD);
 
-    loadSong(song, difficulty);
+    loadSong(songName, difficulty);
 
     dad = new Character(0, 0, player2);
     boyfriend = new Character(0, 0, player1);
@@ -105,12 +118,6 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty) : MusicBe
     healthBar->screenCenter(engine::Axes::X);
     healthBar->fillDirection = engine::FillDirection::RIGHT_TO_LEFT;
     add(healthBar);
-}
-
-funkin::PlayState::~PlayState()
-{
-    conductor->stop();
-    tracks.clear();
 }
 
 void funkin::PlayState::loadSong(std::string songName, std::string difficulty)

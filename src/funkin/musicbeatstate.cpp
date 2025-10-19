@@ -10,6 +10,11 @@ funkin::MusicBeatState::~MusicBeatState()
     delete conductor;
 }
 
+void funkin::MusicBeatState::create()
+{
+    engine::State::create();
+}
+
 void funkin::MusicBeatState::update(float delta)
 {
     engine::State::update(delta);

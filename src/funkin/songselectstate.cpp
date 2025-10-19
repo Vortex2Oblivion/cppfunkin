@@ -2,15 +2,20 @@
 #include "playstate.hpp"
 #include "../engine/game.hpp"
 
-funkin::SongSelectState::SongSelectState()
+funkin::SongSelectState::SongSelectState() : MusicBeatState()
 {
-    songText = new engine::Text(songs[selectedSong], 20, 100, 100);
-    add(songText);
 }
 
 funkin::SongSelectState::~SongSelectState()
 {
     songs.clear();
+}
+
+void funkin::SongSelectState::create()
+{
+    funkin::MusicBeatState::create();
+    songText = new engine::Text(songs[selectedSong], 20, 100, 100);
+    add(songText);
 }
 
 void funkin::SongSelectState::update(float delta)

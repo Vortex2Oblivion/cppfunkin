@@ -9,32 +9,42 @@ std::vector<engine::Camera *> engine::Game::cameras = {engine::Game::defaultCame
 void engine::Game::start(State *initialState)
 {
     _state = initialState;
+    _state->create();
 }
 
 void engine::Game::update(float delta)
 {
 
+    if (!_state->initalized)
+    {
+        return;
+    }
     _state->update(delta);
     for (auto camera : engine::Game::cameras)
     {
-        if (camera != nullptr)
+        if (camera == nullptr)
         {
-            camera->BeginMode();
-            for (auto member : _state->members)
-            {
-                if(member == nullptr || !member->alive || member->camera != camera)
-                {
-                    continue;
-                }
-                member->draw();
-            }
-            camera->EndMode();
+            continue;
         }
+        camera->BeginMode();
+        for (auto member : _state->members)
+        {
+            if (member == nullptr || !member->alive || member->camera != camera)
+            {
+                continue;
+            }
+            member->draw();
+        }
+        camera->EndMode();
     }
 }
 
 void engine::Game::switchState(State *nextState)
 {
+    cameras.clear();
+    defaultCamera = new engine::Camera();
+    cameras = {defaultCamera};
     delete _state;
     _state = nextState;
+    _state->create();
 }

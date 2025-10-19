@@ -15,6 +15,7 @@ namespace funkin
     public:
         SongSelectState(/* args */);
         virtual ~SongSelectState();
-        virtual void update(float delta) override;
+        virtual void update(float delta);
+        virtual void create();
     };
 }
