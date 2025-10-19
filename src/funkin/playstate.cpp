@@ -90,19 +90,20 @@ funkin::PlayState::PlayState(std::string song, std::string difficulty) : MusicBe
     UnloadCodepoints(codepoints);
 
     scoreText = new engine::Text("", 24, 100, 100);
-    scoreText->position.y = GetScreenHeight() * 0.9f;
-    scoreText->font = LoadFontEx("assets/fonts/vcr.ttf", 24, codepointsNoDups, codepointsNoDupsCount);
+    scoreText->position.y = raylib::Window::GetHeight() * 0.9f;
+    scoreText->font = raylib::Font("assets/fonts/vcr.ttf", 24, codepointsNoDups, codepointsNoDupsCount);
     scoreText->outlineSize = 2.0f;
     scoreText->camera = camHUD;
     add(scoreText);
 
-    free(codepointsNoDups);
+    delete codepointsNoDups;
 
     updateScoreText();
 
     healthBar = new engine::Bar(100.0f, scoreText->position.y - 30.0f, 601.0f - 8.0f, 19.0f - 8.0f, raylib::Color::Red(), raylib::Color::Green(), 8);
     healthBar->camera = camHUD;
     healthBar->screenCenter(engine::Axes::X);
+    healthBar->fillDirection = engine::FillDirection::RIGHT_TO_LEFT;
     add(healthBar);
 }
 
@@ -191,10 +192,10 @@ void funkin::PlayState::update(float delta)
 
     updateScoreText();
 
-    if (conductor->time >= conductor->getMaxAudioTime())
+    healthBar->percent = health = playerField->health;
+
+    if (conductor->time >= conductor->getMinAudioTime())
     {
         engine::Game::switchState(new SongSelectState());
     }
-
-    healthBar->percent = sinf((float)GetTime()) * 50.0f + 50.0f;
 }

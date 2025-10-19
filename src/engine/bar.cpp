@@ -52,7 +52,15 @@ void engine::Bar::update(float delta)
     rectOutline->x = rectBottom->x - outlineSize / 2.0f;
     rectOutline->y = rectBottom->y - outlineSize / 2.0f;
 
-    rectTop->width = rectBottom->width * (percent / 100.0f);
+    switch (fillDirection)
+    {
+    case LEFT_TO_RIGHT:
+        rectTop->width = Clamp(rectBottom->width * (percent / 100.0f), 0, rectBottom->width);
+        break;
+    case RIGHT_TO_LEFT:
+        rectTop->width = Clamp(rectBottom->width - (rectBottom->width * (percent / 100.0f)), 0, rectBottom->width);
+        break;
+    }
 }
 
 void engine::Bar::draw()

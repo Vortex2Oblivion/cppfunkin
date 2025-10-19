@@ -53,5 +53,6 @@ namespace funkin
         raylib::Vector2 cameraTarget = raylib::Vector2();
         unsigned int totalPlayerNotes = 0;
         unsigned int misses = 0;
+        float health = 50.0f;
     };
 }

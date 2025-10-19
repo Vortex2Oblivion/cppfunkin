@@ -18,7 +18,8 @@ namespace funkin
         void stepHit();
         void beatHit();
 
-    public:
+        
+        public:
         Conductor();
         Conductor(std::vector<raylib::Music *> tracks);
         ~Conductor();
@@ -26,14 +27,15 @@ namespace funkin
         void start();
         void stop();
         void update(float delta);
-
+        
         int getBeat();
         int getStep();
         float getCrochet();
         float getStepCrochet();
         
         float getMaxAudioTime(); 
-
+        float getMinAudioTime();
+        
         std::vector<raylib::Music *> tracks;
         float time = -1.0f;
         float bpm = 60.0f;

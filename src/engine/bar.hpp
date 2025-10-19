@@ -5,6 +5,12 @@
 
 namespace engine
 {
+    enum FillDirection
+    {
+        LEFT_TO_RIGHT,
+        RIGHT_TO_LEFT,
+    };
+
     class Bar : public Sprite
     {
     private:
@@ -24,6 +30,8 @@ namespace engine
         raylib::Color colorOutline;
         raylib::Color colorLeft;
         raylib::Color colorRight;
+
+        engine::FillDirection fillDirection;
 
         raylib::Vector2 origin;
 

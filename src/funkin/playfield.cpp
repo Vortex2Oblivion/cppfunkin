@@ -52,6 +52,7 @@ void funkin::PlayField::update(float delta)
             note->alive = false;
             toInvalidate.push_back(note);
             misses++;
+            health = Clamp(health - 5.0f, 0, 100);
             calculateAccuracy();
         }
         else
@@ -122,6 +123,7 @@ void funkin::PlayField::update(float delta)
         }
         int addScore = (int)abs(500.0f - (note->strumTime - conductor->time) / 1000.0f);
         score += addScore;
+        health = Clamp(health + (addScore / 200.0f), 0, 100);
         strums->members[lane]->playAnimation("confirm");
         strums->members[lane]->offset.x = -30;
         strums->members[lane]->offset.y = -30;
@@ -170,7 +172,6 @@ void funkin::PlayField::generateStaticArrows(bool player)
         strums->add(babyArrow);
     }
 }
-
 
 void funkin::PlayField::calculateAccuracy()
 {

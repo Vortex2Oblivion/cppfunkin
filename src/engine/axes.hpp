@@ -2,7 +2,8 @@
 
 namespace engine
 {
-    enum Axes{
+    enum Axes
+    {
         X,
         Y,
         XY

@@ -128,6 +128,23 @@ void funkin::Conductor::beatHit()
 {
 }
 
+float funkin::Conductor::getMinAudioTime()
+{
+    if (tracks.empty())
+    {
+        return 0.0f;
+    }
+    float minAudioTime = getMaxAudioTime();
+    for (auto track : tracks)
+    {
+        if (track->GetTimeLength() < minAudioTime)
+        {
+            minAudioTime = track->GetTimeLength();
+        }
+    }
+    return minAudioTime;
+}
+
 float funkin::Conductor::getMaxAudioTime()
 {
     if (tracks.empty())

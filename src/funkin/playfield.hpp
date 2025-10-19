@@ -28,6 +28,7 @@ namespace funkin
         float accuracy = 100.0f;
         unsigned int misses = 0;
         int score = 0;
+        float health = 50.0f;
 
         engine::Group<funkin::Note> *notes;
         engine::Group<funkin::StrumNote> *strums;
