@@ -1,5 +1,6 @@
 #include "object.hpp"
 #include "game.hpp"
+#include <cstdio>
 #include <iostream>
 
 engine::Object::Object()

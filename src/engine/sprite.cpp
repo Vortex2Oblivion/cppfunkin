@@ -89,9 +89,9 @@ void engine::Sprite::screenCenter(engine::Axes axes)
 
 void engine::Sprite::clearTextureCache()
 {
-    for (auto const &[key, val] : engine::Sprite::texturePool)
+    for (std::pair<std::string, raylib::Texture*> pair : engine::Sprite::texturePool)
     {
-        delete val;
+        delete pair.second;
     }
     texturePool.clear();
 }

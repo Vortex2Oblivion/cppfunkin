@@ -12,12 +12,13 @@ engine::AnimatedSprite::~AnimatedSprite()
     {
         return;
     }
-    for (auto const &[key, val] : animations)
-    {
-        if (val != nullptr)
-        {
-            delete val;
+
+    while (animations.begin() != animations.end()) {
+        std::map<std::string, Animation*>::iterator iter = animations.begin();
+        if (iter->second != nullptr) {
+            delete iter->second;
         }
+        animations.erase(animations.begin());
     }
 }
 

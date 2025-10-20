@@ -18,7 +18,7 @@ funkin::StrumNote::StrumNote(float x, float y, int lane, bool player) : SparrowS
 
 funkin::StrumNote::~StrumNote()
 {
-    engine::SparrowSprite::~SparrowSprite();
+    //engine::SparrowSprite::~SparrowSprite();
 }
 
 void funkin::StrumNote::setPosition()

@@ -38,16 +38,22 @@ namespace engine
     template <typename T>
     engine::Group<T>::~Group()
     {
-        for (auto member : members)
-        {
-            if (!member->alive || member == nullptr)
-            {
-                continue;
-            }
-            //remove(member);
-            //delete member;
+        while (members.begin() != members.end()) {
+            typename std::vector<T*>::iterator iter = members.begin();
+            delete *iter;
+            members.erase(members.begin());
         }
-        members.clear();
+
+        // for (auto member : members)
+        // {
+        //     if (!member->alive || member == nullptr)
+        //     {
+        //         continue;
+        //     }
+        //     remove(member);
+        //     delete member;
+        // }
+        // members.clear();
     }
 
     template <typename T>
