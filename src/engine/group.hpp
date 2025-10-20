@@ -42,9 +42,9 @@ namespace engine
         {
             if (!member->alive || member == nullptr)
             {
-                remove(member);
                 continue;
             }
+            remove(member);
             delete member;
         }
         members.clear();
