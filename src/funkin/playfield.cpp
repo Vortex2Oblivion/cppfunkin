@@ -39,7 +39,6 @@ void funkin::PlayField::update(float delta)
         noteDataIndex++;
     }
 
-    std::vector<funkin::Note *> toInvalidate;
     for (auto note : notes->members)
     {
         if (!note->alive)
@@ -160,8 +159,12 @@ void funkin::PlayField::update(float delta)
 
 void funkin::PlayField::invalidateNote(funkin::Note *note)
 {
-    note->alive = false;
+    if (!note->alive || note == nullptr)
+    {
+        return;
+    }
     notes->remove(note);
+    delete note;
 }
 
 void funkin::PlayField::generateStaticArrows(bool player)

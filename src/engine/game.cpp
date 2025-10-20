@@ -29,7 +29,7 @@ void engine::Game::update(float delta)
         camera->BeginMode();
         for (auto member : _state->members)
         {
-            if (member == nullptr || !member->alive || member->camera != camera)
+            if (!member->alive || member->camera != camera || member == nullptr )
             {
                 continue;
             }

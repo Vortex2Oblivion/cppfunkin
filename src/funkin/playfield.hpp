@@ -15,10 +15,12 @@ namespace funkin
         std::vector<bool> justHitArray = {false, false, false, false};
         std::vector<bool> pressedArray = {false, false, false, false};
         std::vector<funkin::NoteData> noteDatas = {};
+        std::vector<funkin::Note *> toInvalidate = {};
         size_t noteDataIndex = 0;
 
         void invalidateNote(Note *note);
         void calculateAccuracy();
+
     public:
         PlayField(float x, float y, std::vector<NoteData> noteDatas, std::vector<Character *> characters, bool cpuControlled = false);
         ~PlayField();
