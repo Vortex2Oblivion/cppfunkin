@@ -9,7 +9,7 @@ namespace funkin
     {
     private:
         int selectedSong = 0;
-        std::vector<std::string> songs = {"dad-battle", "ziplash", "decoded", "parasitic", "boxing-match-wg", "bitch", "goktrap", "catshitdotmp3", "bonedoggle"};
+        std::vector<std::string> songs = {"dad-battle", "ziplash", "decoded", "parasitic", "boxing-match-wg", "bitch", "goktrap", "catshitdotmp3", "bonedoggle", "shitton-of-notes"};
         engine::Text *songText;
 
     public:

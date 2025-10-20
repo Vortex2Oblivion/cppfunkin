@@ -23,6 +23,7 @@ funkin::Conductor::~Conductor()
         track->Stop();
         delete track;
     }
+    tracks.clear();
 }
 
 void funkin::Conductor::start(std::vector<raylib::Music *> tracks)

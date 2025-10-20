@@ -44,8 +44,8 @@ namespace engine
             {
                 continue;
             }
-            remove(member);
-            delete member;
+            //remove(member);
+            //delete member;
         }
         members.clear();
     }

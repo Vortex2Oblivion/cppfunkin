@@ -7,6 +7,7 @@ funkin::MusicBeatState::MusicBeatState() : State()
 
 funkin::MusicBeatState::~MusicBeatState()
 {
+    conductor->stop();
     delete conductor;
 }
 

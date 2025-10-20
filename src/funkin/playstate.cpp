@@ -24,8 +24,6 @@ funkin::PlayState::PlayState(std::string songName, std::string difficulty) : Mus
 
 funkin::PlayState::~PlayState()
 {
-    conductor->stop();
-    tracks.clear();
 }
 
 void funkin::PlayState::create()
@@ -82,7 +80,7 @@ void funkin::PlayState::create()
 
     playfields.push_back(dadField);
 
-    playerField = new PlayField(raylib::Window::GetWidth() / 2.0f, 0, this->song.playerNotes, {boyfriend}, false);
+    playerField = new PlayField(raylib::Window::GetWidth() / 2.0f, 0, this->song.playerNotes, {boyfriend}, true);
     playerField->camera = camHUD;
     playerField->conductor = conductor;
     playerField->scrollSpeed = scrollSpeed;
@@ -146,8 +144,11 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty)
     // noteDatas = song.notes;
     totalPlayerNotes = song.playerNotes.size();
 
-    tracks.push_back(new raylib::Music(basePath + "Inst.ogg"));
-    if (needsVoices)
+    if (FileExists((basePath + "Inst.ogg").c_str()))
+    {
+        tracks.push_back(new raylib::Music(basePath + "Inst.ogg"));
+    }
+    if (FileExists((basePath + "Voices.ogg").c_str()) && needsVoices)
     {
         tracks.push_back(new raylib::Music(basePath + "Voices.ogg"));
     }

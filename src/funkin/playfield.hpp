@@ -32,6 +32,9 @@ namespace funkin
         int score = 0;
         float health = 50.0f;
 
+        float minHitTime = 180.0f;
+        float maxHitTime = 180.0f;
+
         engine::Group<funkin::Note> *notes;
         engine::Group<funkin::StrumNote> *strums;
         std::vector<funkin::Character *> characters = {};

@@ -91,15 +91,13 @@ void funkin::PlayField::update(float delta)
         }
 
         bool hittable = false;
-        float minHitTime = 180.0f;
-        float maxHitTime = 180.0f;
 
-        if (cpuControlled)
-        {
-            minHitTime = 0;
-        }
+        const float hitWindow = conductor->time * 1000;
 
-        if (note->strumTime < (conductor->time * 1000 + minHitTime) && note->strumTime > (conductor->time * 1000 - maxHitTime))
+        float actualMinHitTime = cpuControlled ? 0 : minHitTime;
+
+
+        if (note->strumTime <= (hitWindow + actualMinHitTime) && note->strumTime >= (hitWindow - maxHitTime))
         {
             hittable = true;
         }
