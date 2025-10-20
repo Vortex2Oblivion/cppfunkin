@@ -60,7 +60,7 @@ void engine::Sprite::draw(float x, float y)
 
 bool engine::Sprite::isOnScreen()
 {
-    return !((position.y + texture->height < 0 || position.y > GetScreenHeight()) || (position.x + texture->width < 0 || position.x > GetScreenWidth()));
+    return !((position.y + texture->height < 0 || position.y > raylib::Window::GetHeight()) || (position.x + texture->width < 0 || position.x > raylib::Window::GetWidth()));
 }
 
 raylib::Vector2 engine::Sprite::getMidpoint()
@@ -70,18 +70,18 @@ raylib::Vector2 engine::Sprite::getMidpoint()
 
 void engine::Sprite::screenCenter()
 {
-    position.x = (GetScreenWidth() - texture->width) / 2;
-    position.y = (GetScreenHeight() - texture->height) / 2;
+    position.x = (raylib::Window::GetWidth() - texture->width) / 2.0f;
+    position.y = (raylib::Window::GetHeight() - texture->height) / 2.0f;
 }
 void engine::Sprite::screenCenter(engine::Axes axes)
 {
     switch (axes)
     {
     case X:
-        position.x = (GetScreenWidth() - texture->width) / 2;
+        position.x = (raylib::Window::GetWidth() - texture->width) / 2.0f;
         break;
     case Y:
-        position.y = (GetScreenHeight() - texture->height) / 2;
+        position.y = (raylib::Window::GetHeight() - texture->height) / 2.0f;
         break;
     default:
         screenCenter();

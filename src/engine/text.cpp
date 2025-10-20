@@ -40,10 +40,10 @@ void engine::Text::screenCenter(engine::Axes axes)
     switch (axes)
     {
     case X:
-        position.x = (GetScreenWidth() - MeasureTextEx(font, text.c_str(), size, spacing).x) / 2;
+        position.x = (raylib::Window::GetWidth() - MeasureTextEx(font, text.c_str(), size, spacing).x) / 2;
         break;
     case Y:
-        position.y = (GetScreenHeight() - MeasureTextEx(font, text.c_str(), size, spacing).y) / 2;
+        position.y = (raylib::Window::GetHeight() - MeasureTextEx(font, text.c_str(), size, spacing).y) / 2;
         break;
     default:
         screenCenter();

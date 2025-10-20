@@ -30,10 +30,10 @@ void engine::Bar::screenCenter(engine::Axes axes)
     switch (axes)
     {
     case X:
-        position.x = (GetScreenWidth() - rectOutline->width) / 2;
+        position.x = (raylib::Window::GetWidth() - rectOutline->width) / 2;
         break;
     case Y:
-        position.y = (GetScreenHeight() - rectOutline->height) / 2;
+        position.y = (raylib::Window::GetHeight() - rectOutline->height) / 2;
         break;
     default:
         screenCenter();
