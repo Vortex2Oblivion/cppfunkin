@@ -1,5 +1,6 @@
 #include "game.hpp"
 #include "camera.hpp"
+#include <cstdio>
 #include <iostream>
 #include "sprite.hpp"
 
@@ -42,7 +43,6 @@ void engine::Game::update(float delta)
 
 void engine::Game::switchState(State *nextState)
 {
-
     engine::Sprite::clearTextureCache();
     delete defaultCamera;
     defaultCamera = new engine::Camera();

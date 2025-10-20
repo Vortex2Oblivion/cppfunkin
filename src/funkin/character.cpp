@@ -46,7 +46,7 @@ funkin::Character::Character(float x, float y, std::string characterName) : Spar
 
 funkin::Character::~Character()
 {
-    engine::SparrowSprite::~SparrowSprite();
+    //engine::SparrowSprite::~SparrowSprite();
 }
 
 void funkin::Character::dance()
