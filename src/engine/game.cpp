@@ -1,6 +1,7 @@
 #include "game.hpp"
 #include "camera.hpp"
 #include <iostream>
+#include "sprite.hpp"
 
 engine::State *engine::Game::_state = nullptr;
 engine::Camera *engine::Game::defaultCamera = new engine::Camera();
@@ -29,7 +30,7 @@ void engine::Game::update(float delta)
         camera->BeginMode();
         for (auto member : _state->members)
         {
-            if (!member->alive || member->camera != camera || member == nullptr )
+            if (!member->alive || member->camera != camera || member == nullptr)
             {
                 continue;
             }
@@ -41,10 +42,11 @@ void engine::Game::update(float delta)
 
 void engine::Game::switchState(State *nextState)
 {
-    cameras.clear();
+
+    engine::Sprite::clearTextureCache();
+    delete defaultCamera;
     defaultCamera = new engine::Camera();
     cameras = {defaultCamera};
-    delete _state;
     _state = nextState;
     _state->create();
 }

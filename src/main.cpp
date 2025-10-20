@@ -8,7 +8,7 @@ int main()
     int windowWidth = 1280;
     int windowHeight = 720;
     raylib::Window window = raylib::Window(windowWidth, windowHeight, "Friday Night Funkin'");
-    // window.SetTargetFPS(GetMonitorRefreshRate(window.GetMonitor()) * 2);
+    window.SetTargetFPS(GetMonitorRefreshRate(window.GetMonitor()) * 2);
 
     raylib::Image iconOG = raylib::Image("assets/images/iconOG.png");
     window.SetIcon(iconOG);

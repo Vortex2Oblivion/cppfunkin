@@ -209,7 +209,7 @@ void funkin::PlayState::update(float delta)
 
     healthBar->percent = health = playerField->health;
 
-    if (conductor->time >= conductor->getMinAudioTime())
+    if (conductor->time >= conductor->getMinAudioTime() || IsKeyPressed(KEY_SPACE))
     {
         engine::Game::switchState(new SongSelectState());
     }

@@ -13,7 +13,7 @@ engine::Sprite::~Sprite()
 
 void engine::Sprite::loadGraphic(std::string path)
 {
-    if (!texturePool.count(path))
+    if (!engine::Sprite::texturePool.count(path))
     {
         if (!raylib::FileExists(path))
         {
@@ -21,11 +21,11 @@ void engine::Sprite::loadGraphic(std::string path)
         }
         else
         {
-            texturePool[path] = new raylib::Texture(path);
+            engine::Sprite::texturePool[path] = new raylib::Texture(path);
         }
     }
 
-    texture = texturePool[path];
+    texture = engine::Sprite::texturePool[path];
     texture->SetFilter(TEXTURE_FILTER_BILINEAR);
     origin = raylib::Vector2(texture->width / 2.0f, texture->height / 2.0f);
     source = raylib::Rectangle(0, 0, (float)(texture->width), (float)(texture->height));
@@ -84,5 +84,13 @@ void engine::Sprite::screenCenter(engine::Axes axes)
         break;
     default:
         screenCenter();
+    }
+}
+
+void engine::Sprite::clearTextureCache()
+{
+    for (auto const &[key, val] : engine::Sprite::texturePool)
+    {
+        delete val;
     }
 }

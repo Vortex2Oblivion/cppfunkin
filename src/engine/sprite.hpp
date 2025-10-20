@@ -36,5 +36,7 @@ namespace engine
         raylib::Vector2 offset = raylib::Vector2();
         float angle = 0.0f;
         raylib::Color color = WHITE;
+
+        static void clearTextureCache();
     };
 }
