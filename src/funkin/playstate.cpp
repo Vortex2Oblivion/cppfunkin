@@ -80,7 +80,7 @@ void funkin::PlayState::create()
 
     playfields.push_back(dadField);
 
-    playerField = new PlayField(raylib::Window::GetWidth() / 2.0f, 0, this->song.playerNotes, {boyfriend}, true);
+    playerField = new PlayField(raylib::Window::GetWidth() / 2.0f, 0, this->song.playerNotes, {boyfriend}, false);
     playerField->camera = camHUD;
     playerField->conductor = conductor;
     playerField->scrollSpeed = scrollSpeed;

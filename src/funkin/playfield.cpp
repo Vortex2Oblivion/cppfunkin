@@ -39,36 +39,15 @@ void funkin::PlayField::update(float delta)
         noteDataIndex++;
     }
 
-    for (auto note : notes->members)
-    {
-        if (!note->alive)
-        {
-            continue;
-        }
-
-        if (conductor->time * 1000.0 > note->strumTime + 180.0)
-        {
-            note->wasMissed = true;
-            toInvalidate.push_back(note);
-            misses++;
-            health = Clamp(health - 5.0f, 0, 100);
-            calculateAccuracy();
-        }
-        else
-        {
-            note->songPos = conductor->time;
-        }
-    }
-
     // inputs
     // thanks for helping my dumbass with this rudy
     float closestDistance = INFINITY;
 
-    pressedArray = {IsKeyDown(KEY_D), IsKeyDown(KEY_F), IsKeyDown(KEY_J), IsKeyDown(KEY_K)};
-    justHitArray = {IsKeyPressed(KEY_D), IsKeyPressed(KEY_F), IsKeyPressed(KEY_J), IsKeyPressed(KEY_K)};
-
+    
     if (!cpuControlled)
     {
+        pressedArray = {IsKeyDown(KEY_D), IsKeyDown(KEY_F), IsKeyDown(KEY_J), IsKeyDown(KEY_K)};
+        justHitArray = {IsKeyPressed(KEY_D), IsKeyPressed(KEY_F), IsKeyPressed(KEY_J), IsKeyPressed(KEY_K)};
         for (size_t lane = 0; lane < justHitArray.size(); lane++)
         {
             if (justHitArray[lane])
@@ -81,21 +60,30 @@ void funkin::PlayField::update(float delta)
 
     for (auto note : notes->members)
     {
-        if (note == nullptr || !note->alive)
+        if (note == nullptr || !note->alive || note->wasMissed)
         {
             continue;
         }
 
-        if (note->wasMissed) {
-            continue;
+        const float hitWindow = conductor->time * 1000;
+
+        if (hitWindow > note->strumTime + maxHitTime)
+        {
+            note->wasMissed = true;
+            toInvalidate.push_back(note);
+            misses++;
+            health = Clamp(health - 5.0f, 0, 100);
+            calculateAccuracy();
+        }
+        else
+        {
+            note->songPos = conductor->time;
         }
 
         bool hittable = false;
 
-        const float hitWindow = conductor->time * 1000;
 
         float actualMinHitTime = cpuControlled ? 0 : minHitTime;
-
 
         if (note->strumTime <= (hitWindow + actualMinHitTime) && note->strumTime >= (hitWindow - maxHitTime))
         {
