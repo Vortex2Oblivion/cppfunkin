@@ -11,7 +11,6 @@ engine::SparrowSprite::SparrowSprite(float x, float y) : AnimatedSprite(x, y)
 
 engine::SparrowSprite::~SparrowSprite()
 {
-    engine::AnimatedSprite::~AnimatedSprite();
 }
 
 void engine::SparrowSprite::loadGraphic(std::string imagePath, std::string xmlPath)

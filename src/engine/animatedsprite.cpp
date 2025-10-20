@@ -7,7 +7,6 @@ engine::AnimatedSprite::AnimatedSprite(float x, float y) : Sprite(x, y)
 
 engine::AnimatedSprite::~AnimatedSprite()
 {
-    Sprite::~Sprite();
     offsets.clear();
     if (animations.empty())
     {

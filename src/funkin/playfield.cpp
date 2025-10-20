@@ -48,7 +48,7 @@ void funkin::PlayField::update(float delta)
 
         if (conductor->time * 1000.0 > note->strumTime + 180.0)
         {
-            note->alive = false;
+            note->wasMissed = true;
             toInvalidate.push_back(note);
             misses++;
             health = Clamp(health - 5.0f, 0, 100);
@@ -85,6 +85,11 @@ void funkin::PlayField::update(float delta)
         {
             continue;
         }
+
+        if (note->wasMissed) {
+            continue;
+        }
+
         bool hittable = false;
         float minHitTime = 180.0f;
         float maxHitTime = 180.0f;
@@ -126,7 +131,6 @@ void funkin::PlayField::update(float delta)
         strums->members[lane]->playAnimation("confirm");
         strums->members[lane]->offset.x = -30;
         strums->members[lane]->offset.y = -30;
-        note->alive = false;
         toInvalidate.push_back(note);
     }
 

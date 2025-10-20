@@ -9,7 +9,6 @@ engine::Sprite::Sprite(float x, float y) : Object(x, y)
 
 engine::Sprite::~Sprite()
 {
-    engine::Object::~Object();
 }
 
 void engine::Sprite::loadGraphic(std::string path)

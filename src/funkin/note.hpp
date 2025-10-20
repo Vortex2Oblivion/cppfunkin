@@ -22,5 +22,6 @@ namespace funkin
 
         bool canBeHit;
         bool isPlayer;
+        bool wasMissed = false;
     };
 }
