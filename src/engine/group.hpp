@@ -38,6 +38,15 @@ namespace engine
     template <typename T>
     engine::Group<T>::~Group()
     {
+        for (auto member : members)
+        {
+            if (!member->alive || member == nullptr)
+            {
+                remove(member);
+                continue;
+            }
+            delete member;
+        }
         members.clear();
     }
 

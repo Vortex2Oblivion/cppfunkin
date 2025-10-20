@@ -47,6 +47,8 @@ void engine::Game::switchState(State *nextState)
     delete defaultCamera;
     defaultCamera = new engine::Camera();
     cameras = {defaultCamera};
+    _state->alive = false;
+    delete _state;
     _state = nextState;
     _state->create();
 }

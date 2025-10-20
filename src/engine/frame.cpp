@@ -46,6 +46,5 @@ engine::Frame::Frame(float x, float y, float width, float height, float frameX, 
 
 engine::Frame::~Frame()
 {
-    std::cout << "frame deleted!" << "\n";
     exists = false;
 }

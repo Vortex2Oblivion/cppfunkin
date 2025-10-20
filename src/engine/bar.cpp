@@ -17,6 +17,7 @@ engine::Bar::~Bar()
 {
     delete rectBottom;
     delete rectTop;
+    delete rectOutline;
 }
 
 void engine::Bar::screenCenter()

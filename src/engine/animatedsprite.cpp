@@ -12,13 +12,13 @@ engine::AnimatedSprite::~AnimatedSprite()
     {
         return;
     }
-    /*for (auto const &[key, val] : animations)
+    for (auto const &[key, val] : animations)
     {
         if (val != nullptr)
         {
             delete val;
         }
-    }*/
+    }
 }
 
 void engine::AnimatedSprite::update(float delta)

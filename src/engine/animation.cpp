@@ -11,7 +11,15 @@ engine::Animation::Animation(std::vector<engine::Frame *> frames, uint8_t framer
 
 engine::Animation::~Animation()
 {
-
+    for (auto frame : frames)
+    {
+        if (frame == nullptr)
+        {
+            continue;
+        }
+        delete frame;
+    }
+    frames.clear();
 }
 
 void engine::Animation::update(float delta)

@@ -93,4 +93,5 @@ void engine::Sprite::clearTextureCache()
     {
         delete val;
     }
+    texturePool.clear();
 }
