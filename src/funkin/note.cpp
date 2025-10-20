@@ -21,6 +21,7 @@ funkin::Note::Note(float strumTime, int lane, float speed, StrumNote *strum) : S
 
 funkin::Note::~Note()
 {
+    engine::SparrowSprite::~SparrowSprite();
 }
 
 void funkin::Note::update(float delta)

@@ -1,4 +1,5 @@
 #include "character.hpp"
+#include "../engine/animatedsprite.hpp"
 #include <fstream>
 #include <nlohmann/json.hpp>
 
@@ -45,6 +46,7 @@ funkin::Character::Character(float x, float y, std::string characterName) : Spar
 
 funkin::Character::~Character()
 {
+    engine::SparrowSprite::~SparrowSprite();
 }
 
 void funkin::Character::dance()

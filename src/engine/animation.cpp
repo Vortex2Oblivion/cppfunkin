@@ -11,6 +11,7 @@ engine::Animation::Animation(std::vector<engine::Frame *> frames, uint8_t framer
 
 engine::Animation::~Animation()
 {
+
 }
 
 void engine::Animation::update(float delta)

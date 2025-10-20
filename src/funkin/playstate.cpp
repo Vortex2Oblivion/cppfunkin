@@ -6,6 +6,7 @@
 #include "songselectstate.hpp"
 #include "strumnote.hpp"
 #include "song.hpp"
+#include "../engine/animatedsprite.hpp"
 #include "../engine/game.hpp"
 #include "../engine/camera.hpp"
 #include "../engine/text.hpp"
@@ -118,6 +119,13 @@ void funkin::PlayState::create()
     healthBar->screenCenter(engine::Axes::X);
     healthBar->fillDirection = engine::FillDirection::RIGHT_TO_LEFT;
     add(healthBar);
+
+    engine::AnimatedSprite *iconP1 = new engine::AnimatedSprite(0, 0);
+    iconP1->loadGraphic("assets/characters/bf/icon.png");
+    iconP1->camera = camHUD;
+    iconP1->addAnimation("default", {raylib::Rectangle(0, 0, 150, 150), raylib::Rectangle(150, 0, 150, 150)}, 1);
+    iconP1->playAnimation("default");
+    add(iconP1);
 }
 
 void funkin::PlayState::loadSong(std::string songName, std::string difficulty)

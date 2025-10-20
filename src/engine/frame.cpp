@@ -1,5 +1,20 @@
 #include "frame.hpp"
 #include <raylib-cpp.hpp>
+#include <iostream>
+
+engine::Frame::Frame(raylib::Rectangle rect)
+{
+    this->x = rect.x;
+    this->y = rect.y;
+    this->width = rect.width;
+    this->height = rect.height;
+    this->frameX = rect.y;
+    this->frameY = rect.x;
+    this->frameWidth = rect.width;
+    this->frameHeight = rect.height;
+
+    exists = true;
+}
 
 engine::Frame::Frame(raylib::Rectangle rect, raylib::Vector2 sourceSize, raylib::Vector2 offset)
 {
@@ -11,6 +26,8 @@ engine::Frame::Frame(raylib::Rectangle rect, raylib::Vector2 sourceSize, raylib:
     this->frameY = offset.y;
     this->frameWidth = sourceSize.x;
     this->frameHeight = sourceSize.y;
+
+    exists = true;
 }
 
 engine::Frame::Frame(float x, float y, float width, float height, float frameX, float frameY, float frameWidth, float frameHeight)
@@ -23,8 +40,12 @@ engine::Frame::Frame(float x, float y, float width, float height, float frameX, 
     this->frameY = frameY;
     this->frameWidth = frameWidth;
     this->frameHeight = frameHeight;
+
+    exists = true;
 }
 
 engine::Frame::~Frame()
 {
+    std::cout << "frame deleted!" << "\n";
+    exists = false;
 }

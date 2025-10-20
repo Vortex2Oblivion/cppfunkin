@@ -131,10 +131,11 @@ void funkin::PlayField::update(float delta)
         toInvalidate.push_back(note);
     }
 
-    for (size_t i = 0; i < toInvalidate.size(); i++)
+    for (auto note : toInvalidate)
     {
-        invalidateNote(toInvalidate[i]);
+        invalidateNote(note);
     }
+    toInvalidate.clear();
 
     for (auto strum : strums->members)
     {

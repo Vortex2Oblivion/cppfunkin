@@ -1,15 +1,17 @@
 #include "sparrowsprite.hpp"
+#include "animatedsprite.hpp"
 
 #include <pugixml.hpp>
 #include <iostream>
 #include <cstring>
 
-engine::SparrowSprite::SparrowSprite(float x, float y) : Sprite(x, y)
+engine::SparrowSprite::SparrowSprite(float x, float y) : AnimatedSprite(x, y)
 {
 }
 
 engine::SparrowSprite::~SparrowSprite()
 {
+    engine::AnimatedSprite::~AnimatedSprite();
 }
 
 void engine::SparrowSprite::loadGraphic(std::string imagePath, std::string xmlPath)
@@ -67,37 +69,10 @@ void engine::SparrowSprite::addAnimationByPrefix(std::string name, std::string p
     }
 }
 
-void engine::SparrowSprite::playAnimation(std::string name)
-{
-    if (animations.count(name) == 0 || animations[name]->frames.empty())
-    {
-        std::cerr << "Animation not found or has no frames: " << name << "\n";
-        return;
-    }
-
-    currentAnimation = animations[name];
-    currentAnimation->resetFrame();
-    if (offsets.count(name))
-    {
-        animationOffset = offsets[name];
-    }
-}
 
 void engine::SparrowSprite::update(float delta)
 {
-    engine::Sprite::update(delta);
-    if (currentAnimation != nullptr)
-    {
-        currentAnimation->update(delta);
-    }
-}
-
-void engine::SparrowSprite::centerOffsets()
-{
-    size_t frame = currentAnimation->currentFrame;
-
-    offset.x = (dest.width - currentAnimation->frames[frame]->width) / 2;
-    offset.y = (dest.height - currentAnimation->frames[frame]->height) / 2;
+    engine::AnimatedSprite::update(delta);
 }
 
 void engine::SparrowSprite::draw()
@@ -132,9 +107,4 @@ void engine::SparrowSprite::draw(float x, float y)
     {
         engine::Sprite::draw(x, y);
     }
-}
-raylib::Vector2 engine::SparrowSprite::getMidpoint()
-{
-    auto animFrame = animations[animations.begin()->first]->frames[0];
-    return raylib::Vector2(position.x + (animFrame->width / 2.0f), position.y + (animFrame->height / 2.0f));
 }
