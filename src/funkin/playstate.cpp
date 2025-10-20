@@ -24,6 +24,7 @@ funkin::PlayState::PlayState(std::string songName, std::string difficulty) : Mus
 
 funkin::PlayState::~PlayState()
 {
+    playfields.clear();
 }
 
 void funkin::PlayState::create()

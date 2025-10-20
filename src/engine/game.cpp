@@ -44,7 +44,10 @@ void engine::Game::update(float delta)
 void engine::Game::switchState(State *nextState)
 {
     engine::Sprite::clearTextureCache();
-    delete defaultCamera;
+    for (auto camera : cameras)
+    {
+        delete camera;
+    }
     defaultCamera = new engine::Camera();
     cameras = {defaultCamera};
     _state->alive = false;
