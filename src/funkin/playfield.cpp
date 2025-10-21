@@ -2,6 +2,8 @@
 #include "strumnote.hpp"
 #include "../engine/group.hpp"
 #include <iostream>
+#include <algorithm>
+
 
 bool noteDataSorter(funkin::NoteData a, funkin::NoteData b)
 {
@@ -30,7 +32,7 @@ funkin::PlayField::~PlayField()
 void funkin::PlayField::update(float delta)
 {
     engine::Group<Object>::update(delta);
-    while (noteDataIndex < noteDatas.size() && ceilf(conductor->time) >= floorf(noteDatas[noteDataIndex].time - 1.0f))
+    while (noteDatas.size() > 0 && ceilf(conductor->time) >= floorf(noteDatas[noteDataIndex].time - 2.0f))
     {
         NoteData data = noteDatas[noteDataIndex];
         Note *note = new Note(data.time * 1000.0f, data.lane, scrollSpeed, strums->members[data.lane]);
@@ -43,7 +45,6 @@ void funkin::PlayField::update(float delta)
     // thanks for helping my dumbass with this rudy
     float closestDistance = INFINITY;
 
-    
     if (!cpuControlled)
     {
         pressedArray = {IsKeyDown(KEY_D), IsKeyDown(KEY_F), IsKeyDown(KEY_J), IsKeyDown(KEY_K)};
@@ -67,7 +68,7 @@ void funkin::PlayField::update(float delta)
 
         const float hitWindow = conductor->time * 1000;
 
-        if (hitWindow > note->strumTime + maxHitTime)
+        if (hitWindow > note->strumTime + maxHitTime && !cpuControlled)
         {
             note->wasMissed = true;
             toInvalidate.push_back(note);
@@ -75,13 +76,9 @@ void funkin::PlayField::update(float delta)
             health = Clamp(health - 5.0f, 0, 100);
             calculateAccuracy();
         }
-        else
-        {
-            note->songPos = conductor->time;
-        }
+        note->songPos = conductor->time;
 
         bool hittable = false;
-
 
         float actualMinHitTime = cpuControlled ? 0 : minHitTime;
 
