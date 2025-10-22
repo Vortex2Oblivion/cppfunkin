@@ -26,7 +26,7 @@ funkin::PlayField::~PlayField() {}
 
 void funkin::PlayField::update(float delta) {
     engine::Group<Object>::update(delta);
-    while (noteDatas.size() > 0 && ceilf(conductor->time) >= floorf(noteDatas[noteDataIndex].time - 2.0f)) {
+    while (noteDatas.size() > 0 && noteDataIndex < noteDatas.size() && ceilf(conductor->time) >= floorf(noteDatas[noteDataIndex].time - 2.0f)) {
         NoteData data = noteDatas[noteDataIndex];
         Note* note = new Note(data.time * 1000.0f, data.lane, scrollSpeed, strums->members[data.lane]);
         note->isPlayer = data.isPlayer;

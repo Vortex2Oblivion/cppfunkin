@@ -50,6 +50,7 @@ void funkin::Conductor::update(float delta) {
         track->Update();
     }
     auto track = tracks[0];
+    // TODO MAKE THIS IN GAME OPTION RATHER THAN __APPLE__ lol
     #if __APPLE__
     if (track->GetTimePlayed() >= time || abs(time - track->GetTimePlayed()) > 20.0f / 1000.0f)
     #else

@@ -155,6 +155,10 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty) {
         }
     }
 
+    for (raylib::Music *music : tracks) {
+        music->SetLooping(false);
+    }
+
     conductor->start(tracks);
     // TODO: BPM Changes
     conductor->bpm = parsedSong["bpm"];
@@ -200,7 +204,15 @@ void funkin::PlayState::update(float delta) {
 
     healthBar->percent = health = playerField->health;
 
-    if (conductor->time >= conductor->getMinAudioTime() || IsKeyPressed(KEY_SPACE)) {
+    bool playing = false;
+    for (raylib::Music *music : tracks) {
+        if (music->IsPlaying()) {
+            playing = true;
+            break;
+        }
+    }
+
+    if (!playing || IsKeyPressed(KEY_SPACE)) {
         engine::Game::switchState(new SongSelectState());
     }
 }
