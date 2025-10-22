@@ -8,7 +8,7 @@ class SongSelectState : public MusicBeatState {
    private:
     int selectedSong = 0;
     std::vector<std::string> songs = {
-        "dad-battle", "ziplash", "decoded", "parasitic", "boxing-match-wg", "bitch", "goktrap", "catshitdotmp3", "bonedoggle", "shitton-of-notes"};
+        "dad-battle", "ziplash", "decoded", "parasitic", "boxing-match-wg", "bitch", "goktrap", "catshitdotmp3", "bonedoggle", "shitton-of-notes", "hernyamorumix"};
     engine::Text* songText;
 
    public:

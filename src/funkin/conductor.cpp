@@ -1,5 +1,5 @@
 #include "conductor.hpp"
-
+#include <cstdlib>
 #include <raylib-cpp.hpp>
 #include <vector>
 
@@ -45,22 +45,32 @@ void funkin::Conductor::update(float delta) {
     if (tracks.empty()) {
         return;
     }
-    for (auto track : tracks) {
         track->Update();
     }
     auto track = tracks[0];
-    if (track->GetTimePlayed() != lastAudioTime) {
+    #if __APPLE__
+    if (track->GetTimePlayed() >= time || abs(time - track->GetTimePlayed()) > 20.0f / 1000.0f)
+    #else
+    if (track->GetTimePlayed() != lastAudioTime)
+    #endif
         time = track->GetTimePlayed();
-    } else {
+    }
+    else if (track->IsPlaying())
+    {
         time += delta;
     }
     lastAudioTime = track->GetTimePlayed();
 
     int oldStep = step;
+    int oldBeat = beat;
     updateStep();
     updateBeat();
     if (oldStep < step) {
         stepHit();
+    }
+
+    if (oldBeat < beat) {
+        beatHit();
     }
 }
 
@@ -76,10 +86,15 @@ void funkin::Conductor::updateStep() { step = (int)(time / getStepCrochet()); }
 
 void funkin::Conductor::updateBeat() { beat = (int)(time / getCrochet()); }
 
+<<<<<<< HEAD
 void funkin::Conductor::stepHit() {
     if (step % 4 == 0) {
         beatHit();
     }
+=======
+void funkin::Conductor::stepHit()
+{
+>>>>>>> 0c82d81 (dumb fixes)
 }
 
 void funkin::Conductor::beatHit() {}

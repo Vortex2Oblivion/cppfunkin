@@ -1,0 +1,41 @@
+{
+  "globalOffset": [-50, 50],
+  "scale": 1.0,
+  "animations": [
+    {
+      "name": "idle",
+      "prefix": "sweat idle",
+      "framerate": 24,
+      "looped": false,
+      "offsets": [0, 0]
+    },
+    {
+      "name": "singDOWN",
+      "prefix": "sweat down note",
+      "framerate": 24,
+      "looped": false,
+      "offsets": [70, -150]
+    },
+    {
+      "name": "singUP",
+      "prefix": "sweat up note",
+      "framerate": 24,
+      "looped": false,
+      "offsets": [15, 55]
+    },
+    {
+      "name": "singRIGHT",
+      "prefix": "sweat right note",
+      "framerate": 24,
+      "looped": false,
+      "offsets": [-10, -20]
+    },
+    {
+      "name": "singLEFT",
+      "prefix": "sweat left note",
+      "framerate": 24,
+      "looped": false,
+      "offsets": [130, -35]
+    }
+  ]
+}

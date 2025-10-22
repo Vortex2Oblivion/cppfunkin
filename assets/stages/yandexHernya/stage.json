@@ -1,0 +1,26 @@
+{
+  "objects": [
+    {
+      "file": "bgwa",
+      "position": [0, 0],
+      "scale": [1, 1]
+    },
+    {
+      "file": "6cbinv",
+      "extension": ".jpg",
+      "position": [0, 0],
+      "scale": [1, 1]
+    }
+  ],
+  "zoom": 0.7,
+  "characters": {
+    "bf": {
+      "x": 1500,
+      "y": 0
+    },
+    "dad": {
+      "x": 700,
+      "y": 500
+    }
+  }
+}

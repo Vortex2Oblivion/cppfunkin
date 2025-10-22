@@ -10,6 +10,7 @@
 #include "../engine/camera.hpp"
 #include "../engine/game.hpp"
 #include "../engine/text.hpp"
+#include "Functions.hpp"
 #include "coolutil.hpp"
 #include "note.hpp"
 #include "playfield.hpp"
@@ -40,10 +41,16 @@ void funkin::PlayState::create() {
         nlohmann::json parsedStage = nlohmann::json::parse(stageFile);
         stageFile.close();
 
-        for (auto objects : parsedStage["objects"]) {
-            engine::Sprite* object = new engine::Sprite(objects["position"][0], objects["position"][1]);
-            object->loadGraphic(stagePath + (std::string)objects["file"] + ".png");
-            if (objects.count("scale")) {
+        for (auto objects : parsedStage["objects"])
+        {
+            engine::Sprite *object = new engine::Sprite(objects["position"][0], objects["position"][1]);
+            if (objects.contains("extension")) {
+                object->loadGraphic(stagePath + (std::string)objects["file"] + (std::string)objects["extension"]);
+            } else {
+                object->loadGraphic(stagePath + (std::string)objects["file"] + ".png");
+            }
+            if (objects.count("scale"))
+            {
                 object->scale.x = objects["scale"][0];
                 object->scale.y = objects["scale"][1];
                 object->origin *= object->scale;
@@ -138,8 +145,14 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty) {
     if (FileExists((basePath + "Inst.ogg").c_str())) {
         tracks.push_back(new raylib::Music(basePath + "Inst.ogg"));
     }
-    if (FileExists((basePath + "Voices.ogg").c_str()) && needsVoices) {
-        tracks.push_back(new raylib::Music(basePath + "Voices.ogg"));
+    if (needsVoices)
+    {
+        if (raylib::FileExists(basePath + "Voices_Player.ogg") && raylib::FileExists(basePath + "Voices_Opponent.ogg")) {
+            tracks.push_back(new raylib::Music(basePath + "Voices_Player.ogg"));
+            tracks.push_back(new raylib::Music(basePath + "Voices_Opponent.ogg"));
+        } else if (raylib::FileExists(basePath + "Voices.ogg") {
+            tracks.push_back(new raylib::Music(basePath + "Voices.ogg"));
+        }
     }
 
     conductor->start(tracks);
