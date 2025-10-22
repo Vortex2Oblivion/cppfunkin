@@ -45,6 +45,8 @@ void funkin::Conductor::update(float delta) {
     if (tracks.empty()) {
         return;
     }
+    for (auto track : tracks)
+    {
         track->Update();
     }
     auto track = tracks[0];
@@ -53,6 +55,7 @@ void funkin::Conductor::update(float delta) {
     #else
     if (track->GetTimePlayed() != lastAudioTime)
     #endif
+    {
         time = track->GetTimePlayed();
     }
     else if (track->IsPlaying())
@@ -86,15 +89,8 @@ void funkin::Conductor::updateStep() { step = (int)(time / getStepCrochet()); }
 
 void funkin::Conductor::updateBeat() { beat = (int)(time / getCrochet()); }
 
-<<<<<<< HEAD
-void funkin::Conductor::stepHit() {
-    if (step % 4 == 0) {
-        beatHit();
-    }
-=======
 void funkin::Conductor::stepHit()
 {
->>>>>>> 0c82d81 (dumb fixes)
 }
 
 void funkin::Conductor::beatHit() {}
