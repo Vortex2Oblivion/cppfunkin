@@ -17,6 +17,7 @@ funkin::Note::Note(float strumTime, int lane, float speed, StrumNote *strum) : S
     scale.x = 0.7f;
     scale.y = 0.7f;
     position.y += 2000;
+    position.x = strum->position.x;
 }
 
 funkin::Note::~Note()
@@ -26,6 +27,5 @@ funkin::Note::~Note()
 void funkin::Note::update(float delta)
 {
     SparrowSprite::update(delta);
-    position.x = strum->position.x;
     position.y = 50 + -0.45f * (songPos * 1000 - strumTime) * speed;
 }

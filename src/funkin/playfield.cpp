@@ -66,7 +66,7 @@ void funkin::PlayField::update(float delta)
             continue;
         }
 
-        const float hitWindow = conductor->time * 1000;
+        const float hitWindow = conductor->time * 1000.0f;
 
         if (hitWindow > note->strumTime + maxHitTime && !cpuControlled)
         {
@@ -95,7 +95,7 @@ void funkin::PlayField::update(float delta)
         float rawHitTime = note->strumTime - conductor->time * 1000.f;
         float distance = abs(rawHitTime);
 
-        if (distance >= closestDistance)
+        if (distance > closestDistance)
         {
             continue;
         }
