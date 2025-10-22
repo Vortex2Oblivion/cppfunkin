@@ -1,9 +1,18 @@
 #include "songselectstate.hpp"
 
 #include "../engine/game.hpp"
+#include "Functions.hpp"
 #include "playstate.hpp"
 
-funkin::SongSelectState::SongSelectState() : MusicBeatState() {}
+funkin::SongSelectState::SongSelectState() : MusicBeatState() {
+    std::string songListRaw = raylib::LoadFileText("assets/songs/list.txt");
+    std::vector<std::string> songList = raylib::TextSplit(songListRaw, '\n');
+    for (std::string song : songList) {
+        if (!song.empty()) {
+            songs.push_back(song);
+        }
+    }
+}
 
 funkin::SongSelectState::~SongSelectState() { songs.clear(); }
 
