@@ -1,34 +1,30 @@
 #include "playstate.hpp"
 
+#include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <nlohmann/json.hpp>
+#include <raymath.hpp>
+
+#include "../engine/animatedsprite.hpp"
+#include "../engine/camera.hpp"
+#include "../engine/game.hpp"
+#include "../engine/text.hpp"
 #include "coolutil.hpp"
-#include "playfield.hpp"
 #include "note.hpp"
+#include "playfield.hpp"
+#include "song.hpp"
 #include "songselectstate.hpp"
 #include "strumnote.hpp"
-#include "song.hpp"
-#include "../engine/animatedsprite.hpp"
-#include "../engine/game.hpp"
-#include "../engine/camera.hpp"
-#include "../engine/text.hpp"
-#include <fstream>
-#include <raymath.hpp>
-#include <algorithm>
-#include <nlohmann/json.hpp>
-#include <iostream>
 
-funkin::PlayState::PlayState(std::string songName, std::string difficulty) : MusicBeatState()
-{
+funkin::PlayState::PlayState(std::string songName, std::string difficulty) : MusicBeatState() {
     this->songName = songName;
     this->difficulty = difficulty;
 }
 
-funkin::PlayState::~PlayState()
-{
-    playfields.clear();
-}
+funkin::PlayState::~PlayState() { playfields.clear(); }
 
-void funkin::PlayState::create()
-{
+void funkin::PlayState::create() {
     funkin::MusicBeatState::create();
     camHUD = new engine::Camera();
     engine::Game::cameras.push_back(camHUD);
@@ -40,17 +36,14 @@ void funkin::PlayState::create()
 
     std::string stagePath = "assets/stages/" + curStage + "/";
     std::ifstream stageFile(stagePath + "stage.json");
-    if (!stageFile.fail())
-    {
+    if (!stageFile.fail()) {
         nlohmann::json parsedStage = nlohmann::json::parse(stageFile);
         stageFile.close();
 
-        for (auto objects : parsedStage["objects"])
-        {
-            engine::Sprite *object = new engine::Sprite(objects["position"][0], objects["position"][1]);
+        for (auto objects : parsedStage["objects"]) {
+            engine::Sprite* object = new engine::Sprite(objects["position"][0], objects["position"][1]);
             object->loadGraphic(stagePath + (std::string)objects["file"] + ".png");
-            if (objects.count("scale"))
-            {
+            if (objects.count("scale")) {
                 object->scale.x = objects["scale"][0];
                 object->scale.y = objects["scale"][1];
                 object->origin *= object->scale;
@@ -64,9 +57,7 @@ void funkin::PlayState::create()
         auto boyfriendPosition = parsedStage["characters"]["bf"];
         dad->position += raylib::Vector2(dadPosition["x"], dadPosition["y"]);
         boyfriend->position += raylib::Vector2(boyfriendPosition["x"], boyfriendPosition["y"]);
-    }
-    else
-    {
+    } else {
         boyfriend->position.x = 400;
     }
 
@@ -81,7 +72,7 @@ void funkin::PlayState::create()
 
     playfields.push_back(dadField);
 
-    playerField = new PlayField(raylib::Window::GetWidth() / 2.0f, 0, this->song.playerNotes, {boyfriend}, true);
+    playerField = new PlayField(raylib::Window::GetWidth() / 2.0f, 0, this->song.playerNotes, {boyfriend}, false);
     playerField->camera = camHUD;
     playerField->conductor = conductor;
     playerField->scrollSpeed = scrollSpeed;
@@ -95,11 +86,11 @@ void funkin::PlayState::create()
     // Convert each utf-8 character into its
     // corresponding codepoint in the font file
     int codepointCount = 0;
-    int *codepoints = LoadCodepoints(defaultScoreText.c_str(), &codepointCount);
+    int* codepoints = LoadCodepoints(defaultScoreText.c_str(), &codepointCount);
 
     // Removed duplicate codepoints to generate smaller font atlas
     int codepointsNoDupsCount = 0;
-    int *codepointsNoDups = funkin::CoolUtil::codepointRemoveDuplicates(codepoints, codepointCount, &codepointsNoDupsCount);
+    int* codepointsNoDups = funkin::CoolUtil::codepointRemoveDuplicates(codepoints, codepointCount, &codepointsNoDupsCount);
     UnloadCodepoints(codepoints);
 
     scoreText = new engine::Text("", 24, 100, 100);
@@ -119,7 +110,7 @@ void funkin::PlayState::create()
     healthBar->fillDirection = engine::FillDirection::RIGHT_TO_LEFT;
     add(healthBar);
 
-    engine::AnimatedSprite *iconP1 = new engine::AnimatedSprite(0, 0);
+    engine::AnimatedSprite* iconP1 = new engine::AnimatedSprite(0, 0);
     iconP1->loadGraphic("assets/characters/bf/icon.png");
     iconP1->camera = camHUD;
     iconP1->addAnimation("default", {raylib::Rectangle(0, 0, 150, 150), raylib::Rectangle(150, 0, 150, 150)}, 1);
@@ -127,8 +118,7 @@ void funkin::PlayState::create()
     add(iconP1);
 }
 
-void funkin::PlayState::loadSong(std::string songName, std::string difficulty)
-{
+void funkin::PlayState::loadSong(std::string songName, std::string difficulty) {
     bool needsVoices;
     std::string basePath = "assets/songs/" + songName + "/";
 
@@ -145,12 +135,10 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty)
     // noteDatas = song.notes;
     totalPlayerNotes = song.playerNotes.size();
 
-    if (FileExists((basePath + "Inst.ogg").c_str()))
-    {
+    if (FileExists((basePath + "Inst.ogg").c_str())) {
         tracks.push_back(new raylib::Music(basePath + "Inst.ogg"));
     }
-    if (FileExists((basePath + "Voices.ogg").c_str()) && needsVoices)
-    {
+    if (FileExists((basePath + "Voices.ogg").c_str()) && needsVoices) {
         tracks.push_back(new raylib::Music(basePath + "Voices.ogg"));
     }
 
@@ -159,60 +147,47 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty)
     conductor->bpm = parsedSong["bpm"];
 }
 
-void funkin::PlayState::beatHit()
-{
+void funkin::PlayState::beatHit() {
     funkin::MusicBeatState::beatHit();
-    for (auto field : playfields)
-    {
-        for (auto character : field->characters)
-        {
+    for (auto field : playfields) {
+        for (auto character : field->characters) {
             character->dance();
         }
     }
-    if (conductor->getBeat() % 4 == 0)
-    {
-        if (engine::Game::defaultCamera->zoom < 1.35f)
-        {
+    if (conductor->getBeat() % 4 == 0) {
+        if (engine::Game::defaultCamera->zoom < 1.35f) {
             engine::Game::defaultCamera->zoom += 0.015f;
             camHUD->zoom += 0.03f;
         }
         int targetSection = (int)fminf((float)song.parsedSong["notes"].size() - 1.0f, fmaxf(0, floor(conductor->getBeat() / 4.0f)));
-        if (song.parsedSong["notes"][targetSection]["mustHitSection"])
-        {
+        if (song.parsedSong["notes"][targetSection]["mustHitSection"]) {
             cameraTarget = boyfriend->getMidpoint() - raylib::Vector2(640, 360) - raylib::Vector2(100, 100);
-        }
-        else
-        {
+        } else {
             cameraTarget = dad->getMidpoint() - raylib::Vector2(640, 360) + raylib::Vector2(150, -100);
         }
     }
 }
 
-void funkin::PlayState::stepHit()
-{
-    funkin::MusicBeatState::stepHit();
-}
+void funkin::PlayState::stepHit() { funkin::MusicBeatState::stepHit(); }
 
-void funkin::PlayState::updateScoreText()
-{
+void funkin::PlayState::updateScoreText() {
     scoreText->text = TextFormat("Score: %i • Misses: %i • Accuracy: %.2f%%", playerField->score, playerField->misses, playerField->accuracy);
     scoreText->screenCenter(engine::Axes::X);
 }
 
-void funkin::PlayState::update(float delta)
-{
+void funkin::PlayState::update(float delta) {
     MusicBeatState::update(delta);
 
     engine::Game::defaultCamera->zoom = Lerp(defaultCameraZoom, engine::Game::defaultCamera->zoom, expf(-delta * 3.125f));
     camHUD->zoom = Lerp(1, camHUD->zoom, expf(-delta * 3.125f));
-    engine::Game::defaultCamera->cameraPosition = engine::Game::defaultCamera->cameraPosition.Lerp(cameraTarget, 1.0f - powf(1.0f - 0.04f, delta * 60.0f));
+    engine::Game::defaultCamera->cameraPosition =
+        engine::Game::defaultCamera->cameraPosition.Lerp(cameraTarget, 1.0f - powf(1.0f - 0.04f, delta * 60.0f));
 
     updateScoreText();
 
     healthBar->percent = health = playerField->health;
 
-    if (conductor->time >= conductor->getMinAudioTime() || IsKeyPressed(KEY_SPACE))
-    {
+    if (conductor->time >= conductor->getMinAudioTime() || IsKeyPressed(KEY_SPACE)) {
         engine::Game::switchState(new SongSelectState());
     }
 }

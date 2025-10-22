@@ -1,9 +1,9 @@
 #include "frame.hpp"
-#include <raylib-cpp.hpp>
-#include <iostream>
 
-engine::Frame::Frame(raylib::Rectangle rect)
-{
+#include <iostream>
+#include <raylib-cpp.hpp>
+
+engine::Frame::Frame(raylib::Rectangle rect) {
     this->x = rect.x;
     this->y = rect.y;
     this->width = rect.width;
@@ -16,8 +16,7 @@ engine::Frame::Frame(raylib::Rectangle rect)
     exists = true;
 }
 
-engine::Frame::Frame(raylib::Rectangle rect, raylib::Vector2 sourceSize, raylib::Vector2 offset)
-{
+engine::Frame::Frame(raylib::Rectangle rect, raylib::Vector2 sourceSize, raylib::Vector2 offset) {
     this->x = rect.x;
     this->y = rect.y;
     this->width = rect.width;
@@ -30,8 +29,7 @@ engine::Frame::Frame(raylib::Rectangle rect, raylib::Vector2 sourceSize, raylib:
     exists = true;
 }
 
-engine::Frame::Frame(float x, float y, float width, float height, float frameX, float frameY, float frameWidth, float frameHeight)
-{
+engine::Frame::Frame(float x, float y, float width, float height, float frameX, float frameY, float frameWidth, float frameHeight) {
     this->x = x;
     this->y = y;
     this->width = width;
@@ -44,7 +42,4 @@ engine::Frame::Frame(float x, float y, float width, float height, float frameX, 
     exists = true;
 }
 
-engine::Frame::~Frame()
-{
-    exists = false;
-}
+engine::Frame::~Frame() { exists = false; }

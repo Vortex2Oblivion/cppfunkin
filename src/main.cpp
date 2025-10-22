@@ -3,8 +3,7 @@
 #include "engine/game.hpp"
 #include "funkin/songselectstate.hpp"
 
-int main()
-{
+int main() {
     int windowWidth = 1280;
     int windowHeight = 720;
     raylib::Window window = raylib::Window(windowWidth, windowHeight, "Friday Night Funkin'");
@@ -18,10 +17,8 @@ int main()
 
     engine::Game::start(new funkin::SongSelectState());
 
-    while (!window.ShouldClose())
-    {
-        if (IsKeyPressed(KEY_F11))
-        {
+    while (!window.ShouldClose()) {
+        if (IsKeyPressed(KEY_F11)) {
             window.ToggleFullscreen();
         }
         window.BeginDrawing();

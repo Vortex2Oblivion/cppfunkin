@@ -1,42 +1,40 @@
 #pragma once
 
-#include "sprite.hpp"
 #include "axes.hpp"
+#include "sprite.hpp"
 
-namespace engine
-{
-    enum FillDirection
-    {
-        LEFT_TO_RIGHT,
-        RIGHT_TO_LEFT,
-    };
+namespace engine {
+enum FillDirection {
+    LEFT_TO_RIGHT,
+    RIGHT_TO_LEFT,
+};
 
-    class Bar : public Sprite
-    {
-    private:
-        /* data */
-        raylib::Rectangle *rectOutline;
-        raylib::Rectangle *rectBottom;
-        raylib::Rectangle *rectTop;
+class Bar : public Sprite {
+   private:
+    /* data */
+    raylib::Rectangle* rectOutline;
+    raylib::Rectangle* rectBottom;
+    raylib::Rectangle* rectTop;
 
-    public:
-        Bar(float x, float y, float width, float height, raylib::Color colorLeft, raylib::Color colorRight, unsigned int outlineSize = 0, raylib::Color colorOutline = raylib::Color::Black());
-        ~Bar();
-        void screenCenter();
-        void screenCenter(engine::Axes axes);
-        void update(float delta);
-        void draw();
+   public:
+    Bar(float x, float y, float width, float height, raylib::Color colorLeft, raylib::Color colorRight, unsigned int outlineSize = 0,
+        raylib::Color colorOutline = raylib::Color::Black());
+    ~Bar();
+    void screenCenter();
+    void screenCenter(engine::Axes axes);
+    void update(float delta);
+    void draw();
 
-        raylib::Color colorOutline;
-        raylib::Color colorLeft;
-        raylib::Color colorRight;
+    raylib::Color colorOutline;
+    raylib::Color colorLeft;
+    raylib::Color colorRight;
 
-        engine::FillDirection fillDirection;
+    engine::FillDirection fillDirection;
 
-        raylib::Vector2 origin;
+    raylib::Vector2 origin;
 
-        float percent = 50.0f;
-        unsigned int outlineSize = 0;
-    };
+    float percent = 50.0f;
+    unsigned int outlineSize = 0;
+};
 
-} // namespace engine
+}  // namespace engine

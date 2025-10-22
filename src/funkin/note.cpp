@@ -1,10 +1,9 @@
-#include "raylib-cpp.hpp"
-
 #include "note.hpp"
+
+#include "raylib-cpp.hpp"
 #include "strumnote.hpp"
 
-funkin::Note::Note(float strumTime, int lane, float speed, StrumNote *strum) : SparrowSprite(0, 0)
-{
+funkin::Note::Note(float strumTime, int lane, float speed, StrumNote* strum) : SparrowSprite(0, 0) {
     this->strumTime = strumTime;
     this->lane = lane;
     this->speed = speed;
@@ -20,12 +19,9 @@ funkin::Note::Note(float strumTime, int lane, float speed, StrumNote *strum) : S
     position.x = strum->position.x;
 }
 
-funkin::Note::~Note()
-{
-}
+funkin::Note::~Note() {}
 
-void funkin::Note::update(float delta)
-{
+void funkin::Note::update(float delta) {
     SparrowSprite::update(delta);
     position.y = 50 + -0.45f * (songPos * 1000 - strumTime) * speed;
 }

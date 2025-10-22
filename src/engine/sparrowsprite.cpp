@@ -1,37 +1,30 @@
 #include "sparrowsprite.hpp"
+
+#include <cstring>
+#include <iostream>
+#include <pugixml.hpp>
+
 #include "animatedsprite.hpp"
 
-#include <pugixml.hpp>
-#include <iostream>
-#include <cstring>
+engine::SparrowSprite::SparrowSprite(float x, float y) : AnimatedSprite(x, y) {}
 
-engine::SparrowSprite::SparrowSprite(float x, float y) : AnimatedSprite(x, y)
-{
-}
+engine::SparrowSprite::~SparrowSprite() {}
 
-engine::SparrowSprite::~SparrowSprite()
-{
-}
-
-void engine::SparrowSprite::loadGraphic(std::string imagePath, std::string xmlPath)
-{
+void engine::SparrowSprite::loadGraphic(std::string imagePath, std::string xmlPath) {
     engine::Sprite::loadGraphic(imagePath);
 
-    if (!raylib::FileExists(xmlPath))
-    {
+    if (!raylib::FileExists(xmlPath)) {
         std::cerr << "Could not find XML at path: " << xmlPath << "\n";
     }
     this->xmlPath = xmlPath;
     pugi::xml_parse_result result = doc.load_file(xmlPath.c_str());
 }
 
-void engine::SparrowSprite::addAnimationByPrefix(std::string name, std::string prefix, int framerate)
-{
-    std::vector<Frame *> foundFrames = {};
-    for (auto frame : doc.child("TextureAtlas").children("SubTexture"))
-    {
-        const char *name = frame.attribute("name").as_string();
-        if (strncmp(prefix.c_str(), name, strlen(prefix.c_str())) == 0) // find all animations that start with `prefix`
+void engine::SparrowSprite::addAnimationByPrefix(std::string name, std::string prefix, int framerate) {
+    std::vector<Frame*> foundFrames = {};
+    for (auto frame : doc.child("TextureAtlas").children("SubTexture")) {
+        const char* name = frame.attribute("name").as_string();
+        if (strncmp(prefix.c_str(), name, strlen(prefix.c_str())) == 0)  // find all animations that start with `prefix`
         {
             bool trimmed = frame.attribute("frameX");
 
@@ -54,35 +47,22 @@ void engine::SparrowSprite::addAnimationByPrefix(std::string name, std::string p
             // std::cout << "found frame: " << frame.attribute("name").as_string() << "\n";
         }
     }
-    if (!foundFrames.empty())
-    {
+    if (!foundFrames.empty()) {
         animations[name] = new Animation(foundFrames, framerate, name);
-        if (!offsets.count(name))
-        {
+        if (!offsets.count(name)) {
             offsets[name] = raylib::Vector2(0, 0);
         }
-    }
-    else
-    {
+    } else {
         std::cerr << "No frames found for animation: " << name << "\n";
     }
 }
 
+void engine::SparrowSprite::update(float delta) { engine::AnimatedSprite::update(delta); }
 
-void engine::SparrowSprite::update(float delta)
-{
-    engine::AnimatedSprite::update(delta);
-}
+void engine::SparrowSprite::draw() { draw(0, 0); }
 
-void engine::SparrowSprite::draw()
-{
-    draw(0, 0);
-}
-
-void engine::SparrowSprite::draw(float x, float y)
-{
-    if (currentAnimation != nullptr && animations.size() > 0)
-    {
+void engine::SparrowSprite::draw(float x, float y) {
+    if (currentAnimation != nullptr && animations.size() > 0) {
         size_t frame = currentAnimation->currentFrame;
 
         source.x = currentAnimation->frames[frame]->x;
@@ -97,13 +77,10 @@ void engine::SparrowSprite::draw(float x, float y)
 
         origin = raylib::Vector2(dest.width / 2.0f, dest.height / 2.0f);
 
-        if (isOnScreen())
-        {
+        if (isOnScreen()) {
             texture->Draw(source, dest, origin, angle, color);
         }
-    }
-    else
-    {
+    } else {
         engine::Sprite::draw(x, y);
     }
 }

@@ -1,8 +1,8 @@
 #include "strumnote.hpp"
+
 #include "raylib.h"
 
-funkin::StrumNote::StrumNote(float x, float y, int lane, bool player) : SparrowSprite(x, y)
-{
+funkin::StrumNote::StrumNote(float x, float y, int lane, bool player) : SparrowSprite(x, y) {
     this->lane = lane;
     this->player = player;
 
@@ -16,12 +16,8 @@ funkin::StrumNote::StrumNote(float x, float y, int lane, bool player) : SparrowS
     scale.y = 0.7f;
 }
 
-funkin::StrumNote::~StrumNote()
-{
-    //engine::SparrowSprite::~SparrowSprite();
+funkin::StrumNote::~StrumNote() {
+    // engine::SparrowSprite::~SparrowSprite();
 }
 
-void funkin::StrumNote::setPosition()
-{
-    position.x += (160.0f * scale.x) * lane + 50.0f;
-}
+void funkin::StrumNote::setPosition() { position.x += (160.0f * scale.x) * lane + 50.0f; }

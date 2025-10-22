@@ -1,15 +1,14 @@
 #include "character.hpp"
-#include "../engine/animatedsprite.hpp"
+
 #include <fstream>
 #include <nlohmann/json.hpp>
 
-funkin::Character::Character(float x, float y, std::string characterName) : SparrowSprite(x, y)
-{
+#include "../engine/animatedsprite.hpp"
 
+funkin::Character::Character(float x, float y, std::string characterName) : SparrowSprite(x, y) {
     std::string characterBasePath = "assets/characters/" + characterName;
     std::ifstream characterFile(characterBasePath + "/character.json");
-    if (characterFile.fail())
-    {
+    if (characterFile.fail()) {
         characterBasePath = "assets/characters/bf";
         characterFile = std::ifstream(characterBasePath + "/character.json");
     }
@@ -18,21 +17,18 @@ funkin::Character::Character(float x, float y, std::string characterName) : Spar
     characterFile.close();
 
     float scale = 1.0f;
-    if (parsedCharacter.count("scale"))
-    {
+    if (parsedCharacter.count("scale")) {
         scale = parsedCharacter["scale"];
     }
 
-    if (parsedCharacter.count("globalOffset"))
-    {
+    if (parsedCharacter.count("globalOffset")) {
         position.x += (float)parsedCharacter["globalOffset"][0];
         position.y += (float)parsedCharacter["globalOffset"][1];
     }
 
     loadGraphic(characterBasePath + "/spritesheet.png", characterBasePath + "/spritesheet.xml");
 
-    for (auto animation : parsedCharacter["animations"])
-    {
+    for (auto animation : parsedCharacter["animations"]) {
         auto name = animation["name"];
         auto offsets = animation["offsets"];
 
@@ -44,15 +40,12 @@ funkin::Character::Character(float x, float y, std::string characterName) : Spar
     playAnimation("idle");
 }
 
-funkin::Character::~Character()
-{
-    //engine::SparrowSprite::~SparrowSprite();
+funkin::Character::~Character() {
+    // engine::SparrowSprite::~SparrowSprite();
 }
 
-void funkin::Character::dance()
-{
-    if (!currentAnimation->isFinished())
-    {
+void funkin::Character::dance() {
+    if (!currentAnimation->isFinished()) {
         return;
     }
     playAnimation("idle");

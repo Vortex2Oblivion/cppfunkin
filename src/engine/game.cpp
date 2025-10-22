@@ -1,38 +1,32 @@
 #include "game.hpp"
-#include "camera.hpp"
+
 #include <cstdio>
 #include <iostream>
+
+#include "camera.hpp"
 #include "sprite.hpp"
 
-engine::State *engine::Game::_state = nullptr;
-engine::Camera *engine::Game::defaultCamera = new engine::Camera();
-std::vector<engine::Camera *> engine::Game::cameras = {engine::Game::defaultCamera};
+engine::State* engine::Game::_state = nullptr;
+engine::Camera* engine::Game::defaultCamera = new engine::Camera();
+std::vector<engine::Camera*> engine::Game::cameras = {engine::Game::defaultCamera};
 
-void engine::Game::start(State *initialState)
-{
+void engine::Game::start(State* initialState) {
     _state = initialState;
     _state->create();
 }
 
-void engine::Game::update(float delta)
-{
-
-    if (!_state->initalized)
-    {
+void engine::Game::update(float delta) {
+    if (!_state->initalized) {
         return;
     }
     _state->update(delta);
-    for (auto camera : engine::Game::cameras)
-    {
-        if (camera == nullptr)
-        {
+    for (auto camera : engine::Game::cameras) {
+        if (camera == nullptr) {
             continue;
         }
         camera->BeginMode();
-        for (auto member : _state->members)
-        {
-            if (!member->alive || member->camera != camera || member == nullptr)
-            {
+        for (auto member : _state->members) {
+            if (!member->alive || member->camera != camera || member == nullptr) {
                 continue;
             }
             member->draw();
@@ -41,11 +35,9 @@ void engine::Game::update(float delta)
     }
 }
 
-void engine::Game::switchState(State *nextState)
-{
+void engine::Game::switchState(State* nextState) {
     engine::Sprite::clearTextureCache();
-    for (auto camera : cameras)
-    {
+    for (auto camera : cameras) {
         delete camera;
     }
     defaultCamera = new engine::Camera();

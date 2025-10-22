@@ -1,17 +1,15 @@
 #pragma once
-#include "group.hpp"
 #include <vector>
 
-namespace engine
-{
+#include "group.hpp"
 
-    class State : public Group<Object>
-    {
+namespace engine {
 
-    public:
-        State();
-        virtual ~State();
-        virtual void create();
-        bool initalized = false;
-    };
-}
+class State : public Group<Object> {
+   public:
+    State();
+    virtual ~State();
+    virtual void create();
+    bool initalized = false;
+};
+}  // namespace engine
