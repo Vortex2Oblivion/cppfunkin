@@ -19,6 +19,7 @@ class AnimatedSprite : public Sprite {
     void centerOffsets();
 
     raylib::Vector2 getMidpoint();
+    bool isOnScreen(float x = 0.0f, float y = 0.0f);
 
     void draw();
     void draw(float x, float y);

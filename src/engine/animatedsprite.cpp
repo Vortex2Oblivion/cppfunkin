@@ -1,4 +1,5 @@
 #include "animatedsprite.hpp"
+#include "Vector2.hpp"
 
 #include <iostream>
 
@@ -52,6 +53,13 @@ void engine::AnimatedSprite::centerOffsets() {
 
     offset.x = (dest.width - currentAnimation->frames[frame]->width) / 2;
     offset.y = (dest.height - currentAnimation->frames[frame]->height) / 2;
+}
+
+bool engine::AnimatedSprite::isOnScreen(float x, float y) {
+    size_t frame = currentAnimation->currentFrame;
+    raylib::Vector2 pos = camera->GetWorldToScreen(position + raylib::Vector2(x, y) + offset - animationOffset);
+    return !((pos.y + (currentAnimation->frames[frame]->height * scale.y) < 0 || pos.y > raylib::Window::GetHeight()) ||
+             (pos.x + (currentAnimation->frames[frame]->width * scale.x) < 0 || pos.x > raylib::Window::GetWidth()));
 }
 
 raylib::Vector2 engine::AnimatedSprite::getMidpoint() {

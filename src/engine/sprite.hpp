@@ -22,7 +22,7 @@ class Sprite : public Object {
     virtual ~Sprite();
     void loadGraphic(std::string path);
     virtual void update(float delta);
-    bool isOnScreen();
+    virtual bool isOnScreen(float x = 0.0f, float y = 0.0f);
     raylib::Vector2 getMidpoint();
     virtual void screenCenter();
     virtual void screenCenter(engine::Axes axes);

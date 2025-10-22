@@ -56,6 +56,7 @@ void engine::Group<T>::draw(float x, float y) {
         if (member == nullptr || !member->alive) {
             continue;
         }
+        member->camera = camera;
         member->draw(position.x + x, position.y + y);
     }
 }
