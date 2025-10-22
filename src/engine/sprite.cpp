@@ -31,8 +31,8 @@ void engine::Sprite::update(float delta) {}
 void engine::Sprite::draw() { draw(0, 0); }
 
 void engine::Sprite::draw(float x, float y) {
-    dest.x = (texture->width / 2) + position.x * scale.x + offset.x + x;
-    dest.y = (texture->height / 2) + position.y * scale.y + offset.y + y;
+    dest.x = (texture->width / 2.0f) + position.x * scale.x + offset.x + x;
+    dest.y = (texture->height / 2.0f) + position.y * scale.y + offset.y + y;
     dest.width = (float)(texture->width) * scale.x;
     dest.height = (float)(texture->height) * scale.y;
     if (isOnScreen()) {
@@ -41,8 +41,9 @@ void engine::Sprite::draw(float x, float y) {
 }
 
 bool engine::Sprite::isOnScreen() {
-    return !((position.y + texture->height < 0 || position.y > raylib::Window::GetHeight()) ||
-             (position.x + texture->width < 0 || position.x > raylib::Window::GetWidth()));
+    raylib::Vector2 pos = camera->GetWorldToScreen(position);
+    return !((pos.y + texture->height < 0 || pos.y > raylib::Window::GetHeight()) ||
+             (pos.x + texture->width < 0 || pos.x > raylib::Window::GetWidth()));
 }
 
 raylib::Vector2 engine::Sprite::getMidpoint() { return raylib::Vector2(position.x + texture->width * 0.5f, position.y + texture->height * 0.5f); }

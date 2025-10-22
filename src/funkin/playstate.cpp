@@ -150,7 +150,7 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty) {
         if (raylib::FileExists(basePath + "Voices_Player.ogg") && raylib::FileExists(basePath + "Voices_Opponent.ogg")) {
             tracks.push_back(new raylib::Music(basePath + "Voices_Player.ogg"));
             tracks.push_back(new raylib::Music(basePath + "Voices_Opponent.ogg"));
-        } else if (raylib::FileExists(basePath + "Voices.ogg") {
+        } else if (raylib::FileExists(basePath + "Voices.ogg")) {
             tracks.push_back(new raylib::Music(basePath + "Voices.ogg"));
         }
     }
