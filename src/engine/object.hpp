@@ -4,11 +4,8 @@
 
 namespace engine {
 class Object {
-   private:
-    /* data */
    public:
-    Object();
-    Object(float x, float y);
+    Object(float x = 0.0f, float y = 0.0f);
     virtual ~Object();
     virtual void update(float delta);
     virtual void draw();

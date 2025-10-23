@@ -10,8 +10,9 @@
 #include "../engine/camera.hpp"
 #include "../engine/game.hpp"
 #include "../engine/text.hpp"
-#include "Functions.hpp"
 #include "coolutil.hpp"
+#include "healthbar.hpp"
+#include "healthicon.hpp"
 #include "note.hpp"
 #include "playfield.hpp"
 #include "song.hpp"
@@ -41,16 +42,14 @@ void funkin::PlayState::create() {
         nlohmann::json parsedStage = nlohmann::json::parse(stageFile);
         stageFile.close();
 
-        for (auto objects : parsedStage["objects"])
-        {
-            engine::Sprite *object = new engine::Sprite(objects["position"][0], objects["position"][1]);
+        for (auto objects : parsedStage["objects"]) {
+            engine::Sprite* object = new engine::Sprite(objects["position"][0], objects["position"][1]);
             if (objects.contains("extension")) {
                 object->loadGraphic(stagePath + (std::string)objects["file"] + (std::string)objects["extension"]);
             } else {
                 object->loadGraphic(stagePath + (std::string)objects["file"] + ".png");
             }
-            if (objects.count("scale"))
-            {
+            if (objects.count("scale")) {
                 object->scale.x = objects["scale"][0];
                 object->scale.y = objects["scale"][1];
                 object->origin *= object->scale;
@@ -105,24 +104,17 @@ void funkin::PlayState::create() {
     scoreText->font = raylib::Font("assets/fonts/vcr.ttf", 24, codepointsNoDups, codepointsNoDupsCount);
     scoreText->outlineSize = 2.0f;
     scoreText->camera = camHUD;
-    add(scoreText);
-
+    
     delete codepointsNoDups;
-
+    
     updateScoreText();
-
-    healthBar = new engine::Bar(100.0f, scoreText->position.y - 30.0f, 601.0f - 8.0f, 19.0f - 8.0f, raylib::Color::Red(), raylib::Color::Green(), 8);
+    
+    healthBar = new funkin::HealthBar(0.0f, scoreText->position.y - 30.0f, dad->characterName, boyfriend->characterName, raylib::RED, raylib::GREEN);
     healthBar->camera = camHUD;
-    healthBar->screenCenter(engine::Axes::X);
-    healthBar->fillDirection = engine::FillDirection::RIGHT_TO_LEFT;
+    healthBar->bar->screenCenter(engine::Axes::X);
     add(healthBar);
-
-    engine::AnimatedSprite* iconP1 = new engine::AnimatedSprite(0, 0);
-    iconP1->loadGraphic("assets/characters/bf/icon.png");
-    iconP1->camera = camHUD;
-    iconP1->addAnimation("default", {raylib::Rectangle(0, 0, 150, 150), raylib::Rectangle(150, 0, 150, 150)}, 1);
-    iconP1->playAnimation("default");
-    add(iconP1);
+    
+    add(scoreText);
 }
 
 void funkin::PlayState::loadSong(std::string songName, std::string difficulty) {
@@ -145,8 +137,7 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty) {
     if (FileExists((basePath + "Inst.ogg").c_str())) {
         tracks.push_back(new raylib::Music(basePath + "Inst.ogg"));
     }
-    if (needsVoices)
-    {
+    if (needsVoices) {
         if (raylib::FileExists(basePath + "Voices_Player.ogg") && raylib::FileExists(basePath + "Voices_Opponent.ogg")) {
             tracks.push_back(new raylib::Music(basePath + "Voices_Player.ogg"));
             tracks.push_back(new raylib::Music(basePath + "Voices_Opponent.ogg"));
@@ -155,7 +146,7 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty) {
         }
     }
 
-    for (raylib::Music *music : tracks) {
+    for (raylib::Music* music : tracks) {
         music->SetLooping(false);
     }
 
@@ -183,6 +174,7 @@ void funkin::PlayState::beatHit() {
             cameraTarget = dad->getMidpoint() - raylib::Vector2(640, 360) + raylib::Vector2(150, -100);
         }
     }
+    healthBar->bopIcons(1.2f);
 }
 
 void funkin::PlayState::stepHit() { funkin::MusicBeatState::stepHit(); }
@@ -202,10 +194,10 @@ void funkin::PlayState::update(float delta) {
 
     updateScoreText();
 
-    healthBar->percent = health = playerField->health;
+    healthBar->bar->percent = health = playerField->health;
 
     bool playing = false;
-    for (raylib::Music *music : tracks) {
+    for (raylib::Music* music : tracks) {
         if (music->IsPlaying()) {
             playing = true;
             break;

@@ -24,6 +24,9 @@ class Bar : public Sprite {
     void screenCenter(engine::Axes axes);
     void update(float delta);
     void draw();
+    void draw(float x, float y);
+
+    float getIntersection();
 
     raylib::Color colorOutline;
     raylib::Color colorLeft;

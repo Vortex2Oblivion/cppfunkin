@@ -13,9 +13,9 @@ class Sprite : public Object {
     static std::map<std::string, raylib::Texture*> texturePool;
 
    protected:
-    raylib::Texture* texture;
-    raylib::Rectangle source;
-    raylib::Rectangle dest;
+    raylib::Texture* texture = nullptr;
+    raylib::Rectangle source = raylib::Rectangle();
+    raylib::Rectangle dest = raylib::Rectangle();
 
    public:
     Sprite(float x, float y);
@@ -29,11 +29,12 @@ class Sprite : public Object {
     virtual void draw();
     virtual void draw(float x, float y);
 
-    raylib::Vector2 origin;
+    raylib::Vector2 origin = raylib::Vector2();
     raylib::Vector2 scale = raylib::Vector2(1.0f, 1.0f);
     raylib::Vector2 offset = raylib::Vector2();
     float angle = 0.0f;
     raylib::Color color = WHITE;
+    bool flipX = false;
 
     static void clearTextureCache();
 };

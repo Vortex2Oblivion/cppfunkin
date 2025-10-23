@@ -1,7 +1,8 @@
 #include "sprite.hpp"
-#include "Vector2.hpp"
 
 #include <iostream>
+
+#include "Vector2.hpp"
 
 std::map<std::string, raylib::Texture*> engine::Sprite::texturePool;
 
@@ -32,10 +33,17 @@ void engine::Sprite::update(float delta) {}
 void engine::Sprite::draw() { draw(0, 0); }
 
 void engine::Sprite::draw(float x, float y) {
+    if (!texture) {
+        return;
+    }
     dest.x = (texture->width / 2.0f) + position.x + offset.x + x;
     dest.y = (texture->height / 2.0f) + position.y + offset.y + y;
     dest.width = (float)(texture->width) * scale.x;
     dest.height = (float)(texture->height) * scale.y;
+    if (flipX) {
+        source.width *= -1.0f;
+    }
+
     if (isOnScreen(x, y)) {
         texture->Draw(source, dest, origin, angle, color);
     }
@@ -43,8 +51,8 @@ void engine::Sprite::draw(float x, float y) {
 
 bool engine::Sprite::isOnScreen(float x, float y) {
     raylib::Vector2 pos = camera->GetWorldToScreen(position + offset - origin + raylib::Vector2(x, y) + (texture->GetSize().Scale(0.5f)));
-    return !((pos.y + (texture->height*scale.y) < 0 || pos.y > raylib::Window::GetHeight()) ||
-             (pos.x + (texture->width*scale.x) < 0 || pos.x > raylib::Window::GetWidth()));
+    return !((pos.y + (texture->height * scale.y) < 0 || pos.y > raylib::Window::GetHeight()) ||
+             (pos.x + (texture->width * scale.x) < 0 || pos.x > raylib::Window::GetWidth()));
 }
 
 raylib::Vector2 engine::Sprite::getMidpoint() { return raylib::Vector2(position.x + texture->width * 0.5f, position.y + texture->height * 0.5f); }

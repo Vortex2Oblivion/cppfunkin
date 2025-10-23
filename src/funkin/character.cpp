@@ -6,6 +6,7 @@
 #include "../engine/animatedsprite.hpp"
 
 funkin::Character::Character(float x, float y, std::string characterName) : SparrowSprite(x, y) {
+    this->characterName = characterName;
     std::string characterBasePath = "assets/characters/" + characterName;
     std::ifstream characterFile(characterBasePath + "/character.json");
     if (characterFile.fail()) {

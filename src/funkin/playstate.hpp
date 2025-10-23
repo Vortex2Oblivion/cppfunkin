@@ -8,11 +8,12 @@
 #include "../engine/text.hpp"
 #include "character.hpp"
 #include "conductor.hpp"
+#include "healthbar.hpp"
+#include "healthicon.hpp"
 #include "musicbeatstate.hpp"
 #include "note.hpp"
 #include "playfield.hpp"
 #include "song.hpp"
-
 namespace funkin {
 
 class PlayState : public MusicBeatState {
@@ -37,7 +38,7 @@ class PlayState : public MusicBeatState {
     funkin::Character* boyfriend;
     funkin::Character* dad;
 
-    engine::Bar* healthBar;
+    funkin::HealthBar* healthBar;
 
     engine::Camera* camHUD;
 

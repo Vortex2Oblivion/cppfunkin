@@ -9,13 +9,10 @@ template <typename T = Object>
 class Group : public Object {
     static_assert(std::is_base_of<Object, T>::value, "T must inherit from Object");
 
-   private:
-    /* data */
    public:
     std::vector<T*> members = {};
     raylib::Vector2 position = raylib::Vector2(0, 0);
-    Group(/* args */);
-    Group(float x, float y);
+    Group(float x = 0.0f, float y = 0.0f);
     ~Group();
     virtual void remove(T* obj);
     virtual void add(T* obj);
@@ -24,8 +21,6 @@ class Group : public Object {
     virtual void draw(float x, float y);
     virtual void addToFront(T* obj);
 };
-template <typename T>
-engine::Group<T>::Group() : Object() {}
 
 template <typename T>
 engine::Group<T>::Group(float x, float y) : Object(x, y) {}

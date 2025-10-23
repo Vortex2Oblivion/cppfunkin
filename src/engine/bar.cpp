@@ -61,9 +61,17 @@ void engine::Bar::update(float delta) {
 }
 
 void engine::Bar::draw() {
+    draw(0.0f, 0.0f);
+}
+
+void engine::Bar::draw(float x, float y) {
     if (outlineSize > 0) {
         rectOutline->Draw(colorOutline);
     }
     rectBottom->Draw(colorRight);
     rectTop->Draw(colorLeft);
+}
+
+float engine::Bar::getIntersection() {
+    return rectTop->width;
 }

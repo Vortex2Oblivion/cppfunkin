@@ -77,6 +77,10 @@ void engine::SparrowSprite::draw(float x, float y) {
 
         origin = raylib::Vector2(dest.width / 2.0f, dest.height / 2.0f);
 
+        if (flipX) {
+            source.width *= -1.0f;
+        }
+        
         if (isOnScreen()) {
             texture->Draw(source, dest, origin, angle, color);
         }

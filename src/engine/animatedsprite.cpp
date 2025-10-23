@@ -1,5 +1,4 @@
 #include "animatedsprite.hpp"
-#include "Vector2.hpp"
 
 #include <iostream>
 
@@ -84,6 +83,10 @@ void engine::AnimatedSprite::draw(float x, float y) {
         dest.y = (dest.height / 2) + position.y + offset.y - animationOffset.y + y;
 
         origin = raylib::Vector2(dest.width / 2.0f, dest.height / 2.0f);
+
+        if (flipX) {
+            source.width *= -1.0f;
+        }
 
         if (isOnScreen()) {
             texture->Draw(source, dest, origin, angle, color);
