@@ -26,8 +26,7 @@ class Sprite : public Object {
     raylib::Vector2 getMidpoint();
     virtual void screenCenter();
     virtual void screenCenter(engine::Axes axes);
-    virtual void draw();
-    virtual void draw(float x, float y);
+    virtual void draw(float x = 0.0f, float y = 0.0f);
 
     raylib::Vector2 origin = raylib::Vector2();
     raylib::Vector2 scale = raylib::Vector2(1.0f, 1.0f);

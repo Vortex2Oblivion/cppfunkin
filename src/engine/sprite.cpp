@@ -30,8 +30,6 @@ void engine::Sprite::loadGraphic(std::string path) {
 
 void engine::Sprite::update(float delta) {}
 
-void engine::Sprite::draw() { draw(0, 0); }
-
 void engine::Sprite::draw(float x, float y) {
     if (!texture) {
         return;

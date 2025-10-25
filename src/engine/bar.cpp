@@ -60,9 +60,6 @@ void engine::Bar::update(float delta) {
     }
 }
 
-void engine::Bar::draw() {
-    draw(0.0f, 0.0f);
-}
 
 void engine::Bar::draw(float x, float y) {
     if (outlineSize > 0) {

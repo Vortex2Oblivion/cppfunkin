@@ -16,8 +16,7 @@ class SparrowSprite : public AnimatedSprite {
     void loadGraphic(std::string imagePath, std::string xmlPath);
     void addAnimationByPrefix(std::string name, std::string prefix, int framerate);
     virtual void update(float delta);
-    virtual void draw();
-    virtual void draw(float x, float y);
+    virtual void draw(float x = 0.0f, float y = 0.0f);
 
     std::string xmlPath;
 };

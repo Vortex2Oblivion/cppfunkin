@@ -14,12 +14,11 @@ class Group : public Object {
     raylib::Vector2 position = raylib::Vector2(0, 0);
     Group(float x = 0.0f, float y = 0.0f);
     ~Group();
-    virtual void remove(T* obj);
     virtual void add(T* obj);
-    virtual void update(float delta);
-    virtual void draw();
-    virtual void draw(float x, float y);
+    virtual void remove(T* obj);
     virtual void addToFront(T* obj);
+    virtual void update(float delta);
+    virtual void draw(float x = 0.0f, float y = 0.0f);
 };
 
 template <typename T>
@@ -32,17 +31,6 @@ engine::Group<T>::~Group() {
         delete *iter;
         members.erase(members.begin());
     }
-
-    // for (auto member : members)
-    // {
-    //     if (!member->alive || member == nullptr)
-    //     {
-    //         continue;
-    //     }
-    //     remove(member);
-    //     delete member;
-    // }
-    // members.clear();
 }
 
 template <typename T>
@@ -54,11 +42,6 @@ void engine::Group<T>::draw(float x, float y) {
         member->camera = camera;
         member->draw(position.x + x, position.y + y);
     }
-}
-
-template <typename T>
-void engine::Group<T>::draw() {
-    draw(0, 0);
 }
 
 template <typename T>

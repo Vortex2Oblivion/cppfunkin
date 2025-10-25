@@ -23,8 +23,7 @@ class Bar : public Sprite {
     void screenCenter();
     void screenCenter(engine::Axes axes);
     void update(float delta);
-    void draw();
-    void draw(float x, float y);
+    void draw(float x = 0.0f, float y = 0.0f);
 
     float getIntersection();
 

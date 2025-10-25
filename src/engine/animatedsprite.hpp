@@ -21,8 +21,7 @@ class AnimatedSprite : public Sprite {
     raylib::Vector2 getMidpoint();
     bool isOnScreen(float x = 0.0f, float y = 0.0f);
 
-    void draw();
-    void draw(float x, float y);
+    void draw(float x = 0.0f, float y = 0.0f);
 
     std::map<std::string, engine::Animation*> animations = {};
     engine::Animation* currentAnimation;

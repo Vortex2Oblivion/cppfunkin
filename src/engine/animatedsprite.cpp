@@ -66,8 +66,6 @@ raylib::Vector2 engine::AnimatedSprite::getMidpoint() {
     return raylib::Vector2(position.x + (animFrame->width / 2.0f), position.y + (animFrame->height / 2.0f));
 }
 
-void engine::AnimatedSprite::draw() { draw(0, 0); }
-
 void engine::AnimatedSprite::draw(float x, float y) {
     if (currentAnimation != nullptr && animations.size() > 0) {
         size_t frame = currentAnimation->currentFrame;

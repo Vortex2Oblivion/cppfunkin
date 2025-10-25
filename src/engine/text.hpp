@@ -8,9 +8,6 @@ class Text : public Sprite {
    private:
     raylib::Text* _text;
 
-   protected:
-    virtual void draw();
-
    public:
     Text(std::string text, float size, float x, float y);
     ~Text();
@@ -21,6 +18,8 @@ class Text : public Sprite {
     float outlineSize = 0.0f;
     float size = 24.0f;
     float spacing = 1.0f;
+
+    virtual void draw(float x = 0.0f, float y = 0.0f);
 
     void screenCenter();
     void screenCenter(engine::Axes axes);

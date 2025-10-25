@@ -11,7 +11,7 @@ engine::Text::~Text() {
     delete _text;
 }
 
-void engine::Text::draw() {
+void engine::Text::draw(float x, float y) {
     // TODO: replace with shader maybe?
     if (outlineSize > 0) {
         _text->Draw(font, text, position + raylib::Vector2(-outlineSize, 0), origin, angle, size, spacing, outlineColor);
