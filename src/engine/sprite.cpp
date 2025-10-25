@@ -38,6 +38,7 @@ void engine::Sprite::draw(float x, float y) {
     dest.y = (texture->height / 2.0f) + position.y + offset.y + y;
     dest.width = (float)(texture->width) * scale.x;
     dest.height = (float)(texture->height) * scale.y;
+    
     if (flipX) {
         source.width *= -1.0f;
     }

@@ -67,29 +67,29 @@ raylib::Vector2 engine::AnimatedSprite::getMidpoint() {
 }
 
 void engine::AnimatedSprite::draw(float x, float y) {
-    if (currentAnimation != nullptr && animations.size() > 0) {
-        size_t frame = currentAnimation->currentFrame;
-
-        source.x = currentAnimation->frames[frame]->x;
-        source.y = currentAnimation->frames[frame]->y;
-        source.width = currentAnimation->frames[frame]->width;
-        source.height = currentAnimation->frames[frame]->height;
-
-        dest.width = currentAnimation->frames[frame]->width * scale.x;
-        dest.height = currentAnimation->frames[frame]->height * scale.y;
-        dest.x = (dest.width / 2) + position.x + offset.x - animationOffset.x + x;
-        dest.y = (dest.height / 2) + position.y + offset.y - animationOffset.y + y;
-
-        origin = raylib::Vector2(dest.width / 2.0f, dest.height / 2.0f);
-
-        if (flipX) {
-            source.width *= -1.0f;
-        }
-
-        if (isOnScreen()) {
-            texture->Draw(source, dest, origin, angle, color);
-        }
-    } else {
+    if (currentAnimation == nullptr || animations.size() == 0) {
         engine::Sprite::draw(x, y);
+        return;
+    }
+    size_t frame = currentAnimation->currentFrame;
+
+    source.x = currentAnimation->frames[frame]->x;
+    source.y = currentAnimation->frames[frame]->y;
+    source.width = currentAnimation->frames[frame]->width;
+    source.height = currentAnimation->frames[frame]->height;
+
+    dest.width = currentAnimation->frames[frame]->width * scale.x;
+    dest.height = currentAnimation->frames[frame]->height * scale.y;
+    dest.x = (dest.width / 2) + position.x + offset.x - animationOffset.x + x;
+    dest.y = (dest.height / 2) + position.y + offset.y - animationOffset.y + y;
+
+    origin = raylib::Vector2(dest.width / 2.0f, dest.height / 2.0f);
+
+    if (flipX) {
+        source.width *= -1.0f;
+    }
+
+    if (isOnScreen()) {
+        texture->Draw(source, dest, origin, angle, color);
     }
 }
