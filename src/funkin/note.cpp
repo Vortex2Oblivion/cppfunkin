@@ -11,7 +11,7 @@ funkin::Note::Note(float strumTime, int lane, float speed, StrumNote* strum) : S
 
     std::vector<std::string> directions = {"purple", "blue", "green", "red"};
     loadGraphic("assets/images/notes.png", "assets/images/notes.xml");
-    addAnimationByPrefix("default", directions[lane % 4] + " instance", 24);
+    addAnimation("default", directions[lane % 4] + " instance", 24);
     playAnimation("default");
     scale.x = 0.7f;
     scale.y = 0.7f;

@@ -12,5 +12,6 @@ class Character : public engine::SparrowSprite {
     void dance();
 
     std::string characterName;
+    bool danceLeft = true;
 };
 }  // namespace funkin

@@ -28,16 +28,17 @@ funkin::PlayState::~PlayState() { playfields.clear(); }
 
 void funkin::PlayState::create() {
     funkin::MusicBeatState::create();
-    
+
     camHUD = new engine::Camera();
     engine::Game::cameras.push_back(camHUD);
 
     loadSong(songName, difficulty);
 
+    girlfriend = new Character(0, 0, "gf");
     dad = new Character(0, 0, player2);
     boyfriend = new Character(0, 0, player1);
 
-    stage = new funkin::Stage(curStage, boyfriend, dad);
+    stage = new funkin::Stage(curStage, boyfriend, dad, girlfriend);
     add(stage);
 
     engine::Game::defaultCamera->zoom = defaultCameraZoom = stage->zoom;
@@ -76,16 +77,16 @@ void funkin::PlayState::create() {
     scoreText->font = raylib::Font("assets/fonts/vcr.ttf", 24, codepointsNoDups, codepointsNoDupsCount);
     scoreText->outlineSize = 2.0f;
     scoreText->camera = camHUD;
-    
+
     delete codepointsNoDups;
-    
+
     updateScoreText();
-    
+
     healthBar = new funkin::HealthBar(0.0f, scoreText->position.y - 30.0f, dad->characterName, boyfriend->characterName, raylib::RED, raylib::GREEN);
     healthBar->camera = camHUD;
     healthBar->bar->screenCenter(engine::Axes::X);
     add(healthBar);
-    
+
     add(scoreText);
 }
 
@@ -129,24 +130,29 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty) {
 
 void funkin::PlayState::beatHit() {
     funkin::MusicBeatState::beatHit();
-    for (auto field : playfields) {
-        for (auto character : field->characters) {
-            character->dance();
-        }
-    }
+    
+    dad->dance();
+    boyfriend->dance();
+    girlfriend->dance();
+
     if (conductor->getBeat() % 4 == 0) {
         if (engine::Game::defaultCamera->zoom < 1.35f) {
             engine::Game::defaultCamera->zoom += 0.015f;
             camHUD->zoom += 0.03f;
         }
-        int targetSection = (int)fminf((float)song.parsedSong["notes"].size() - 1.0f, fmaxf(0, floor(conductor->getBeat() / 4.0f)));
-        if (song.parsedSong["notes"][targetSection]["mustHitSection"]) {
+
+        auto notes = song.parsedSong["notes"];
+
+        int targetSection = (int)fminf((float)notes.size() - 1.0f, fmaxf(0, floor(conductor->getBeat() / 4.0f)));
+
+        if (notes[targetSection]["mustHitSection"]) {
             cameraTarget = boyfriend->getMidpoint() - raylib::Vector2(640, 360) - raylib::Vector2(100, 100);
         } else {
             cameraTarget = dad->getMidpoint() - raylib::Vector2(640, 360) + raylib::Vector2(150, -100);
         }
     }
-    healthBar->bopIcons(1.2f);
+
+    healthBar->bopIcons(1.125f);
 }
 
 void funkin::PlayState::stepHit() { funkin::MusicBeatState::stepHit(); }

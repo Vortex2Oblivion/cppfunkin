@@ -5,11 +5,13 @@
 
 #include "../engine/animatedsprite.hpp"
 
-funkin::Character::Character(float x, float y, std::string characterName) : SparrowSprite(x, y) {
+funkin::Character::Character(float x, float y, std::string characterName) : SparrowSprite(x, y)
+{
     this->characterName = characterName;
     std::string characterBasePath = "assets/characters/" + characterName;
     std::ifstream characterFile(characterBasePath + "/character.json");
-    if (characterFile.fail()) {
+    if (characterFile.fail())
+    {
         characterBasePath = "assets/characters/bf";
         characterFile = std::ifstream(characterBasePath + "/character.json");
     }
@@ -18,36 +20,64 @@ funkin::Character::Character(float x, float y, std::string characterName) : Spar
     characterFile.close();
 
     float scale = 1.0f;
-    if (parsedCharacter.count("scale")) {
+    if (parsedCharacter.count("scale"))
+    {
         scale = parsedCharacter["scale"];
     }
 
-    if (parsedCharacter.count("globalOffset")) {
+    if (parsedCharacter.count("globalOffset"))
+    {
         position.x += (float)parsedCharacter["globalOffset"]["x"];
         position.y += (float)parsedCharacter["globalOffset"]["y"];
     }
 
     loadGraphic(characterBasePath + "/spritesheet.png", characterBasePath + "/spritesheet.xml");
 
-    for (auto animation : parsedCharacter["animations"]) {
+    for (auto animation : parsedCharacter["animations"])
+    {
         auto name = animation["name"];
         auto offset = animation["offset"];
 
-        addAnimationByPrefix(name, animation["prefix"], animation["framerate"]);
+        addAnimation(name, animation["prefix"], animation["framerate"]);
         this->offsets[name] = raylib::Vector2(offset["x"], offset["y"]);
     }
     this->scale.x = this->scale.y = scale;
 
-    playAnimation("idle");
+    if (characterName == "gf")
+    {
+        playAnimation("danceLeft");
+    }
+    else
+    {
+        playAnimation("idle");
+    }
 }
 
-funkin::Character::~Character() {
+funkin::Character::~Character()
+{
     // engine::SparrowSprite::~SparrowSprite();
 }
 
-void funkin::Character::dance() {
-    if (!currentAnimation->isFinished()) {
+void funkin::Character::dance()
+{
+    if (!currentAnimation->isFinished())
+    {
         return;
     }
-    playAnimation("idle");
+    if (characterName == "gf")
+    {
+        if (danceLeft)
+        {
+            playAnimation("danceLeft");
+        }
+        else
+        {
+            playAnimation("danceRight");
+        }
+        danceLeft = !danceLeft;
+    }
+    else
+    {
+        playAnimation("idle");
+    }
 }

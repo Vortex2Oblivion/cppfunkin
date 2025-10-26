@@ -8,9 +8,9 @@ funkin::StrumNote::StrumNote(float x, float y, int lane, bool player) : SparrowS
 
     std::vector<std::string> directions = {"left", "down", "up", "right"};
     loadGraphic("assets/images/notes.png", "assets/images/notes.xml");
-    addAnimationByPrefix("press", directions[lane % 4] + " press", 24);
-    addAnimationByPrefix("confirm", directions[lane % 4] + " confirm", 24);
-    addAnimationByPrefix("static", directions[lane % 4] + " static", 24);
+    addAnimation("press", directions[lane % 4] + " press", 24);
+    addAnimation("confirm", directions[lane % 4] + " confirm", 24);
+    addAnimation("static", directions[lane % 4] + " static", 24);
     playAnimation("static");
     scale.x = 0.7f;
     scale.y = 0.7f;

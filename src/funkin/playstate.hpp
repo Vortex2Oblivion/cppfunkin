@@ -15,50 +15,53 @@
 #include "playfield.hpp"
 #include "song.hpp"
 #include "stage.hpp"
-namespace funkin {
+namespace funkin
+{
 
-class PlayState : public MusicBeatState {
-   private:
-    void updateScoreText();
+    class PlayState : public MusicBeatState
+    {
+    private:
+        void updateScoreText();
 
-   public:
-    PlayState(std::string songName, std::string difficulty);
-    ~PlayState();
-    void create();
-    void loadSong(std::string songName, std::string difficulty);
-    void update(float delta);
-    void beatHit();
-    void stepHit();
+    public:
+        PlayState(std::string songName, std::string difficulty);
+        ~PlayState();
+        void create();
+        void loadSong(std::string songName, std::string difficulty);
+        void update(float delta);
+        void beatHit();
+        void stepHit();
 
-    std::vector<raylib::Music*> tracks = {};
-    std::vector<funkin::PlayField*> playfields = {};
+        std::vector<raylib::Music *> tracks = {};
+        std::vector<funkin::PlayField *> playfields = {};
 
-    funkin::PlayField* playerField;
-    funkin::PlayField* dadField;
+        funkin::PlayField *playerField;
+        funkin::PlayField *dadField;
 
-    funkin::Stage* stage;
+        funkin::Stage *stage;
 
-    funkin::Character* boyfriend;
-    funkin::Character* dad;
+        funkin::Character *boyfriend;
+        funkin::Character *dad;
+        funkin::Character *girlfriend;
 
-    funkin::HealthBar* healthBar;
+        funkin::HealthBar *healthBar;
 
-    engine::Camera* camHUD;
+        engine::Camera *camHUD;
 
-    std::string songName;
-    std::string difficulty;
-    std::string curStage = "stage";
-    std::string player1 = "bf";
-    std::string player2 = "dad";
-    float scrollSpeed = 1.0f;
-    float defaultCameraZoom = 1.0f;
-    funkin::SongData song;
-    engine::Text* scoreText;
-    int score = 0;
-    float accuracy = 100.0f;
-    raylib::Vector2 cameraTarget = raylib::Vector2();
-    size_t totalPlayerNotes = 0;
-    unsigned int misses = 0;
-    float health = 50.0f;
-};
-}  // namespace funkin
+        std::string songName;
+        std::string difficulty;
+        std::string curStage = "stage";
+        std::string player1 = "bf";
+        std::string player2 = "dad";
+        float scrollSpeed = 1.0f;
+        float defaultCameraZoom = 1.0f;
+        funkin::SongData song;
+        engine::Text *scoreText;
+        int score = 0;
+        float accuracy = 100.0f;
+        raylib::Vector2 cameraTarget = raylib::Vector2();
+        size_t totalPlayerNotes = 0;
+        unsigned int misses = 0;
+        float health = 50.0f;
+    };
+} // namespace funkin

@@ -39,8 +39,8 @@ void funkin::SongSelectState::update(float delta) {
         }
     }
     songText->text = songs[selectedSong];
-    slungus->scale.x = sinf(GetTime()) + 2.0f;
-    slungus->scale.y = cosf(GetTime()) + 2.0f;
+    slungus->scale.x = (float)sin(raylib::Window::GetTime()) + 2.0f;
+    slungus->scale.y = (float)cos(raylib::Window::GetTime()) + 2.0f;
     if (IsKeyPressed(KEY_ENTER)) {
         engine::Game::switchState(new funkin::PlayState(songs[selectedSong], "hard"));
     }

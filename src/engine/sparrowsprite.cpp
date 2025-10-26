@@ -21,14 +21,22 @@ void engine::SparrowSprite::loadGraphic(std::string imagePath, std::string xmlPa
     pugi::xml_parse_result result = doc.load_file(xmlPath.c_str());
 }
 
-void engine::SparrowSprite::addAnimationByPrefix(std::string name, std::string prefix, int framerate) {
+void engine::SparrowSprite::addAnimation(std::string name, std::string prefix, int framerate, std::vector<uint8_t> indices) {
     std::vector<Frame*> foundFrames = {};
+    uint8_t frameIndex = 0;
     for (auto frame : doc.child("TextureAtlas").children("SubTexture")) {
         const char* animationName = frame.attribute("name").as_string();
+
         if (strncmp(prefix.c_str(), animationName, strlen(prefix.c_str())) != 0)  // find all animations that start with `prefix`
         {
             continue;
         }
+
+        bool addFrame = true;
+        if (!indices.empty()) {
+            addFrame = find(indices.begin(), indices.end(), frameIndex) != indices.end();
+        }
+
         bool trimmed = frame.attribute("frameX");
 
         float x = frame.attribute("x").as_float();
@@ -44,7 +52,10 @@ void engine::SparrowSprite::addAnimationByPrefix(std::string name, std::string p
         raylib::Vector2 offset = trimmed ? raylib::Vector2(-frameX, -frameY) : raylib::Vector2::Zero();
         raylib::Vector2 sourceSize = trimmed ? raylib::Vector2(frameWidth, frameHeight) : raylib::Vector2(width, height);
 
-        foundFrames.push_back(new Frame(rect, sourceSize, offset));
+        if (addFrame) {
+            foundFrames.push_back(new Frame(rect, sourceSize, offset));
+        }
+        frameIndex++;
     }
     if (foundFrames.empty()) {
         std::cerr << "No frames found for animation: " << name << "\n";

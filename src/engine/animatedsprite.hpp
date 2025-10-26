@@ -13,7 +13,7 @@ class AnimatedSprite : public Sprite {
 
     void update(float delta);
 
-    void addAnimation(std::string name, std::vector<raylib::Rectangle> rects, int framerate);
+    virtual void addAnimation(std::string name, std::vector<raylib::Rectangle> rects, int framerate);
     void playAnimation(std::string name);
 
     void centerOffsets();

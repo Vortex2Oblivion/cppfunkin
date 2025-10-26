@@ -3,7 +3,7 @@
 #include <fstream>
 #include <iostream>
 
-funkin::Stage::Stage(std::string name, funkin::Character* boyfriend, funkin::Character* dad, float x, float y) : engine::Group<engine::Object>(x, y) {
+funkin::Stage::Stage(std::string name, funkin::Character* boyfriend, funkin::Character* dad, funkin::Character* girlfriend, float x, float y) : engine::Group<engine::Object>(x, y) {
     this->name = name;
     std::string path = "assets/stages/" + name + "/";
     if (!raylib::FileExists(path)) {
@@ -46,11 +46,15 @@ funkin::Stage::Stage(std::string name, funkin::Character* boyfriend, funkin::Cha
         add(stageObject);
     }
 
+    auto girlfriendPosition = parsedStage["characters"]["girlfriend"];
     auto dadPosition = parsedStage["characters"]["dad"];
     auto boyfriendPosition = parsedStage["characters"]["boyfriend"];
+    
+    girlfriend->position += raylib::Vector2(girlfriendPosition["x"], girlfriendPosition["y"]);
     dad->position += raylib::Vector2(dadPosition["x"], dadPosition["y"]);
     boyfriend->position += raylib::Vector2(boyfriendPosition["x"], boyfriendPosition["y"]);
 
+    add(girlfriend);
     add(dad);
     add(boyfriend);
 }
