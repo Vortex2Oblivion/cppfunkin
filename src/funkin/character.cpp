@@ -23,18 +23,18 @@ funkin::Character::Character(float x, float y, std::string characterName) : Spar
     }
 
     if (parsedCharacter.count("globalOffset")) {
-        position.x += (float)parsedCharacter["globalOffset"][0];
-        position.y += (float)parsedCharacter["globalOffset"][1];
+        position.x += (float)parsedCharacter["globalOffset"]["x"];
+        position.y += (float)parsedCharacter["globalOffset"]["y"];
     }
 
     loadGraphic(characterBasePath + "/spritesheet.png", characterBasePath + "/spritesheet.xml");
 
     for (auto animation : parsedCharacter["animations"]) {
         auto name = animation["name"];
-        auto offsets = animation["offsets"];
+        auto offset = animation["offset"];
 
         addAnimationByPrefix(name, animation["prefix"], animation["framerate"]);
-        this->offsets[name] = raylib::Vector2(offsets[0], offsets[1]);
+        this->offsets[name] = raylib::Vector2(offset["x"], offset["y"]);
     }
     this->scale.x = this->scale.y = scale;
 

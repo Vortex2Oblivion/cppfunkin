@@ -34,13 +34,12 @@ funkin::Stage::Stage(std::string name, funkin::Character* boyfriend, funkin::Cha
 
         auto position = object["position"];
 
-        engine::Sprite* stageObject = new engine::Sprite(position[0], position[1]);
+        engine::Sprite* stageObject = new engine::Sprite(position["x"], position["y"]);
         stageObject->loadGraphic(imageFile);
 
         if (object.count("scale")) {
             auto scale = object["scale"];
-            stageObject->scale.x = scale[0];
-            stageObject->scale.y = scale[1];
+            stageObject->scale = raylib::Vector2(scale["x"], scale["y"]);
         }
 
         stageObject->centerOrigin();
@@ -48,7 +47,7 @@ funkin::Stage::Stage(std::string name, funkin::Character* boyfriend, funkin::Cha
     }
 
     auto dadPosition = parsedStage["characters"]["dad"];
-    auto boyfriendPosition = parsedStage["characters"]["bf"];
+    auto boyfriendPosition = parsedStage["characters"]["boyfriend"];
     dad->position += raylib::Vector2(dadPosition["x"], dadPosition["y"]);
     boyfriend->position += raylib::Vector2(boyfriendPosition["x"], boyfriendPosition["y"]);
 

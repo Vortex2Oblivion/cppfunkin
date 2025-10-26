@@ -28,6 +28,7 @@ funkin::PlayState::~PlayState() { playfields.clear(); }
 
 void funkin::PlayState::create() {
     funkin::MusicBeatState::create();
+    
     camHUD = new engine::Camera();
     engine::Game::cameras.push_back(camHUD);
 
