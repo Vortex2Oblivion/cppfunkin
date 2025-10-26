@@ -6,6 +6,8 @@
 #include "../engine/group.hpp"
 #include "strumnote.hpp"
 
+// TODO: Fix double note hit bug.
+
 bool noteDataSorter(funkin::NoteData a, funkin::NoteData b) { return a.time < b.time; }
 
 funkin::PlayField::PlayField(float x, float y, std::vector<NoteData> noteDatas, std::vector<Character*> characters, bool cpuControlled) {
@@ -49,6 +51,7 @@ void funkin::PlayField::update(float delta) {
         }
     }
 
+
     for (auto note : notes->members) {
         if (note == nullptr || !note->alive || note->wasMissed) {
             continue;
@@ -80,7 +83,7 @@ void funkin::PlayField::update(float delta) {
         float rawHitTime = note->strumTime - conductor->time * 1000.f;
         float distance = abs(rawHitTime);
 
-        if (distance > closestDistance)  //? Revert this back to >= if problems arise.
+        if (distance > closestDistance)
         {
             continue;
         }
@@ -104,6 +107,7 @@ void funkin::PlayField::update(float delta) {
     for (auto note : toInvalidate) {
         invalidateNote(note);
     }
+
     toInvalidate.clear();
 
     for (auto strum : strums->members) {
