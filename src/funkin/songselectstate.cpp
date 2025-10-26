@@ -20,6 +20,10 @@ void funkin::SongSelectState::create() {
     funkin::MusicBeatState::create();
     songText = new engine::Text(songs[selectedSong], 20, 100, 100);
     add(songText);
+
+    slungus = new engine::Sprite(400, 200);
+    slungus->loadGraphic("assets/images/slungus.png");
+    add(slungus);
 }
 
 void funkin::SongSelectState::update(float delta) {
@@ -35,6 +39,8 @@ void funkin::SongSelectState::update(float delta) {
         }
     }
     songText->text = songs[selectedSong];
+    slungus->scale.x = sinf(GetTime()) + 2.0f;
+    slungus->scale.y = cosf(GetTime()) + 2.0f;
     if (IsKeyPressed(KEY_ENTER)) {
         engine::Game::switchState(new funkin::PlayState(songs[selectedSong], "hard"));
     }

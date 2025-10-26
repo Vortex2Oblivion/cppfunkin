@@ -7,8 +7,10 @@ funkin::HealthBar::HealthBar(float x, float y, std::string iconLeft, std::string
     add(bar);
     iconP1 = new funkin::HealthIcon(iconRight, 0.0f, 0.0f);
     iconP1->flipX = true;
+        iconP1->origin = raylib::Vector2(0.0f, 0.0f);
     add(iconP1);
     iconP2 = new funkin::HealthIcon(iconLeft, 0.0f, 0.0f);
+    iconP2->origin = raylib::Vector2(300.0f, 0.0f);
     add(iconP2);
 }
 
@@ -16,11 +18,11 @@ funkin::HealthBar::~HealthBar() {}
 
 void funkin::HealthBar::update(float delta) {
     engine::Group<engine::Object>::update(delta);
-    iconP2->position.x = bar->position.x + bar->getIntersection() - 150.0f + 26.0f;
-    iconP2->position.y = bar->position.y - (150.0f - 19.0f) / 2.0f;
+    iconP2->position.x = bar->position.x + bar->getIntersection() + 150.0f - 26.0f * 2.0f;
+    iconP2->position.y = bar->position.y - (300.0f - 19.0f) / 2.0f;
 
-    iconP1->position.x = bar->position.x + bar->getIntersection() - 13.0f;
-    iconP1->position.y = bar->position.y - (150.0f - 19.0f) / 2.0f;
+    iconP1->position.x = bar->position.x + bar->getIntersection() - 150.0f + 26.0f * 2.0f + 13.0f;
+    iconP1->position.y = bar->position.y - (300.0f - 19.0f) / 2.0f;
 
     float multP1 = Lerp(1.0f, iconP1->scale.x, expf(-delta * 9.0f));
     iconP1->scale = raylib::Vector2(multP1, multP1);

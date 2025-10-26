@@ -24,8 +24,8 @@ void engine::SparrowSprite::loadGraphic(std::string imagePath, std::string xmlPa
 void engine::SparrowSprite::addAnimationByPrefix(std::string name, std::string prefix, int framerate) {
     std::vector<Frame*> foundFrames = {};
     for (auto frame : doc.child("TextureAtlas").children("SubTexture")) {
-        const char* name = frame.attribute("name").as_string();
-        if (strncmp(prefix.c_str(), name, strlen(prefix.c_str())) != 0)  // find all animations that start with `prefix`
+        const char* animationName = frame.attribute("name").as_string();
+        if (strncmp(prefix.c_str(), animationName, strlen(prefix.c_str())) != 0)  // find all animations that start with `prefix`
         {
             continue;
         }
@@ -81,6 +81,6 @@ void engine::SparrowSprite::draw(float x, float y) {
     }
 
     if (isOnScreen()) {
-        texture->Draw(source, dest, origin, angle, color);
+        texture->Draw(source, dest, origin * scale, angle, color);
     }
 }

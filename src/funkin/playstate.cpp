@@ -54,6 +54,7 @@ void funkin::PlayState::create() {
                 object->scale.y = objects["scale"][1];
                 object->origin *= object->scale;
             }
+            object->centerOrigin();
             add(object);
         }
 

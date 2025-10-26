@@ -11,19 +11,13 @@ engine::Sprite::Sprite(float x, float y) : Object(x, y) {}
 engine::Sprite::~Sprite() {}
 
 void engine::Sprite::loadGraphic(std::string path) {
-    if (!engine::Sprite::texturePool.count(path)) {
-        if (!raylib::FileExists(path)) {
-            std::cerr << "Could not find image at path \"" << path << "\"\n";
-        } else {
-            engine::Sprite::texturePool[path] = new raylib::Texture(path);
-        }
-    }
+    engine::Sprite::cacheTexture(path);
 
     texture = engine::Sprite::texturePool[path];
     texture->SetFilter(TEXTURE_FILTER_BILINEAR);
-    origin = raylib::Vector2(texture->width / 2.0f, texture->height / 2.0f);
     source = raylib::Rectangle(0, 0, (float)(texture->width), (float)(texture->height));
     dest = raylib::Rectangle(0, 0, (float)(texture->width), (float)(texture->height));
+    centerOrigin();
     angle = 0;
     color = WHITE;
 }
@@ -38,13 +32,13 @@ void engine::Sprite::draw(float x, float y) {
     dest.y = (texture->height / 2.0f) + position.y + offset.y + y;
     dest.width = (float)(texture->width) * scale.x;
     dest.height = (float)(texture->height) * scale.y;
-    
+
     if (flipX) {
         source.width *= -1.0f;
     }
 
     if (isOnScreen(x, y)) {
-        texture->Draw(source, dest, origin, angle, color);
+        texture->Draw(source, dest, origin * scale, angle, color);
     }
 }
 
@@ -60,6 +54,7 @@ void engine::Sprite::screenCenter() {
     position.x = (raylib::Window::GetWidth() - texture->width) / 2.0f;
     position.y = (raylib::Window::GetHeight() - texture->height) / 2.0f;
 }
+
 void engine::Sprite::screenCenter(engine::Axes axes) {
     switch (axes) {
         case X:
@@ -73,9 +68,24 @@ void engine::Sprite::screenCenter(engine::Axes axes) {
     }
 }
 
+void engine::Sprite::centerOrigin() {
+    origin = raylib::Vector2(dest.width / 2.0f, dest.height / 2.0f);
+}
+
 void engine::Sprite::clearTextureCache() {
     for (std::pair<std::string, raylib::Texture*> pair : engine::Sprite::texturePool) {
         delete pair.second;
     }
     texturePool.clear();
+}
+
+void engine::Sprite::cacheTexture(std::string path) {
+    if (engine::Sprite::texturePool.count(path)) {
+        return;
+    }
+    if (!raylib::FileExists(path)) {
+        std::cerr << "Could not find image at path \"" << path << "\"\n";
+        return;
+    }
+    engine::Sprite::texturePool[path] = new raylib::Texture(path);
 }

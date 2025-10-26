@@ -9,6 +9,7 @@ class SongSelectState : public MusicBeatState {
     int selectedSong = 0;
     std::vector<std::string> songs;
     engine::Text* songText;
+    engine::Sprite* slungus;
 
    public:
     SongSelectState(/* args */);

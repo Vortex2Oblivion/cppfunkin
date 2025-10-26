@@ -11,6 +11,7 @@ namespace engine {
 class Sprite : public Object {
    private:
     static std::map<std::string, raylib::Texture*> texturePool;
+    static void cacheTexture(std::string path);
 
    protected:
     raylib::Texture* texture = nullptr;
@@ -27,6 +28,7 @@ class Sprite : public Object {
     virtual void screenCenter();
     virtual void screenCenter(engine::Axes axes);
     virtual void draw(float x = 0.0f, float y = 0.0f);
+    virtual void centerOrigin();
 
     raylib::Vector2 origin = raylib::Vector2();
     raylib::Vector2 scale = raylib::Vector2(1.0f, 1.0f);

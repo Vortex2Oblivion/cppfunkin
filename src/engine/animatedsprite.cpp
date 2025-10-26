@@ -6,6 +6,7 @@ engine::AnimatedSprite::AnimatedSprite(float x, float y) : Sprite(x, y) {}
 
 engine::AnimatedSprite::~AnimatedSprite() {
     offsets.clear();
+
     if (animations.empty()) {
         return;
     }
@@ -83,13 +84,12 @@ void engine::AnimatedSprite::draw(float x, float y) {
     dest.x = (dest.width / 2) + position.x + offset.x - animationOffset.x + x;
     dest.y = (dest.height / 2) + position.y + offset.y - animationOffset.y + y;
 
-    origin = raylib::Vector2(dest.width / 2.0f, dest.height / 2.0f);
-
     if (flipX) {
         source.width *= -1.0f;
     }
 
     if (isOnScreen()) {
-        texture->Draw(source, dest, origin, angle, color);
+        texture->Draw(source, dest, origin * scale, angle, color);
     }
 }
+
