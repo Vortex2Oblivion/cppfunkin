@@ -24,6 +24,7 @@ void engine::Animation::update(float delta) {
         return;
     }
     frameTimer += delta;
+    animationTimer += delta;
 
     while (frameTimer >= 1.0f / framerate) {
         frameTimer -= 1.0f / framerate;
@@ -35,7 +36,8 @@ void engine::Animation::update(float delta) {
 
 void engine::Animation::resetFrame() {
     currentFrame = 0;
-    frameTimer = 0.0;
+    frameTimer = 0.0f;
+    animationTimer = 0.0f;
 }
 
 bool engine::Animation::isFinished() { return currentFrame + 1 >= frames.size(); }

@@ -7,7 +7,7 @@
 namespace engine {
 class Animation {
    private:
-    float frameTimer = 0.0;
+    float frameTimer = 0.0f;
 
    public:
     Animation(std::vector<engine::Frame*> frames, uint8_t framerate, std::string name);
@@ -19,6 +19,7 @@ class Animation {
     void resetFrame();
     bool isFinished();
     std::string name;
+    float animationTimer = 0.0f;
 };
 
 }  // namespace engine

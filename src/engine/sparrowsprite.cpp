@@ -3,6 +3,7 @@
 #include <cstring>
 #include <iostream>
 #include <pugixml.hpp>
+#include <algorithm>
 
 #include "animatedsprite.hpp"
 

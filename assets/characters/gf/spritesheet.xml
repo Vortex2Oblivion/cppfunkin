@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Created with Funkin Packer v0.1.3 https://neeeoo.github.io/funkin-packer/
--->
 <TextureAtlas imagePath="spritesheet.png" width="2809" height="3203">
 	<SubTexture name="GF Dancing Beat0000" x="1" y="1269" width="699" height="634" frameX="-2" frameY="-14" frameWidth="703" frameHeight="648"/>
 	<SubTexture name="GF Dancing Beat0001" x="1" y="1" width="703" height="634" frameX="-0" frameY="-14" frameWidth="703" frameHeight="648"/>

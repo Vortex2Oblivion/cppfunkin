@@ -34,13 +34,13 @@
             ]
         },
         {
-            "name": "danceLeft",
+            "name": "danceRight",
             "prefix": "GF Dancing Beat",
             "framerate": 24,
             "looped": false,
             "offset": {
                 "x": 0,
-                "y": -9
+                "y": 0
             },
             "indices": [
                 15,

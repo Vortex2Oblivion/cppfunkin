@@ -1,0 +1,59 @@
+{
+    "globalOffset": {
+        "x": 0,
+        "y": 0
+    },
+    "scale": 1.0,
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "Idle",
+            "framerate": 24,
+            "looped": false,
+            "offset": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "Sing Down",
+            "framerate": 24,
+            "looped": false,
+            "offset": {
+                "x": 35,
+                "y": -33
+            }
+        },
+        {
+            "name": "singUP",
+            "prefix": "Sing Up",
+            "framerate": 24,
+            "looped": false,
+            "offset": {
+                "x": 89,
+                "y": 102
+            }
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "Sing Right",
+            "framerate": 24,
+            "looped": false,
+            "offset": {
+                "x": 95,
+                "y": -11
+            }
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "Sing Left",
+            "framerate": 24,
+            "looped": false,
+            "offset": {
+                "x": 146,
+                "y": 55
+            }
+        }
+    ]
+}
