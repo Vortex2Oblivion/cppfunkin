@@ -2,7 +2,7 @@
 
 funkin::HealthIcon::HealthIcon(std::string character, float x, float y) : engine::AnimatedSprite(x, y) {
     std::string iconPath = "assets/characters/" + character + "/icon.png";
-    if (!FileExists(iconPath.c_str())) {
+    if (!raylib::FileExists(iconPath.c_str())) {
         iconPath = "assets/images/face.png";
     }
     loadGraphic(iconPath);

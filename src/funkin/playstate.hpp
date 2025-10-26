@@ -14,6 +14,7 @@
 #include "note.hpp"
 #include "playfield.hpp"
 #include "song.hpp"
+#include "stage.hpp"
 namespace funkin {
 
 class PlayState : public MusicBeatState {
@@ -34,6 +35,8 @@ class PlayState : public MusicBeatState {
 
     funkin::PlayField* playerField;
     funkin::PlayField* dadField;
+
+    funkin::Stage* stage;
 
     funkin::Character* boyfriend;
     funkin::Character* dad;

@@ -36,40 +36,10 @@ void funkin::PlayState::create() {
     dad = new Character(0, 0, player2);
     boyfriend = new Character(0, 0, player1);
 
-    std::string stagePath = "assets/stages/" + curStage + "/";
-    std::ifstream stageFile(stagePath + "stage.json");
-    if (!stageFile.fail()) {
-        nlohmann::json parsedStage = nlohmann::json::parse(stageFile);
-        stageFile.close();
+    stage = new funkin::Stage(curStage, boyfriend, dad);
+    add(stage);
 
-        for (auto objects : parsedStage["objects"]) {
-            engine::Sprite* object = new engine::Sprite(objects["position"][0], objects["position"][1]);
-            if (objects.contains("extension")) {
-                object->loadGraphic(stagePath + (std::string)objects["file"] + (std::string)objects["extension"]);
-            } else {
-                object->loadGraphic(stagePath + (std::string)objects["file"] + ".png");
-            }
-            if (objects.count("scale")) {
-                object->scale.x = objects["scale"][0];
-                object->scale.y = objects["scale"][1];
-                object->origin *= object->scale;
-            }
-            object->centerOrigin();
-            add(object);
-        }
-
-        defaultCameraZoom = engine::Game::defaultCamera->zoom = parsedStage["zoom"];
-
-        auto dadPosition = parsedStage["characters"]["dad"];
-        auto boyfriendPosition = parsedStage["characters"]["bf"];
-        dad->position += raylib::Vector2(dadPosition["x"], dadPosition["y"]);
-        boyfriend->position += raylib::Vector2(boyfriendPosition["x"], boyfriendPosition["y"]);
-    } else {
-        boyfriend->position.x = 400;
-    }
-
-    add(dad);
-    add(boyfriend);
+    engine::Game::defaultCamera->zoom = defaultCameraZoom = stage->zoom;
 
     dadField = new PlayField(0, 0, this->song.opponentNotes, {dad}, true);
     dadField->camera = camHUD;
