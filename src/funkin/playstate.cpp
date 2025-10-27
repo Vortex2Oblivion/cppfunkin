@@ -130,7 +130,7 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty) {
 
 void funkin::PlayState::beatHit() {
     funkin::MusicBeatState::beatHit();
-    
+
     dad->dance();
     boyfriend->dance();
     girlfriend->dance();
@@ -141,14 +141,15 @@ void funkin::PlayState::beatHit() {
             camHUD->zoom += 0.03f;
         }
 
-        auto notes = song.parsedSong["notes"];
+        if (song.parsedSong.contains("notes")) {
+            auto notes = song.parsedSong["notes"];
+            int targetSection = (int)fminf((float)notes.size() - 1.0f, fmaxf(0, floor(conductor->getBeat() / 4.0f)));
 
-        int targetSection = (int)fminf((float)notes.size() - 1.0f, fmaxf(0, floor(conductor->getBeat() / 4.0f)));
-
-        if (notes[targetSection]["mustHitSection"]) {
-            cameraTarget = boyfriend->getMidpoint() - raylib::Vector2(640, 360) - raylib::Vector2(100, 100);
-        } else {
-            cameraTarget = dad->getMidpoint() - raylib::Vector2(640, 360) + raylib::Vector2(150, -100);
+            if (notes[targetSection]["mustHitSection"]) {
+                cameraTarget = boyfriend->getMidpoint() - raylib::Vector2(640, 360) - raylib::Vector2(100, 100);
+            } else {
+                cameraTarget = dad->getMidpoint() - raylib::Vector2(640, 360) + raylib::Vector2(150, -100);
+            }
         }
     }
 

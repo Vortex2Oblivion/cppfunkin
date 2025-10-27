@@ -1,5 +1,8 @@
 {
-  "globalOffset": [-150, 50],
+  "globalOffset": {
+    "x": -150,
+    "y": 50
+  },
   "scale": 1.0,
   "animations": [
     {
@@ -7,35 +10,35 @@
       "prefix": "idle0",
       "framerate": 24,
       "looped": false,
-      "offsets": [0, 0]
+      "offset": { "x": 0, "y": 0 }
     },
     {
       "name": "singDOWN",
       "prefix": "normdown0",
       "framerate": 24,
       "looped": false,
-      "offsets": [-46, -90]
+      "offset": { "x": -46, "y": -90 }
     },
     {
       "name": "singUP",
       "prefix": "normup0",
       "framerate": 24,
       "looped": false,
-      "offsets": [-114, 200]
+      "offset": { "x": -114, "y": 200 }
     },
     {
       "name": "singRIGHT",
       "prefix": "normright0",
       "framerate": 24,
       "looped": false,
-      "offsets": [-158, -96]
+      "offset": { "x": -158, "y": -96 }
     },
     {
       "name": "singLEFT",
       "prefix": "normleft0",
       "framerate": 24,
       "looped": false,
-      "offsets": [149, -70]
+      "offset": { "x": 149, "y": -70 }
     }
   ]
 }

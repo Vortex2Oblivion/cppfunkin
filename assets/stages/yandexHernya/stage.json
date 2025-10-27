@@ -2,24 +2,28 @@
   "objects": [
     {
       "file": "bgwa",
-      "position": [0, 0],
-      "scale": [1, 1]
+      "position": { "x": 0, "y": 0 },
+      "scale": { "x": 1, "y": 1 }
     },
     {
       "file": "6cbinv",
       "extension": ".jpg",
-      "position": [450, 800],
-      "scale": [0.2, 0.2]
+      "position": { "x": 450, "y": 800 },
+      "scale": { "x": 0.2, "y": 0.2 }
     }
   ],
   "zoom": 0.8,
   "characters": {
-    "bf": {
+    "boyfriend": {
       "x": 1600,
       "y": 500
     },
     "dad": {
       "x": 1000,
+      "y": 500
+    },
+    "girlfriend": {
+      "x": 1150,
       "y": 500
     }
   }
