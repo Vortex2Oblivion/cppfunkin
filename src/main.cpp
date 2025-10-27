@@ -3,10 +3,18 @@
 #include "engine/game.hpp"
 #include "funkin/songselectstate.hpp"
 
+#if __APPLE__
+#include "engine/macos.hpp"
+#endif
+
 int main() {
     int windowWidth = 1280;
     int windowHeight = 720;
     raylib::Window window = raylib::Window(windowWidth, windowHeight, "Friday Night Funkin'", FLAG_WINDOW_RESIZABLE);
+    #if __APPLE__
+    MacOSUtil::fixWindowColorSpace();
+    #endif
+
     window.SetTargetFPS(GetMonitorRefreshRate(window.GetMonitor()) * 2);
 
     raylib::Image iconOG = raylib::Image("assets/images/iconOG.png");

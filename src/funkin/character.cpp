@@ -43,11 +43,7 @@ funkin::Character::Character(float x, float y, std::string characterName) : Spar
     }
     this->scale.x = this->scale.y = scale;
 
-    if (characterName == "gf") {
-        playAnimation("danceLeft");
-    } else {
-        playAnimation("idle");
-    }
+    dance();
 }
 
 funkin::Character::~Character() {
@@ -55,10 +51,7 @@ funkin::Character::~Character() {
 }
 
 void funkin::Character::dance() {
-    if (currentAnimation->animationTimer < 0.4f) {
-        return;
-    }
-    if (characterName == "gf") {
+    if (hasAnimation("danceLeft")) {
         if (danceLeft) {
             playAnimation("danceLeft");
         } else {
@@ -66,6 +59,10 @@ void funkin::Character::dance() {
         }
         danceLeft = !danceLeft;
     } else {
+        if (currentAnimation != nullptr && currentAnimation->animationTimer < 0.4f) {
+            return;
+        }
+
         playAnimation("idle");
     }
 }

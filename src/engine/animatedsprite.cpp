@@ -35,6 +35,10 @@ void engine::AnimatedSprite::addAnimation(std::string name, std::vector<raylib::
     animations[name] = new Animation(foundFrames, framerate, name);
 }
 
+bool engine::AnimatedSprite::hasAnimation(std::string name) {
+    return animations.find(name) != animations.end();
+}
+
 void engine::AnimatedSprite::playAnimation(std::string name) {
     if (animations.count(name) == 0 || animations[name]->frames.empty()) {
         std::cerr << "Animation not found or has no frames: " << name << "\n";

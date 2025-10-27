@@ -14,6 +14,7 @@ class AnimatedSprite : public Sprite {
     void update(float delta);
 
     virtual void addAnimation(std::string name, std::vector<raylib::Rectangle> rects, int framerate);
+    bool hasAnimation(std::string name);
     void playAnimation(std::string name);
 
     void centerOffsets();
@@ -24,7 +25,7 @@ class AnimatedSprite : public Sprite {
     void draw(float x = 0.0f, float y = 0.0f);
 
     std::map<std::string, engine::Animation*> animations = {};
-    engine::Animation* currentAnimation;
+    engine::Animation* currentAnimation = nullptr;
     std::map<std::string, raylib::Vector2> offsets = {};
     raylib::Vector2 animationOffset;
 };
