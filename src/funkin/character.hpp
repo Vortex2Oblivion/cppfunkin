@@ -13,5 +13,6 @@ class Character : public engine::SparrowSprite {
 
     std::string characterName;
     bool danceLeft = true;
+    raylib::Vector2 cameraOffset = raylib::Vector2::Zero();
 };
 }  // namespace funkin

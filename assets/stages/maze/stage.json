@@ -1,0 +1,143 @@
+{
+    "objects": [
+        {
+            "file": "sky",
+            "position": {
+                "x": -461,
+                "y": -301
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "scrollFactor": {
+                "x": 0.05,
+                "y": 0.525
+            }
+        },
+        {
+            "file": "clouds",
+            "position": {
+                "x": -506,
+                "y": -180
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "scrollFactor": {
+                "x": 0.15,
+                "y": 0.575
+            }
+        },
+        {
+            "file": "cornBlock",
+            "position": {
+                "x": -471,
+                "y": 438
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "scrollFactor": {
+                "x": 0.4,
+                "y": 0.7
+            }
+        },
+        {
+            "file": "cornBack",
+            "position": {
+                "x": -661,
+                "y": 199
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "scrollFactor": {
+                "x": 0.4,
+                "y": 0.7
+            }
+        },
+        {
+            "file": "corn",
+            "position": {
+                "x": -669,
+                "y": 212
+            },
+            "scale": {
+                "x": 1,
+                "y": 1.0
+            },
+            "scrollFactor": {
+                "x": 0.7,
+                "y": 0.85
+            }
+        },
+        {
+            "file": "fence",
+            "position": {
+                "x": -632,
+                "y": 455
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "scrollFactor": {
+                "x": 0.9,
+                "y": 0.85
+            }
+        },
+        {
+            "file": "grass",
+            "position": {
+                "x": -691,
+                "y": 629
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "scrollFactor": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        },
+        {
+            "file": "sign",
+            "position": {
+                "x": 1346,
+                "y": 401
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "scrollFactor": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        }
+    ],
+    "zoom": 0.7,
+    "characters": {
+       "boyfriend": {
+            "x": 920,
+            "y": 240,
+            "cameraOffset": {
+                "x": 0,
+                "y": -80
+            }
+        },
+        "dad": {
+            "x": -100,
+            "y": 320
+        },
+        "girlfriend": {
+            "x": 400,
+            "y": 270
+        }
+    }
+}

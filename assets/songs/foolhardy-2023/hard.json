@@ -14954,7 +14954,7 @@
 			}
 		],
 		"song": "Foolhardy-2023",
-		"stage": "Maze",
+		"stage": "maze",
 		"needsVoices": true,
 		"validScore": true,
 		"speed": 3.5,

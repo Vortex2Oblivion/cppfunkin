@@ -3,7 +3,8 @@
 #include <fstream>
 #include <iostream>
 
-funkin::Stage::Stage(std::string name, funkin::Character* boyfriend, funkin::Character* dad, funkin::Character* girlfriend, float x, float y) : engine::Group<engine::Object>(x, y) {
+funkin::Stage::Stage(std::string name, funkin::Character* boyfriend, funkin::Character* dad, funkin::Character* girlfriend, float x, float y)
+    : engine::Group<engine::Object>(x, y) {
     this->name = name;
     std::string path = "assets/stages/" + name + "/";
     if (!raylib::FileExists(path)) {
@@ -42,17 +43,29 @@ funkin::Stage::Stage(std::string name, funkin::Character* boyfriend, funkin::Cha
             stageObject->scale = raylib::Vector2(scale["x"], scale["y"]);
         }
 
+        if (object.count("scrollFactor")) {
+            auto scrollFactor = object["scrollFactor"];
+            stageObject->scrollFactor = raylib::Vector2(scrollFactor["x"], scrollFactor["y"]);
+        }
+
         stageObject->centerOrigin();
         add(stageObject);
     }
 
-    auto girlfriendPosition = parsedStage["characters"]["girlfriend"];
-    auto dadPosition = parsedStage["characters"]["dad"];
-    auto boyfriendPosition = parsedStage["characters"]["boyfriend"];
-    
+    auto characters = parsedStage["characters"];
+
+    auto girlfriendPosition = characters["girlfriend"];
+    auto dadPosition = characters["dad"];
+    auto boyfriendPosition = characters["boyfriend"];
+
     girlfriend->position += raylib::Vector2(girlfriendPosition["x"], girlfriendPosition["y"]);
     dad->position += raylib::Vector2(dadPosition["x"], dadPosition["y"]);
     boyfriend->position += raylib::Vector2(boyfriendPosition["x"], boyfriendPosition["y"]);
+
+    // TODO: rework this, only temporary.
+    if (boyfriendPosition.contains("cameraOffset")){
+        boyfriend->cameraOffset += raylib::Vector2(boyfriendPosition["cameraOffset"]["x"], boyfriendPosition["cameraOffset"]["y"]);
+    }
 
     add(girlfriend);
     add(dad);

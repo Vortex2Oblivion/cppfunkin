@@ -150,7 +150,7 @@ void funkin::PlayState::beatHit() {
             int targetSection = (int)fminf((float)notes.size() - 1.0f, fmaxf(0, floor(conductor->getBeat() / 4.0f)));
 
             if (notes[targetSection]["mustHitSection"]) {
-                cameraTarget = boyfriend->getMidpoint() - raylib::Vector2(100, 100);
+                cameraTarget = boyfriend->getMidpoint() + boyfriend->cameraOffset - raylib::Vector2(100, 100);
             } else {
                 cameraTarget = dad->getMidpoint() + raylib::Vector2(150, -100);
             }
