@@ -1,9 +1,9 @@
 #include "sparrowsprite.hpp"
 
+#include <algorithm>
 #include <cstring>
 #include <iostream>
 #include <pugixml.hpp>
-#include <algorithm>
 
 #include "animatedsprite.hpp"
 
@@ -85,6 +85,9 @@ void engine::SparrowSprite::draw(float x, float y) {
     dest.height = currentAnimation->frames[frame]->height * scale.y;
     dest.x = (dest.width / 2) + position.x + offset.x - animationOffset.x + currentAnimation->frames[frame]->frameX + x;
     dest.y = (dest.height / 2) + position.y + offset.y - animationOffset.y + currentAnimation->frames[frame]->frameY + y;
+
+    dest.x += (-camera->cameraPosition * (scrollFactor - raylib::Vector2::One())).x;
+    dest.y += (-camera->cameraPosition * (scrollFactor - raylib::Vector2::One())).y;
 
     origin = raylib::Vector2(dest.width / 2.0f, dest.height / 2.0f);
 

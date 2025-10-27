@@ -34,12 +34,16 @@ void funkin::PlayState::create() {
 
     loadSong(songName, difficulty);
 
-    girlfriend = new Character(0, 0, "gf");
     dad = new Character(0, 0, player2);
+
     boyfriend = new Character(0, 0, player1);
+    
+    girlfriend = new Character(0, 0, "gf");
+    girlfriend->scrollFactor = raylib::Vector2(0.95f, 0.95f);
 
     stage = new funkin::Stage(curStage, boyfriend, dad, girlfriend);
     add(stage);
+
 
     engine::Game::defaultCamera->zoom = defaultCameraZoom = stage->zoom;
 
@@ -146,9 +150,9 @@ void funkin::PlayState::beatHit() {
             int targetSection = (int)fminf((float)notes.size() - 1.0f, fmaxf(0, floor(conductor->getBeat() / 4.0f)));
 
             if (notes[targetSection]["mustHitSection"]) {
-                cameraTarget = boyfriend->getMidpoint() - raylib::Vector2(640, 360) - raylib::Vector2(100, 100);
+                cameraTarget = boyfriend->getMidpoint() - raylib::Vector2(100, 100);
             } else {
-                cameraTarget = dad->getMidpoint() - raylib::Vector2(640, 360) + raylib::Vector2(150, -100);
+                cameraTarget = dad->getMidpoint() + raylib::Vector2(150, -100);
             }
         }
     }

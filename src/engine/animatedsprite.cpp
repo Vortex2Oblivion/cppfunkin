@@ -35,9 +35,7 @@ void engine::AnimatedSprite::addAnimation(std::string name, std::vector<raylib::
     animations[name] = new Animation(foundFrames, framerate, name);
 }
 
-bool engine::AnimatedSprite::hasAnimation(std::string name) {
-    return animations.find(name) != animations.end();
-}
+bool engine::AnimatedSprite::hasAnimation(std::string name) { return animations.find(name) != animations.end(); }
 
 void engine::AnimatedSprite::playAnimation(std::string name) {
     if (animations.count(name) == 0 || animations[name]->frames.empty()) {
@@ -68,7 +66,9 @@ bool engine::AnimatedSprite::isOnScreen(float x, float y) {
 
 raylib::Vector2 engine::AnimatedSprite::getMidpoint() {
     auto animFrame = animations[animations.begin()->first]->frames[0];
-    return raylib::Vector2(position.x + (animFrame->width / 2.0f), position.y + (animFrame->height / 2.0f));
+    raylib::Vector2 returnPos = raylib::Vector2(position.x + (animFrame->width / 2.0f), position.y + (animFrame->height / 2.0f));
+    returnPos -= raylib::Vector2(raylib::Window::GetRenderWidth() / 2.0f, raylib::Window::GetRenderHeight() / 2.0f);
+    return returnPos;
 }
 
 void engine::AnimatedSprite::draw(float x, float y) {
@@ -88,12 +88,14 @@ void engine::AnimatedSprite::draw(float x, float y) {
     dest.x = (dest.width / 2) + position.x + offset.x - animationOffset.x + x;
     dest.y = (dest.height / 2) + position.y + offset.y - animationOffset.y + y;
 
+    dest.x += (-camera->cameraPosition * (scrollFactor - raylib::Vector2::One())).x;
+    dest.y += (-camera->cameraPosition * (scrollFactor - raylib::Vector2::One())).y;
+
     if (flipX) {
         source.width *= -1.0f;
     }
 
-    if (isOnScreen()) {
+    if (isOnScreen(x, y)) {
         texture->Draw(source, dest, origin * scale, angle, color);
     }
 }
-
