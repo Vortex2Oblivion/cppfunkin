@@ -1,6 +1,7 @@
 #include "playfield.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <iostream>
 
 #include "../engine/group.hpp"
@@ -18,7 +19,7 @@ funkin::PlayField::PlayField(float x, float y, std::vector<NoteData> noteDatas, 
     this->noteDatas = noteDatas;
     strums = new engine::Group<funkin::StrumNote>();
     notes = new engine::Group<funkin::Note>();
-    std::sort(noteDatas.begin(), noteDatas.end(), noteDataSorter);
+    std::sort(this->noteDatas.begin(), this->noteDatas.end(), noteDataSorter);
     add(strums);
     add(notes);
     generateStaticArrows(cpuControlled);
@@ -38,7 +39,7 @@ void funkin::PlayField::update(float delta) {
 
     // inputs
     // thanks for helping my dumbass with this rudy
-    float closestDistance = INFINITY;
+    float closestDistances[4] = {INFINITY, INFINITY, INFINITY, INFINITY};
 
     if (!cpuControlled) {
         pressedArray = {IsKeyDown(KEY_D), IsKeyDown(KEY_F), IsKeyDown(KEY_J), IsKeyDown(KEY_K)};
@@ -81,14 +82,15 @@ void funkin::PlayField::update(float delta) {
         }
 
         float rawHitTime = note->strumTime - conductor->time * 1000.f;
-        float distance = abs(rawHitTime);
+        float distance = rawHitTime;
 
-        if (distance > closestDistance)
+        // 5ms allowed or smth idk
+        if (closestDistances[note->lane] != INFINITY && abs(closestDistances[note->lane] - distance) > 5.0f)
         {
             continue;
         }
 
-        closestDistance = distance;
+        closestDistances[note->lane] = distance;
 
         int lane = note->lane;
 
