@@ -86,8 +86,7 @@ void engine::SparrowSprite::draw(float x, float y) {
     dest.x = (dest.width / 2) + position.x + offset.x - animationOffset.x + currentAnimation->frames[frame]->frameX + x;
     dest.y = (dest.height / 2) + position.y + offset.y - animationOffset.y + currentAnimation->frames[frame]->frameY + y;
 
-    dest.x += (-camera->cameraPosition * (scrollFactor - raylib::Vector2::One())).x;
-    dest.y += (-camera->cameraPosition * (scrollFactor - raylib::Vector2::One())).y;
+    calculateScrollFactor();
 
     origin = raylib::Vector2(dest.width / 2.0f, dest.height / 2.0f);
 

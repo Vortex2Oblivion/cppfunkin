@@ -18,10 +18,11 @@ funkin::HealthBar::~HealthBar() {}
 
 void funkin::HealthBar::update(float delta) {
     engine::Group<engine::Object>::update(delta);
-    iconP2->position.x = bar->position.x + bar->getIntersection() + 150.0f - 26.0f * 2.0f;
+    // TODO: Remove some of these magic numbers
+    iconP2->position.x = bar->position.x + bar->getIntersection() + 150.0f - 26.0f * 2.5f;
     iconP2->position.y = bar->position.y - (300.0f - 19.0f) / 2.0f;
 
-    iconP1->position.x = bar->position.x + bar->getIntersection() - 150.0f + 26.0f * 2.0f + 13.0f;
+    iconP1->position.x = bar->position.x + bar->getIntersection() - 150.0f + 26.0f * 2.5f;
     iconP1->position.y = bar->position.y - (300.0f - 19.0f) / 2.0f;
 
     iconP1->playAnimation("default");

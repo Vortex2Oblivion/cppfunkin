@@ -18,6 +18,8 @@ class Sprite : public Object {
     raylib::Rectangle source = raylib::Rectangle();
     raylib::Rectangle dest = raylib::Rectangle();
 
+    void calculateScrollFactor();
+
    public:
     Sprite(float x, float y);
     virtual ~Sprite();

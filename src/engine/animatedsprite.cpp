@@ -88,8 +88,7 @@ void engine::AnimatedSprite::draw(float x, float y) {
     dest.x = (dest.width / 2) + position.x + offset.x - animationOffset.x + x;
     dest.y = (dest.height / 2) + position.y + offset.y - animationOffset.y + y;
 
-    dest.x += (-camera->cameraPosition * (scrollFactor - raylib::Vector2::One())).x;
-    dest.y += (-camera->cameraPosition * (scrollFactor - raylib::Vector2::One())).y;
+    calculateScrollFactor();
 
     if (flipX) {
         source.width *= -1.0f;

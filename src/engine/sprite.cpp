@@ -32,9 +32,8 @@ void engine::Sprite::draw(float x, float y) {
     dest.y = (texture->height / 2.0f) + position.y + offset.y + y;
     dest.width = (float)(texture->width) * scale.x;
     dest.height = (float)(texture->height) * scale.y;
-    
-    dest.x += (-camera->cameraPosition * (scrollFactor - raylib::Vector2::One())).x;
-    dest.y += (-camera->cameraPosition * (scrollFactor - raylib::Vector2::One())).y;
+
+    calculateScrollFactor();
 
     if (flipX) {
         source.width *= -1.0f;
@@ -71,9 +70,7 @@ void engine::Sprite::screenCenter(engine::Axes axes) {
     }
 }
 
-void engine::Sprite::centerOrigin() {
-    origin = raylib::Vector2(dest.width / 2.0f, dest.height / 2.0f);
-}
+void engine::Sprite::centerOrigin() { origin = raylib::Vector2(dest.width / 2.0f, dest.height / 2.0f); }
 
 void engine::Sprite::clearTextureCache() {
     for (std::pair<std::string, raylib::Texture*> pair : engine::Sprite::texturePool) {
@@ -91,4 +88,9 @@ void engine::Sprite::cacheTexture(std::string path) {
         return;
     }
     engine::Sprite::texturePool[path] = new raylib::Texture(path);
+}
+
+void engine::Sprite::calculateScrollFactor() {
+    dest.x += (-camera->cameraPosition * (scrollFactor - raylib::Vector2::One())).x;
+    dest.y += (-camera->cameraPosition * (scrollFactor - raylib::Vector2::One())).y;
 }
