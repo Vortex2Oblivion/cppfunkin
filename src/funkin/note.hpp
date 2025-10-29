@@ -5,8 +5,9 @@
 
 namespace funkin {
 class Note : public engine::SparrowSprite {
-   private:
+   protected:
     StrumNote* strum;
+    Note* sustainNote;
 
    public:
     Note(float strumTime, int lane, float speed, StrumNote* strum);
@@ -15,11 +16,13 @@ class Note : public engine::SparrowSprite {
 
     float strumTime;
     int lane;
-    float speed;
+    float speed = 1.0f;
     float songPos;
+    float sustainLength = 0.0f;
 
     bool canBeHit;
     bool isPlayer;
     bool wasMissed = false;
+    bool isSustain;
 };
 }  // namespace funkin

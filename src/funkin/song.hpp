@@ -7,6 +7,7 @@ struct NoteData {
     float time;
     int lane;
     bool isPlayer;
+    float sustainLength;
 };
 struct SongData {
     nlohmann::json_abi_v3_12_0::json parsedSong = {};

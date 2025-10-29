@@ -60,8 +60,7 @@ void engine::AnimatedSprite::centerOffsets() {
 bool engine::AnimatedSprite::isOnScreen(float x, float y) {
     size_t frame = currentAnimation->currentFrame;
     raylib::Vector2 pos = camera->GetWorldToScreen(position + raylib::Vector2(x, y) + offset - animationOffset);
-    return !((pos.y + (currentAnimation->frames[frame]->height * scale.y) < 0 || pos.y > raylib::Window::GetHeight()) ||
-             (pos.x + (currentAnimation->frames[frame]->width * scale.x) < 0 || pos.x > raylib::Window::GetWidth()));
+    return true;
 }
 
 raylib::Vector2 engine::AnimatedSprite::getMidpoint() {
