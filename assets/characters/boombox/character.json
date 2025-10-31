@@ -1,59 +1,59 @@
 {
-    "globalOffset": [
-        -610,
-        -460
-    ],
-    "scale": 0.5,
-    "animations": [
-        {
-            "name": "idle",
-            "prefix": "bb idle",
-            "framerate": 10,
-            "looped": false,
-            "offsets": [
-                6,
-                0
-            ]
-        },
-        {
-            "name": "singDOWN",
-            "prefix": "bb down",
-            "framerate": 10,
-            "looped": false,
-            "offsets": [
-                -3,
-                -5
-            ]
-        },
-        {
-            "name": "singUP",
-            "prefix": "bb up",
-            "framerate": 10,
-            "looped": false,
-            "offsets": [
-                9,
-                2
-            ]
-        },
-        {
-            "name": "singRIGHT",
-            "prefix": "bb right",
-            "framerate": 10,
-            "looped": false,
-            "offsets": [
-                20,
-                -8
-            ]
-        },
-        {
-            "name": "singLEFT",
-            "prefix": "bb left",
-            "framerate": 10,
-            "looped": false,
-            "offsets": [
-                7,
-                -4
-            ]
-        }
-    ]
+  "globalOffset": {
+    "x": -610,
+    "y": -460
+  },
+  "scale": 0.5,
+  "animations": [
+    {
+      "name": "idle",
+      "prefix": "bb idle",
+      "framerate": 10,
+      "looped": false,
+      "offset": {
+        "x": 6,
+        "y": 0
+      }
+    },
+    {
+      "name": "singDOWN",
+      "prefix": "bb down",
+      "framerate": 10,
+      "looped": false,
+      "offset": {
+        "x": -3,
+        "y": -5
+      }
+    },
+    {
+      "name": "singUP",
+      "prefix": "bb up",
+      "framerate": 10,
+      "looped": false,
+      "offset": {
+        "x": 9,
+        "y": 2
+      }
+    },
+    {
+      "name": "singRIGHT",
+      "prefix": "bb right",
+      "framerate": 10,
+      "looped": false,
+      "offset": {
+        "x": 20,
+        "y": -8
+      }
+    },
+    {
+      "name": "singLEFT",
+      "prefix": "bb left",
+      "framerate": 10,
+      "looped": false,
+      "offset": {
+        "x": 7,
+        "y": -4
+      }
+    }
+  ]
 }

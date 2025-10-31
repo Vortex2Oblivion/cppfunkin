@@ -42,7 +42,7 @@
 	<SubTexture name="left press instance 10017" x="891" y="148" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
 	<SubTexture name="left press instance 10018" x="891" y="148" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
 	<SubTexture name="left press instance 10019" x="891" y="148" width="146" height="149" frameX="-0" frameY="-0" frameWidth="146" frameHeight="149"/>
-	<SubTexture name="purple end hold instance 10000" x="988" y="853" width="51" height="64" frameX="-0" frameY="-0" frameWidth="51" frameHeight="64"/>
+	<SubTexture name="purple hold end instance 10000" x="988" y="853" width="51" height="64" frameX="-0" frameY="-0" frameWidth="51" frameHeight="64"/>
 	<SubTexture name="purple hold piece instance 10000" x="160" y="726" width="51" height="44" frameX="-0" frameY="-0" frameWidth="51" frameHeight="44"/>
 	<SubTexture name="purple instance 10000" x="378" y="833" width="154" height="157" frameX="-0" frameY="-0" frameWidth="154" frameHeight="157"/>
 	<SubTexture name="red hold end instance 10000" x="837" y="918" width="51" height="64" frameX="-0" frameY="-0" frameWidth="51" frameHeight="64"/>
