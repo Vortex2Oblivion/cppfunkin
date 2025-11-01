@@ -88,7 +88,7 @@ void engine::SparrowSprite::draw(float x, float y) {
 
     calculateScrollFactor();
 
-    origin = raylib::Vector2(dest.width / 2.0f, dest.height / 2.0f);
+    origin = raylib::Vector2(dest.width * originFactor.x, dest.height * originFactor.y);
 
     if (flipX) {
         source.width *= -1.0f;

@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "../engine/group.hpp"
+#include "Vector2.hpp"
 #include "strumnote.hpp"
 
 // TODO: Fix double note hit bug.
@@ -33,6 +34,33 @@ void funkin::PlayField::update(float delta) {
         NoteData data = noteDatas[noteDataIndex];
         Note* note = new Note(data.time * 1000.0f, data.lane, scrollSpeed, strums->members[data.lane]);
         note->isPlayer = data.isPlayer;
+<<<<<<< HEAD
+=======
+
+        size_t roundSustainLength = (size_t)roundf(data.sustainLength / conductor->getStepCrochet());
+
+        if (roundSustainLength > 0)
+        {
+            for (size_t i = 0; i < roundSustainLength; i++)
+            {
+                Note *sustainNote = new Note(data.time * 1000.0f + (conductor->getStepCrochet() * i * 1000.0f), data.lane, scrollSpeed, strums->members[data.lane]);
+                sustainNote->isPlayer = data.isPlayer;
+                sustainNote->playAnimation("hold");
+                sustainNote->isSustain = true;
+                sustainNote->scale.y = conductor->getStepCrochet() * 1000.0f * 0.45f * scrollSpeed / 44.0f;
+                sustainNote->originFactor = raylib::Vector2();
+                sustainNote->offset.x += 51.0f / 1.5f;
+
+                if (i == roundSustainLength - 1) {
+                    sustainNote->playAnimation("hold_end");
+                    sustainNote->scale.y = 0.7f;
+                }
+
+                notes->add(sustainNote);
+            }
+        }
+
+>>>>>>> parent of 2197241 (Revert "rocket sucks")
         notes->add(note);
         noteDataIndex++;
     }
@@ -50,6 +78,43 @@ void funkin::PlayField::update(float delta) {
                 strums->members[lane]->offset = strums->members[lane]->offset.Scale(0.0f);
             }
         }
+    } else {
+        for (size_t i = 0; i < pressedArray.size(); i++) {
+            pressedArray[i] = true;
+        }
+    }
+
+    for (auto note : notes->members)
+    {
+        if (note == nullptr || !note->alive || note->wasMissed)
+        {
+            continue;
+        }
+
+        if (!note->isSustain) {
+            continue;
+        }
+
+        if (!pressedArray[note->lane]) {
+            continue;
+        }
+
+        if (conductor->time * 1000.0f < note->strumTime) {
+            continue;
+        }
+
+        int lane = note->lane;
+
+        for (auto character : characters)
+        {
+            character->playAnimation(singAnimArray[lane]);
+        }
+        score += 10;
+        health = Clamp(health + (10.0f / 200.0f), 0, 100);
+        strums->members[lane]->playAnimation("confirm");
+        strums->members[lane]->offset.x = -30;
+        strums->members[lane]->offset.y = -30;
+        toInvalidate.push_back(note);
     }
 
 
@@ -68,6 +133,10 @@ void funkin::PlayField::update(float delta) {
             calculateAccuracy();
         }
         note->songPos = conductor->time;
+
+        if (note->isSustain) {
+            continue;
+        }
 
         bool hittable = false;
 

@@ -1,4 +1,6 @@
 #include "animatedsprite.hpp"
+#include "Vector2.hpp"
+#include "raylib.h"
 
 #include <iostream>
 
@@ -66,7 +68,7 @@ bool engine::AnimatedSprite::isOnScreen(float x, float y) {
 raylib::Vector2 engine::AnimatedSprite::getMidpoint() {
     auto animFrame = animations[animations.begin()->first]->frames[0];
     raylib::Vector2 returnPos = raylib::Vector2(position.x + (animFrame->width / 2.0f), position.y + (animFrame->height / 2.0f));
-    returnPos -= raylib::Vector2(raylib::Window::GetRenderWidth() / 2.0f, raylib::Window::GetRenderHeight() / 2.0f);
+    returnPos -= raylib::Vector2(1280.0f / 2.0f, 720.0f / 2.0f);
     return returnPos;
 }
 
