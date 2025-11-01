@@ -17,9 +17,12 @@ class Note : public engine::SparrowSprite {
     float speed = 1.0f;
     float sustainLength = 0.0f;
 
-    bool canBeHit;
-    bool isPlayer;
+    bool canBeHit = false;
+    bool isPlayer = false;
     bool wasMissed = false;
-    bool isSustain;
+    bool wasHit = false;
+    bool isSustain = false;
+
+    funkin::Note* parentNote = nullptr;
 };
 }  // namespace funkin
