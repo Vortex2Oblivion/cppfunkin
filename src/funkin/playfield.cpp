@@ -81,43 +81,6 @@ void funkin::PlayField::update(float delta)
                 strums->members[lane]->offset = strums->members[lane]->offset.Scale(0.0f);
             }
         }
-    } else {
-        for (size_t i = 0; i < pressedArray.size(); i++) {
-            pressedArray[i] = true;
-        }
-    }
-
-    for (auto note : notes->members)
-    {
-        if (note == nullptr || !note->alive || note->wasMissed)
-        {
-            continue;
-        }
-
-        if (!note->isSustain) {
-            continue;
-        }
-
-        if (!pressedArray[note->lane]) {
-            continue;
-        }
-
-        if (conductor->time * 1000.0f < note->strumTime) {
-            continue;
-        }
-
-        int lane = note->lane;
-
-        for (auto character : characters)
-        {
-            character->playAnimation(singAnimArray[lane]);
-        }
-        score += 10;
-        health = Clamp(health + (10.0f / 200.0f), 0, 100);
-        strums->members[lane]->playAnimation("confirm");
-        strums->members[lane]->offset.x = -30;
-        strums->members[lane]->offset.y = -30;
-        toInvalidate.push_back(note);
     }
 
     for (auto note : notes->members)
@@ -139,10 +102,6 @@ void funkin::PlayField::update(float delta)
         }
         note->songPos = conductor->time;
 
-        if (note->isSustain) {
-            continue;
-        }
-
         bool hittable = false;
 
         float actualMinHitTime = cpuControlled ? 0 : minHitTime;
@@ -152,7 +111,7 @@ void funkin::PlayField::update(float delta)
             hittable = true;
         }
 
-        if (!hittable || (!justHitArray[note->lane] && !cpuControlled))
+        if (!hittable || (!justHitArray[note->lane] && !cpuControlled && !(note->isSustain && pressedArray[note->lane])))
         {
             continue;
         }
