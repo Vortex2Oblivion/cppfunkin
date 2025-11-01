@@ -12,8 +12,6 @@
 
 bool noteDataSorter(funkin::NoteData a, funkin::NoteData b) { return a.time < b.time; }
 
-bool noteSorter(funkin::Note* a, funkin::Note* b) { return a->strumTime < b->strumTime; }
-
 funkin::PlayField::PlayField(float x, float y, std::vector<NoteData> noteDatas, std::vector<Character*> characters, bool cpuControlled) {
     this->position.x = x;
     this->position.y = y;
