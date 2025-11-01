@@ -38,8 +38,6 @@ void funkin::PlayField::update(float delta) {
             sustainNote->isPlayer = data.isPlayer;
             sustainNote->playAnimation("hold");
             sustainNote->scale.y = (data.sustainLength * 0.45 * scrollSpeed) * (60.0f / conductor->bpm * 44);
-            sustainNote->offset.y = (sustainNote->scale.y * 44) * 2;
-
             sustainNote->isSustain = true;
             notes->add(sustainNote);
         }
