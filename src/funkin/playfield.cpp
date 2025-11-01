@@ -8,8 +8,6 @@
 #include "Vector2.hpp"
 #include "strumnote.hpp"
 
-// TODO: Fix double note hit bug.
-
 bool noteDataSorter(funkin::NoteData a, funkin::NoteData b) { return a.time < b.time; }
 
 funkin::PlayField::PlayField(float x, float y, std::vector<NoteData> noteDatas, std::vector<Character*> characters, bool cpuControlled) {
@@ -119,7 +117,7 @@ void funkin::PlayField::update(float delta) {
         float distance = rawHitTime;
 
         // 5ms allowed or smth idk
-        float closestLaneDistance = closestDistances[lane];
+        float& closestLaneDistance = closestDistances[lane];
 
         if (closestLaneDistance != INFINITY && abs(closestLaneDistance - distance) > 5.0f) {
             continue;
