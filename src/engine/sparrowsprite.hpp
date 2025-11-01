@@ -2,7 +2,6 @@
 
 #include <pugixml.hpp>
 
-#include "Vector2.hpp"
 #include "animatedsprite.hpp"
 #include "animation.hpp"
 
@@ -12,8 +11,6 @@ class SparrowSprite : public AnimatedSprite {
     pugi::xml_document doc;
 
    public:
-    raylib::Vector2 originFactor = raylib::Vector2(0.5f, 0.5f);
-
     SparrowSprite(float x, float y);
     ~SparrowSprite();
     void loadGraphic(std::string imagePath, std::string xmlPath);

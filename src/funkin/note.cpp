@@ -13,7 +13,6 @@ funkin::Note::Note(float strumTime, int lane, float speed, StrumNote* strum) : S
     loadGraphic("assets/images/notes.png", "assets/images/notes.xml");
     addAnimation("default", directions[lane % 4] + " instance", 24);
     addAnimation("hold", directions[lane % 4] + " hold piece instance", 24);
-    addAnimation("hold_end", directions[lane % 4] + " hold end instance", 24);
     playAnimation("default");
     scale.x = 0.7f;
     scale.y = 0.7f;

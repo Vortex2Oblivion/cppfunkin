@@ -1,6 +1,4 @@
 #include "animatedsprite.hpp"
-#include "Vector2.hpp"
-#include "raylib.h"
 
 #include <iostream>
 
@@ -61,15 +59,15 @@ void engine::AnimatedSprite::centerOffsets() {
 
 bool engine::AnimatedSprite::isOnScreen(float x, float y) {
     size_t frame = currentAnimation->currentFrame;
-    raylib::Vector2 pos = camera->GetWorldToScreen(dest.GetSize().Scale(0.5f) + dest.GetPosition() + offset - animationOffset - raylib::Vector2(x, y) - (origin * scale));
-    return !((pos.y + (dest.height * scale.y) < 0 || pos.y - (dest.height * scale.y)> raylib::Window::GetHeight() / camera->zoom) ||
-             (pos.x + (dest.width * scale.x) < 0 || pos.x - (dest.width * scale.x) > raylib::Window::GetWidth() / camera->zoom));
+    raylib::Vector2 pos = camera->GetWorldToScreen(position + raylib::Vector2(x, y) + offset - animationOffset);
+    return !((pos.y + (dest.height * scale.y) < 0 || pos.y - (dest.height * scale.y)> raylib::Window::GetHeight()) ||
+             (pos.x + (dest.width * scale.x) < 0 || pos.x - (dest.width * scale.x) > raylib::Window::GetWidth()));
 }
 
 raylib::Vector2 engine::AnimatedSprite::getMidpoint() {
     auto animFrame = animations[animations.begin()->first]->frames[0];
     raylib::Vector2 returnPos = raylib::Vector2(position.x + (animFrame->width / 2.0f), position.y + (animFrame->height / 2.0f));
-    returnPos -= raylib::Vector2(1280.0f / 2.0f, 720.0f / 2.0f);
+    returnPos -= raylib::Vector2(raylib::Window::GetRenderWidth() / 2.0f, raylib::Window::GetRenderHeight() / 2.0f);
     return returnPos;
 }
 

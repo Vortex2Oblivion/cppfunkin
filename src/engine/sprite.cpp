@@ -45,9 +45,9 @@ void engine::Sprite::draw(float x, float y) {
 }
 
 bool engine::Sprite::isOnScreen(float x, float y) {
-    raylib::Vector2 pos = camera->GetWorldToScreen(position + offset - origin*scale + raylib::Vector2(x, y) + (texture->GetSize().Scale(0.5f)));
-    return !((pos.y + (texture->height * scale.y) < 0 || pos.y > raylib::Window::GetHeight() / camera->zoom) ||
-             (pos.x + (texture->width * scale.x) < 0 || pos.x > raylib::Window::GetWidth() / camera->zoom));
+    raylib::Vector2 pos = camera->GetWorldToScreen(position + offset - origin + raylib::Vector2(x, y) + (texture->GetSize().Scale(0.5f)));
+    return !((pos.y + (texture->height * scale.y) < 0 || pos.y > raylib::Window::GetHeight()) ||
+             (pos.x + (texture->width * scale.x) < 0 || pos.x > raylib::Window::GetWidth()));
 }
 
 raylib::Vector2 engine::Sprite::getMidpoint() { return raylib::Vector2(position.x + texture->width * 0.5f, position.y + texture->height * 0.5f); }
@@ -91,6 +91,6 @@ void engine::Sprite::cacheTexture(std::string path) {
 }
 
 void engine::Sprite::calculateScrollFactor() {
-    dest.x += -camera->cameraPosition.x * (scrollFactor.x - 1.0f);
-    dest.y += -camera->cameraPosition.y * (scrollFactor.y - 1.0f);
+    dest.x += (-camera->cameraPosition * (scrollFactor - raylib::Vector2::One())).x;
+    dest.y += (-camera->cameraPosition * (scrollFactor - raylib::Vector2::One())).y;
 }
