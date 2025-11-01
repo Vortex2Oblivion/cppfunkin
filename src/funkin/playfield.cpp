@@ -96,7 +96,7 @@ void funkin::PlayField::update(float delta) {
 
         bool hittable = false;
 
-        float actualMinHitTime = cpuControlled ? 0 : minHitTime;
+        float actualMinHitTime = cpuControlled || note->isSustain ? 0 : minHitTime;
 
         if (note->strumTime <= (hitWindow + actualMinHitTime) && note->strumTime >= (hitWindow - maxHitTime)) {
             hittable = true;
