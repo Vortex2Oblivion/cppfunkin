@@ -33,14 +33,6 @@ void funkin::PlayField::update(float delta) {
         NoteData data = noteDatas[noteDataIndex];
         Note* note = new Note(data.time * 1000.0f, data.lane, scrollSpeed, strums->members[data.lane]);
         note->isPlayer = data.isPlayer;
-        if(data.sustainLength > 0.0f){
-            Note* sustainNote = new Note(data.time * 1000.0f, data.lane, scrollSpeed, strums->members[data.lane]);
-            sustainNote->isPlayer = data.isPlayer;
-            sustainNote->playAnimation("hold");
-            sustainNote->scale.y = (data.sustainLength * 0.45 * scrollSpeed) * (60.0f / conductor->bpm * 44);
-            sustainNote->isSustain = true;
-            notes->add(sustainNote);
-        }
         notes->add(note);
         noteDataIndex++;
     }
