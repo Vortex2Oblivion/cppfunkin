@@ -1,13 +1,11 @@
 #include "note.hpp"
 
 #include "raylib-cpp.hpp"
-#include "strumnote.hpp"
 
-funkin::Note::Note(float strumTime, int lane, float speed, StrumNote* strum) : SparrowSprite(0, 0) {
+funkin::Note::Note(float strumTime, int lane, float speed) : SparrowSprite(0, 0) {
     this->strumTime = strumTime;
     this->lane = lane;
     this->speed = speed;
-    this->strum = strum;
 
     std::vector<std::string> directions = {"purple", "blue", "green", "red"};
     loadGraphic("assets/images/notes.png", "assets/images/notes.xml");
@@ -18,12 +16,10 @@ funkin::Note::Note(float strumTime, int lane, float speed, StrumNote* strum) : S
     scale.x = 0.7f;
     scale.y = 0.7f;
     position.y += 2000;
-    position.x = strum->position.x;
 }
 
 funkin::Note::~Note() {}
 
-void funkin::Note::update(float delta) {
-    SparrowSprite::update(delta);
-    position.y = 50 + -0.45f * (songPos * 1000 - strumTime) * speed;
-}
+void funkin::Note::update(float delta) { SparrowSprite::update(delta); }
+
+void funkin::Note::updateY(float songPosition) { position.y = 50 + -0.45f * (songPosition * 1000 - strumTime) * speed; }

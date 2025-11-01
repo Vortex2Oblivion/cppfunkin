@@ -5,19 +5,16 @@
 
 namespace funkin {
 class Note : public engine::SparrowSprite {
-   protected:
-    StrumNote* strum;
-    Note* sustainNote;
-
    public:
-    Note(float strumTime, int lane, float speed, StrumNote* strum);
+    Note(float strumTime, int lane, float speed);
     virtual ~Note();
     virtual void update(float delta);
 
-    float strumTime;
-    int lane;
+    void updateY(float songPosition);
+
+    float strumTime = 0.0f;
+    int lane = 0;
     float speed = 1.0f;
-    float songPos;
     float sustainLength = 0.0f;
 
     bool canBeHit;

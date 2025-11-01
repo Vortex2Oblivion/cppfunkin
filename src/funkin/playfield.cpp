@@ -32,7 +32,9 @@ void funkin::PlayField::update(float delta) {
     engine::Group<Object>::update(delta);
     while (noteDatas.size() > 0 && noteDataIndex < noteDatas.size() && ceilf(conductor->time) >= floorf(noteDatas[noteDataIndex].time - 2.0f)) {
         NoteData data = noteDatas[noteDataIndex];
-        Note* note = new Note(data.time * 1000.0f, data.lane, scrollSpeed, strums->members[data.lane]);
+        Note* note = new Note(data.time * 1000.0f, data.lane, scrollSpeed);
+        float positionX = strums->members[data.lane]->position.x;
+        note->position.x = positionX;
         note->isPlayer = data.isPlayer;
 
         size_t roundSustainLength = (size_t)roundf(data.sustainLength / conductor->getStepCrochet());
@@ -40,13 +42,13 @@ void funkin::PlayField::update(float delta) {
         if (roundSustainLength > 0) {
             for (size_t i = 0; i < roundSustainLength; i++) {
                 Note* sustainNote =
-                    new Note(data.time * 1000.0f + (conductor->getStepCrochet() * i * 1000.0f), data.lane, scrollSpeed, strums->members[data.lane]);
+                    new Note(data.time * 1000.0f + (conductor->getStepCrochet() * i * 1000.0f), data.lane, scrollSpeed);
                 sustainNote->isPlayer = data.isPlayer;
                 sustainNote->playAnimation("hold");
                 sustainNote->isSustain = true;
                 sustainNote->scale.y = conductor->getStepCrochet() * 1000.0f * 0.45f * scrollSpeed / 44.0f;
                 sustainNote->originFactor = raylib::Vector2::Zero();
-                sustainNote->offset.x += 51.0f / 1.5f;
+                sustainNote->position.x = positionX + 51.0f / 1.5f;
 
                 if (i == roundSustainLength - 1) {
                     sustainNote->playAnimation("hold_end");
@@ -92,7 +94,7 @@ void funkin::PlayField::update(float delta) {
             calculateAccuracy();
         }
 
-        note->songPos = conductor->time;
+        note->updateY(conductor->time);
 
         bool hittable = false;
 
