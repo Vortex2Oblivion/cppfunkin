@@ -34,8 +34,6 @@ void funkin::PlayField::update(float delta) {
         NoteData data = noteDatas[noteDataIndex];
         Note* note = new Note(data.time * 1000.0f, data.lane, scrollSpeed, strums->members[data.lane]);
         note->isPlayer = data.isPlayer;
-<<<<<<< HEAD
-=======
 
         size_t roundSustainLength = (size_t)roundf(data.sustainLength / conductor->getStepCrochet());
 
@@ -60,7 +58,6 @@ void funkin::PlayField::update(float delta) {
             }
         }
 
->>>>>>> parent of 2197241 (Revert "rocket sucks")
         notes->add(note);
         noteDataIndex++;
     }
