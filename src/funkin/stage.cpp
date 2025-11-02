@@ -54,17 +54,42 @@ funkin::Stage::Stage(const std::string& name, funkin::Character* boyfriend, funk
 
     auto characters = parsedStage["characters"];
 
-    auto girlfriendPosition = characters["girlfriend"];
-    auto dadPosition = characters["dad"];
-    auto boyfriendPosition = characters["boyfriend"];
+    auto girlfriendData = characters["girlfriend"];
+    auto dadData = characters["dad"];
+    auto boyfriendData = characters["boyfriend"];
+
+    // required data
+    auto girlfriendPosition = characters["girlfriend"]["position"];
+    auto dadPosition = characters["dad"]["position"];
+    auto boyfriendPosition = characters["boyfriend"]["position"];
 
     girlfriend->position += raylib::Vector2(girlfriendPosition["x"], girlfriendPosition["y"]);
     dad->position += raylib::Vector2(dadPosition["x"], dadPosition["y"]);
     boyfriend->position += raylib::Vector2(boyfriendPosition["x"], boyfriendPosition["y"]);
 
-    // TODO: rework this, only temporary.
-    if (boyfriendPosition.contains("cameraOffset")){
-        boyfriend->cameraOffset += raylib::Vector2(boyfriendPosition["cameraOffset"]["x"], boyfriendPosition["cameraOffset"]["y"]);
+    // optional data (camera offset, scroll, etc)
+    if (boyfriendData.contains("cameraOffset")){
+        boyfriend->cameraOffset += raylib::Vector2(boyfriendData["cameraOffset"]["x"], boyfriendData["cameraOffset"]["y"]);
+    }
+
+    if (dadData.contains("cameraOffset")){
+        dad->cameraOffset += raylib::Vector2(dadData["cameraOffset"]["x"], dadData["cameraOffset"]["y"]);
+    }
+
+    if (girlfriendData.contains("cameraOffset")){
+        girlfriend->cameraOffset += raylib::Vector2(girlfriendData["cameraOffset"]["x"], girlfriendData["cameraOffset"]["y"]);
+    }
+
+    if (boyfriendData.contains("scrollFactor")){
+        boyfriend->scrollFactor = raylib::Vector2(boyfriendData["scrollFactor"]["x"], boyfriendData["scrollFactor"]["y"]);
+    }
+
+    if (dadData.contains("scrollFactor")){
+        dad->scrollFactor = raylib::Vector2(dadData["scrollFactor"]["x"], dadData["scrollFactor"]["y"]);
+    }
+
+    if (girlfriendData.contains("scrollFactor")){
+        girlfriend->scrollFactor = raylib::Vector2(girlfriendData["scrollFactor"]["x"], girlfriendData["scrollFactor"]["y"]);
     }
 
     add(girlfriend);

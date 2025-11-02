@@ -113,6 +113,8 @@ void funkin::PlayField::update(const float delta) {
 
         const int lane = note->lane;
 
+        // if statement of DOOM
+        // crashes if I separate into variables, so maybe figure out what's going on there?
         if (!hittable || (!justHitArray[lane] && !cpuControlled && !(note->isSustain && pressedArray[lane] && (note->parentNote->wasHit || (!note->parentNote->alive && !note->parentNote->wasMissed))))) {
             continue;
         }
@@ -121,13 +123,13 @@ void funkin::PlayField::update(const float delta) {
         const float distance = rawHitTime;
 
         // 5ms allowed or smth idk
-        float& closestLaneDistance = closestDistances[lane];
+        float& closestDistance = closestDistances[lane];
 
-        if (closestLaneDistance != INFINITY && abs(closestLaneDistance - distance) > 5.0f) {
+        if (closestDistance != INFINITY && abs(closestDistance - distance) > 5.0f) {
             continue;
         }
 
-        closestLaneDistance = distance;
+        closestDistance = distance;
 
         for (const auto character : characters) {
             character->playAnimation(singAnimArray[lane]);

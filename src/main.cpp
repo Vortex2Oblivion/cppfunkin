@@ -22,7 +22,7 @@ int main() {
     iconOG.Unload();
 
     raylib::AudioDevice audioDevice = raylib::AudioDevice();
-    audioDevice.SetVolume(0.1f);
+    audioDevice.SetVolume(0.25f);
 
     engine::Game::start(new funkin::SongSelectState());
 

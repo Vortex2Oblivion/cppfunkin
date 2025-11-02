@@ -124,20 +124,30 @@
     "zoom": 0.7,
     "characters": {
        "boyfriend": {
-            "x": 920,
-            "y": 240,
-            "cameraOffset": {
-                "x": 0,
-                "y": -80
-            }
+           "position": {
+               "x": 920,
+               "y": 240
+           },
+           "cameraOffset": {
+               "x": 0,
+               "y": -80
+           }
         },
         "dad": {
-            "x": -100,
-            "y": 320
+            "position": {
+                "x": -100,
+                "y": 320
+            }
         },
         "girlfriend": {
-            "x": 400,
-            "y": 270
+            "position": {
+                "x": 400,
+                "y": 270
+            },
+            "scrollFactor": {
+                "x": 1.0,
+                "y": 1.0
+            }
         }
     }
 }

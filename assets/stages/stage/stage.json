@@ -49,16 +49,22 @@
     "zoom": 1.1,
     "characters": {
         "boyfriend": {
-            "x": 770,
-            "y": 100
+            "position": {
+                "x": 770,
+                "y": 100
+            }
         },
         "dad": {
-            "x": 100,
-            "y": 100
+            "position": {
+                "x": 100,
+                "y": 100
+            }
         },
         "girlfriend": {
-            "x": 400,
-            "y": 130
+            "position": {
+                "x": 400,
+                "y": 130
+            }
         }
     }
 }
