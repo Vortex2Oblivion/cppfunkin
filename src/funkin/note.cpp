@@ -18,8 +18,8 @@ funkin::Note::Note(float strumTime, int lane, float speed) : SparrowSprite(0, 0)
     position.y += 2000;
 }
 
-funkin::Note::~Note() {}
+funkin::Note::~Note() = default;
 
-void funkin::Note::update(float delta) { SparrowSprite::update(delta); }
+void funkin::Note::update(const float delta) { SparrowSprite::update(delta); }
 
-void funkin::Note::updateY(float songPosition) { position.y = 50 + -0.45f * (songPosition * 1000 - strumTime) * speed; }
+void funkin::Note::updateY(const float songPosition) { position.y = 50 + -0.45f * (songPosition * 1000 - strumTime) * speed; }

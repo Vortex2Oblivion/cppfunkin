@@ -15,18 +15,18 @@ void engine::Game::start(State* initialState) {
     _state->create();
 }
 
-void engine::Game::update(float delta) {
-    if (!_state->initalized) {
+void engine::Game::update(const float delta) {
+    if (!_state->initialized) {
         return;
     }
     _state->update(delta);
-    for (auto camera : engine::Game::cameras) {
+    for (const auto camera : engine::Game::cameras) {
         if (camera == nullptr) {
             continue;
         }
         camera->BeginMode();
-        for (auto member : _state->members) {
-            if (!member->alive || member->camera != camera || member == nullptr) {
+        for (const auto member : _state->members) {
+            if (!member->alive || member->camera != camera) {
                 continue;
             }
             member->draw();
@@ -37,7 +37,7 @@ void engine::Game::update(float delta) {
 
 void engine::Game::switchState(State* nextState) {
     engine::Sprite::clearTextureCache();
-    for (auto camera : cameras) {
+    for (const auto camera : cameras) {
         delete camera;
     }
     defaultCamera = new engine::Camera();

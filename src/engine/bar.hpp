@@ -9,7 +9,7 @@ enum FillDirection {
     RIGHT_TO_LEFT,
 };
 
-class Bar : public Sprite {
+class Bar final : public Sprite {
    private:
     /* data */
     raylib::Rectangle* rectOutline;
@@ -19,11 +19,11 @@ class Bar : public Sprite {
    public:
     Bar(float x, float y, float width, float height, raylib::Color colorLeft, raylib::Color colorRight, unsigned int outlineSize = 0,
         raylib::Color colorOutline = raylib::Color::Black());
-    ~Bar();
-    void screenCenter();
-    void screenCenter(engine::Axes axes);
-    void update(float delta);
-    void draw(float x = 0.0f, float y = 0.0f);
+    ~Bar() override;
+    void screenCenter() override;
+    void screenCenter(engine::Axes axes) override;
+    void update(float delta) override;
+    void draw(float x, float y) override;
 
     float getIntersection();
 

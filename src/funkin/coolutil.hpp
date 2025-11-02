@@ -6,7 +6,7 @@ class CoolUtil {
     /**
      * https://www.raylib.com/examples/text/loader.html?name=text_codepoints_loading
      */
-    static int* codepointRemoveDuplicates(int* codepoints, int codepointCount, int* codepointsResultCount);
+    static int* codepointRemoveDuplicates(const int* codepoints, int codepointCount, int* codepointsResultCount);
 };
 
 }  // namespace funkin

@@ -10,18 +10,18 @@ class Text : public Sprite {
 
    public:
     Text(std::string text, float size, float x, float y);
-    ~Text();
+    ~Text() override;
 
     raylib::Color outlineColor = BLACK;
     raylib::Font font;
-    std::string text = "";
+    std::string text;
     float outlineSize = 0.0f;
     float size = 24.0f;
     float spacing = 1.0f;
 
-    virtual void draw(float x = 0.0f, float y = 0.0f);
+    void draw(float x, float y) override;
 
-    void screenCenter();
-    void screenCenter(engine::Axes axes);
+    void screenCenter() override;
+    void screenCenter(engine::Axes axes) override;
 };
 }  // namespace engine

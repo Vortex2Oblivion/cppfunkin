@@ -23,8 +23,8 @@ funkin::Character::Character(float x, float y, std::string characterName) : Spar
     }
 
     if (parsedCharacter.count("globalOffset")) {
-        position.x += (float)parsedCharacter["globalOffset"]["x"];
-        position.y += (float)parsedCharacter["globalOffset"]["y"];
+        position.x += static_cast<float>(parsedCharacter["globalOffset"]["x"]);
+        position.y += static_cast<float>(parsedCharacter["globalOffset"]["y"]);
     }
 
     loadGraphic(characterBasePath + "/spritesheet.png", characterBasePath + "/spritesheet.xml");
@@ -46,9 +46,7 @@ funkin::Character::Character(float x, float y, std::string characterName) : Spar
     dance();
 }
 
-funkin::Character::~Character() {
-    // engine::SparrowSprite::~SparrowSprite();
-}
+funkin::Character::~Character() = default;
 
 void funkin::Character::dance() {
     if (hasAnimation("danceLeft")) {

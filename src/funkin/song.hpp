@@ -16,7 +16,7 @@ struct SongData {
 };
 class Song {
    public:
-    static SongData parseChart(std::string songName, std::string difficulty);
+    static SongData parseChart(const std::string &songName, const std::string &difficulty);
 };
 
 }  // namespace funkin

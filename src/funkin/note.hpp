@@ -4,11 +4,11 @@
 #include "strumnote.hpp"
 
 namespace funkin {
-class Note : public engine::SparrowSprite {
+class Note final : public engine::SparrowSprite {
    public:
     Note(float strumTime, int lane, float speed);
-    virtual ~Note();
-    virtual void update(float delta);
+    ~Note() override;
+    void update(float delta) override;
 
     void updateY(float songPosition);
 

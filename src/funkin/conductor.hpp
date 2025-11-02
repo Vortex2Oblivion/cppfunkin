@@ -17,8 +17,7 @@ class Conductor {
     void beatHit();
 
    public:
-    Conductor();
-    Conductor(std::vector<raylib::Music*> tracks);
+    explicit Conductor(std::vector<raylib::Music*> tracks = {});
     ~Conductor();
     void start(std::vector<raylib::Music*> tracks);
     void start();
@@ -33,7 +32,7 @@ class Conductor {
     float getMaxAudioTime();
     float getMinAudioTime();
 
-    std::vector<raylib::Music*> tracks;
+    std::vector<raylib::Music*> tracks = {};
     float time = -1.0f;
     float bpm = 60.0f;
 };

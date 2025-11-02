@@ -7,7 +7,7 @@
 #include "song.hpp"
 
 namespace funkin {
-class PlayField : public engine::Group<engine::Object> {
+class PlayField final : public engine::Group<engine::Object> {
    protected:
     const std::vector<std::string> singAnimArray = {"singLEFT", "singDOWN", "singUP", "singRIGHT"};
     std::vector<bool> justHitArray = {false, false, false, false};
@@ -22,12 +22,12 @@ class PlayField : public engine::Group<engine::Object> {
 
    public:
     PlayField(float x, float y, std::vector<NoteData> noteDatas, std::vector<Character*> characters, bool cpuControlled = false);
-    ~PlayField();
+    ~PlayField() override;
 
     bool cpuControlled = false;
     float scrollSpeed = 1.0f;
     float accuracy = 100.0f;
-    unsigned int misses = 0;
+    size_t misses = 0;
     int score = 0;
     float health = 50.0f;
 
@@ -40,7 +40,7 @@ class PlayField : public engine::Group<engine::Object> {
 
     funkin::Conductor* conductor;
 
-    void generateStaticArrows(bool player);
-    void update(float delta);
+    void generateStaticArrows(bool player) const;
+    void update(float delta) override;
 };
 }  // namespace funkin

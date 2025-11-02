@@ -18,35 +18,37 @@
 namespace funkin
 {
 
-    class PlayState : public MusicBeatState
+    class PlayState final : public MusicBeatState
     {
     private:
-        void updateScoreText();
+        void updateScoreText() const;
 
     public:
         PlayState(std::string songName, std::string difficulty);
-        ~PlayState();
-        void create();
+        ~PlayState() override;
+
+        void create() override;
+        void update(float delta) override;
+        void beatHit() override;
+        void stepHit() override;
+
         void loadSong(std::string songName, std::string difficulty);
-        void update(float delta);
-        void beatHit();
-        void stepHit();
 
         std::vector<raylib::Music *> tracks = {};
         std::vector<funkin::PlayField *> playfields = {};
 
-        funkin::PlayField *playerField;
-        funkin::PlayField *dadField;
+        funkin::PlayField *playerField{};
+        funkin::PlayField *dadField{};
 
-        funkin::Stage *stage;
+        funkin::Stage *stage = nullptr;
 
-        funkin::Character *boyfriend;
-        funkin::Character *dad;
-        funkin::Character *girlfriend;
+        funkin::Character *boyfriend= nullptr;
+        funkin::Character *dad = nullptr;
+        funkin::Character *girlfriend = nullptr;
 
-        funkin::HealthBar *healthBar;
+        funkin::HealthBar *healthBar = nullptr;
 
-        engine::Camera *camHUD;
+        engine::Camera *camHUD = nullptr;
 
         std::string songName;
         std::string difficulty;
@@ -56,7 +58,7 @@ namespace funkin
         float scrollSpeed = 1.0f;
         float defaultCameraZoom = 1.0f;
         funkin::SongData song;
-        engine::Text *scoreText;
+        engine::Text *scoreText = nullptr;
         int score = 0;
         float accuracy = 100.0f;
         raylib::Vector2 cameraTarget = raylib::Vector2();

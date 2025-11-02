@@ -3,7 +3,7 @@
 #include <fstream>
 #include <iostream>
 
-funkin::Stage::Stage(std::string name, funkin::Character* boyfriend, funkin::Character* dad, funkin::Character* girlfriend, float x, float y)
+funkin::Stage::Stage(const std::string& name, funkin::Character* boyfriend, funkin::Character* dad, funkin::Character* girlfriend, float x, float y)
     : engine::Group<engine::Object>(x, y) {
     this->name = name;
     std::string path = "assets/stages/" + name + "/";
@@ -11,7 +11,7 @@ funkin::Stage::Stage(std::string name, funkin::Character* boyfriend, funkin::Cha
         path = "assets/stages/stage/";
     }
 
-    std::ifstream stageFile = std::ifstream(path + "stage.json");
+    auto stageFile = std::ifstream(path + "stage.json");
     parsedStage = nlohmann::json::parse(stageFile);
     stageFile.close();
 
@@ -26,7 +26,7 @@ funkin::Stage::Stage(std::string name, funkin::Character* boyfriend, funkin::Cha
             extension = object["extension"];
         }
 
-        std::string imageFile = path + (std::string)object["file"] + extension;
+        std::string imageFile = path + static_cast<std::string>(object["file"]) += extension;
 
         if (!raylib::FileExists(imageFile)) {
             std::cerr << "Could not find image at path: " << imageFile << "\n";
@@ -35,7 +35,7 @@ funkin::Stage::Stage(std::string name, funkin::Character* boyfriend, funkin::Cha
 
         auto position = object["position"];
 
-        engine::Sprite* stageObject = new engine::Sprite(position["x"], position["y"]);
+        auto* stageObject = new engine::Sprite(position["x"], position["y"]);
         stageObject->loadGraphic(imageFile);
 
         if (object.count("scale")) {
@@ -72,4 +72,4 @@ funkin::Stage::Stage(std::string name, funkin::Character* boyfriend, funkin::Cha
     add(boyfriend);
 }
 
-funkin::Stage::~Stage() {}
+funkin::Stage::~Stage() = default;

@@ -22,14 +22,15 @@ class Sprite : public Object {
 
    public:
     Sprite(float x, float y);
-    virtual ~Sprite();
-    void loadGraphic(std::string path);
-    virtual void update(float delta);
+    ~Sprite() override;
+    void loadGraphic(const std::string &path);
+    void update(float delta) override;
     virtual bool isOnScreen(float x = 0.0f, float y = 0.0f);
-    raylib::Vector2 getMidpoint();
+
+    virtual raylib::Vector2 getMidpoint();
     virtual void screenCenter();
     virtual void screenCenter(engine::Axes axes);
-    virtual void draw(float x = 0.0f, float y = 0.0f);
+    void draw(float x = 0.0f, float y = 0.0f) override;
     virtual void centerOrigin();
 
     raylib::Vector2 origin = raylib::Vector2();

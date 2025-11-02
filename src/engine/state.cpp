@@ -4,6 +4,6 @@
 
 engine::State::State() : Group(0, 0) {}
 
-engine::State::~State() {}
+engine::State::~State() = default;
 
-void engine::State::create() { initalized = true; }
+void engine::State::create() { initialized = true; }

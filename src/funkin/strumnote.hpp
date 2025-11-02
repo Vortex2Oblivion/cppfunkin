@@ -9,7 +9,8 @@ class StrumNote : public engine::SparrowSprite {
     /* data */
    public:
     StrumNote(float x, float y, int lane, bool player);
-    virtual ~StrumNote();
+
+    ~StrumNote() override;
     void setPosition();
 
     int lane;

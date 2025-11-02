@@ -6,8 +6,8 @@ funkin::HealthIcon::HealthIcon(std::string character, float x, float y) : engine
         iconPath = "assets/images/face.png";
     }
     loadGraphic(iconPath);
-    addAnimation("default", {raylib::Rectangle(0.0f, 0.0f, texture->width / 2.0f, (float)texture->height)}, 0);
-    addAnimation("losing", {raylib::Rectangle(texture->width / 2.0f, 0.0f, texture->width / 2.0f,  (float)texture->height)}, 0);
+    addAnimation("default", {raylib::Rectangle(0.0f, 0.0f, texture->width / 2.0f, static_cast<float>(texture->height))}, 0);
+    addAnimation("losing", {raylib::Rectangle(texture->width / 2.0f, 0.0f, texture->width / 2.0f,  static_cast<float>(texture->height))}, 0);
     playAnimation("default");
 }
 

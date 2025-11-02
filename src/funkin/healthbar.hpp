@@ -11,9 +11,10 @@ class HealthBar : public engine::Group<engine::Object> {
     /* data */
    public:
     HealthBar(float x, float y, std::string iconLeft, std::string iconRight, raylib::Color colorLeft, raylib::Color colorRight);
-    ~HealthBar();
-    void update(float delta);
-    void bopIcons(float scaleFactor);
+    ~HealthBar() override;
+    void update(float delta) override;
+
+    void bopIcons(float scaleFactor) const;
     engine::Bar* bar;
     funkin::HealthIcon* iconP1;
     funkin::HealthIcon* iconP2;

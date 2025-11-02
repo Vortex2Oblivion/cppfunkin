@@ -70,7 +70,7 @@ void engine::SparrowSprite::addAnimation(std::string name, std::string prefix, i
 void engine::SparrowSprite::update(float delta) { engine::AnimatedSprite::update(delta); }
 
 void engine::SparrowSprite::draw(float x, float y) {
-    if (currentAnimation == nullptr || animations.size() == 0) {
+    if (currentAnimation == nullptr || animations.empty()) {
         engine::Sprite::draw(x, y);
         return;
     }
@@ -94,7 +94,7 @@ void engine::SparrowSprite::draw(float x, float y) {
         source.width *= -1.0f;
     }
 
-    if (isOnScreen()) {
+    if (isOnScreen(x, y)) {
         texture->Draw(source, dest, origin * scale, angle, color);
     }
 }

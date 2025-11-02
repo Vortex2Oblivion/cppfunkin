@@ -15,11 +15,12 @@ class SparrowSprite : public AnimatedSprite {
     raylib::Vector2 originFactor = raylib::Vector2(0.5f, 0.5f);
 
     SparrowSprite(float x, float y);
-    ~SparrowSprite();
+    ~SparrowSprite() override;
     void loadGraphic(std::string imagePath, std::string xmlPath);
     void addAnimation(std::string name, std::string prefix, int framerate, std::vector<uint8_t> indices = {});
-    virtual void update(float delta);
-    virtual void draw(float x = 0.0f, float y = 0.0f);
+    void update(float delta) override;
+
+    void draw(float x, float y) override;
 
     std::string xmlPath;
 };

@@ -6,7 +6,7 @@
 namespace engine {
 class Object {
    public:
-    Object(float x = 0.0f, float y = 0.0f);
+    explicit Object(float x = 0.0f, float y = 0.0f);
     virtual ~Object();
     virtual void update(float delta);
     virtual void draw(float x = 0.0f, float y = 0.0f);

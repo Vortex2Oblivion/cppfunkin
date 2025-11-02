@@ -3,7 +3,7 @@
 #include <iostream>
 #include <raylib-cpp.hpp>
 
-engine::Frame::Frame(raylib::Rectangle rect) {
+engine::Frame::Frame(const raylib::Rectangle rect) {
     this->x = rect.x;
     this->y = rect.y;
     this->width = rect.width;
@@ -16,7 +16,7 @@ engine::Frame::Frame(raylib::Rectangle rect) {
     exists = true;
 }
 
-engine::Frame::Frame(raylib::Rectangle rect, raylib::Vector2 sourceSize, raylib::Vector2 offset) {
+engine::Frame::Frame(const raylib::Rectangle rect, const raylib::Vector2 sourceSize, const raylib::Vector2 offset) {
     this->x = rect.x;
     this->y = rect.y;
     this->width = rect.width;
@@ -29,7 +29,7 @@ engine::Frame::Frame(raylib::Rectangle rect, raylib::Vector2 sourceSize, raylib:
     exists = true;
 }
 
-engine::Frame::Frame(float x, float y, float width, float height, float frameX, float frameY, float frameWidth, float frameHeight) {
+engine::Frame::Frame(const float x, const float y, const float width, const float height, const float frameX, const float frameY, const float frameWidth, const float frameHeight) {
     this->x = x;
     this->y = y;
     this->width = width;

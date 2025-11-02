@@ -1,22 +1,24 @@
 #include "healthbar.hpp"
 
-funkin::HealthBar::HealthBar(float x, float y, std::string iconLeft, std::string iconRight, raylib::Color colorLeft, raylib::Color colorRight)
+#include <utility>
+
+funkin::HealthBar::HealthBar(const float x, const float y, std::string iconLeft, std::string iconRight, const raylib::Color colorLeft, const raylib::Color colorRight)
     : engine::Group<engine::Object>(x, y) {
     bar = new engine::Bar(x, y, 601.0f - 8.0f, 19.0f - 8.0f, colorLeft, colorRight, 8);
     bar->fillDirection = engine::FillDirection::RIGHT_TO_LEFT;
     add(bar);
-    iconP1 = new funkin::HealthIcon(iconRight, 0.0f, 0.0f);
+    iconP1 = new funkin::HealthIcon(std::move(iconRight), 0.0f, 0.0f);
     iconP1->flipX = true;
     iconP1->origin = raylib::Vector2(0.0f, 0.0f);
     add(iconP1);
-    iconP2 = new funkin::HealthIcon(iconLeft, 0.0f, 0.0f);
+    iconP2 = new funkin::HealthIcon(std::move(iconLeft), 0.0f, 0.0f);
     iconP2->origin = raylib::Vector2(300.0f, 0.0f);
     add(iconP2);
 }
 
-funkin::HealthBar::~HealthBar() {}
+funkin::HealthBar::~HealthBar() = default;
 
-void funkin::HealthBar::update(float delta) {
+void funkin::HealthBar::update(const float delta) {
     engine::Group<engine::Object>::update(delta);
     // TODO: Remove some of these magic numbers
     iconP2->position.x = bar->position.x + bar->getIntersection() + 150.0f - 26.0f * 2.5f;
@@ -41,7 +43,7 @@ void funkin::HealthBar::update(float delta) {
     iconP2->scale = raylib::Vector2(multP2, multP2);
 }
 
-void funkin::HealthBar::bopIcons(float scaleFactor) {
+void funkin::HealthBar::bopIcons(float scaleFactor) const {
     iconP1->scale = raylib::Vector2(scaleFactor, scaleFactor);
     iconP2->scale = raylib::Vector2(scaleFactor, scaleFactor);
 }

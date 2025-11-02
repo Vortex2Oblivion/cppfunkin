@@ -5,6 +5,7 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <raymath.hpp>
+#include <utility>
 
 #include "../engine/animatedsprite.hpp"
 #include "../engine/camera.hpp"
@@ -12,16 +13,13 @@
 #include "../engine/text.hpp"
 #include "coolutil.hpp"
 #include "healthbar.hpp"
-#include "healthicon.hpp"
-#include "note.hpp"
 #include "playfield.hpp"
 #include "song.hpp"
 #include "songselectstate.hpp"
-#include "strumnote.hpp"
 
 funkin::PlayState::PlayState(std::string songName, std::string difficulty) : MusicBeatState() {
-    this->songName = songName;
-    this->difficulty = difficulty;
+    this->songName = std::move(songName);
+    this->difficulty = std::move(difficulty);
 }
 
 funkin::PlayState::~PlayState() { playfields.clear(); }
@@ -55,7 +53,7 @@ void funkin::PlayState::create() {
 
     playfields.push_back(dadField);
 
-    playerField = new PlayField(raylib::Window::GetWidth() / 2.0f, 0, this->song.playerNotes, {boyfriend}, false);
+    playerField = new PlayField(static_cast<float>(raylib::Window::GetWidth()) / 2.0f, 0, this->song.playerNotes, {boyfriend}, false);
     playerField->camera = camHUD;
     playerField->conductor = conductor;
     playerField->scrollSpeed = scrollSpeed;
@@ -77,7 +75,7 @@ void funkin::PlayState::create() {
     UnloadCodepoints(codepoints);
 
     scoreText = new engine::Text("", 24, 100, 100);
-    scoreText->position.y = raylib::Window::GetHeight() * 0.9f;
+    scoreText->position.y = static_cast<float>(raylib::Window::GetHeight()) * 0.9f;
     scoreText->font = raylib::Font("assets/fonts/vcr.ttf", 24, codepointsNoDups, codepointsNoDupsCount);
     scoreText->outlineSize = 2.0f;
     scoreText->camera = camHUD;
@@ -94,10 +92,10 @@ void funkin::PlayState::create() {
     add(scoreText);
 }
 
-void funkin::PlayState::loadSong(std::string songName, std::string difficulty) {
-    std::string basePath = "assets/songs/" + songName + "/";
+void funkin::PlayState::loadSong( std::string songName,  std::string difficulty) {
+    const std::string basePath = "assets/songs/" + songName + "/";
 
-    song = funkin::Song::parseChart(songName, difficulty);
+    song = funkin::Song::parseChart(songName, std::move(difficulty));
 
     nlohmann::json_abi_v3_12_0::json parsedSong = song.parsedSong;
 
@@ -110,7 +108,7 @@ void funkin::PlayState::loadSong(std::string songName, std::string difficulty) {
     // noteDatas = song.notes;
     totalPlayerNotes = song.playerNotes.size();
 
-    if (FileExists((basePath + "Inst.ogg").c_str())) {
+    if (raylib::FileExists(basePath + "Inst.ogg")) {
         tracks.push_back(new raylib::Music(basePath + "Inst.ogg"));
     }
     if (needsVoices) {
@@ -146,7 +144,7 @@ void funkin::PlayState::beatHit() {
 
         if (song.parsedSong.contains("notes")) {
             auto notes = song.parsedSong["notes"];
-            int targetSection = (int)fminf((float)notes.size() - 1.0f, fmaxf(0, floor(conductor->getBeat() / 4.0f)));
+            const int targetSection = static_cast<int>(fminf(static_cast<float>(notes.size()) - 1.0f, fmaxf(0, floor(static_cast<float>(conductor->getBeat()) / 4.0f))));
 
             if (notes[targetSection]["mustHitSection"]) {
                 cameraTarget = boyfriend->getMidpoint() + boyfriend->cameraOffset - raylib::Vector2(100, 100);
@@ -161,7 +159,7 @@ void funkin::PlayState::beatHit() {
 
 void funkin::PlayState::stepHit() { funkin::MusicBeatState::stepHit(); }
 
-void funkin::PlayState::updateScoreText() {
+void funkin::PlayState::updateScoreText() const {
     scoreText->text = TextFormat("Score: %i • Misses: %i • Accuracy: %.2f%%", playerField->score, playerField->misses, playerField->accuracy);
     scoreText->screenCenter(engine::Axes::X);
 }

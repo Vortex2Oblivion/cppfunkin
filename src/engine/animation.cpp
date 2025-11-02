@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-engine::Animation::Animation(std::vector<engine::Frame*> frames, uint8_t framerate, std::string name) {
+engine::Animation::Animation(const std::vector<engine::Frame*> &frames, uint8_t framerate, const std::string &name) {
     this->frames = frames;
     this->framerate = framerate;
     this->currentFrame = 0;
@@ -10,7 +10,7 @@ engine::Animation::Animation(std::vector<engine::Frame*> frames, uint8_t framera
 }
 
 engine::Animation::~Animation() {
-    for (auto frame : frames) {
+    for (const auto frame : frames) {
         if (frame == nullptr) {
             continue;
         }
@@ -19,15 +19,15 @@ engine::Animation::~Animation() {
     frames.clear();
 }
 
-void engine::Animation::update(float delta) {
+void engine::Animation::update(const float delta) {
     if (framerate <= 0) {
         return;
     }
     frameTimer += delta;
     animationTimer += delta;
 
-    while (frameTimer >= 1.0f / framerate) {
-        frameTimer -= 1.0f / framerate;
+    while (frameTimer >= 1.0f / static_cast<float>(framerate)) {
+        frameTimer -= 1.0f / static_cast<float>(framerate);
         if (currentFrame + 1 < frames.size()) {
             currentFrame++;
         }
@@ -40,4 +40,4 @@ void engine::Animation::resetFrame() {
     animationTimer = 0.0f;
 }
 
-bool engine::Animation::isFinished() { return currentFrame + 1 >= frames.size(); }
+bool engine::Animation::isFinished() const { return currentFrame + 1 >= frames.size(); }

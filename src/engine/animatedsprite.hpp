@@ -9,20 +9,20 @@ class AnimatedSprite : public Sprite {
     /* data */
    public:
     AnimatedSprite(float x, float y);
-    ~AnimatedSprite();
+    ~AnimatedSprite() override;
 
-    void update(float delta);
+    void update(float delta) override;
 
-    virtual void addAnimation(std::string name, std::vector<raylib::Rectangle> rects, int framerate);
-    bool hasAnimation(std::string name);
-    void playAnimation(std::string name);
+    virtual void addAnimation(const std::string &name, const std::vector<raylib::Rectangle> &rects, int framerate);
+    bool hasAnimation(const std::string &name);
+    void playAnimation(const std::string &name);
 
     void centerOffsets();
 
-    raylib::Vector2 getMidpoint();
-    bool isOnScreen(float x = 0.0f, float y = 0.0f);
+    raylib::Vector2 getMidpoint() override;
+    bool isOnScreen(float x, float y) override;
 
-    void draw(float x = 0.0f, float y = 0.0f);
+    void draw(float x, float y) override;
 
     std::map<std::string, engine::Animation*> animations = {};
     engine::Animation* currentAnimation = nullptr;

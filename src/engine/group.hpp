@@ -7,22 +7,22 @@
 namespace engine {
 template <typename T = Object>
 class Group : public Object {
-    static_assert(std::is_base_of<Object, T>::value, "T must inherit from Object");
+    static_assert(std::is_base_of_v<Object, T>, "T must inherit from Object");
 
    public:
     std::vector<T*> members = {};
     raylib::Vector2 position = raylib::Vector2(0, 0);
-    Group(float x = 0.0f, float y = 0.0f);
-    ~Group();
+    explicit Group(float x = 0.0f, float y = 0.0f);
+    ~Group() override;
     virtual void add(T* obj);
     virtual void remove(T* obj);
     virtual void addToFront(T* obj);
-    virtual void update(float delta);
-    virtual void draw(float x = 0.0f, float y = 0.0f);
+    void update(float delta) override;
+    void draw(float x, float y ) override;
 };
 
 template <typename T>
-engine::Group<T>::Group(float x, float y) : Object(x, y) {}
+engine::Group<T>::Group(const float x, const float y) : Object(x, y) {}
 
 template <typename T>
 engine::Group<T>::~Group() {
@@ -34,7 +34,7 @@ engine::Group<T>::~Group() {
 }
 
 template <typename T>
-void engine::Group<T>::draw(float x, float y) {
+void engine::Group<T>::draw(const float x, const float y) {
     for (auto member : members) {
         if (member == nullptr || !member->alive) {
             continue;

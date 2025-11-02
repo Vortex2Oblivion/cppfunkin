@@ -3,7 +3,6 @@
 #include <raylib-cpp.hpp>
 #include <vector>
 
-funkin::Conductor::Conductor() { this->tracks = {}; }
 
 funkin::Conductor::Conductor(std::vector<raylib::Music*> tracks) { this->tracks = tracks; }
 

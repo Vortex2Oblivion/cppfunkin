@@ -7,14 +7,14 @@ namespace funkin {
 class SongSelectState : public MusicBeatState {
    private:
     int selectedSong = 0;
-    std::vector<std::string> songs;
-    engine::Text* songText;
-    engine::Sprite* slungus;
+    std::vector<std::string> songs = {};
+    engine::Text* songText = nullptr;
+    engine::Sprite* slungus = nullptr;
 
    public:
     SongSelectState(/* args */);
-    virtual ~SongSelectState();
-    virtual void update(float delta);
-    virtual void create();
+    ~SongSelectState() override;
+    void update(float delta) override;
+    void create() override;
 };
 }  // namespace funkin

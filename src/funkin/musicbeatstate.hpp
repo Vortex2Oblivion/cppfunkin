@@ -12,9 +12,9 @@ class MusicBeatState : public engine::State {
 
    public:
     MusicBeatState(/* args */);
-    ~MusicBeatState();
-    virtual void create();
-    virtual void update(float delta);
+    ~MusicBeatState() override;
+    void create() override;
+    void update(float delta) override;
     virtual void stepHit();
     virtual void beatHit();
 };

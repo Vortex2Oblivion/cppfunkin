@@ -8,7 +8,7 @@ class Character : public engine::SparrowSprite {
     /* data */
    public:
     Character(float x, float y, std::string characterName);
-    ~Character();
+    ~Character() override;
     void dance();
 
     std::string characterName;

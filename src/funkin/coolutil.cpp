@@ -3,9 +3,9 @@
 #include <cstdlib>
 #include <cstring>
 
-int* funkin::CoolUtil::codepointRemoveDuplicates(int* codepoints, int codepointCount, int* codepointsResultCount) {
+int* funkin::CoolUtil::codepointRemoveDuplicates(const int* codepoints, const int codepointCount, int* codepointsResultCount) {
     int codepointsNoDupsCount = codepointCount;
-    int* codepointsNoDups = (int*)calloc(codepointCount, sizeof(int));
+    const auto codepointsNoDups = static_cast<int *>(calloc(codepointCount, sizeof(int)));
     memcpy(codepointsNoDups, codepoints, codepointCount * sizeof(int));
 
     // Remove duplicates

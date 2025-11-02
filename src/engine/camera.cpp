@@ -4,7 +4,7 @@ engine::Camera::Camera()
     : raylib::Camera2D(raylib::Vector2(raylib::Window::GetWidth() / 2.0f, raylib::Window::GetHeight() / 2.0f),
           raylib::Vector2(raylib::Window::GetWidth() / 2.0f, raylib::Window::GetHeight() / 2.0f)) {}
 
-engine::Camera::~Camera() {}
+engine::Camera::~Camera() = default;
 raylib::Camera2D& engine::Camera::BeginMode() {
     offset = Vector2Add(raylib::Vector2(raylib::Window::GetWidth() / 2.0f, raylib::Window::GetHeight() / 2.0f), position);
     target = Vector2Add(raylib::Vector2(raylib::Window::GetWidth() / 2.0f, raylib::Window::GetHeight() / 2.0f), cameraPosition);

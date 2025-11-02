@@ -169,7 +169,7 @@ void funkin::PlayField::invalidateNote(funkin::Note* note) {
     delete note;
 }
 
-void funkin::PlayField::generateStaticArrows(bool player) {
+void funkin::PlayField::generateStaticArrows(const bool player) const {
     for (int i = 0; i < 4; i++) {
         StrumNote* babyArrow = new StrumNote(42, 50, i, player);
         babyArrow->setPosition();
@@ -177,4 +177,4 @@ void funkin::PlayField::generateStaticArrows(bool player) {
     }
 }
 
-void funkin::PlayField::calculateAccuracy() { accuracy = 100.0f * ((float)noteDatas.size() / (noteDatas.size() + misses)); }
+void funkin::PlayField::calculateAccuracy() { accuracy = 100.0f * (static_cast<float>(noteDatas.size()) / (noteDatas.size() + misses)); }

@@ -9,9 +9,9 @@ funkin::MusicBeatState::~MusicBeatState() {
 
 void funkin::MusicBeatState::create() { engine::State::create(); }
 
-void funkin::MusicBeatState::update(float delta) {
+void funkin::MusicBeatState::update(const float delta) {
     engine::State::update(delta);
-    int lastStep = conductor->getStep();
+    const int lastStep = conductor->getStep();
     conductor->update(delta);
     if (lastStep != conductor->getStep()) {
         stepHit();

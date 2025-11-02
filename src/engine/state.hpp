@@ -8,8 +8,8 @@ namespace engine {
 class State : public Group<Object> {
    public:
     State();
-    virtual ~State();
+    ~State() override;
     virtual void create();
-    bool initalized = false;
+    bool initialized = false;
 };
 }  // namespace engine

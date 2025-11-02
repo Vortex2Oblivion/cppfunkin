@@ -5,9 +5,9 @@
 #include "playstate.hpp"
 
 funkin::SongSelectState::SongSelectState() : MusicBeatState() {
-    std::string songListRaw = raylib::LoadFileText("assets/songs/list.txt");
-    std::vector<std::string> songList = raylib::TextSplit(songListRaw, '\n');
-    for (std::string song : songList) {
+    const std::string songListRaw = raylib::LoadFileText("assets/songs/list.txt");
+    const std::vector<std::string> songList = raylib::TextSplit(songListRaw, '\n');
+    for (const auto& song : songList) {
         if (!song.empty()) {
             songs.push_back(song);
         }
@@ -29,19 +29,19 @@ void funkin::SongSelectState::create() {
 void funkin::SongSelectState::update(float delta) {
     if (IsKeyPressed(KEY_RIGHT)) {
         selectedSong++;
-        if (selectedSong >= (int)songs.size()) {
+        if (selectedSong >= static_cast<int>(songs.size())) {
             selectedSong = 0;
         }
     } else if (IsKeyPressed(KEY_LEFT)) {
         selectedSong--;
         if (selectedSong < 0) {
-            selectedSong = (int)songs.size() - 1;
+            selectedSong = static_cast<int>(songs.size()) - 1;
         }
     }
     songText->text = songs[selectedSong];
-    slungus->scale.x = (float)sin(raylib::Window::GetTime()) + 2.0f;
-    slungus->scale.y = (float)cos(raylib::Window::GetTime()) + 2.0f;
-    if (IsKeyPressed(KEY_ENTER)) {
+    slungus->scale.x = static_cast<float>(sin(raylib::Window::GetTime())) + 2.0f;
+    slungus->scale.y = static_cast<float>(cos(raylib::Window::GetTime())) + 2.0f;
+    if (raylib::Keyboard::IsKeyPressed(KEY_ENTER)) {
         engine::Game::switchState(new funkin::PlayState(songs[selectedSong], "hard"));
     }
 }

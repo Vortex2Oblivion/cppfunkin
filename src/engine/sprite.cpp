@@ -8,15 +8,15 @@ std::map<std::string, raylib::Texture*> engine::Sprite::texturePool;
 
 engine::Sprite::Sprite(float x, float y) : Object(x, y) {}
 
-engine::Sprite::~Sprite() {}
+engine::Sprite::~Sprite() = default;
 
-void engine::Sprite::loadGraphic(std::string path) {
+void engine::Sprite::loadGraphic(const std::string& path) {
     engine::Sprite::cacheTexture(path);
 
     texture = engine::Sprite::texturePool[path];
     texture->SetFilter(TEXTURE_FILTER_BILINEAR);
-    source = raylib::Rectangle(0, 0, (float)(texture->width), (float)(texture->height));
-    dest = raylib::Rectangle(0, 0, (float)(texture->width), (float)(texture->height));
+    source = raylib::Rectangle(0, 0, static_cast<float>(texture->width), static_cast<float>(texture->height));
+    dest = raylib::Rectangle(0, 0, static_cast<float>(texture->width), static_cast<float>(texture->height));
     centerOrigin();
     angle = 0;
     color = WHITE;
