@@ -2,15 +2,17 @@
 
 #include <fstream>
 #include <nlohmann/json.hpp>
+#include <utility>
 
 #include "../engine/animatedsprite.hpp"
 
-funkin::Character::Character(float x, float y, std::string characterName) : SparrowSprite(x, y) {
-    this->characterName = characterName;
-    std::string characterBasePath = "assets/characters/" + characterName;
+funkin::Character::Character(float x, float y, std::string characterName, bool isPlayer) : SparrowSprite(x, y) {
+    this->characterName = std::move(characterName);
+    std::string characterBasePath = "assets/characters/" + this->characterName;
     std::ifstream characterFile(characterBasePath + "/character.json");
     if (characterFile.fail()) {
-        characterBasePath = "assets/characters/bf";
+        this->characterName = isPlayer ? "bf" : "dad";
+        characterBasePath = "assets/characters/" + this->characterName;
         characterFile = std::ifstream(characterBasePath + "/character.json");
     }
 
@@ -56,11 +58,13 @@ void funkin::Character::dance() {
             playAnimation("danceRight");
         }
         danceLeft = !danceLeft;
-    } else {
-        if (currentAnimation != nullptr && currentAnimation->animationTimer < 0.4f) {
-            return;
-        }
-
-        playAnimation("idle");
+        return;
     }
+
+    if (currentAnimation != nullptr && currentAnimation->animationTimer < 0.4f) {
+        return;
+    }
+
+    playAnimation("idle");
+
 }

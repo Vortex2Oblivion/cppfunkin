@@ -9,7 +9,7 @@
 #include "Vector2.hpp"
 #include "strumnote.hpp"
 
-bool noteDataSorter(funkin::NoteData a, funkin::NoteData b) { return a.time < b.time; }
+bool noteDataSorter(const funkin::NoteData a, const funkin::NoteData b) { return a.time < b.time; }
 
 funkin::PlayField::PlayField(const float x, const float y, std::vector<NoteData> noteDatas, std::vector<Character*> characters, const bool cpuControlled) {
     this->position.x = x;

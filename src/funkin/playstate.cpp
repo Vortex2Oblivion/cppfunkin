@@ -32,11 +32,11 @@ void funkin::PlayState::create() {
 
     loadSong(songName, difficulty);
 
-    dad = new Character(0, 0, player2);
+    dad = new Character(0, 0, player2, false);
 
-    boyfriend = new Character(0, 0, player1);
+    boyfriend = new Character(0, 0, player1, true);
     
-    girlfriend = new Character(0, 0, "gf");
+    girlfriend = new Character(0, 0, "gf", false);
     girlfriend->scrollFactor = raylib::Vector2(0.95f, 0.95f);
 
     stage = new funkin::Stage(curStage, boyfriend, dad, girlfriend);
