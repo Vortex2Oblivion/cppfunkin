@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+#include <utility>
 
 #include "../engine/group.hpp"
 #include "Vector2.hpp"
@@ -10,12 +11,12 @@
 
 bool noteDataSorter(funkin::NoteData a, funkin::NoteData b) { return a.time < b.time; }
 
-funkin::PlayField::PlayField(float x, float y, std::vector<NoteData> noteDatas, std::vector<Character*> characters, bool cpuControlled) {
+funkin::PlayField::PlayField(const float x, const float y, std::vector<NoteData> noteDatas, std::vector<Character*> characters, const bool cpuControlled) {
     this->position.x = x;
     this->position.y = y;
-    this->characters = characters;
+    this->characters = std::move(characters);
     this->cpuControlled = cpuControlled;
-    this->noteDatas = noteDatas;
+    this->noteDatas = std::move(noteDatas);
 
     strums = new engine::Group<funkin::StrumNote>();
     notes = new engine::Group<funkin::Note>();
@@ -28,25 +29,25 @@ funkin::PlayField::PlayField(float x, float y, std::vector<NoteData> noteDatas, 
     generateStaticArrows(cpuControlled);
 }
 
-funkin::PlayField::~PlayField() {}
+funkin::PlayField::~PlayField() = default;
 
-void funkin::PlayField::update(float delta) {
+void funkin::PlayField::update(const float delta) {
     engine::Group<Object>::update(delta);
     while (!noteDatas.empty() && noteDataIndex < noteDatas.size() && ceilf(conductor->time) >= floorf(noteDatas[noteDataIndex].time - 2.0f)) {
-        NoteData data = noteDatas[noteDataIndex];
-        Note* note = new Note(data.time * 1000.0f, data.lane, scrollSpeed);
-        float positionX = strums->members[data.lane]->position.x;
+        const auto data = noteDatas[noteDataIndex];
+        const auto note = new Note(data.time * 1000.0f, data.lane, scrollSpeed);
+        const float positionX = strums->members[data.lane]->position.x;
 
         note->position.x = positionX;
         note->isPlayer = data.isPlayer;
 
         lastSpawnedNote = note;
 
-        size_t roundSustainLength = (size_t)roundf(data.sustainLength / conductor->getStepCrochet());
+        const auto roundSustainLength = static_cast<size_t>(roundf(data.sustainLength / conductor->getStepCrochet()));
 
         if (roundSustainLength > 0) {
             for (size_t i = 0; i < roundSustainLength; i++) {
-                Note* sustainNote = new Note(data.time * 1000.0f + (conductor->getStepCrochet() * i * 1000.0f), data.lane, scrollSpeed);
+                const auto sustainNote = new Note(data.time * 1000.0f + (conductor->getStepCrochet() * i * 1000.0f), data.lane, scrollSpeed);
                 sustainNote->isPlayer = data.isPlayer;
                 sustainNote->playAnimation("hold");
                 sustainNote->isSustain = true;
@@ -54,6 +55,8 @@ void funkin::PlayField::update(float delta) {
                 sustainNote->originFactor = raylib::Vector2::Zero();
                 sustainNote->position.x = positionX + 51.0f / 1.5f;
                 sustainNote->parentNote = lastSpawnedNote;
+                lastSpawnedNote = sustainNote;
+
                 if (i == roundSustainLength - 1) {
                     sustainNote->playAnimation("hold_end");
                     sustainNote->scale.y = 0.7f;
@@ -101,21 +104,21 @@ void funkin::PlayField::update(float delta) {
 
         note->updateY(conductor->time);
 
-        float actualMinHitTime = cpuControlled || note->isSustain ? 0 : minHitTime;
+        const float actualMinHitTime = cpuControlled || note->isSustain ? 0 : minHitTime;
 
-        float minHitWindow = (hitWindow + actualMinHitTime);
-        float maxHitWindow = (hitWindow - maxHitTime);
+        const float minHitWindow = (hitWindow + actualMinHitTime);
+        const float maxHitWindow = (hitWindow - maxHitTime);
 
-        bool hittable = note->strumTime <= minHitWindow && note->strumTime >= maxHitWindow;
+        const bool hittable = note->strumTime <= minHitWindow && note->strumTime >= maxHitWindow;
 
-        int lane = note->lane;
+        const int lane = note->lane;
 
-        if (!hittable || (!justHitArray[lane] && !cpuControlled && !(note->isSustain && pressedArray[lane] && note->parentNote->wasHit))) {
+        if (!hittable || (!justHitArray[lane] && !cpuControlled && !(note->isSustain && pressedArray[lane] && (note->parentNote->wasHit || (!note->parentNote->alive && !note->parentNote->wasMissed))))) {
             continue;
         }
 
-        float rawHitTime = note->strumTime - conductor->time * 1000.f;
-        float distance = rawHitTime;
+        const float rawHitTime = note->strumTime - conductor->time * 1000.f;
+        const float distance = rawHitTime;
 
         // 5ms allowed or smth idk
         float& closestLaneDistance = closestDistances[lane];
@@ -126,13 +129,13 @@ void funkin::PlayField::update(float delta) {
 
         closestLaneDistance = distance;
 
-        for (auto character : characters) {
+        for (const auto character : characters) {
             character->playAnimation(singAnimArray[lane]);
         }
 
-        int addScore = (int)abs(500.0f - (note->strumTime - conductor->time) / 1000.0f);
+        const float addScore = abs(500.0f - (note->strumTime - conductor->time) / 1000.0f);
 
-        score += addScore;
+        score += static_cast<int>(addScore);
         health = Clamp(health + (addScore / 200.0f), 0, 100);
 
         funkin::StrumNote* strum = strums->members[lane];
@@ -144,25 +147,28 @@ void funkin::PlayField::update(float delta) {
         toInvalidate.push_back(note);
     }
 
-    for (auto note : toInvalidate) {
+    for (const auto note : toInvalidate) {
         invalidateNote(note);
     }
 
     toInvalidate.clear();
 
-    for (auto strum : strums->members) {
-        engine::Animation* animation = strum->currentAnimation;
+    for (const auto strum : strums->members) {
+        const engine::Animation* animation = strum->currentAnimation;
+
         bool playStaticAnimation = cpuControlled ? animation->currentFrame >= animation->frames.size() - 1 : !pressedArray[strum->lane];
+
         if (!playStaticAnimation) {
             continue;
         }
+
         strum->playAnimation("static");
         strum->offset.x = strum->offset.y = 0.0;
     }
 }
 
-void funkin::PlayField::invalidateNote(funkin::Note* note) {
-    if (!note->alive || note == nullptr) {
+void funkin::PlayField::invalidateNote(funkin::Note* note) const {
+    if (!note->alive) {
         return;
     }
     notes->remove(note);
@@ -171,7 +177,7 @@ void funkin::PlayField::invalidateNote(funkin::Note* note) {
 
 void funkin::PlayField::generateStaticArrows(const bool player) const {
     for (int i = 0; i < 4; i++) {
-        StrumNote* babyArrow = new StrumNote(42, 50, i, player);
+        auto* babyArrow = new StrumNote(42, 50, i, player);
         babyArrow->setPosition();
         strums->add(babyArrow);
     }

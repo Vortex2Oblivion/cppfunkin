@@ -17,7 +17,7 @@ class PlayField final : public engine::Group<engine::Object> {
     size_t noteDataIndex = 0;
     funkin::Note* lastSpawnedNote = nullptr;
 
-    void invalidateNote(Note* note);
+    void invalidateNote(funkin::Note *note) const;
     void calculateAccuracy();
 
    public:
@@ -38,7 +38,7 @@ class PlayField final : public engine::Group<engine::Object> {
     engine::Group<funkin::StrumNote>* strums;
     std::vector<funkin::Character*> characters = {};
 
-    funkin::Conductor* conductor;
+    funkin::Conductor* conductor{};
 
     void generateStaticArrows(bool player) const;
     void update(float delta) override;
