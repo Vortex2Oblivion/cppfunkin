@@ -32,13 +32,15 @@ funkin::PlayField::~PlayField() {}
 
 void funkin::PlayField::update(float delta) {
     engine::Group<Object>::update(delta);
-    while (noteDatas.size() > 0 && noteDataIndex < noteDatas.size() && ceilf(conductor->time) >= floorf(noteDatas[noteDataIndex].time - 2.0f)) {
+    while (!noteDatas.empty() && noteDataIndex < noteDatas.size() && ceilf(conductor->time) >= floorf(noteDatas[noteDataIndex].time - 2.0f)) {
         NoteData data = noteDatas[noteDataIndex];
         Note* note = new Note(data.time * 1000.0f, data.lane, scrollSpeed);
         float positionX = strums->members[data.lane]->position.x;
 
         note->position.x = positionX;
         note->isPlayer = data.isPlayer;
+
+        lastSpawnedNote = note;
 
         size_t roundSustainLength = (size_t)roundf(data.sustainLength / conductor->getStepCrochet());
 
@@ -51,8 +53,7 @@ void funkin::PlayField::update(float delta) {
                 sustainNote->scale.y = conductor->getStepCrochet() * 1000.0f * 0.45f * scrollSpeed / 44.0f;
                 sustainNote->originFactor = raylib::Vector2::Zero();
                 sustainNote->position.x = positionX + 51.0f / 1.5f;
-                sustainNote->parentNote = note;
-
+                sustainNote->parentNote = lastSpawnedNote;
                 if (i == roundSustainLength - 1) {
                     sustainNote->playAnimation("hold_end");
                     sustainNote->scale.y = 0.7f;
@@ -151,8 +152,8 @@ void funkin::PlayField::update(float delta) {
 
     for (auto strum : strums->members) {
         engine::Animation* animation = strum->currentAnimation;
-        bool playStaticAnimaton = cpuControlled ? animation->currentFrame >= animation->frames.size() - 1 : !pressedArray[strum->lane];
-        if (!playStaticAnimaton) {
+        bool playStaticAnimation = cpuControlled ? animation->currentFrame >= animation->frames.size() - 1 : !pressedArray[strum->lane];
+        if (!playStaticAnimation) {
             continue;
         }
         strum->playAnimation("static");

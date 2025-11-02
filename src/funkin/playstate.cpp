@@ -64,7 +64,7 @@ void funkin::PlayState::create() {
     playfields.push_back(playerField);
 
     // https://www.raylib.com/examples/text/loader.html?name=text_codepoints_loading
-    std::string defaultScoreText = "Score: 0123456789 • Misses: 0 • Accuracy: 100.0%";
+    const std::string defaultScoreText = "Score: 0123456789 • Misses: 0 • Accuracy: 100.0%";
 
     // Convert each utf-8 character into its
     // corresponding codepoint in the font file
@@ -95,15 +95,14 @@ void funkin::PlayState::create() {
 }
 
 void funkin::PlayState::loadSong(std::string songName, std::string difficulty) {
-    bool needsVoices;
     std::string basePath = "assets/songs/" + songName + "/";
 
     song = funkin::Song::parseChart(songName, difficulty);
 
     nlohmann::json_abi_v3_12_0::json parsedSong = song.parsedSong;
 
+    const bool needsVoices = parsedSong["needsVoices"];
     scrollSpeed = parsedSong["speed"];
-    needsVoices = parsedSong["needsVoices"];
     curStage = parsedSong["stage"];
     player1 = parsedSong["player1"];
     player2 = parsedSong["player2"];
@@ -180,7 +179,7 @@ void funkin::PlayState::update(float delta) {
     healthBar->bar->percent = health = playerField->health;
 
     bool playing = false;
-    for (raylib::Music* music : tracks) {
+    for (const raylib::Music* music : tracks) {
         if (music->IsPlaying()) {
             playing = true;
             break;

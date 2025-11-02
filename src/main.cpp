@@ -8,8 +8,8 @@
 #endif
 
 int main() {
-    int windowWidth = 1280;
-    int windowHeight = 720;
+    constexpr int windowWidth = 1280;
+    constexpr int windowHeight = 720;
     raylib::Window window = raylib::Window(windowWidth, windowHeight, "Friday Night Funkin'", FLAG_WINDOW_RESIZABLE);
     #if __APPLE__
     MacOSUtil::fixWindowColorSpace();

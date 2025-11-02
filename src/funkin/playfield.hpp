@@ -15,6 +15,7 @@ class PlayField : public engine::Group<engine::Object> {
     std::vector<funkin::NoteData> noteDatas = {};
     std::vector<funkin::Note*> toInvalidate = {};
     size_t noteDataIndex = 0;
+    funkin::Note* lastSpawnedNote = nullptr;
 
     void invalidateNote(Note* note);
     void calculateAccuracy();
