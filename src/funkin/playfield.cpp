@@ -105,14 +105,15 @@ void funkin::PlayField::update(const float delta) {
 
         note->updateY(conductor->time);
 
-        const float actualMinHitTime = cpuControlled || note->isSustain ? 0 : minHitTime;
+        const int lane = note->lane;
+
+        const float actualMinHitTime = cpuControlled ? 0 : minHitTime;
 
         const float minHitWindow = (hitWindow + actualMinHitTime);
         const float maxHitWindow = (hitWindow - maxHitTime);
 
         const bool hittable = note->strumTime <= minHitWindow && note->strumTime >= maxHitWindow;
 
-        const int lane = note->lane;
 
         // if statement of DOOM
         // crashes if I separate into variables, so maybe figure out what's going on there?
