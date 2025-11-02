@@ -100,6 +100,7 @@ void funkin::PlayField::update(const float delta) {
             misses++;
             health = Clamp(health - 5.0f, 0, 100);
             calculateAccuracy();
+            continue;
         }
 
         note->updateY(conductor->time);
