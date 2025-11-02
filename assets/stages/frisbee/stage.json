@@ -2,42 +2,68 @@
     "objects": [
         {
             "file": "Fsky",
-            "position": [
-                1000,
-                -900
-            ]
+            "position": {
+                "x": -1000,
+                "y": -900
+            },
+            "scrollFactor": {
+                "x": 0.0,
+                "y": 0.0
+            }
         },
         {
             "file": "ground",
-            "position": [
-                -1600,
-                -900
-            ]
+            "position": {
+                "x": -1600,
+                "y": -900
+            },
+            "scrollFactor": {
+                "x": 0.8,
+                "y": 0.8
+            }
         },
         {
             "file": "sexcatch",
-            "position": [
-                -1600,
-                -900
-            ]
+            "position": {
+                "x": -1600,
+                "y": -900
+            },
+            "scrollFactor": {
+                "x": 0.9,
+                "y": 0.9
+            }
         },
         {
             "file": "ggg",
-            "position": [
-                -1600,
-                -900
-            ]
+            "position": {
+                "x": -1600,
+                "y": -900
+            },
+            "scrollFactor": {
+                "x": 1.0,
+                "y": 1.0
+            }
         }
     ],
     "zoom": 0.575,
     "characters": {
-        "bf": {
-            "x": 100,
-            "y": 0
+        "boyfriend": {
+            "position": {
+                "x": 100,
+                "y": 0
+            }
         },
         "dad": {
-            "x": -550,
-            "y": 0
+            "position": {
+                "x": -550,
+                "y": 0
+            }
+        },
+        "girlfriend": {
+            "position": {
+                "x": -370,
+                "y": -50
+            }
         }
     }
 }
