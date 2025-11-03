@@ -11,6 +11,7 @@ int main() {
     constexpr int windowWidth = 1280;
     constexpr int windowHeight = 720;
     raylib::Window window = raylib::Window(windowWidth, windowHeight, "Friday Night Funkin'", FLAG_WINDOW_RESIZABLE);
+
     #if __APPLE__
     MacOSUtil::fixWindowColorSpace();
     #endif
@@ -24,7 +25,7 @@ int main() {
     raylib::AudioDevice audioDevice = raylib::AudioDevice();
     audioDevice.SetVolume(0.25f);
 
-    engine::Game::start(new funkin::SongSelectState());
+    engine::Game(new funkin::SongSelectState());
 
     while (!window.ShouldClose()) {
         if (IsKeyPressed(KEY_F11)) {

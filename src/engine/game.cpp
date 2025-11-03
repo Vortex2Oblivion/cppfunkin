@@ -10,7 +10,7 @@ engine::State* engine::Game::_state = nullptr;
 engine::Camera* engine::Game::defaultCamera = new engine::Camera();
 std::vector<engine::Camera*> engine::Game::cameras = {engine::Game::defaultCamera};
 
-void engine::Game::start(State* initialState) {
+engine::Game::Game(State *initialState) {
     _state = initialState;
     _state->create();
 }
