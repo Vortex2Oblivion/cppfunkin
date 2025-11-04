@@ -22,6 +22,7 @@ class Note final : public engine::SparrowSprite {
     bool wasMissed = false;
     bool wasHit = false;
     bool isSustain = false;
+    bool isQueuedSustain = false;
 
     funkin::Note* parentNote = nullptr;
 };

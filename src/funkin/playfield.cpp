@@ -107,9 +107,9 @@ void funkin::PlayField::update(const float delta) {
 
         const int lane = note->lane;
 
-        const float actualMinHitTime = cpuControlled ? 0 : minHitTime;
+        const float actualMinHitTime = 0;
 
-        const float minHitWindow = (hitWindow + actualMinHitTime);
+        const float minHitWindow = (hitWindow + maxHitTime);
         const float maxHitWindow = (hitWindow - maxHitTime);
 
         const bool hittable = note->strumTime <= minHitWindow && note->strumTime >= maxHitWindow;
@@ -120,8 +120,32 @@ void funkin::PlayField::update(const float delta) {
 
         const bool wasKeyPressed = justHitArray[lane] || cpuControlled;
 
-        if (!hittable || (!wasKeyPressed && !(note->isSustain && (pressedArray[lane] && (note->parentNote->wasHit || (!note->parentNote->alive && !note->parentNote->wasMissed)))))) {
+        if (!hittable) {
             continue;
+        }
+
+        if (cpuControlled && note->strumTime > conductor->time * 1000.0f) {
+            continue;
+        }
+
+        if (!cpuControlled) {
+            if (note->isSustain && !pressedArray[lane] && !note->isQueuedSustain) {
+                continue;
+            } else if (!note->isSustain && !justHitArray[lane]) {
+                continue;
+            }
+
+            if (pressedArray[lane] && note->isSustain && conductor->time * 1000.0f < note->strumTime) {
+                if (conductor->time * 1000.0f + conductor->getStepCrochet() <= note->strumTime) {
+                    note->isQueuedSustain = true;
+                }
+
+                continue;
+            }
+
+            if (!pressedArray[lane] && note->isQueuedSustain && conductor->time * 1000.0f < note->strumTime) {
+                continue;
+            }
         }
 
         const float distance = note->strumTime - conductor->time * 1000.0f;
@@ -133,7 +157,9 @@ void funkin::PlayField::update(const float delta) {
             continue;
         }
 
-        closestDistance = distance;
+        if (distance < closestDistance) {
+            closestDistance = distance;
+        }
 
         for (const auto character : characters) {
             character->playAnimation(singAnimArray[lane]);
