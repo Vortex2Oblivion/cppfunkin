@@ -120,12 +120,11 @@ void funkin::PlayField::update(const float delta) {
 
         const bool wasKeyPressed = justHitArray[lane] || cpuControlled;
 
-        if (!hittable || (!wasKeyPressed && !(note->isSustain && pressedArray[lane] && (note->parentNote->wasHit || (!note->parentNote->alive && !note->parentNote->wasMissed))))) {
+        if (!hittable || (!wasKeyPressed && !(note->isSustain && (pressedArray[lane] && (note->parentNote->wasHit || (!note->parentNote->alive && !note->parentNote->wasMissed)))))) {
             continue;
         }
 
-        const float rawHitTime = note->strumTime - conductor->time * 1000.f;
-        const float distance = rawHitTime;
+        const float distance = note->strumTime - conductor->time * 1000.0f;
 
         // 5ms allowed or smth idk
         float& closestDistance = closestDistances[lane];
