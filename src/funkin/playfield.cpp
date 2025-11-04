@@ -2,11 +2,10 @@
 
 #include <algorithm>
 #include <cmath>
-#include <iostream>
 #include <utility>
+#include <raylib-cpp.hpp>
 
 #include "../engine/group.hpp"
-#include "Vector2.hpp"
 #include "strumnote.hpp"
 
 bool noteDataSorter(const funkin::NoteData a, const funkin::NoteData b) { return a.time < b.time; }
@@ -41,7 +40,7 @@ void funkin::PlayField::update(const float delta) {
         note->position.x = positionX;
         note->isPlayer = data.isPlayer;
 
-        lastSpawnedNote = note;
+        lastSpawnedNotes[data.lane] = note;
 
         const auto roundSustainLength = static_cast<size_t>(roundf(data.sustainLength / conductor->getStepCrochet()));
 
@@ -54,8 +53,8 @@ void funkin::PlayField::update(const float delta) {
                 sustainNote->scale.y = conductor->getStepCrochet() * 1000.0f * 0.45f * scrollSpeed / 44.0f;
                 sustainNote->originFactor = raylib::Vector2::Zero();
                 sustainNote->position.x = positionX + 51.0f / 1.5f;
-                sustainNote->parentNote = lastSpawnedNote;
-                lastSpawnedNote = sustainNote;
+                sustainNote->parentNote = lastSpawnedNotes[data.lane];
+                lastSpawnedNotes[data.lane] = sustainNote;
 
                 if (i == roundSustainLength - 1) {
                     sustainNote->playAnimation("hold_end");
@@ -68,6 +67,7 @@ void funkin::PlayField::update(const float delta) {
 
         notes->add(note);
         noteDataIndex++;
+
     }
 
     // inputs
@@ -117,7 +117,10 @@ void funkin::PlayField::update(const float delta) {
 
         // if statement of DOOM
         // crashes if I separate into variables, so maybe figure out what's going on there?
-        if (!hittable || (!justHitArray[lane] && !cpuControlled && !(note->isSustain && pressedArray[lane] && (note->parentNote->wasHit || (!note->parentNote->alive && !note->parentNote->wasMissed))))) {
+
+        const bool wasKeyPressed = justHitArray[lane] || cpuControlled;
+
+        if (!hittable || (!wasKeyPressed && !(note->isSustain && pressedArray[lane] && (note->parentNote->wasHit || (!note->parentNote->alive && !note->parentNote->wasMissed))))) {
             continue;
         }
 

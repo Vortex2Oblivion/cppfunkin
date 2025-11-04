@@ -62,12 +62,12 @@ void funkin::PlayState::create() {
     playfields.push_back(playerField);
 
     // https://www.raylib.com/examples/text/loader.html?name=text_codepoints_loading
-    const std::string defaultScoreText = "Score: 0123456789 • Misses: 0 • Accuracy: 100.0%";
+    const auto defaultScoreText = "Score: 0123456789 • Misses: 0 • Accuracy: 100.0%";
 
     // Convert each utf-8 character into its
     // corresponding codepoint in the font file
     int codepointCount = 0;
-    int* codepoints = LoadCodepoints(defaultScoreText.c_str(), &codepointCount);
+    int* codepoints = LoadCodepoints(defaultScoreText, &codepointCount);
 
     // Removed duplicate codepoints to generate smaller font atlas
     int codepointsNoDupsCount = 0;
