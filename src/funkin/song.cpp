@@ -35,10 +35,10 @@ funkin::SongData funkin::Song::parseChart(const std::string& songName, const std
             bool playerNote = (sectionNote[1] < 4) ? static_cast<bool>(sectionNotes["mustHitSection"]) : (!sectionNotes["mustHitSection"]);
             int lane = (static_cast<int>(sectionNote[1]) % 4) + (playerNote ? 0 : 4);
             auto noteData = NoteData{
-                .time = static_cast<float>(sectionNote[0]) / 1.0f,
+                .time = static_cast<float>(sectionNote[0]),
                 .lane = lane % 4,
                 .isPlayer = playerNote,
-                .sustainLength = static_cast<float>(sectionNote[2]) / 1.0f
+                .sustainLength = static_cast<float>(sectionNote[2])
             };
             if (playerNote) {
                 playerNotes.push_back(noteData);

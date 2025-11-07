@@ -164,7 +164,7 @@ void funkin::PlayState::updateScoreText() const {
     scoreText->screenCenter(engine::Axes::X);
 }
 
-void funkin::PlayState::update(float delta) {
+void funkin::PlayState::update(const float delta) {
     MusicBeatState::update(delta);
 
     engine::Game::defaultCamera->zoom = Lerp(defaultCameraZoom, engine::Game::defaultCamera->zoom, expf(-delta * 3.125f));

@@ -32,7 +32,7 @@ funkin::PlayField::~PlayField() = default;
 
 void funkin::PlayField::update(const float delta) {
     engine::Group<Object>::update(delta);
-    while (!noteDatas.empty() && noteDataIndex < noteDatas.size() && ceilf(conductor->time / 1000.0f) >= floorf(noteDatas[noteDataIndex].time / 1000.0f - 2.0f)) {
+    while (!noteDatas.empty() && noteDataIndex < noteDatas.size() && ceilf(conductor->time) >= floorf(noteDatas[noteDataIndex].time - 2000.0f)) {
         const auto data = noteDatas[noteDataIndex];
         const auto note = new Note(data.time, data.lane, scrollSpeed);
         const float positionX = strums->members[data.lane]->position.x;
@@ -107,8 +107,6 @@ void funkin::PlayField::update(const float delta) {
 
         const int lane = note->lane;
 
-        const float actualMinHitTime = 0;
-
         const float minHitWindow = (hitWindow + maxHitTime);
         const float maxHitWindow = (hitWindow - maxHitTime);
 
@@ -153,7 +151,7 @@ void funkin::PlayField::update(const float delta) {
         // 5ms allowed or smth idk
         float& closestDistance = closestDistances[lane];
 
-        if (closestDistance != INFINITY && abs(closestDistance - distance) > 5.0f) {
+        if (closestDistance != INFINITY && abs(closestDistance - distance) > 5000.0f) {
             continue;
         }
 

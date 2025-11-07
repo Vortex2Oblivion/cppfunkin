@@ -12,6 +12,6 @@ engine::Object::Object(const float x, const float y) {
 }
 engine::Object::~Object() { alive = false; }
 
-void engine::Object::update(float delta) {}
+void engine::Object::update(const float delta) {}
 
 void engine::Object::draw(float x, float y) {}

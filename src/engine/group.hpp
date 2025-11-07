@@ -61,7 +61,7 @@ void engine::Group<T>::add(T* obj) {
 }
 
 template <typename T>
-void engine::Group<T>::update(float delta) {
+void engine::Group<T>::update(const float delta) {
     for (auto member : members) {
         if (member == nullptr || !member->alive) {
             continue;
