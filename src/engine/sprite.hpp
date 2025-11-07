@@ -7,10 +7,12 @@
 #include "axes.hpp"
 #include "object.hpp"
 
+#include <unordered_map>
+
 namespace engine {
 class Sprite : public Object {
    private:
-    static std::map<std::string, raylib::Texture*> texturePool;
+    static std::unordered_map<std::string, raylib::Texture*> texturePool;
     static void cacheTexture(std::string path);
 
    protected:

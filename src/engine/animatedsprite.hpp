@@ -24,7 +24,7 @@ class AnimatedSprite : public Sprite {
 
     void draw(float x, float y) override;
 
-    std::map<std::string, engine::Animation*> animations = {};
+    std::unordered_map<std::string, engine::Animation*> animations = {};
     engine::Animation* currentAnimation = nullptr;
     std::map<std::string, raylib::Vector2> offsets = {};
     raylib::Vector2 animationOffset;

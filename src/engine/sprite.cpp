@@ -4,9 +4,9 @@
 
 #include "Vector2.hpp"
 
-std::map<std::string, raylib::Texture*> engine::Sprite::texturePool;
+std::unordered_map<std::string, raylib::Texture*> engine::Sprite::texturePool;
 
-engine::Sprite::Sprite(float x, float y) : Object(x, y) {}
+engine::Sprite::Sprite(const float x, const float y) : Object(x, y) {}
 
 engine::Sprite::~Sprite() = default;
 
