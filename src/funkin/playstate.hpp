@@ -30,7 +30,8 @@ namespace funkin
         void beatHit() override;
         void stepHit() override;
 
-        void loadSong(std::string songName, std::string difficulty);
+        void loadSong(const std::string &songName,
+                      const std::string &difficulty);
 
         std::vector<raylib::Music *> tracks = {};
         std::vector<funkin::PlayField *> playfields = {};

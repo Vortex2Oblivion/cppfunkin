@@ -92,10 +92,10 @@ void funkin::PlayState::create() {
     add(scoreText);
 }
 
-void funkin::PlayState::loadSong( std::string songName,  std::string difficulty) {
+void funkin::PlayState::loadSong( const std::string& songName,  const std::string& difficulty) {
     const std::string basePath = "assets/songs/" + songName + "/";
 
-    song = funkin::Song::parseChart(songName, std::move(difficulty));
+    song = funkin::Song::parseChart(songName, difficulty);
 
     nlohmann::json_abi_v3_12_0::json parsedSong = song.parsedSong;
 
