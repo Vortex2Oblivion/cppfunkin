@@ -10,7 +10,7 @@ funkin::Conductor::~Conductor() {
     if (tracks.empty()) {
         return;
     }
-    for (auto track : tracks) {
+    for (const auto track : tracks) {
         track->Stop();
         delete track;
     }
@@ -22,7 +22,7 @@ void funkin::Conductor::start(std::vector<raylib::Music*> tracks) {
     start();
 }
 
-void funkin::Conductor::start() {
+void funkin::Conductor::start() const {
     if (tracks.empty()) {
         return;
     }
@@ -31,7 +31,7 @@ void funkin::Conductor::start() {
     }
 }
 
-void funkin::Conductor::stop() {
+void funkin::Conductor::stop() const {
     if (tracks.empty()) {
         return;
     }
@@ -44,11 +44,11 @@ void funkin::Conductor::update(const float delta) {
     if (tracks.empty()) {
         return;
     }
-    for (auto track : tracks)
+    for (const auto track : tracks)
     {
         track->Update();
     }
-    auto track = tracks[0];
+    const auto track = tracks[0];
     // TODO MAKE THIS IN GAME OPTION RATHER THAN __APPLE__ lol
     #if __APPLE__
     if (track->GetTimePlayed() * 1000.0f >= time || abs(time - track->GetTimePlayed() * 1000.0f) > 20.0f / 1000.0f)

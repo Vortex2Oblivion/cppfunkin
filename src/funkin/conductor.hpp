@@ -20,17 +20,17 @@ class Conductor {
     explicit Conductor(const std::vector<raylib::Music*> &tracks = {});
     ~Conductor();
     void start(std::vector<raylib::Music*> tracks);
-    void start();
-    void stop();
+    void start() const;
+    void stop() const;
     void update(float delta);
 
-    int getBeat() const;
-    int getStep() const;
-    float getCrochet() const;
-    float getStepCrochet() const;
+    [[nodiscard]] int getBeat() const;
+    [[nodiscard]] int getStep() const;
+    [[nodiscard]] float getCrochet() const;
+    [[nodiscard]] float getStepCrochet() const;
 
-    float getMaxAudioTime() const;
-    float getMinAudioTime() const;
+    [[nodiscard]] float getMaxAudioTime() const;
+    [[nodiscard]] float getMinAudioTime() const;
 
     std::vector<raylib::Music*> tracks = {};
     float time = -1.0f;
