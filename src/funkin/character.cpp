@@ -10,6 +10,7 @@ funkin::Character::Character(float x, float y, std::string characterName, bool i
     this->characterName = std::move(characterName);
     std::string characterBasePath = "assets/characters/" + this->characterName;
     std::ifstream characterFile(characterBasePath + "/character.json");
+
     if (characterFile.fail()) {
         this->characterName = isPlayer ? "bf" : "dad";
         characterBasePath = "assets/characters/" + this->characterName;

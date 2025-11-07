@@ -2,19 +2,17 @@
 
 #include <nlohmann/json.hpp>
 
-#include "../engine/bar.hpp"
 #include "../engine/camera.hpp"
 #include "../engine/sparrowsprite.hpp"
 #include "../engine/text.hpp"
 #include "character.hpp"
 #include "conductor.hpp"
 #include "healthbar.hpp"
-#include "healthicon.hpp"
 #include "musicbeatstate.hpp"
-#include "note.hpp"
 #include "playfield.hpp"
 #include "song.hpp"
 #include "stage.hpp"
+
 namespace funkin
 {
 
@@ -63,7 +61,7 @@ namespace funkin
         float accuracy = 100.0f;
         raylib::Vector2 cameraTarget = raylib::Vector2();
         size_t totalPlayerNotes = 0;
-        unsigned int misses = 0;
+        uint16_t misses = 0;
         float health = 50.0f;
     };
 } // namespace funkin

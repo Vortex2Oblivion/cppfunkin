@@ -2,7 +2,7 @@
 
 #include "axes.hpp"
 
-engine::Bar::Bar(float x, float y, float width, float height, raylib::Color colorLeft, raylib::Color colorRight, unsigned int outlineSize,
+engine::Bar::Bar(float x, float y, float width, float height, raylib::Color colorLeft, raylib::Color colorRight, float outlineSize,
     raylib::Color colorOutline)
     : Sprite(x, y) {
     rectBottom = new raylib::Rectangle(x, y, width, height);
@@ -26,7 +26,7 @@ void engine::Bar::screenCenter() {
     screenCenter(Y);
 }
 
-void engine::Bar::screenCenter(engine::Axes axes) {
+void engine::Bar::screenCenter(const engine::Axes axes) {
     switch (axes) {
         case X:
             position.x = (raylib::Window::GetWidth() - rectOutline->width) / 2;

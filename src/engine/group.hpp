@@ -12,6 +12,7 @@ class Group : public Object {
    public:
     std::vector<T*> members = {};
     raylib::Vector2 position = raylib::Vector2(0, 0);
+
     explicit Group(float x = 0.0f, float y = 0.0f);
     ~Group() override;
     virtual void add(T* obj);

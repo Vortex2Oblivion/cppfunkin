@@ -3,6 +3,8 @@
 #include "axes.hpp"
 #include "sprite.hpp"
 
+#include <cstdint>
+
 namespace engine {
 enum FillDirection {
     LEFT_TO_RIGHT,
@@ -17,7 +19,7 @@ class Bar final : public Sprite {
     raylib::Rectangle* rectTop;
 
    public:
-    Bar(float x, float y, float width, float height, raylib::Color colorLeft, raylib::Color colorRight, unsigned int outlineSize = 0,
+    Bar(float x, float y, float width, float height, raylib::Color colorLeft, raylib::Color colorRight, float outlineSize = 0,
         raylib::Color colorOutline = raylib::Color::Black());
     ~Bar() override;
     void screenCenter() override;
@@ -36,7 +38,7 @@ class Bar final : public Sprite {
     raylib::Vector2 origin;
 
     float percent = 50.0f;
-    unsigned int outlineSize = 0;
+    float outlineSize = 0.0f;
 };
 
 }  // namespace engine

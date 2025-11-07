@@ -10,7 +10,7 @@
 int main() {
     constexpr int windowWidth = 1280;
     constexpr int windowHeight = 720;
-    raylib::Window window = raylib::Window(windowWidth, windowHeight, "Friday Night Funkin'", FLAG_WINDOW_RESIZABLE);
+    auto window = raylib::Window(windowWidth, windowHeight, "Friday Night Funkin'", FLAG_WINDOW_RESIZABLE);
 
     #if __APPLE__
     MacOSUtil::fixWindowColorSpace();
@@ -18,19 +18,21 @@ int main() {
 
     window.SetTargetFPS(GetMonitorRefreshRate(window.GetMonitor()) * 2);
 
-    raylib::Image iconOG = raylib::Image("assets/images/iconOG.png");
+    auto iconOG = raylib::Image("assets/images/iconOG.png");
     window.SetIcon(iconOG);
     iconOG.Unload();
 
-    raylib::AudioDevice audioDevice = raylib::AudioDevice();
+    auto audioDevice = raylib::AudioDevice();
     audioDevice.SetVolume(0.25f);
 
     engine::Game(new funkin::SongSelectState());
 
     while (!window.ShouldClose()) {
+
         if (IsKeyPressed(KEY_F11)) {
             window.ToggleFullscreen();
         }
+
         window.BeginDrawing();
         window.ClearBackground(BLACK);
         engine::Game::update(window.GetFrameTime());

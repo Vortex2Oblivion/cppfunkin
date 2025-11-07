@@ -3,7 +3,7 @@
 #include "../engine/sparrowsprite.hpp"
 
 namespace funkin {
-class Character : public engine::SparrowSprite {
+class Character final : public engine::SparrowSprite {
    private:
     /* data */
    public:

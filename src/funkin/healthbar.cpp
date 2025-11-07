@@ -4,7 +4,7 @@
 
 funkin::HealthBar::HealthBar(const float x, const float y, std::string iconLeft, std::string iconRight, const raylib::Color colorLeft, const raylib::Color colorRight)
     : engine::Group<engine::Object>(x, y) {
-    bar = new engine::Bar(x, y, 601.0f - 8.0f, 19.0f - 8.0f, colorLeft, colorRight, 8);
+    bar = new engine::Bar(x, y, 601.0f - 8.0f, 19.0f - 8.0f, colorLeft, colorRight, 8.0f);
     bar->fillDirection = engine::FillDirection::RIGHT_TO_LEFT;
     add(bar);
     iconP1 = new funkin::HealthIcon(std::move(iconRight), 0.0f, 0.0f);
@@ -36,14 +36,14 @@ void funkin::HealthBar::update(const float delta) {
         iconP1->playAnimation("losing");
     }
 
-    float multP1 = Lerp(1.0f, iconP1->scale.x, expf(-delta * 9.0f));
+    const float multP1 = Lerp(1.0f, iconP1->scale.x, expf(-delta * 9.0f));
     iconP1->scale = raylib::Vector2(multP1, multP1);
 
-    float multP2 = Lerp(1.0f, iconP2->scale.x, expf(-delta * 9.0f));
+    const float multP2 = Lerp(1.0f, iconP2->scale.x, expf(-delta * 9.0f));
     iconP2->scale = raylib::Vector2(multP2, multP2);
 }
 
-void funkin::HealthBar::bopIcons(float scaleFactor) const {
+void funkin::HealthBar::bopIcons(const float scaleFactor) const {
     iconP1->scale = raylib::Vector2(scaleFactor, scaleFactor);
     iconP2->scale = raylib::Vector2(scaleFactor, scaleFactor);
 }
