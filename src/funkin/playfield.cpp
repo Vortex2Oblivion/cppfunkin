@@ -32,9 +32,9 @@ funkin::PlayField::~PlayField() = default;
 
 void funkin::PlayField::update(const float delta) {
     engine::Group<Object>::update(delta);
-    while (!noteDatas.empty() && noteDataIndex < noteDatas.size() && ceilf(conductor->time) >= floorf(noteDatas[noteDataIndex].time - 2.0f)) {
+    while (!noteDatas.empty() && noteDataIndex < noteDatas.size() && ceilf(conductor->time / 1000.0f) >= floorf(noteDatas[noteDataIndex].time / 1000.0f - 2.0f)) {
         const auto data = noteDatas[noteDataIndex];
-        const auto note = new Note(data.time * 1000.0f, data.lane, scrollSpeed);
+        const auto note = new Note(data.time, data.lane, scrollSpeed);
         const float positionX = strums->members[data.lane]->position.x;
 
         note->position.x = positionX;
@@ -46,11 +46,11 @@ void funkin::PlayField::update(const float delta) {
 
         if (roundSustainLength > 0) {
             for (size_t i = 0; i < roundSustainLength; i++) {
-                const auto sustainNote = new Note(data.time * 1000.0f + (conductor->getStepCrochet() * i * 1000.0f), data.lane, scrollSpeed);
+                const auto sustainNote = new Note(data.time + (conductor->getStepCrochet() * i), data.lane, scrollSpeed);
                 sustainNote->isPlayer = data.isPlayer;
                 sustainNote->playAnimation("hold");
                 sustainNote->isSustain = true;
-                sustainNote->scale.y = conductor->getStepCrochet() * 1000.0f * 0.45f * scrollSpeed / 44.0f;
+                sustainNote->scale.y = conductor->getStepCrochet() * 0.45f * scrollSpeed / 44.0f;
                 sustainNote->originFactor = raylib::Vector2::Zero();
                 sustainNote->position.x = positionX + 51.0f / 1.5f;
                 sustainNote->parentNote = lastSpawnedNotes[data.lane];
@@ -92,7 +92,7 @@ void funkin::PlayField::update(const float delta) {
             continue;
         }
 
-        const float hitWindow = conductor->time * 1000.0f;
+        const float hitWindow = conductor->time;
 
         if (hitWindow > note->strumTime + maxHitTime && !cpuControlled) {
             note->wasMissed = true;
@@ -124,7 +124,7 @@ void funkin::PlayField::update(const float delta) {
             continue;
         }
 
-        if (cpuControlled && note->strumTime > conductor->time * 1000.0f) {
+        if (cpuControlled && note->strumTime > conductor->time) {
             continue;
         }
 
@@ -135,20 +135,20 @@ void funkin::PlayField::update(const float delta) {
                 continue;
             }
 
-            if (pressedArray[lane] && note->isSustain && conductor->time * 1000.0f < note->strumTime) {
-                if (conductor->time * 1000.0f + conductor->getStepCrochet() <= note->strumTime) {
+            if (pressedArray[lane] && note->isSustain && conductor->time < note->strumTime) {
+                if (conductor->time + conductor->getStepCrochet() <= note->strumTime) {
                     note->isQueuedSustain = true;
                 }
 
                 continue;
             }
 
-            if (!pressedArray[lane] && note->isQueuedSustain && conductor->time * 1000.0f < note->strumTime) {
+            if (!pressedArray[lane] && note->isQueuedSustain && conductor->time < note->strumTime) {
                 continue;
             }
         }
 
-        const float distance = note->strumTime - conductor->time * 1000.0f;
+        const float distance = note->strumTime - conductor->time;
 
         // 5ms allowed or smth idk
         float& closestDistance = closestDistances[lane];
@@ -165,7 +165,7 @@ void funkin::PlayField::update(const float delta) {
             character->playAnimation(singAnimArray[lane]);
         }
 
-        const float addScore = abs(500.0f - (note->strumTime - conductor->time) / 1000.0f);
+        const float addScore = abs(500.0f - (note->strumTime - conductor->time));
 
         score += static_cast<int>(addScore);
         health = Clamp(health + (addScore / 200.0f), 0, 100);

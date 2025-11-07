@@ -22,4 +22,4 @@ funkin::Note::~Note() = default;
 
 void funkin::Note::update(const float delta) { SparrowSprite::update(delta); }
 
-void funkin::Note::updateY(const float songPosition) { position.y = 50 + -0.45f * (songPosition * 1000 - strumTime) * speed; }
+void funkin::Note::updateY(const float songPosition) { position.y = 50 + -0.45f * (songPosition - strumTime) * speed; }
