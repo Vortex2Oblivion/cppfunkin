@@ -14,6 +14,7 @@
 #include "coolutil.hpp"
 #include "healthbar.hpp"
 #include "playfield.hpp"
+#include "raylib.h"
 #include "song.hpp"
 #include "songselectstate.hpp"
 
@@ -22,9 +23,14 @@ funkin::PlayState::PlayState(std::string songName, std::string difficulty) : Mus
     this->difficulty = std::move(difficulty);
 }
 
-funkin::PlayState::~PlayState() { playfields.clear(); }
+funkin::PlayState::~PlayState() {
+    playfields.clear();
+    ShowCursor();
+}
 
 void funkin::PlayState::create() {
+    HideCursor();
+
     funkin::MusicBeatState::create();
 
     camHUD = new engine::Camera();
@@ -35,7 +41,7 @@ void funkin::PlayState::create() {
     dad = new Character(0, 0, player2, false);
 
     boyfriend = new Character(0, 0, player1, true);
-    
+
     girlfriend = new Character(0, 0, "gf", false);
     girlfriend->scrollFactor = raylib::Vector2(0.95f, 0.95f);
 
@@ -90,6 +96,9 @@ void funkin::PlayState::create() {
     add(healthBar);
 
     add(scoreText);
+
+    focusCamera();
+    engine::Game::defaultCamera->cameraPosition = cameraTarget;
 }
 
 void funkin::PlayState::loadSong( const std::string& songName,  const std::string& difficulty) {
@@ -129,6 +138,19 @@ void funkin::PlayState::loadSong( const std::string& songName,  const std::strin
     conductor->bpm = parsedSong["bpm"];
 }
 
+void funkin::PlayState::focusCamera(void) {
+    if (song.parsedSong.contains("notes")) {
+        auto notes = song.parsedSong["notes"];
+        const int targetSection = static_cast<int>(fminf(static_cast<float>(notes.size()) - 1.0f, fmaxf(0, floor(static_cast<float>(conductor->getBeat()) / 4.0f))));
+
+        if (notes[targetSection]["mustHitSection"]) {
+            cameraTarget = boyfriend->getMidpoint() + boyfriend->cameraOffset - raylib::Vector2(100, 100);
+        } else {
+            cameraTarget = dad->getMidpoint() + dad->cameraOffset + raylib::Vector2(150, -100);
+        }
+    }
+}
+
 void funkin::PlayState::beatHit() {
     funkin::MusicBeatState::beatHit();
 
@@ -142,16 +164,7 @@ void funkin::PlayState::beatHit() {
             camHUD->zoom += 0.03f;
         }
 
-        if (song.parsedSong.contains("notes")) {
-            auto notes = song.parsedSong["notes"];
-            const int targetSection = static_cast<int>(fminf(static_cast<float>(notes.size()) - 1.0f, fmaxf(0, floor(static_cast<float>(conductor->getBeat()) / 4.0f))));
-
-            if (notes[targetSection]["mustHitSection"]) {
-                cameraTarget = boyfriend->getMidpoint() + boyfriend->cameraOffset - raylib::Vector2(100, 100);
-            } else {
-                cameraTarget = dad->getMidpoint() + raylib::Vector2(150, -100);
-            }
-        }
+        focusCamera();
     }
 
     healthBar->bopIcons(1.125f);

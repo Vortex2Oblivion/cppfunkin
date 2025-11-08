@@ -32,6 +32,7 @@ namespace funkin
 
         void loadSong(const std::string &songName,
                       const std::string &difficulty);
+        void focusCamera(void);
 
         std::vector<raylib::Music *> tracks = {};
         std::vector<funkin::PlayField *> playfields = {};

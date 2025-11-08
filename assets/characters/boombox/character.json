@@ -3,6 +3,10 @@
     "x": -610,
     "y": -460
   },
+  "cameraOffset": {
+    "x": 0,
+    "y": 100
+  },
   "scale": 0.5,
   "animations": [
     {
