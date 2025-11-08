@@ -151,13 +151,11 @@ void funkin::PlayField::update(const float delta) {
         // 5ms allowed or smth idk
         float& closestDistance = closestDistances[lane];
 
-        if (closestDistance != INFINITY && abs(closestDistance - distance) > 5000.0f) {
+        if (distance > closestDistance) {
             continue;
         }
 
-        if (distance < closestDistance) {
-            closestDistance = distance;
-        }
+        closestDistance = distance;
 
         for (const auto character : characters) {
             character->playAnimation(singAnimArray[lane]);
