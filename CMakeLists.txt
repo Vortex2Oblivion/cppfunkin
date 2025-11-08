@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10.0)
 project(cppfunkin VERSION 0.1.0 LANGUAGES C CXX)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 set(MAIN src/main.cpp)
 file(GLOB FUNKIN "src/funkin/*.cpp")
@@ -38,7 +38,12 @@ if(MSVC)
     add_custom_target(copy_assets ALL
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_SOURCE_DIR}/assets
-    ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/assets
+    ${CMAKE_CURRENT_BINARY_DIR}/Release/assets
+
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/assets
+    ${CMAKE_CURRENT_BINARY_DIR}/Debug/assets
+
     COMMENT "COPYING ASSETS"
 )
 
