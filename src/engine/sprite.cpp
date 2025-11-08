@@ -4,7 +4,7 @@
 
 #include "Vector2.hpp"
 
-std::unordered_map<std::string, raylib::Texture*> engine::Sprite::texturePool;
+std::unordered_map<std::string, std::shared_ptr<raylib::Texture>> engine::Sprite::texturePool;
 
 engine::Sprite::Sprite(const float x, const float y) : Object(x, y) {}
 
@@ -72,9 +72,11 @@ void engine::Sprite::screenCenter(engine::Axes axes) {
 
 void engine::Sprite::centerOrigin() { origin = raylib::Vector2(dest.width / 2.0f, dest.height / 2.0f); }
 
-void engine::Sprite::clearTextureCache() {
-    for (std::pair<std::string, raylib::Texture*> pair : engine::Sprite::texturePool) {
-        delete pair.second;
+void engine::Sprite::clearTextureCache(bool deletePointers) {
+    if(deletePointers){
+        for (std::pair<std::string, std::shared_ptr<raylib::Texture>> pair : engine::Sprite::texturePool) {
+            pair.second.reset();
+        }
     }
     texturePool.clear();
 }
@@ -87,7 +89,7 @@ void engine::Sprite::cacheTexture(std::string path) {
         std::cerr << "Could not find image at path \"" << path << "\"\n";
         return;
     }
-    engine::Sprite::texturePool[path] = new raylib::Texture(path);
+    engine::Sprite::texturePool[path] = std::make_shared<raylib::Texture>(path);
 }
 
 void engine::Sprite::calculateScrollFactor() {

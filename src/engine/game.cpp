@@ -36,7 +36,7 @@ void engine::Game::update(const float delta) {
 }
 
 void engine::Game::switchState(State* nextState) {
-    engine::Sprite::clearTextureCache();
+    engine::Sprite::clearTextureCache(false);
     for (const auto camera : cameras) {
         delete camera;
     }

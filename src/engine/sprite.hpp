@@ -8,15 +8,16 @@
 #include "object.hpp"
 
 #include <unordered_map>
+#include <memory>
 
 namespace engine {
 class Sprite : public Object {
    private:
-    static std::unordered_map<std::string, raylib::Texture*> texturePool;
+    static std::unordered_map<std::string, std::shared_ptr<raylib::Texture>> texturePool;
     static void cacheTexture(std::string path);
 
    protected:
-    raylib::Texture* texture = nullptr;
+    std::shared_ptr<raylib::Texture> texture = nullptr;
     raylib::Rectangle source = raylib::Rectangle();
     raylib::Rectangle dest = raylib::Rectangle();
 
@@ -42,6 +43,6 @@ class Sprite : public Object {
     raylib::Color color = WHITE;
     bool flipX = false;
 
-    static void clearTextureCache();
+    static void clearTextureCache(bool deletePointers = false);
 };
 }  // namespace engine
