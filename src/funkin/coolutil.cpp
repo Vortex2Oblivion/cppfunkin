@@ -48,6 +48,5 @@ std::string funkin::CoolUtil::formatBytes(size_t bytes)
 			dblBytes = bytes / 1024.0;
 	}
 
-    static char output[200];
-	return TextFormat("%.02lf %s", dblBytes, suffix[i]);
+	return TextFormat("%.02lf %s", dblBytes, suffix[i].c_str());
 }

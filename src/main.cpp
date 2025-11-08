@@ -21,9 +21,10 @@ int main() {
 
     window.SetTargetFPS(GetMonitorRefreshRate(window.GetMonitor()) * 2);
 
-    auto iconOG = raylib::Image("assets/images/iconOG.png");
-    window.SetIcon(iconOG);
-    iconOG.Unload();
+    {
+        auto iconOG = raylib::Image("assets/images/iconOG.png");
+        window.SetIcon(iconOG);
+    }
 
     auto audioDevice = raylib::AudioDevice();
     audioDevice.SetVolume(0.25f);
