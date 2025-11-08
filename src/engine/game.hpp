@@ -9,7 +9,7 @@ class Game {
 
    public:
     Game(State* initialState);
-    static void update(float delta);
+    void update(float delta);
     static void switchState(State* nextState);
     static std::vector<engine::Camera*> cameras;
     static engine::Camera* defaultCamera;

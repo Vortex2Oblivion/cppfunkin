@@ -2,11 +2,13 @@
 
 #include "engine/game.hpp"
 #include "funkin/songselectstate.hpp"
-#include "raylib.h"
+#include "engine/memorycounter.hpp"
 
 #if __APPLE__
 #include "engine/macos.hpp"
 #endif
+#include <iostream>
+#include "funkin/coolutil.hpp"
 
 int main() {
     constexpr int windowWidth = 1280;
@@ -26,7 +28,7 @@ int main() {
     auto audioDevice = raylib::AudioDevice();
     audioDevice.SetVolume(0.25f);
 
-    engine::Game(new funkin::SongSelectState());
+    auto game = engine::Game(new funkin::SongSelectState());
 
     while (!window.ShouldClose()) {
 
@@ -36,8 +38,9 @@ int main() {
 
         window.BeginDrawing();
         window.ClearBackground(BLACK);
-        engine::Game::update(window.GetFrameTime());
+        game.update(window.GetFrameTime());
         window.DrawFPS(10, 10);
+        DrawText(funkin::CoolUtil::formatBytes(getCurrentRSS()).c_str(), 10, 30, 20, LIME);
         window.EndDrawing();
     }
 
