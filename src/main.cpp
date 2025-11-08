@@ -2,6 +2,7 @@
 
 #include "engine/game.hpp"
 #include "funkin/songselectstate.hpp"
+#include "raylib.h"
 
 #if __APPLE__
 #include "engine/macos.hpp"
@@ -10,7 +11,7 @@
 int main() {
     constexpr int windowWidth = 1280;
     constexpr int windowHeight = 720;
-    auto window = raylib::Window(windowWidth, windowHeight, "Friday Night Funkin'", FLAG_WINDOW_RESIZABLE);
+    auto window = raylib::Window(windowWidth, windowHeight, "Friday Night Funkin'", FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_HIGHDPI);
 
     #if __APPLE__
     MacOSUtil::fixWindowColorSpace();

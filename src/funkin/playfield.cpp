@@ -51,8 +51,7 @@ void funkin::PlayField::update(const float delta) {
                 sustainNote->playAnimation("hold");
                 sustainNote->isSustain = true;
                 sustainNote->scale.y = conductor->getStepCrochet() * 0.45f * scrollSpeed / 44.0f;
-                sustainNote->originFactor = raylib::Vector2::Zero();
-                sustainNote->position.x = positionX + 51.0f / 1.5f;
+                sustainNote->originFactor = raylib::Vector2(0.5, 0.0);
                 sustainNote->parentNote = lastSpawnedNotes[data.lane];
                 lastSpawnedNotes[data.lane] = sustainNote;
 
@@ -61,6 +60,7 @@ void funkin::PlayField::update(const float delta) {
                     sustainNote->scale.y = 0.7f;
                 }
 
+                sustainNote->position.x = positionX + (note->getFrameSize().x - sustainNote->getFrameSize().x) / 2.0 - 4.0;
                 notes->add(sustainNote);
             }
         }
@@ -85,10 +85,25 @@ void funkin::PlayField::update(const float delta) {
             strum->playAnimation("press");
             strum->offset = strum->offset.Scale(0.0f);
         }
+    } else {
+        for (size_t i = 0; i < pressedArray.size(); i++) {
+            pressedArray[i] = true;
+        }
     }
 
     for (auto note : notes->members) {
         if (note == nullptr || !note->alive || note->wasMissed) {
+            continue;
+        }
+
+        note->laneHeld = pressedArray[note->lane];
+
+        if (note->isSustain && note->wasHit) {
+            if (conductor->time > note->strumTime + maxHitTime) {
+                toInvalidate.push_back(note);
+            }
+
+            note->updateY(conductor->time);
             continue;
         }
 
@@ -106,6 +121,7 @@ void funkin::PlayField::update(const float delta) {
         note->updateY(conductor->time);
 
         const int lane = note->lane;
+        funkin::StrumNote* strum = strums->members[lane];
 
         const float minHitWindow = (hitWindow + maxHitTime);
         const float maxHitWindow = (hitWindow - maxHitTime);
@@ -161,18 +177,23 @@ void funkin::PlayField::update(const float delta) {
             character->playAnimation(singAnimArray[lane]);
         }
 
-        const float addScore = abs(500.0f - (note->strumTime - conductor->time));
+        float addScore = abs(500.0f - (note->strumTime - conductor->time));
+        if (note->isSustain) {
+            addScore = 10.0;
+        }
 
         score += static_cast<int>(addScore);
         health = Clamp(health + (addScore / 200.0f), 0, 100);
 
-        funkin::StrumNote* strum = strums->members[lane];
         strum->playAnimation("confirm");
         strum->offset.x = -30;
         strum->offset.y = -30;
 
         note->wasHit = true;
-        toInvalidate.push_back(note);
+
+        if (!note->isSustain) {
+            toInvalidate.push_back(note);
+        }
     }
 
     for (const auto note : toInvalidate) {

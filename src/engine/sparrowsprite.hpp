@@ -5,6 +5,7 @@
 #include "Vector2.hpp"
 #include "animatedsprite.hpp"
 #include "animation.hpp"
+#include "raylib.h"
 
 namespace engine {
 class SparrowSprite : public AnimatedSprite {
@@ -21,6 +22,8 @@ class SparrowSprite : public AnimatedSprite {
     void update(float delta) override;
 
     void draw(float x, float y) override;
+
+    Vector2 getFrameSize(void);
 
     std::string xmlPath;
 };

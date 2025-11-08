@@ -9,6 +9,7 @@ class Note final : public engine::SparrowSprite {
     Note(float strumTime, int lane, float speed);
     ~Note() override;
     void update(float delta) override;
+    void draw(float x, float y) override;
 
     void updateY(float songPosition);
 
@@ -23,6 +24,7 @@ class Note final : public engine::SparrowSprite {
     bool wasHit = false;
     bool isSustain = false;
     bool isQueuedSustain = false;
+    bool laneHeld = false;
 
     funkin::Note* parentNote = nullptr;
 };
