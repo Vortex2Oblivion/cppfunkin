@@ -4,8 +4,8 @@
 
 namespace funkin {
 class Character final : public engine::SparrowSprite {
-   private:
-    /* data */
+   protected:
+    bool danceLeft = true;
    public:
     Character(float x, float y, std::string characterName, bool isPlayer);
 
@@ -13,7 +13,6 @@ class Character final : public engine::SparrowSprite {
     void dance();
 
     std::string characterName;
-    bool danceLeft = true;
     raylib::Vector2 cameraOffset = raylib::Vector2::Zero();
 };
 }  // namespace funkin

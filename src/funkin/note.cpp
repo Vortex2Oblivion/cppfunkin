@@ -28,7 +28,7 @@ void funkin::Note::updateY(const float songPosition) { position.y = 50 + -0.45f 
 void funkin::Note::draw(float x, float y) {
     if (isSustain && (laneHeld || wasHit || isQueuedSustain)) {
         // replace the magic number with an actual strum y someday probably !!! lol!!!
-        float yScissor = camera->GetWorldToScreen({0.0, 125.0}).y;
+        int yScissor = static_cast<int>(camera->GetWorldToScreen({0.0, 125.0}).y);
         BeginScissorMode(0, yScissor, 1280, 720-yScissor);
     }
 

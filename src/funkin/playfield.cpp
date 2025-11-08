@@ -60,7 +60,7 @@ void funkin::PlayField::update(const float delta) {
                     sustainNote->scale.y = 0.7f;
                 }
 
-                sustainNote->position.x = positionX + (note->getFrameSize().x - sustainNote->getFrameSize().x) / 2.0 - 4.0;
+                sustainNote->position.x = positionX + (note->getFrameSize().x - sustainNote->getFrameSize().x) / 2.0f - 4.0f;
                 notes->add(sustainNote);
             }
         }
