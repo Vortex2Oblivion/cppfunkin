@@ -15,16 +15,22 @@
   "zoom": 0.7,
   "characters": {
     "boyfriend": {
-      "x": 750,
-      "y": 0
+      "position": {
+        "x": 750,
+        "y": 0
+      }
     },
     "dad": {
-      "x": 0,
-      "y": 0
+      "position": {
+        "x": 0,
+        "y": 0
+      }
     },
     "girlfriend": {
-      "x": 0,
-      "y": 0
+      "position": {
+        "x": 0,
+        "y": 0
+      }
     }
   }
 }

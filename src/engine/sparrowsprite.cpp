@@ -6,6 +6,7 @@
 #include <pugixml.hpp>
 
 #include "animatedsprite.hpp"
+#include "raylib.h"
 
 engine::SparrowSprite::SparrowSprite(float x, float y) : AnimatedSprite(x, y) {}
 
@@ -97,4 +98,13 @@ void engine::SparrowSprite::draw(float x, float y) {
     if (isOnScreen(x, y)) {
         texture->Draw(source, dest, origin * scale, angle, color);
     }
+}
+
+Vector2 engine::SparrowSprite::getFrameSize(void) {
+    if (currentAnimation == nullptr || animations.empty()) {
+        return {0.0, 0.0};
+    }
+
+    size_t frame = currentAnimation->currentFrame;
+    return {currentAnimation->frames[frame]->width, currentAnimation->frames[frame]->height};
 }
