@@ -4,7 +4,7 @@
 #include <vector>
 
 
-funkin::Conductor::Conductor(const std::vector<raylib::Music*> &tracks) { this->tracks = tracks; }
+funkin::Conductor::Conductor(const std::vector<std::shared_ptr<raylib::Music>> &tracks) { this->tracks = tracks; }
 
 funkin::Conductor::~Conductor() {
     if (tracks.empty()) {
@@ -12,12 +12,11 @@ funkin::Conductor::~Conductor() {
     }
     for (const auto track : tracks) {
         track->Stop();
-        delete track;
     }
     tracks.clear();
 }
 
-void funkin::Conductor::start(std::vector<raylib::Music*> tracks) {
+void funkin::Conductor::start(std::vector<std::shared_ptr<raylib::Music>> tracks) {
     this->tracks = std::move(tracks);
     start();
 }

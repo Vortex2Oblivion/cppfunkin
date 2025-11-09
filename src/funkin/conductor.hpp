@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <raylib-cpp.hpp>
 #include <vector>
 
@@ -17,9 +18,9 @@ class Conductor {
     void beatHit();
 
    public:
-    explicit Conductor(const std::vector<raylib::Music*> &tracks = {});
+    explicit Conductor(const std::vector<std::shared_ptr<raylib::Music>> &tracks = {});
     ~Conductor();
-    void start(std::vector<raylib::Music*> tracks);
+    void start(std::vector<std::shared_ptr<raylib::Music>> tracks);
     void start() const;
     void stop() const;
     void update(float delta);
@@ -32,7 +33,7 @@ class Conductor {
     [[nodiscard]] float getMaxAudioTime() const;
     [[nodiscard]] float getMinAudioTime() const;
 
-    std::vector<raylib::Music*> tracks = {};
+    std::vector<std::shared_ptr<raylib::Music>> tracks = {};
     float time = -1.0f;
     float bpm = 60.0f;
 };

@@ -34,7 +34,7 @@ namespace funkin
                       const std::string &difficulty);
         void focusCamera(void);
 
-        std::vector<raylib::Music *> tracks = {};
+        std::vector<std::shared_ptr<raylib::Music>> tracks = {};
         std::vector<funkin::PlayField *> playfields = {};
 
         funkin::PlayField *playerField{};

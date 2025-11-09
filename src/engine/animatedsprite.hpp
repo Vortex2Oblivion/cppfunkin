@@ -14,7 +14,7 @@ class AnimatedSprite : public Sprite {
     void update(float delta) override;
 
     virtual void addAnimation(const std::string &name, const std::vector<raylib::Rectangle> &rects, int framerate);
-    bool hasAnimation(const std::string &name);
+    bool hasAnimation(const std::string &name) const;
     void playAnimation(const std::string &name);
 
     void centerOffsets();
@@ -24,8 +24,8 @@ class AnimatedSprite : public Sprite {
 
     void draw(float x, float y) override;
 
-    std::unordered_map<std::string, engine::Animation*> animations = {};
-    engine::Animation* currentAnimation = nullptr;
+    std::unordered_map<std::string, std::shared_ptr<engine::Animation>> animations = {};
+    std::shared_ptr<engine::Animation> currentAnimation = nullptr;
     std::map<std::string, raylib::Vector2> offsets = {};
     raylib::Vector2 animationOffset;
 };

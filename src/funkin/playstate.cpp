@@ -118,19 +118,19 @@ void funkin::PlayState::loadSong( const std::string& songName,  const std::strin
     totalPlayerNotes = song.playerNotes.size();
 
     if (raylib::FileExists(basePath + "Inst.ogg")) {
-        tracks.push_back(new raylib::Music(basePath + "Inst.ogg"));
+        tracks.push_back(std::make_shared<raylib::Music>(basePath + "Inst.ogg"));
     }
     if (needsVoices) {
         if (raylib::FileExists(basePath + "Voices_Player.ogg") && raylib::FileExists(basePath + "Voices_Opponent.ogg")) {
-            tracks.push_back(new raylib::Music(basePath + "Voices_Player.ogg"));
-            tracks.push_back(new raylib::Music(basePath + "Voices_Opponent.ogg"));
+            tracks.push_back(std::make_shared<raylib::Music>(basePath + "Voices_Player.ogg"));
+            tracks.push_back(std::make_shared<raylib::Music>(basePath + "Voices_Opponent.ogg"));
         } else if (raylib::FileExists(basePath + "Voices.ogg")) {
-            tracks.push_back(new raylib::Music(basePath + "Voices.ogg"));
+            tracks.push_back(std::make_shared<raylib::Music>(basePath + "Voices.ogg"));
         }
     }
 
-    for (raylib::Music* music : tracks) {
-        music->SetLooping(false);
+    for (const auto music : tracks) {
+        music->looping = false;
     }
 
     conductor->start(tracks);
@@ -190,7 +190,7 @@ void funkin::PlayState::update(const float delta) {
     healthBar->bar->percent = health = playerField->health;
 
     bool playing = false;
-    for (const raylib::Music* music : tracks) {
+    for (const auto music : tracks) {
         if (music->IsPlaying()) {
             playing = true;
             break;

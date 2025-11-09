@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-engine::Animation::Animation(const std::vector<engine::Frame*> &frames, const uint8_t framerate, const std::string &name) {
+engine::Animation::Animation(const std::vector<std::shared_ptr<engine::Frame>> &frames, const uint8_t framerate, const std::string &name) {
     this->frames = frames;
     this->framerate = framerate;
     this->currentFrame = 0;
@@ -10,9 +10,6 @@ engine::Animation::Animation(const std::vector<engine::Frame*> &frames, const ui
 }
 
 engine::Animation::~Animation() {
-    for (const auto frame : frames) {
-        delete frame;
-    }
     frames.clear();
 }
 

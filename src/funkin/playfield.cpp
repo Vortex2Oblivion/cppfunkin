@@ -203,7 +203,7 @@ void funkin::PlayField::update(const float delta) {
     toInvalidate.clear();
 
     for (const auto strum : strums->members) {
-        const engine::Animation* animation = strum->currentAnimation;
+        const auto animation = strum->currentAnimation;
 
         bool playStaticAnimation = cpuControlled ? animation->currentFrame >= animation->frames.size() - 1 : !pressedArray[strum->lane];
 

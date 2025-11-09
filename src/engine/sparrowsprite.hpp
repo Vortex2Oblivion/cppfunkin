@@ -17,13 +17,13 @@ class SparrowSprite : public AnimatedSprite {
 
     SparrowSprite(float x, float y);
     ~SparrowSprite() override;
-    void loadGraphic(std::string imagePath, std::string xmlPath);
-    void addAnimation(std::string name, std::string prefix, int framerate, std::vector<uint8_t> indices = {});
+    void loadGraphic(const std::string &imagePath, std::string xmlPath);
+    void addAnimation(std::string name, const std::string &prefix, int framerate, std::vector<uint8_t> indices = {});
     void update(float delta) override;
 
     void draw(float x, float y) override;
 
-    Vector2 getFrameSize(void);
+    raylib::Vector2 getFrameSize(void) const;
 
     std::string xmlPath;
 };

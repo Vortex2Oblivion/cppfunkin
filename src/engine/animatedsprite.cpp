@@ -8,16 +8,7 @@ engine::AnimatedSprite::AnimatedSprite(const float x, const float y) : Sprite(x,
 
 engine::AnimatedSprite::~AnimatedSprite() {
     offsets.clear();
-
-    if (animations.empty()) {
-        return;
-    }
-
-    while (animations.begin() != animations.end()) {
-        const auto iter = animations.begin();
-        delete iter->second;
-        animations.erase(animations.begin());
-    }
+    animations.clear();
 }
 
 void engine::AnimatedSprite::update(const float delta) {
@@ -28,24 +19,24 @@ void engine::AnimatedSprite::update(const float delta) {
 }
 
 void engine::AnimatedSprite::addAnimation(const std::string& name, const std::vector<raylib::Rectangle>& rects, const int framerate) {
-    std::vector<Frame*> foundFrames = {};
+    std::vector<std::shared_ptr<engine::Frame>> foundFrames = {};
     for (const auto rect : rects) {
-        foundFrames.push_back(new Frame(rect));
+        foundFrames.push_back(std::make_shared<engine::Frame>(rect));
     }
-    animations[name] = new Animation(foundFrames, framerate, name);
+    animations[name] = std::make_shared<engine::Animation>(foundFrames, framerate, name);
 }
 
-bool engine::AnimatedSprite::hasAnimation(const std::string& name) { return animations.find(name) != animations.end(); }
+bool engine::AnimatedSprite::hasAnimation(const std::string& name) const { return animations.contains(name); }
 
 void engine::AnimatedSprite::playAnimation(const std::string& name) {
-    if (animations.count(name) == 0 || animations[name]->frames.empty()) {
+    if (!animations.contains(name) || animations[name]->frames.empty()) {
         std::cerr << "Animation not found or has no frames: " << name << "\n";
         return;
     }
 
     currentAnimation = animations[name];
     currentAnimation->resetFrame();
-    if (offsets.count(name)) {
+    if (offsets.contains(name)) {
         animationOffset = offsets[name];
     }
 }
