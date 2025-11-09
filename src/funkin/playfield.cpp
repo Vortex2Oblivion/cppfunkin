@@ -93,7 +93,7 @@ void funkin::PlayField::update(const float delta) {
         }
     }
 
-    for (auto note : notes->members) {
+    for (const auto& note : notes->members) {
         if (note == nullptr || !note->alive || note->wasMissed) {
             continue;
         }
@@ -123,7 +123,7 @@ void funkin::PlayField::update(const float delta) {
         note->updateY(conductor->time);
 
         const int lane = note->lane;
-        auto strum = strums->members[lane];
+        const auto strum = strums->members[lane];
 
         const float minHitWindow = (hitWindow + maxHitTime);
         const float maxHitWindow = (hitWindow - maxHitTime);

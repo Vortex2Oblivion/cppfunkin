@@ -10,3 +10,6 @@
 [submodule "external/pugixml"]
 	path = external/pugixml
 	url = https://github.com/zeux/pugixml
+[submodule "external/gamemode"]
+	path = external/gamemode
+	url = https://github.com/FeralInteractive/gamemode.git

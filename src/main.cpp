@@ -10,7 +10,16 @@
 #include <iostream>
 #include "funkin/coolutil.hpp"
 
+#if __linux__
+#include <gamemode_client.h>
+#endif
+
 int main() {
+
+    if (gamemode_request_start()) {
+        std::cerr << "Failed to request gamemode start: " << gamemode_error_string() << std::endl;
+    }
+
     constexpr int windowWidth = 1280;
     constexpr int windowHeight = 720;
     auto window = raylib::Window(windowWidth, windowHeight, "Friday Night Funkin'", FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_HIGHDPI);
@@ -44,6 +53,13 @@ int main() {
         window.DrawFPS(10, 10);
         raylib::Text::Draw(funkin::CoolUtil::formatBytes(getCurrentRSS()) + " / " + funkin::CoolUtil::formatBytes(getPeakRSS()), 10, 30, 20, LIME);
         window.EndDrawing();
+    }
+
+    audioDevice.Close();
+    window.Close();
+
+    if (gamemode_request_end()) {
+        std::cerr << "Failed to request gamemode end: " << gamemode_error_string() << std::endl;
     }
 
     return 0;
