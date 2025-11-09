@@ -42,6 +42,6 @@ void funkin::SongSelectState::update(float delta) {
     slungus->scale.x = static_cast<float>(sin(raylib::Window::GetTime())) + 2.0f;
     slungus->scale.y = static_cast<float>(cos(raylib::Window::GetTime())) + 2.0f;
     if (raylib::Keyboard::IsKeyPressed(KEY_ENTER)) {
-        engine::Game::switchState(new funkin::PlayState(songs[selectedSong], "hard"));
+        engine::Game::switchState(std::make_unique<funkin::PlayState>(songs[selectedSong], "hard"));
     }
 }

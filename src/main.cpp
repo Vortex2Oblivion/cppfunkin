@@ -24,12 +24,13 @@ int main() {
     {
         auto iconOG = raylib::Image("assets/images/iconOG.png");
         window.SetIcon(iconOG);
+        iconOG.Unload();
     }
 
     auto audioDevice = raylib::AudioDevice();
     audioDevice.SetVolume(0.25f);
 
-    auto game = engine::Game(new funkin::SongSelectState());
+    auto game = engine::Game(std::make_unique<funkin::SongSelectState>());
 
     while (!window.ShouldClose()) {
 

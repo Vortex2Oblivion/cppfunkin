@@ -198,6 +198,6 @@ void funkin::PlayState::update(const float delta) {
     }
 
     if (!playing || IsKeyPressed(KEY_SPACE)) {
-        engine::Game::switchState(new SongSelectState());
+        engine::Game::switchState(std::make_unique<SongSelectState>());
     }
 }

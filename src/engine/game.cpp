@@ -6,12 +6,12 @@
 #include "camera.hpp"
 #include "sprite.hpp"
 
-engine::State* engine::Game::_state = nullptr;
+std::unique_ptr<engine::State> engine::Game::_state = nullptr;
 engine::Camera* engine::Game::defaultCamera = new engine::Camera();
 std::vector<engine::Camera*> engine::Game::cameras = {engine::Game::defaultCamera};
 
-engine::Game::Game(State *initialState) {
-    _state = initialState;
+engine::Game::Game(std::unique_ptr<State> initialState) {
+    _state = std::move(initialState);
     _state->create();
 }
 
@@ -35,7 +35,7 @@ void engine::Game::update(const float delta) {
     }
 }
 
-void engine::Game::switchState(State* nextState) {
+void engine::Game::switchState(std::unique_ptr<State> nextState) {
     engine::Sprite::clearTextureCache(false);
     for (const auto camera : cameras) {
         delete camera;
@@ -43,7 +43,6 @@ void engine::Game::switchState(State* nextState) {
     defaultCamera = new engine::Camera();
     cameras = {defaultCamera};
     _state->alive = false;
-    delete _state;
-    _state = nextState;
+    _state = std::move(nextState);
     _state->create();
 }

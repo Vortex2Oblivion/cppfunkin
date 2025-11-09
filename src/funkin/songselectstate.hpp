@@ -4,7 +4,7 @@
 #include "musicbeatstate.hpp"
 
 namespace funkin {
-class SongSelectState : public MusicBeatState {
+class SongSelectState final : public MusicBeatState {
    private:
     int selectedSong = 0;
     std::vector<std::string> songs = {};
