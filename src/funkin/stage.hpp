@@ -11,7 +11,7 @@ class Stage final : public engine::Group<engine::Object> {
     nlohmann::json parsedStage;
 
    public:
-    Stage(const std::string &name, funkin::Character *boyfriend, funkin::Character *dad, funkin::Character *girlfriend,
+    Stage(const std::string &name,std::shared_ptr<funkin::Character> boyfriend, std::shared_ptr<funkin::Character> dad, std::shared_ptr<funkin::Character> girlfriend,
           float x = 0.0f, float y = 0.0f);
 
     ~Stage() override;

@@ -13,15 +13,15 @@ class PlayField final : public engine::Group<engine::Object> {
     std::vector<bool> justHitArray = {false, false, false, false};
     std::vector<bool> pressedArray = {false, false, false, false};
     std::vector<funkin::NoteData> noteDatas = {};
-    std::vector<funkin::Note*> toInvalidate = {};
+    std::vector<std::shared_ptr<funkin::Note>> toInvalidate = {};
     size_t noteDataIndex = 0;
-    std::array<Note*, 4> lastSpawnedNotes = std::array<Note*, 4>();
+    std::array<std::shared_ptr<funkin::Note>, 4> lastSpawnedNotes = std::array<std::shared_ptr<funkin::Note>, 4>();
 
-    void invalidateNote(funkin::Note *note) const;
+    void invalidateNote(const std::shared_ptr<funkin::Note> &note) const;
     void calculateAccuracy();
 
    public:
-    PlayField(float x, float y, std::vector<NoteData> noteDatas, std::vector<Character*> characters, bool cpuControlled = false);
+    PlayField(float x, float y, std::vector<NoteData> noteDatas, std::vector<std::shared_ptr<funkin::Character>> characters, bool cpuControlled = false);
     ~PlayField() override;
 
     bool cpuControlled = false;
@@ -34,9 +34,9 @@ class PlayField final : public engine::Group<engine::Object> {
     float minHitTime = 180.0f;
     float maxHitTime = 180.0f;
 
-    engine::Group<funkin::Note>* notes;
-    engine::Group<funkin::StrumNote>* strums;
-    std::vector<funkin::Character*> characters = {};
+    std::shared_ptr<engine::Group<funkin::Note>> notes;
+    std::shared_ptr<engine::Group<funkin::StrumNote>> strums;
+    std::vector<std::shared_ptr<funkin::Character>> characters = {};
 
     funkin::Conductor* conductor{};
 

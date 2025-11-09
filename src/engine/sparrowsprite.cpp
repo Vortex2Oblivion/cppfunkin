@@ -48,7 +48,7 @@ void engine::SparrowSprite::addAnimation(std::string name, const std::string &pr
         const float frameX = frame.attribute("frameX").as_float();
         const float frameY = frame.attribute("frameY").as_float();
         const float frameWidth = frame.attribute("frameWidth").as_float();
-       const  float frameHeight = frame.attribute("frameHeight").as_float();
+        const float frameHeight = frame.attribute("frameHeight").as_float();
 
         const auto rect = raylib::Rectangle(x, y, width, height);
         const raylib::Vector2 offset = trimmed ? raylib::Vector2(-frameX, -frameY) : raylib::Vector2::Zero();
@@ -59,9 +59,11 @@ void engine::SparrowSprite::addAnimation(std::string name, const std::string &pr
         }
         frameIndex++;
     }
+
     if (foundFrames.empty()) {
         std::cerr << "No frames found for animation: " << name << "\n";
     }
+
     animations[name] = std::make_shared<engine::Animation>(foundFrames, framerate, name);
     if (!offsets.contains(name)) {
         offsets[name] = raylib::Vector2(0, 0);
@@ -75,7 +77,7 @@ void engine::SparrowSprite::draw(const float x, const float y) {
         engine::Sprite::draw(x, y);
         return;
     }
-    size_t frame = currentAnimation->currentFrame;
+    const size_t frame = currentAnimation->currentFrame;
 
     source.x = currentAnimation->frames[frame]->x;
     source.y = currentAnimation->frames[frame]->y;

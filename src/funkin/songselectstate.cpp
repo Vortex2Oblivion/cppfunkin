@@ -18,10 +18,10 @@ funkin::SongSelectState::~SongSelectState() { songs.clear(); }
 
 void funkin::SongSelectState::create() {
     funkin::MusicBeatState::create();
-    songText = new engine::Text(songs[selectedSong], 20, 100, 100);
+    songText = std::make_shared<engine::Text>(songs[selectedSong], 20, 100, 100);
     add(songText);
 
-    slungus = new engine::Sprite(400, 200);
+    slungus = std::make_shared<engine::Sprite>(400, 200);
     slungus->loadGraphic("assets/images/slungus.png");
     add(slungus);
 }

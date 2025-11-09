@@ -35,18 +35,18 @@ namespace funkin
         void focusCamera(void);
 
         std::vector<std::shared_ptr<raylib::Music>> tracks = {};
-        std::vector<funkin::PlayField *> playfields = {};
+        std::vector<std::shared_ptr<funkin::PlayField>> playfields = {};
 
-        funkin::PlayField *playerField{};
-        funkin::PlayField *dadField{};
+        std::shared_ptr<funkin::PlayField> playerField = nullptr;
+        std::shared_ptr<funkin::PlayField> dadField = nullptr;
 
-        funkin::Stage *stage = nullptr;
+        std::shared_ptr<funkin::Stage> stage = nullptr;
 
-        funkin::Character *boyfriend= nullptr;
-        funkin::Character *dad = nullptr;
-        funkin::Character *girlfriend = nullptr;
+        std::shared_ptr<funkin::Character> boyfriend= nullptr;
+        std::shared_ptr<funkin::Character>dad = nullptr;
+        std::shared_ptr<funkin::Character> girlfriend = nullptr;
 
-        funkin::HealthBar *healthBar = nullptr;
+        std::shared_ptr<funkin::HealthBar> healthBar = nullptr;
 
         engine::Camera *camHUD = nullptr;
 
@@ -58,7 +58,7 @@ namespace funkin
         float scrollSpeed = 1.0f;
         float defaultCameraZoom = 1.0f;
         funkin::SongData song;
-        engine::Text *scoreText = nullptr;
+        std::shared_ptr<engine::Text> scoreText = nullptr;
         int score = 0;
         float accuracy = 100.0f;
         raylib::Vector2 cameraTarget = raylib::Vector2();

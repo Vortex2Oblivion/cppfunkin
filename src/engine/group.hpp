@@ -4,20 +4,22 @@
 
 #include "object.hpp"
 
+#include <memory>
+
 namespace engine {
 template <typename T = Object>
 class Group : public Object {
     static_assert(std::is_base_of_v<Object, T>, "T must inherit from Object");
 
    public:
-    std::vector<T*> members = {};
+    std::vector<std::shared_ptr<T>> members = {};
     raylib::Vector2 position = raylib::Vector2(0, 0);
 
     explicit Group(float x = 0.0f, float y = 0.0f);
     ~Group() override;
-    virtual void add(T* obj);
-    virtual void remove(T* obj);
-    virtual void addToFront(T* obj);
+    virtual void add(std::shared_ptr<T> obj);
+    virtual void remove(std::shared_ptr<T> obj);
+    virtual void addToFront(std::shared_ptr<T> obj);
     void update(float delta) override;
     void draw(float x, float y ) override;
 };
@@ -27,11 +29,7 @@ engine::Group<T>::Group(const float x, const float y) : Object(x, y) {}
 
 template <typename T>
 engine::Group<T>::~Group() {
-    while (members.begin() != members.end()) {
-        typename std::vector<T*>::iterator iter = members.begin();
-        delete *iter;
-        members.erase(members.begin());
-    }
+    members.clear();
 }
 
 template <typename T>
@@ -46,17 +44,17 @@ void engine::Group<T>::draw(const float x, const float y) {
 }
 
 template <typename T>
-void engine::Group<T>::remove(T* obj) {
+void engine::Group<T>::remove(std::shared_ptr<T> obj) {
     members.erase(find(members.begin(), members.end(), obj));
 }
 
 template <typename T>
-void engine::Group<T>::addToFront(T* obj) {
+void engine::Group<T>::addToFront(std::shared_ptr<T> obj) {
     members.insert(members.begin(), obj);
 }
 
 template <typename T>
-void engine::Group<T>::add(T* obj) {
+void engine::Group<T>::add(std::shared_ptr<T> obj) {
     members.push_back(obj);
 }
 

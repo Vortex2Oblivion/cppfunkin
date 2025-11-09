@@ -10,17 +10,17 @@
 
 bool noteDataSorter(const funkin::NoteData a, const funkin::NoteData b) { return a.time < b.time; }
 
-funkin::PlayField::PlayField(const float x, const float y, std::vector<NoteData> noteDatas, std::vector<Character*> characters, const bool cpuControlled) {
+funkin::PlayField::PlayField(const float x, const float y, std::vector<NoteData> noteDatas, std::vector<std::shared_ptr<funkin::Character>> characters, const bool cpuControlled) {
     this->position.x = x;
     this->position.y = y;
     this->characters = std::move(characters);
     this->cpuControlled = cpuControlled;
     this->noteDatas = std::move(noteDatas);
 
-    strums = new engine::Group<funkin::StrumNote>();
-    notes = new engine::Group<funkin::Note>();
+    strums = std::make_shared<engine::Group<funkin::StrumNote>>();
+    notes = std::make_shared<engine::Group<funkin::Note>>();
 
-    std::sort(this->noteDatas.begin(), this->noteDatas.end(), noteDataSorter);
+    std::ranges::sort(this->noteDatas, noteDataSorter);
 
     add(strums);
     add(notes);
@@ -28,32 +28,34 @@ funkin::PlayField::PlayField(const float x, const float y, std::vector<NoteData>
     generateStaticArrows(cpuControlled);
 }
 
-funkin::PlayField::~PlayField() = default;
+funkin::PlayField::~PlayField(){
+    this->noteDatas.clear();
+};
 
 void funkin::PlayField::update(const float delta) {
     engine::Group<Object>::update(delta);
     while (!noteDatas.empty() && noteDataIndex < noteDatas.size() && ceilf(conductor->time) >= floorf(noteDatas[noteDataIndex].time - 2000.0f)) {
-        const auto data = noteDatas[noteDataIndex];
-        const auto note = new Note(data.time, data.lane, scrollSpeed);
-        const float positionX = strums->members[data.lane]->position.x;
+        const auto [time, lane, isPlayer, sustainLength] = noteDatas[noteDataIndex];
+        const auto note = std::make_shared<funkin::Note>(time, lane, scrollSpeed);
+        const float positionX = strums->members[lane]->position.x;
 
         note->position.x = positionX;
-        note->isPlayer = data.isPlayer;
+        note->isPlayer = isPlayer;
 
-        lastSpawnedNotes[data.lane] = note;
+        lastSpawnedNotes[lane] = note;
 
-        const auto roundSustainLength = static_cast<size_t>(roundf(data.sustainLength / conductor->getStepCrochet()));
+        const auto roundSustainLength = static_cast<size_t>(roundf(sustainLength / conductor->getStepCrochet()));
 
         if (roundSustainLength > 0) {
             for (size_t i = 0; i < roundSustainLength; i++) {
-                const auto sustainNote = new Note(data.time + (conductor->getStepCrochet() * i), data.lane, scrollSpeed);
-                sustainNote->isPlayer = data.isPlayer;
+                const auto sustainNote = std::make_shared<funkin::Note>(time + (conductor->getStepCrochet() * i), lane, scrollSpeed);
+                sustainNote->isPlayer = isPlayer;
                 sustainNote->playAnimation("hold");
                 sustainNote->isSustain = true;
                 sustainNote->scale.y = conductor->getStepCrochet() * 0.45f * scrollSpeed / 44.0f;
                 sustainNote->originFactor = raylib::Vector2(0.5, 0.0);
-                sustainNote->parentNote = lastSpawnedNotes[data.lane];
-                lastSpawnedNotes[data.lane] = sustainNote;
+                sustainNote->parentNote = lastSpawnedNotes[lane];
+                lastSpawnedNotes[lane] = sustainNote;
 
                 if (i == roundSustainLength - 1) {
                     sustainNote->playAnimation("hold_end");
@@ -81,7 +83,7 @@ void funkin::PlayField::update(const float delta) {
             if (!justHitArray[lane]) {
                 continue;
             }
-            funkin::StrumNote* strum = strums->members[lane];
+            auto strum = strums->members[lane];
             strum->playAnimation("press");
             strum->offset = strum->offset.Scale(0.0f);
         }
@@ -100,7 +102,7 @@ void funkin::PlayField::update(const float delta) {
 
         if (note->isSustain && note->wasHit) {
             if (conductor->time > note->strumTime + maxHitTime) {
-                toInvalidate.push_back(note);
+               toInvalidate.push_back(note);
             }
 
             note->updateY(conductor->time);
@@ -121,7 +123,7 @@ void funkin::PlayField::update(const float delta) {
         note->updateY(conductor->time);
 
         const int lane = note->lane;
-        funkin::StrumNote* strum = strums->members[lane];
+        auto strum = strums->members[lane];
 
         const float minHitWindow = (hitWindow + maxHitTime);
         const float maxHitWindow = (hitWindow - maxHitTime);
@@ -216,17 +218,18 @@ void funkin::PlayField::update(const float delta) {
     }
 }
 
-void funkin::PlayField::invalidateNote(funkin::Note* note) const {
+void funkin::PlayField::invalidateNote(
+    const std::shared_ptr<funkin::Note> &note) const {
     if (!note->alive) {
         return;
     }
     notes->remove(note);
-    delete note;
+    //delete note;
 }
 
 void funkin::PlayField::generateStaticArrows(const bool player) const {
     for (int i = 0; i < 4; i++) {
-        auto* babyArrow = new StrumNote(42, 50, i, player);
+        const auto babyArrow = std::make_shared<funkin::StrumNote>(42, 50, i, player);
         babyArrow->setPosition();
         strums->add(babyArrow);
     }

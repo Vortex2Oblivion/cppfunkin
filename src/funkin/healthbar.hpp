@@ -15,9 +15,9 @@ class HealthBar : public engine::Group<engine::Object> {
     void update(float delta) override;
 
     void bopIcons(float scaleFactor) const;
-    engine::Bar* bar;
-    funkin::HealthIcon* iconP1;
-    funkin::HealthIcon* iconP2;
+    std::shared_ptr<engine::Bar> bar;
+    std::shared_ptr<funkin::HealthIcon> iconP1;
+    std::shared_ptr<funkin::HealthIcon> iconP2;
 };
 
 }  // namespace  funkin

@@ -26,6 +26,6 @@ class Note final : public engine::SparrowSprite {
     bool isQueuedSustain = false;
     bool laneHeld = false;
 
-    funkin::Note* parentNote = nullptr;
+    std::shared_ptr<funkin::Note> parentNote = nullptr;
 };
 }  // namespace funkin

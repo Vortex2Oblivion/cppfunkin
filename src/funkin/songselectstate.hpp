@@ -8,8 +8,8 @@ class SongSelectState final : public MusicBeatState {
    private:
     int selectedSong = 0;
     std::vector<std::string> songs = {};
-    engine::Text* songText = nullptr;
-    engine::Sprite* slungus = nullptr;
+    std::shared_ptr<engine::Text> songText = nullptr;
+    std::shared_ptr<engine::Sprite> slungus = nullptr;
 
    public:
     SongSelectState(/* args */);

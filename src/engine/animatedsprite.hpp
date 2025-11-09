@@ -29,5 +29,4 @@ class AnimatedSprite : public Sprite {
     std::map<std::string, raylib::Vector2> offsets = {};
     raylib::Vector2 animationOffset;
 };
-
 }  // namespace engine

@@ -4,14 +4,14 @@
 
 funkin::HealthBar::HealthBar(const float x, const float y, std::string iconLeft, std::string iconRight, const raylib::Color colorLeft, const raylib::Color colorRight)
     : engine::Group<engine::Object>(x, y) {
-    bar = new engine::Bar(x, y, 601.0f - 8.0f, 19.0f - 8.0f, colorLeft, colorRight, 8.0f);
+    bar = std::make_shared<engine::Bar>(x, y, 601.0f - 8.0f, 19.0f - 8.0f, colorLeft, colorRight, 8.0f);
     bar->fillDirection = engine::FillDirection::RIGHT_TO_LEFT;
     add(bar);
-    iconP1 = new funkin::HealthIcon(std::move(iconRight), 0.0f, 0.0f);
+    iconP1 = std::make_shared<funkin::HealthIcon>(std::move(iconRight), 0.0f, 0.0f);
     iconP1->flipX = true;
     iconP1->origin = raylib::Vector2(0.0f, 0.0f);
     add(iconP1);
-    iconP2 = new funkin::HealthIcon(std::move(iconLeft), 0.0f, 0.0f);
+    iconP2 = std::make_shared<funkin::HealthIcon>(std::move(iconLeft), 0.0f, 0.0f);
     iconP2->origin = raylib::Vector2(300.0f, 0.0f);
     add(iconP2);
 }

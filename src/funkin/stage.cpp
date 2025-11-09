@@ -3,7 +3,7 @@
 #include <fstream>
 #include <iostream>
 
-funkin::Stage::Stage(const std::string& name, funkin::Character* boyfriend, funkin::Character* dad, funkin::Character* girlfriend, float x, float y)
+funkin::Stage::Stage(const std::string& name, std::shared_ptr<funkin::Character> boyfriend, std::shared_ptr<funkin::Character> dad, std::shared_ptr<funkin::Character> girlfriend, float x, float y)
     : engine::Group<engine::Object>(x, y) {
     this->name = name;
     std::string path = "assets/stages/" + name + "/";
@@ -35,7 +35,7 @@ funkin::Stage::Stage(const std::string& name, funkin::Character* boyfriend, funk
 
         auto position = object["position"];
 
-        auto* stageObject = new engine::Sprite(position["x"], position["y"]);
+        auto stageObject = std::make_shared<engine::Sprite>(position["x"], position["y"]);
         stageObject->loadGraphic(imageFile);
 
         if (object.count("scale")) {

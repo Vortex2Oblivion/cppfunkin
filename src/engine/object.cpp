@@ -10,7 +10,10 @@ engine::Object::Object(const float x, const float y) {
     scrollFactor = raylib::Vector2::One();
     camera = engine::Game::defaultCamera;
 }
-engine::Object::~Object() { alive = false; }
+engine::Object::~Object() {
+    printf("Object::~Object\n");
+    alive = false;
+}
 
 void engine::Object::update(const float delta) {}
 

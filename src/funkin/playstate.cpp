@@ -38,20 +38,20 @@ void funkin::PlayState::create() {
 
     loadSong(songName, difficulty);
 
-    dad = new Character(0, 0, player2, false);
+    dad = std::make_shared<Character>(0, 0, player2, false);
 
-    boyfriend = new Character(0, 0, player1, true);
+    boyfriend = std::make_shared<Character>(0, 0, player1, true);
 
-    girlfriend = new Character(0, 0, "gf", false);
+    girlfriend = std::make_shared<Character>(0, 0, "gf", false);
     girlfriend->scrollFactor = raylib::Vector2(0.95f, 0.95f);
 
-    stage = new funkin::Stage(curStage, boyfriend, dad, girlfriend);
+    stage = std::make_shared<funkin::Stage>(curStage, boyfriend, dad, girlfriend);
     add(stage);
 
 
     engine::Game::defaultCamera->zoom = defaultCameraZoom = stage->zoom;
 
-    dadField = new PlayField(0, 0, this->song.opponentNotes, {dad}, true);
+    dadField = std::shared_ptr<funkin::PlayField>(new funkin::PlayField(0, 0, this->song.opponentNotes, {dad}, true));
     dadField->camera = camHUD;
     dadField->conductor = conductor;
     dadField->scrollSpeed = scrollSpeed;
@@ -59,7 +59,7 @@ void funkin::PlayState::create() {
 
     playfields.push_back(dadField);
 
-    playerField = new PlayField(static_cast<float>(raylib::Window::GetWidth()) / 2.0f, 0, this->song.playerNotes, {boyfriend}, false);
+    playerField = std::shared_ptr<funkin::PlayField>(new PlayField(static_cast<float>(raylib::Window::GetWidth()) / 2.0f, 0, this->song.playerNotes, {boyfriend}, false));
     playerField->camera = camHUD;
     playerField->conductor = conductor;
     playerField->scrollSpeed = scrollSpeed;
@@ -80,7 +80,7 @@ void funkin::PlayState::create() {
     int* codepointsNoDups = funkin::CoolUtil::codepointRemoveDuplicates(codepoints, codepointCount, &codepointsNoDupsCount);
     UnloadCodepoints(codepoints);
 
-    scoreText = new engine::Text("", 24, 100, 100);
+    scoreText = std::make_shared<engine::Text>("", 24, 100, 100);
     scoreText->position.y = static_cast<float>(raylib::Window::GetHeight()) * 0.9f;
     scoreText->font = raylib::Font("assets/fonts/vcr.ttf", 24, codepointsNoDups, codepointsNoDupsCount);
     scoreText->outlineSize = 2.0f;
@@ -90,7 +90,7 @@ void funkin::PlayState::create() {
 
     updateScoreText();
 
-    healthBar = new funkin::HealthBar(0.0f, scoreText->position.y - 30.0f, dad->characterName, boyfriend->characterName, raylib::RED, raylib::GREEN);
+    healthBar = std::make_shared<funkin::HealthBar>(0.0f, scoreText->position.y - 30.0f, dad->characterName, boyfriend->characterName, raylib::RED, raylib::GREEN);
     healthBar->camera = camHUD;
     healthBar->bar->screenCenter(engine::Axes::X);
     add(healthBar);
