@@ -16,13 +16,15 @@
 
 int main() {
 
+    #if __linux__
     if (gamemode_request_start()) {
         std::cerr << "Failed to request gamemode start: " << gamemode_error_string() << std::endl;
     }
+    #endif
 
     constexpr int windowWidth = 1280;
     constexpr int windowHeight = 720;
-    auto window = raylib::Window(windowWidth, windowHeight, "Friday Night Funkin'", FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_HIGHDPI);
+    auto window = raylib::Window(windowWidth, windowHeight, "Friday Night Funkin'", FLAG_WINDOW_HIGHDPI);
 
     #if __APPLE__
     MacOSUtil::fixWindowColorSpace();
@@ -42,11 +44,6 @@ int main() {
     auto game = engine::Game(std::make_unique<funkin::SongSelectState>());
 
     while (!window.ShouldClose()) {
-
-        if (IsKeyPressed(KEY_F11)) {
-            window.ToggleFullscreen();
-        }
-
         window.BeginDrawing();
         window.ClearBackground(BLACK);
         game.update(window.GetFrameTime());
@@ -58,9 +55,11 @@ int main() {
     audioDevice.Close();
     window.Close();
 
+    #if __linux__
     if (gamemode_request_end()) {
         std::cerr << "Failed to request gamemode end: " << gamemode_error_string() << std::endl;
     }
+    #endif
 
     return 0;
 }
