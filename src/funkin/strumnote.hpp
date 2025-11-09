@@ -4,7 +4,7 @@
 
 namespace funkin {
 
-class StrumNote : public engine::SparrowSprite {
+class StrumNote final : public engine::SparrowSprite {
    private:
     /* data */
    public:

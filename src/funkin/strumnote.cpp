@@ -2,18 +2,25 @@
 
 #include "raylib.h"
 
+#include <array>
+
 funkin::StrumNote::StrumNote(float x, float y, int lane, bool player) : SparrowSprite(x, y) {
     this->lane = lane;
     this->player = player;
 
-    const std::vector<std::string> directions = {"left", "down", "up", "right"};
+    const std::array<std::string, 4> directions = {"left", "down", "up", "right"};
+
+    const std::string direction = std::move(directions[lane % 4]);
+
     loadGraphic("assets/images/notes.png", "assets/images/notes.xml");
-    addAnimation("press", directions[lane % 4] + " press", 24);
-    addAnimation("confirm", directions[lane % 4] + " confirm", 24);
-    addAnimation("static", directions[lane % 4] + " static", 24);
+
+    addAnimation("press", direction + " press", 24);
+    addAnimation("confirm", direction + " confirm", 24);
+    addAnimation("static", direction + " static", 24);
+
     playAnimation("static");
-    scale.x = 0.7f;
-    scale.y = 0.7f;
+
+    scale = raylib::Vector2(0.7f, 0.7f);
 }
 
 funkin::StrumNote::~StrumNote() = default;

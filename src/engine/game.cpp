@@ -7,8 +7,8 @@
 #include "sprite.hpp"
 
 std::unique_ptr<engine::State> engine::Game::_state = nullptr;
-engine::Camera* engine::Game::defaultCamera = new engine::Camera();
-std::vector<engine::Camera*> engine::Game::cameras = {engine::Game::defaultCamera};
+std::shared_ptr<engine::Camera> engine::Game::defaultCamera = std::make_shared<engine::Camera>();
+std::vector<std::shared_ptr<engine::Camera>> engine::Game::cameras = {engine::Game::defaultCamera};
 
 engine::Game::Game(std::unique_ptr<State> initialState) {
     _state = std::move(initialState);
@@ -37,10 +37,8 @@ void engine::Game::update(const float delta) {
 
 void engine::Game::switchState(std::unique_ptr<State> nextState) {
     engine::Sprite::clearTextureCache(false);
-    for (const auto camera : cameras) {
-        delete camera;
-    }
-    defaultCamera = new engine::Camera();
+    cameras.clear();
+    defaultCamera = std::make_shared<engine::Camera>();
     cameras = {defaultCamera};
     _state->alive = false;
     _state = std::move(nextState);

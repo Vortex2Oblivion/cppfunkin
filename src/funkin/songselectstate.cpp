@@ -26,7 +26,8 @@ void funkin::SongSelectState::create() {
     add(slungus);
 }
 
-void funkin::SongSelectState::update(float delta) {
+void funkin::SongSelectState::update(const float delta) {
+    funkin::MusicBeatState::update(delta);
     if (IsKeyPressed(KEY_RIGHT)) {
         selectedSong++;
         if (selectedSong >= static_cast<int>(songs.size())) {

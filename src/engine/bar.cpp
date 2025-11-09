@@ -2,12 +2,13 @@
 
 #include "axes.hpp"
 
-engine::Bar::Bar(float x, float y, float width, float height, raylib::Color colorLeft, raylib::Color colorRight, float outlineSize,
-    raylib::Color colorOutline)
+engine::Bar::Bar(float x, float y, float width, float height,
+                 const raylib::Color colorLeft, const raylib::Color colorRight,
+                 const float outlineSize, const raylib::Color colorOutline)
     : Sprite(x, y) {
-    rectBottom = new raylib::Rectangle(x, y, width, height);
-    rectTop = new raylib::Rectangle(x, y, width * (percent / 100.0f), height);
-    rectOutline = new raylib::Rectangle(x - outlineSize / 2.0f, y - outlineSize / 2.0f, width + outlineSize, height + outlineSize);
+    rectBottom = std::make_unique<raylib::Rectangle>(x, y, width, height);
+    rectTop = std::make_unique<raylib::Rectangle>(x, y, width * (percent / 100.0f), height);
+    rectOutline = std::make_unique<raylib::Rectangle>(x - outlineSize / 2.0f, y - outlineSize / 2.0f, width + outlineSize, height + outlineSize);
     this->colorLeft = colorLeft;
     this->colorRight = colorRight;
     this->colorOutline = colorOutline;
@@ -15,11 +16,7 @@ engine::Bar::Bar(float x, float y, float width, float height, raylib::Color colo
     this->origin = raylib::Vector2(rectOutline->width / 2, rectOutline->height / 2);
 }
 
-engine::Bar::~Bar() {
-    delete rectBottom;
-    delete rectTop;
-    delete rectOutline;
-}
+engine::Bar::~Bar() {}
 
 void engine::Bar::screenCenter() {
     screenCenter(X);
@@ -69,6 +66,6 @@ void engine::Bar::draw(float x, float y) {
     rectTop->Draw(colorLeft);
 }
 
-float engine::Bar::getIntersection() {
+float engine::Bar::getIntersection() const {
     return rectTop->width;
 }

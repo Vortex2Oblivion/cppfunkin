@@ -48,7 +48,7 @@ namespace funkin
 
         std::shared_ptr<funkin::HealthBar> healthBar = nullptr;
 
-        engine::Camera *camHUD = nullptr;
+        std::shared_ptr<engine::Camera> camHUD = nullptr;
 
         std::string songName;
         std::string difficulty;

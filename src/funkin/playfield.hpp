@@ -9,9 +9,9 @@
 namespace funkin {
 class PlayField final : public engine::Group<engine::Object> {
    protected:
-    const std::vector<std::string> singAnimArray = {"singLEFT", "singDOWN", "singUP", "singRIGHT"};
-    std::vector<bool> justHitArray = {false, false, false, false};
-    std::vector<bool> pressedArray = {false, false, false, false};
+    const std::array<std::string, 4> singAnimArray = {"singLEFT", "singDOWN", "singUP", "singRIGHT"};
+    std::array<bool, 4> justHitArray = {false, false, false, false};
+    std::array<bool, 4> pressedArray = {false, false, false, false};
     std::vector<funkin::NoteData> noteDatas = {};
     std::vector<std::shared_ptr<funkin::Note>> toInvalidate = {};
     size_t noteDataIndex = 0;
@@ -38,7 +38,7 @@ class PlayField final : public engine::Group<engine::Object> {
     std::shared_ptr<engine::Group<funkin::StrumNote>> strums;
     std::vector<std::shared_ptr<funkin::Character>> characters = {};
 
-    funkin::Conductor* conductor{};
+    std::shared_ptr<funkin::Conductor> conductor = nullptr;
 
     void generateStaticArrows(bool player) const;
     void update(float delta) override;

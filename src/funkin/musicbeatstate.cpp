@@ -1,10 +1,11 @@
 #include "musicbeatstate.hpp"
 
-funkin::MusicBeatState::MusicBeatState() : State() { conductor = new Conductor(); }
+#include <iostream>
+
+funkin::MusicBeatState::MusicBeatState() : State() { conductor = std::make_shared<funkin::Conductor>(); }
 
 funkin::MusicBeatState::~MusicBeatState() {
     conductor->stop();
-    delete conductor;
 }
 
 void funkin::MusicBeatState::create() { engine::State::create(); }

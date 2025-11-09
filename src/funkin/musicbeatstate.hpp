@@ -5,13 +5,11 @@
 
 namespace funkin {
 class MusicBeatState : public engine::State {
-   private:
-    /* data */
    protected:
-    Conductor* conductor;
+    std::shared_ptr<funkin::Conductor> conductor;
 
    public:
-    MusicBeatState(/* args */);
+    MusicBeatState();
     ~MusicBeatState() override;
     void create() override;
     void update(float delta) override;

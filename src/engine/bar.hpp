@@ -14,9 +14,9 @@ enum FillDirection {
 class Bar final : public Sprite {
    private:
     /* data */
-    raylib::Rectangle* rectOutline;
-    raylib::Rectangle* rectBottom;
-    raylib::Rectangle* rectTop;
+    std::unique_ptr<raylib::Rectangle> rectOutline;
+    std::unique_ptr<raylib::Rectangle>rectBottom;
+    std::unique_ptr<raylib::Rectangle> rectTop;
 
    public:
     Bar(float x, float y, float width, float height, raylib::Color colorLeft, raylib::Color colorRight, float outlineSize = 0,
@@ -27,13 +27,13 @@ class Bar final : public Sprite {
     void update(float delta) override;
     void draw(float x, float y) override;
 
-    float getIntersection();
+    float getIntersection() const;
 
     raylib::Color colorOutline;
     raylib::Color colorLeft;
     raylib::Color colorRight;
 
-    engine::FillDirection fillDirection;
+    engine::FillDirection fillDirection = LEFT_TO_RIGHT;
 
     raylib::Vector2 origin;
 

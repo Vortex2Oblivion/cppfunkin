@@ -10,9 +10,7 @@ funkin::Conductor::~Conductor() {
     if (tracks.empty()) {
         return;
     }
-    for (const auto track : tracks) {
-        track->Stop();
-    }
+    stop();
     tracks.clear();
 }
 
@@ -88,9 +86,7 @@ void funkin::Conductor::updateStep() { step = static_cast<int>(time / getStepCro
 
 void funkin::Conductor::updateBeat() { beat = static_cast<int>(time / getCrochet()); }
 
-void funkin::Conductor::stepHit()
-{
-}
+void funkin::Conductor::stepHit() {}
 
 void funkin::Conductor::beatHit() {}
 

@@ -33,7 +33,7 @@ void funkin::PlayState::create() {
 
     funkin::MusicBeatState::create();
 
-    camHUD = new engine::Camera();
+    camHUD = std::make_shared<engine::Camera>();
     engine::Game::cameras.push_back(camHUD);
 
     loadSong(songName, difficulty);
