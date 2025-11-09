@@ -30,6 +30,11 @@ funkin::Character::Character(float x, float y, std::string characterName, bool i
         position.y += static_cast<float>(parsedCharacter["globalOffset"]["y"]);
     }
 
+    if (parsedCharacter.count("cameraOffset")) {
+        cameraOffset.x += static_cast<float>(parsedCharacter["cameraOffset"]["x"]);
+        cameraOffset.y += static_cast<float>(parsedCharacter["cameraOffset"]["y"]);
+    }
+
     loadGraphic(characterBasePath + "/spritesheet.png", characterBasePath + "/spritesheet.xml");
 
     for (auto animation : parsedCharacter["animations"]) {

@@ -1,26 +1,36 @@
 {
-    "objects": [
-        {
-            "file": "goktrapbg",
-            "position": [
-                -300,
-                -450
-            ],
-            "scale": [
-                2.5,
-                2.5
-            ]
-        }
-    ],
-    "zoom": 1,
-    "characters": {
-        "bf": {
-            "x": 700,
-            "y": 0
-        },
-        "dad": {
-            "x": 100,
-            "y": 0
-        }
+  "objects": [
+    {
+      "file": "goktrapbg",
+      "position": {
+        "x": -300,
+        "y": -450
+      },
+      "scale": {
+        "x": 2.5,
+        "y": 2.5
+      }
     }
+  ],
+  "zoom": 1,
+  "characters": {
+    "boyfriend": {
+      "position": {
+        "x": 300,
+        "y": -300
+      }
+    },
+    "girlfriend": {
+      "position": {
+        "x": 70000,
+        "y": 0
+      }
+    },
+    "dad": {
+      "position": {
+        "x": -500,
+        "y": -700
+      }
+    }
+  }
 }
