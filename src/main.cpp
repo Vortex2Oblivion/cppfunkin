@@ -40,7 +40,7 @@ int main() {
         window.ClearBackground(BLACK);
         game.update(window.GetFrameTime());
         window.DrawFPS(10, 10);
-        DrawText(funkin::CoolUtil::formatBytes(getCurrentRSS()).c_str(), 10, 30, 20, LIME);
+        raylib::Text::Draw(funkin::CoolUtil::formatBytes(getCurrentRSS()) + " / " + funkin::CoolUtil::formatBytes(getPeakRSS()), 10, 30, 20, LIME);
         window.EndDrawing();
     }
 
