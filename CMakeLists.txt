@@ -40,24 +40,10 @@ include_directories(external/gamemode/lib)
 endif ()
 
 add_dependencies(${PROJECT_NAME} copy_assets)
-if(MSVC)
-    add_custom_target(copy_assets ALL
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/assets
-    ${CMAKE_CURRENT_BINARY_DIR}/Release/assets
 
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/assets
-    ${CMAKE_CURRENT_BINARY_DIR}/Debug/assets
-
-    COMMENT "COPYING ASSETS"
+add_custom_target(copy_assets ALL
+COMMAND ${CMAKE_COMMAND} -E copy_directory
+${CMAKE_SOURCE_DIR}/assets
+${CMAKE_CURRENT_BINARY_DIR}/assets
+COMMENT "COPYING ASSETS"
 )
-
-else()
-    add_custom_target(copy_assets ALL
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/assets
-    ${CMAKE_CURRENT_BINARY_DIR}/assets
-    COMMENT "COPYING ASSETS"
-)
-endif(MSVC)

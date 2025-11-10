@@ -13,7 +13,7 @@ engine::Text::~Text() {
 void engine::Text::draw(float x, float y) {
     // TODO: replace with shader maybe?
     // draw outline text
-    /*if (outlineSize > 0) {
+    if (outlineSize > 0) {
         _text->Draw(font, text, position + raylib::Vector2(-outlineSize, 0), origin, angle, size, spacing, outlineColor);
         _text->Draw(font, text, position + raylib::Vector2(-outlineSize, outlineSize), origin, angle, size, spacing, outlineColor);
         _text->Draw(font, text, position + raylib::Vector2(0, outlineSize), origin, angle, size, spacing, outlineColor);
@@ -24,7 +24,6 @@ void engine::Text::draw(float x, float y) {
         _text->Draw(font, text, position + raylib::Vector2(outlineSize, -outlineSize), origin, angle, size, spacing, outlineColor);
     }
     _text->Draw(font, text, position, origin, angle, size, spacing, color);
-    */
 }
 
 void engine::Text::screenCenter() {
