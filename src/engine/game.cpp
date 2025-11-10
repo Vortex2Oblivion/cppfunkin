@@ -36,7 +36,7 @@ void engine::Game::update(const float delta) {
 }
 
 void engine::Game::switchState(std::unique_ptr<State> nextState) {
-    engine::Sprite::clearTextureCache(false);
+    engine::Sprite::clearTextureCache();
     cameras.clear();
     defaultCamera = std::make_shared<engine::Camera>();
     cameras = {defaultCamera};
