@@ -21,18 +21,18 @@ funkin::Character::Character(float x, float y, std::string characterName, bool i
     characterFile.close();
 
     float scale = 1.0f;
-    if (parsedCharacter.count("scale")) {
+    if (parsedCharacter.contains("scale")) {
         scale = parsedCharacter["scale"];
     }
 
-    if (parsedCharacter.count("globalOffset")) {
+    if (parsedCharacter.contains("globalOffset")) {
         position.x += static_cast<float>(parsedCharacter["globalOffset"]["x"]);
         position.y += static_cast<float>(parsedCharacter["globalOffset"]["y"]);
     }
 
-    if (parsedCharacter.count("cameraOffset")) {
-        cameraOffset.x += static_cast<float>(parsedCharacter["cameraOffset"]["x"]);
-        cameraOffset.y += static_cast<float>(parsedCharacter["cameraOffset"]["y"]);
+    if (parsedCharacter.contains("cameraOffset")) {
+        cameraOffset.x = static_cast<float>(parsedCharacter["cameraOffset"]["x"]);
+        cameraOffset.y = static_cast<float>(parsedCharacter["cameraOffset"]["y"]);
     }
 
     loadGraphic(characterBasePath + "/spritesheet.png", characterBasePath + "/spritesheet.xml");
