@@ -72,12 +72,7 @@ void engine::Sprite::screenCenter(engine::Axes axes) {
 
 void engine::Sprite::centerOrigin() { origin = raylib::Vector2(dest.width / 2.0f, dest.height / 2.0f); }
 
-void engine::Sprite::clearTextureCache(bool deletePointers) {
-    if(deletePointers){
-        for (std::pair<std::string, std::shared_ptr<raylib::Texture>> pair : engine::Sprite::texturePool) {
-            pair.second.reset();
-        }
-    }
+void engine::Sprite::clearTextureCache() {
     texturePool.clear();
 }
 

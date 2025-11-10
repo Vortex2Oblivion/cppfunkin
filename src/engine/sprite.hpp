@@ -43,6 +43,6 @@ class Sprite : public Object {
     raylib::Color color = WHITE;
     bool flipX = false;
 
-    static void clearTextureCache(bool deletePointers = false);
+    static void clearTextureCache();
 };
 }  // namespace engine
