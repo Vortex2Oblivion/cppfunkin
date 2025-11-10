@@ -2,11 +2,12 @@
 
 #include "axes.hpp"
 #include "sprite.hpp"
+#include <memory>
 
 namespace engine {
 class Text : public Sprite {
    private:
-    raylib::Text* _text;
+    std::unique_ptr<raylib::Text> _text;
 
    public:
     Text(std::string text, float size, float x, float y);

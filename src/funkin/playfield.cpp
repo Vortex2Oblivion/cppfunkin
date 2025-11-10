@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cmath>
 #include <utility>
+#include <ranges>
 #include <raylib-cpp.hpp>
 
 #include "../engine/group.hpp"
@@ -74,7 +75,7 @@ void funkin::PlayField::update(const float delta) {
 
     // inputs
     // thanks for helping my dumbass with this rudy
-    float closestDistances[4] = {INFINITY, INFINITY, INFINITY, INFINITY};
+    std::array<float, 4> closestDistances = {INFINITY, INFINITY, INFINITY, INFINITY};
 
     if (!cpuControlled) {
         pressedArray = {IsKeyDown(KEY_D), IsKeyDown(KEY_F), IsKeyDown(KEY_J), IsKeyDown(KEY_K)};
