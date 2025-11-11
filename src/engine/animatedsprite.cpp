@@ -18,12 +18,12 @@ void engine::AnimatedSprite::update(const float delta) {
     }
 }
 
-void engine::AnimatedSprite::addAnimation(const std::string& name, const std::vector<raylib::Rectangle>& rects, const int framerate) {
+void engine::AnimatedSprite::addAnimation(const std::string& name, const std::vector<raylib::Rectangle>& rects, const int framerate, bool looped) {
     std::vector<std::shared_ptr<engine::Frame>> foundFrames = {};
     for (const auto rect : rects) {
         foundFrames.push_back(std::make_shared<engine::Frame>(rect));
     }
-    animations[name] = std::make_shared<engine::Animation>(foundFrames, framerate, name);
+    animations[name] = std::make_shared<engine::Animation>(foundFrames, framerate, name, looped);
 }
 
 bool engine::AnimatedSprite::hasAnimation(const std::string& name) const { return animations.contains(name); }

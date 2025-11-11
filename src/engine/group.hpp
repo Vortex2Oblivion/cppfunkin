@@ -25,7 +25,10 @@ class Group : public Object {
 };
 
 template <typename T>
-engine::Group<T>::Group(const float x, const float y) : Object(x, y) {}
+engine::Group<T>::Group(const float x, const float y) : Object(x, y) {
+    position.x = x;
+    position.y = y;
+}
 
 template <typename T>
 engine::Group<T>::~Group() {

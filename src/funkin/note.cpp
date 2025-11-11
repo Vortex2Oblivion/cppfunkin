@@ -1,19 +1,24 @@
 #include "note.hpp"
 
 #include "raylib-cpp.hpp"
-#include "raylib.h"
 
-funkin::Note::Note(float strumTime, int lane, float speed) : SparrowSprite(0, 0) {
+#include <array>
+
+funkin::Note::Note(const float strumTime, const int lane, const float speed) : SparrowSprite(0, 0) {
     this->strumTime = strumTime;
     this->lane = lane;
     this->speed = speed;
 
-    std::vector<std::string> directions = {"purple", "blue", "green", "red"};
+    const std::array<std::string, 4> directions = {"purple", "blue", "green", "red"};
+
+    const std::string& direction = directions[lane % 4];
+
     loadGraphic("assets/images/notes.png", "assets/images/notes.xml");
-    addAnimation("default", directions[lane % 4] + " instance", 24);
-    addAnimation("hold", directions[lane % 4] + " hold piece instance", 24);
-    addAnimation("hold_end", directions[lane % 4] + " hold end instance", 24);
+    addAnimation("default", direction + " instance", 24);
+    addAnimation("hold", direction + " hold piece instance", 24);
+    addAnimation("hold_end", direction + " hold end instance", 24);
     playAnimation("default");
+
     scale.x = 0.7f;
     scale.y = 0.7f;
     position.y += 2000;

@@ -2,6 +2,7 @@
 
 #include "../engine/game.hpp"
 #include "Functions.hpp"
+#include "alphabet.hpp"
 #include "playstate.hpp"
 
 funkin::SongSelectState::SongSelectState() : MusicBeatState() {
@@ -24,6 +25,9 @@ void funkin::SongSelectState::create() {
     slungus = std::make_shared<engine::Sprite>(400, 200);
     slungus->loadGraphic("assets/images/slungus.png");
     add(slungus);
+
+    auto alphabet = std::make_shared<funkin::Alphabet>("SKIBIDI", 100, 500);
+    add(alphabet);
 }
 
 void funkin::SongSelectState::update(const float delta) {

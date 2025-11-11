@@ -22,7 +22,7 @@ void engine::SparrowSprite::loadGraphic(const std::string &imagePath, const std:
     result = doc.load_file(xmlPath.c_str());
 }
 
-void engine::SparrowSprite::addAnimation(const std::string& name, const std::string &prefix, int framerate, std::vector<uint8_t> indices) {
+void engine::SparrowSprite::addAnimation(const std::string &name, const std::string &prefix,int framerate, std::vector<uint8_t> indices, bool looped) {
     std::vector<std::shared_ptr<engine::Frame>> foundFrames = {};
     uint8_t frameIndex = 0;
     for (auto frame : doc.child("TextureAtlas").children("SubTexture")) {
@@ -63,7 +63,7 @@ void engine::SparrowSprite::addAnimation(const std::string& name, const std::str
         std::cerr << "No frames found for animation: " << name << "\n";
     }
 
-    animations[name] = std::make_shared<engine::Animation>(foundFrames, framerate, name);
+    animations[name] = std::make_shared<engine::Animation>(foundFrames, framerate, name, looped);
     if (!offsets.contains(name)) {
         offsets[name] = raylib::Vector2(0, 0);
     }
