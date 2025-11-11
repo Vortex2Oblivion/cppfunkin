@@ -2,8 +2,7 @@
 
 #include <utility>
 
-funkin::HealthBar::HealthBar(const float x, const float y, std::string iconLeft, std::string iconRight, const raylib::Color colorLeft, const raylib::Color colorRight)
-    : engine::Group<engine::Object>(x, y) {
+funkin::HealthBar::HealthBar(const float x, const float y, std::string iconLeft, std::string iconRight, const raylib::Color colorLeft, const raylib::Color colorRight){
     bar = std::make_shared<engine::Bar>(x, y, 601.0f - 8.0f, 19.0f - 8.0f, colorLeft, colorRight, 8.0f);
     bar->fillDirection = engine::FillDirection::RIGHT_TO_LEFT;
     add(bar);

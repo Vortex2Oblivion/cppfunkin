@@ -18,7 +18,7 @@ void engine::AnimatedSprite::update(const float delta) {
     }
 }
 
-void engine::AnimatedSprite::addAnimation(const std::string& name, const std::vector<raylib::Rectangle>& rects, const int framerate, bool looped) {
+void engine::AnimatedSprite::addAnimation(const std::string& name, const std::vector<raylib::Rectangle>& rects, const uint8_t framerate, bool looped) {
     std::vector<std::shared_ptr<engine::Frame>> foundFrames = {};
     for (const auto rect : rects) {
         foundFrames.push_back(std::make_shared<engine::Frame>(rect));

@@ -17,7 +17,7 @@ funkin::Character::Character(float x, float y, std::string characterName, bool i
         characterFile = std::ifstream(characterBasePath + "/character.json");
     }
 
-    nlohmann::json parsedCharacter = nlohmann::json::parse(characterFile);
+    auto parsedCharacter = nlohmann::json::parse(characterFile);
     characterFile.close();
 
     float scale = 1.0f;
@@ -40,6 +40,9 @@ funkin::Character::Character(float x, float y, std::string characterName, bool i
 
     for (auto animation : parsedCharacter["animations"]) {
         auto name = animation["name"];
+        auto prefix = animation["prefix"];
+        auto framerate = animation["framerate"];
+        auto looped = animation["looped"];
         auto offset = animation["offset"];
 
         std::vector<uint8_t> indices = {};
@@ -47,8 +50,7 @@ funkin::Character::Character(float x, float y, std::string characterName, bool i
             indices = animation["indices"].get<std::vector<uint8_t>>();
         }
 
-        addAnimation(name, animation["prefix"], animation["framerate"],
-                     indices);
+        addAnimation(name, prefix, framerate, indices, looped);
         this->offsets[name] = raylib::Vector2(offset["x"], offset["y"]);
     }
     this->scale.x = this->scale.y = scale;

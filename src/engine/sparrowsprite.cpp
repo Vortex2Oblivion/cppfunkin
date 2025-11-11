@@ -22,7 +22,7 @@ void engine::SparrowSprite::loadGraphic(const std::string &imagePath, const std:
     result = doc.load_file(xmlPath.c_str());
 }
 
-void engine::SparrowSprite::addAnimation(const std::string &name, const std::string &prefix,int framerate, std::vector<uint8_t> indices, bool looped) {
+void engine::SparrowSprite::addAnimation(const std::string &name, const std::string &prefix, const uint8_t framerate, std::vector<uint8_t> indices, bool looped) {
     std::vector<std::shared_ptr<engine::Frame>> foundFrames = {};
     uint8_t frameIndex = 0;
     for (auto frame : doc.child("TextureAtlas").children("SubTexture")) {

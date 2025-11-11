@@ -13,7 +13,7 @@ class AnimatedSprite : public Sprite {
 
     void update(float delta) override;
 
-    virtual void addAnimation(const std::string &name, const std::vector<raylib::Rectangle> &rects, int framerate, bool looped = false);
+    virtual void addAnimation(const std::string &name, const std::vector<raylib::Rectangle> &rects, uint8_t framerate, bool looped = false);
     bool hasAnimation(const std::string &name) const;
     void playAnimation(const std::string &name);
 
