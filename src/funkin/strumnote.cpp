@@ -10,7 +10,7 @@ funkin::StrumNote::StrumNote(float x, float y, int lane, bool player) : SparrowS
 
     const std::array<std::string, 4> directions = {"left", "down", "up", "right"};
 
-    const std::string direction = std::move(directions[lane % 4]);
+    const std::string& direction = directions[lane % 4];
 
     loadGraphic("assets/images/notes.png", "assets/images/notes.xml");
 

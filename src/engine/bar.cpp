@@ -16,7 +16,7 @@ engine::Bar::Bar(float x, float y, float width, float height,
     this->origin = raylib::Vector2(rectOutline->width / 2, rectOutline->height / 2);
 }
 
-engine::Bar::~Bar() {}
+engine::Bar::~Bar() = default;
 
 void engine::Bar::screenCenter() {
     screenCenter(X);

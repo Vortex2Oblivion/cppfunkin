@@ -1,6 +1,6 @@
 #include "healthicon.hpp"
 
-funkin::HealthIcon::HealthIcon(std::string character, float x, float y) : engine::AnimatedSprite(x, y) {
+funkin::HealthIcon::HealthIcon(const std::string& character, float x, float y) : engine::AnimatedSprite(x, y) {
     std::string iconPath = "assets/characters/" + character + "/icon.png";
     if (!raylib::FileExists(iconPath)) {
         iconPath = "assets/images/face.png";
@@ -11,4 +11,4 @@ funkin::HealthIcon::HealthIcon(std::string character, float x, float y) : engine
     playAnimation("default");
 }
 
-funkin::HealthIcon::~HealthIcon() {}
+funkin::HealthIcon::~HealthIcon() = default;

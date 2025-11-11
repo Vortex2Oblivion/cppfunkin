@@ -35,7 +35,8 @@ funkin::Character::Character(float x, float y, std::string characterName, bool i
         cameraOffset.y = static_cast<float>(parsedCharacter["cameraOffset"]["y"]);
     }
 
-    loadGraphic(characterBasePath + "/spritesheet.png", characterBasePath + "/spritesheet.xml");
+    loadGraphic(characterBasePath + "/spritesheet.png",
+                characterBasePath + "/spritesheet.xml");
 
     for (auto animation : parsedCharacter["animations"]) {
         auto name = animation["name"];
@@ -46,7 +47,8 @@ funkin::Character::Character(float x, float y, std::string characterName, bool i
             indices = animation["indices"].get<std::vector<uint8_t>>();
         }
 
-        addAnimation(name, animation["prefix"], animation["framerate"], indices);
+        addAnimation(name, animation["prefix"], animation["framerate"],
+                     indices);
         this->offsets[name] = raylib::Vector2(offset["x"], offset["y"]);
     }
     this->scale.x = this->scale.y = scale;

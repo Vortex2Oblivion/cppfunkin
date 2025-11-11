@@ -10,8 +10,8 @@ class Text : public Sprite {
     std::unique_ptr<raylib::Text> _text;
 
    public:
-    Text(std::string text, float size, float x, float y);
-    ~Text() override;
+     Text(const std::string &text, float size, float x, float y);
+     ~Text() override;
 
     raylib::Color outlineColor = BLACK;
     raylib::Font font;

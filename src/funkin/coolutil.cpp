@@ -37,11 +37,11 @@ int *funkin::CoolUtil::codepointRemoveDuplicates(const int *codepoints, const in
 
 std::string funkin::CoolUtil::formatBytes(size_t bytes)
 {
-	std::string suffix[] = {"B", "KB", "MB", "GB", "TB"};
-	char length = sizeof(suffix) / sizeof(suffix[0]);
+        const std::string suffix[] = {"B", "KB", "MB", "GB", "TB"};
+        constexpr char length = std::size(suffix);
 
 	int i = 0;
-	double dblBytes = static_cast<double>(bytes);
+	auto dblBytes = static_cast<double>(bytes);
 
 	if (bytes > 1024) {
 		for (i = 0; (bytes / 1024) > 0 && i<length-1; i++, bytes /= 1024)

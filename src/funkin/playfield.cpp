@@ -3,7 +3,6 @@
 #include <algorithm>
 #include <cmath>
 #include <utility>
-#include <ranges>
 #include <raylib-cpp.hpp>
 
 #include "../engine/group.hpp"
@@ -89,8 +88,8 @@ void funkin::PlayField::update(const float delta) {
             strum->offset = strum->offset.Scale(0.0f);
         }
     } else {
-        for (size_t i = 0; i < pressedArray.size(); i++) {
-            pressedArray[i] = true;
+        for (bool & i : pressedArray) {
+            i = true;
         }
     }
 
@@ -131,12 +130,6 @@ void funkin::PlayField::update(const float delta) {
 
         const bool hittable = note->strumTime <= minHitWindow && note->strumTime >= maxHitWindow;
 
-
-        // if statement of DOOM
-        // crashes if I separate into variables, so maybe figure out what's going on there?
-
-        const bool wasKeyPressed = justHitArray[lane] || cpuControlled;
-
         if (!hittable) {
             continue;
         }
@@ -176,7 +169,7 @@ void funkin::PlayField::update(const float delta) {
 
         closestDistance = distance;
 
-        for (const auto character : characters) {
+        for (const auto& character : characters) {
             character->playAnimation(singAnimArray[lane]);
         }
 
@@ -199,13 +192,13 @@ void funkin::PlayField::update(const float delta) {
         }
     }
 
-    for (const auto note : toInvalidate) {
+    for (const auto& note : toInvalidate) {
         invalidateNote(note);
     }
 
     toInvalidate.clear();
 
-    for (const auto strum : strums->members) {
+    for (const auto& strum : strums->members) {
         const auto animation = strum->currentAnimation;
 
         bool playStaticAnimation = cpuControlled ? animation->currentFrame >= animation->frames.size() - 1 : !pressedArray[strum->lane];

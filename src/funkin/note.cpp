@@ -25,16 +25,18 @@ void funkin::Note::update(const float delta) { SparrowSprite::update(delta); }
 
 void funkin::Note::updateY(const float songPosition) { position.y = 50 + -0.45f * (songPosition - strumTime) * speed; }
 
-void funkin::Note::draw(float x, float y) {
-    if (isSustain && (laneHeld || wasHit || isQueuedSustain)) {
-        // replace the magic number with an actual strum y someday probably !!! lol!!!
-        int yScissor = static_cast<int>(camera->GetWorldToScreen({0.0, 125.0}).y);
+void funkin::Note::draw(const float x, const float y) {
+    const bool shouldScissor = isSustain && (laneHeld || wasHit || isQueuedSustain);
+    if (shouldScissor) {
+        // replace the magic number with an actual strum y someday probably !!!
+        // lol!!!
+         const int yScissor = static_cast<int>(camera->GetWorldToScreen({0.0, 125.0}).y);
         BeginScissorMode(0, yScissor, 1280, 720-yScissor);
     }
 
     engine::SparrowSprite::draw(x, y);
 
-    if (isSustain && (laneHeld || wasHit || isQueuedSustain)) {
+    if (shouldScissor) {
         EndScissorMode();
     }
 }

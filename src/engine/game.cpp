@@ -20,12 +20,12 @@ void engine::Game::update(const float delta) {
         return;
     }
     _state->update(delta);
-    for (const auto camera : engine::Game::cameras) {
+    for (const auto& camera : engine::Game::cameras) {
         if (camera == nullptr) {
             continue;
         }
         camera->BeginMode();
-        for (const auto member : _state->members) {
+        for (const auto& member : _state->members) {
             if (!member->alive || member->camera != camera) {
                 continue;
             }

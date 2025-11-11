@@ -14,7 +14,7 @@ namespace engine {
 class Sprite : public Object {
    private:
     static std::unordered_map<std::string, std::shared_ptr<raylib::Texture>> texturePool;
-    static void cacheTexture(std::string path);
+    static void cacheTexture(const std::string &path);
 
    protected:
     std::shared_ptr<raylib::Texture> texture = nullptr;

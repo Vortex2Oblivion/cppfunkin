@@ -5,8 +5,8 @@
 namespace funkin {
 class HealthIcon : public engine::AnimatedSprite {
    public:
-    HealthIcon(std::string character, float x = 0.0f, float y = 0.0f);
-    ~HealthIcon() override;
+     HealthIcon(const std::string &character, float x, float y);
+     ~HealthIcon() override;
 
     std::string character;
 };

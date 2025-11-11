@@ -32,7 +32,7 @@ void funkin::Conductor::stop() const {
     if (tracks.empty()) {
         return;
     }
-    for (const auto track : tracks) {
+    for (const auto& track : tracks) {
         track->Stop();
     }
 }
@@ -41,7 +41,7 @@ void funkin::Conductor::update(const float delta) {
     if (tracks.empty()) {
         return;
     }
-    for (const auto track : tracks)
+    for (const auto& track : tracks)
     {
         track->Update();
     }
@@ -95,7 +95,7 @@ float funkin::Conductor::getMinAudioTime() const {
         return 0.0f;
     }
     float minAudioTime = getMaxAudioTime();
-    for (const auto track : tracks) {
+    for (const auto& track : tracks) {
         if (track->GetTimeLength() < minAudioTime) {
             minAudioTime = track->GetTimeLength();
         }
@@ -108,7 +108,7 @@ float funkin::Conductor::getMaxAudioTime() const {
         return 0.0f;
     }
     float maxAudioTime = 0.0f;
-    for (const auto track : tracks) {
+    for (const auto& track : tracks) {
         if (track->GetTimeLength() >= maxAudioTime) {
             maxAudioTime = track->GetTimeLength();
         }

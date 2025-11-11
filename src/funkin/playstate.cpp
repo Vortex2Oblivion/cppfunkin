@@ -129,7 +129,7 @@ void funkin::PlayState::loadSong( const std::string& songName,  const std::strin
         }
     }
 
-    for (const auto music : tracks) {
+    for (const auto& music : tracks) {
         music->looping = false;
     }
 
@@ -138,7 +138,7 @@ void funkin::PlayState::loadSong( const std::string& songName,  const std::strin
     conductor->bpm = parsedSong["bpm"];
 }
 
-void funkin::PlayState::focusCamera(void) {
+void funkin::PlayState::focusCamera() {
     if (song.parsedSong.contains("notes")) {
         auto notes = song.parsedSong["notes"];
         const int targetSection = static_cast<int>(fminf(static_cast<float>(notes.size()) - 1.0f, fmaxf(0, floor(static_cast<float>(conductor->getBeat()) / 4.0f))));
@@ -190,7 +190,7 @@ void funkin::PlayState::update(const float delta) {
     healthBar->bar->percent = health = playerField->health;
 
     bool playing = false;
-    for (const auto music : tracks) {
+    for (const auto& music : tracks) {
         if (music->IsPlaying()) {
             playing = true;
             break;

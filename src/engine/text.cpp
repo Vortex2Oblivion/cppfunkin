@@ -1,6 +1,7 @@
 #include "text.hpp"
 
-engine::Text::Text(std::string text, float size, float x, float y) : Sprite(x, y) {
+engine::Text::Text(const std::string& text, float size, const float x,
+                   const float y) : Sprite(x, y) {
     _text = std::make_unique<raylib::Text>(text, size, WHITE, GetFontDefault(), 1.0f);
     origin = _text->MeasureEx() / 2.0f;
     this->size = size;

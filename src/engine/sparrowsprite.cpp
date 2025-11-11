@@ -3,16 +3,15 @@
 #include <algorithm>
 #include <cstring>
 #include <iostream>
-#include <pugixml.hpp>
 
 #include "animatedsprite.hpp"
 #include "raylib.h"
 
 engine::SparrowSprite::SparrowSprite(const float x, const float y) : AnimatedSprite(x, y) {}
 
-engine::SparrowSprite::~SparrowSprite() {}
+engine::SparrowSprite::~SparrowSprite() = default;
 
-void engine::SparrowSprite::loadGraphic(const std::string &imagePath, std::string xmlPath) {
+void engine::SparrowSprite::loadGraphic(const std::string &imagePath, const std::string& xmlPath) {
     engine::Sprite::loadGraphic(imagePath);
 
     this->xmlPath = xmlPath;
@@ -20,10 +19,10 @@ void engine::SparrowSprite::loadGraphic(const std::string &imagePath, std::strin
         std::cerr << "Could not find XML at path: " << xmlPath << "\n";
         return;
     }
-    pugi::xml_parse_result result = doc.load_file(xmlPath.c_str());
+    result = doc.load_file(xmlPath.c_str());
 }
 
-void engine::SparrowSprite::addAnimation(std::string name, const std::string &prefix, int framerate, std::vector<uint8_t> indices) {
+void engine::SparrowSprite::addAnimation(const std::string& name, const std::string &prefix, int framerate, std::vector<uint8_t> indices) {
     std::vector<std::shared_ptr<engine::Frame>> foundFrames = {};
     uint8_t frameIndex = 0;
     for (auto frame : doc.child("TextureAtlas").children("SubTexture")) {
@@ -102,7 +101,7 @@ void engine::SparrowSprite::draw(const float x, const float y) {
     }
 }
 
-raylib::Vector2 engine::SparrowSprite::getFrameSize(void) const {
+raylib::Vector2 engine::SparrowSprite::getFrameSize() const {
     if (currentAnimation == nullptr || animations.empty()) {
         return raylib::Vector2::Zero();
     }

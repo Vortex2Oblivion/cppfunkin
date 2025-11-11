@@ -1,7 +1,5 @@
 #include "musicbeatstate.hpp"
 
-#include <iostream>
-
 funkin::MusicBeatState::MusicBeatState() : State() { conductor = std::make_shared<funkin::Conductor>(); }
 
 funkin::MusicBeatState::~MusicBeatState() {

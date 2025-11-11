@@ -76,8 +76,8 @@ void engine::Sprite::clearTextureCache() {
     texturePool.clear();
 }
 
-void engine::Sprite::cacheTexture(std::string path) {
-    if (engine::Sprite::texturePool.count(path)) {
+void engine::Sprite::cacheTexture(const std::string& path) {
+    if (engine::Sprite::texturePool.contains(path)) {
         return;
     }
     if (!raylib::FileExists(path)) {
