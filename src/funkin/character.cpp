@@ -31,8 +31,8 @@ funkin::Character::Character(float x, float y, std::string characterName, bool i
     }
 
     if (parsedCharacter.contains("cameraOffset")) {
-        cameraOffset.x = static_cast<float>(parsedCharacter["cameraOffset"]["x"]);
-        cameraOffset.y = static_cast<float>(parsedCharacter["cameraOffset"]["y"]);
+        cameraOffset.x += static_cast<float>(parsedCharacter["cameraOffset"]["x"]);
+        cameraOffset.y += static_cast<float>(parsedCharacter["cameraOffset"]["y"]);
     }
 
     loadGraphic(characterBasePath + "/spritesheet.png",
@@ -54,7 +54,6 @@ funkin::Character::Character(float x, float y, std::string characterName, bool i
         this->offsets[name] = raylib::Vector2(offset["x"], offset["y"]);
     }
     this->scale.x = this->scale.y = scale;
-
     dance();
 }
 

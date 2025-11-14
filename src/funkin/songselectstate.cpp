@@ -6,6 +6,13 @@
 #include "playstate.hpp"
 
 funkin::SongSelectState::SongSelectState() : MusicBeatState() {
+}
+
+funkin::SongSelectState::~SongSelectState() { songs.clear(); }
+
+void funkin::SongSelectState::create() {
+    funkin::MusicBeatState::create();
+
     const std::string songListRaw = raylib::LoadFileText("assets/songs/list.txt");
     const std::vector<std::string> songList = raylib::TextSplit(songListRaw, '\n');
     for (const auto& song : songList) {
@@ -13,12 +20,7 @@ funkin::SongSelectState::SongSelectState() : MusicBeatState() {
             songs.push_back(song);
         }
     }
-}
 
-funkin::SongSelectState::~SongSelectState() { songs.clear(); }
-
-void funkin::SongSelectState::create() {
-    funkin::MusicBeatState::create();
     songText = std::make_shared<engine::Text>(songs[selectedSong], 20, 100, 100);
     add(songText);
 

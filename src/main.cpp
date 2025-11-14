@@ -1,8 +1,8 @@
 #include <raylib-cpp.hpp>
 
 #include "engine/game.hpp"
-#include "funkin/songselectstate.hpp"
 #include "engine/memorycounter.hpp"
+#include "funkin/titlestate.hpp"
 
 #if __APPLE__
 #include "engine/macos.hpp"
@@ -41,7 +41,7 @@ int main() {
     auto audioDevice = raylib::AudioDevice();
     audioDevice.SetVolume(0.25f);
 
-    auto game = engine::Game(std::make_unique<funkin::SongSelectState>());
+    auto game = engine::Game(std::make_unique<funkin::TitleState>());
 
     while (!window.ShouldClose()) {
         window.BeginDrawing();

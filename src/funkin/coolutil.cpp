@@ -1,26 +1,22 @@
 #include "coolutil.hpp"
 
+#include <array>
 #include <cstdlib>
 #include <cstring>
-#include <vector>
-#include <string>
 #include <raylib-cpp.hpp>
+#include <string>
+#include <vector>
 
-int *funkin::CoolUtil::codepointRemoveDuplicates(const int *codepoints, const int codepointCount, int *codepointsResultCount)
-{
+int* funkin::CoolUtil::codepointRemoveDuplicates(const int* codepoints, const int codepointCount, int* codepointsResultCount) {
     int codepointsNoDupsCount = codepointCount;
-    const auto codepointsNoDups = static_cast<int *>(calloc(codepointCount, sizeof(int)));
+    const auto codepointsNoDups = static_cast<int*>(calloc(codepointCount, sizeof(int)));
     memcpy(codepointsNoDups, codepoints, codepointCount * sizeof(int));
 
     // Remove duplicates
-    for (int i = 0; i < codepointsNoDupsCount; i++)
-    {
-        for (int j = i + 1; j < codepointsNoDupsCount; j++)
-        {
-            if (codepointsNoDups[i] == codepointsNoDups[j])
-            {
-                for (int k = j; k < codepointsNoDupsCount; k++)
-                    codepointsNoDups[k] = codepointsNoDups[k + 1];
+    for (int i = 0; i < codepointsNoDupsCount; i++) {
+        for (int j = i + 1; j < codepointsNoDupsCount; j++) {
+            if (codepointsNoDups[i] == codepointsNoDups[j]) {
+                for (int k = j; k < codepointsNoDupsCount; k++) codepointsNoDups[k] = codepointsNoDups[k + 1];
 
                 codepointsNoDupsCount--;
                 j--;
@@ -35,18 +31,16 @@ int *funkin::CoolUtil::codepointRemoveDuplicates(const int *codepoints, const in
     return codepointsNoDups;
 }
 
-std::string funkin::CoolUtil::formatBytes(size_t bytes)
-{
-        const std::string suffix[] = {"B", "KB", "MB", "GB", "TB"};
-        constexpr char length = std::size(suffix);
+std::string funkin::CoolUtil::formatBytes(size_t bytes) {
+    const std::array<std::string, 5> suffix = {"B", "KB", "MB", "GB", "TB"};
 
-	int i = 0;
-	auto dblBytes = static_cast<double>(bytes);
+    int i = 0;
+    auto dblBytes = static_cast<double>(bytes);
 
-	if (bytes > 1024) {
-		for (i = 0; (bytes / 1024) > 0 && i<length-1; i++, bytes /= 1024)
-			dblBytes = bytes / 1024.0;
-	}
-
-	return TextFormat("%.02lf %s", dblBytes, suffix[i].c_str());
+    if (bytes > 1024) {
+        for (i = 0; (bytes / 1024) > 0 && i < suffix.size() - 1; i++, bytes /= 1024) {
+            dblBytes = static_cast<double>(bytes) / 1024.0;
+        }
+    }
+    return TextFormat("%.02lf %s", dblBytes, suffix[i].c_str());
 }

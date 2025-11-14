@@ -126,7 +126,7 @@
        "boyfriend": {
            "position": {
                "x": 920,
-               "y": 240
+               "y": 215
            },
            "cameraOffset": {
                "x": 0,
@@ -136,13 +136,13 @@
         "dad": {
             "position": {
                 "x": -100,
-                "y": 320
+                "y": 295
             }
         },
         "girlfriend": {
             "position": {
                 "x": 400,
-                "y": 270
+                "y": 245
             },
             "scrollFactor": {
                 "x": 1.0,
