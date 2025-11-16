@@ -62,7 +62,7 @@ raylib::Vector2 engine::AnimatedSprite::getMidpoint() {
 }
 
 void engine::AnimatedSprite::draw(const float x, const float y) {
-    if (currentAnimation == nullptr || animations.empty()) {
+    if (!visible || currentAnimation == nullptr || animations.empty()) {
         engine::Sprite::draw(x, y);
         return;
     }

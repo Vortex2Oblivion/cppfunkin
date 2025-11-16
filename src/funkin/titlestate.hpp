@@ -1,6 +1,8 @@
 #pragma once
+
 #include "../engine/sparrowsprite.hpp"
 #include "musicbeatstate.hpp"
+#include "../engine/timer.hpp"
 
 namespace funkin {
 class TitleState final : public funkin::MusicBeatState {
@@ -18,6 +20,8 @@ class TitleState final : public funkin::MusicBeatState {
     std::shared_ptr<raylib::Music> freakyMenu = nullptr;
   protected:
     bool danceLeft = false;
+    std::string introTextRaw;
+    std::vector<std::string> introText = {};
 };
 
 }  // namespace funkin

@@ -1,14 +1,12 @@
 #include "game.hpp"
 
-#include <cstdio>
-#include <iostream>
-
 #include "camera.hpp"
 #include "sprite.hpp"
 
 std::unique_ptr<engine::State> engine::Game::_state = nullptr;
 std::shared_ptr<engine::Camera> engine::Game::defaultCamera = std::make_shared<engine::Camera>();
 std::vector<std::shared_ptr<engine::Camera>> engine::Game::cameras = {engine::Game::defaultCamera};
+std::vector<engine::Timer> engine::Game::timers = {};
 
 engine::Game::Game(std::unique_ptr<State> initialState) {
     _state = std::move(initialState);
@@ -33,10 +31,18 @@ void engine::Game::update(const float delta) {
         }
         camera->EndMode();
     }
+    for (auto timer : timers) {
+        timer.update();
+    }
+    const auto timerToRemove = std::ranges::find_if(timers, [](const auto& t) {
+        return t.isDone();
+    });
+    timers.erase(timerToRemove, timers.end());
 }
 
 void engine::Game::switchState(std::unique_ptr<State> nextState) {
     engine::Sprite::clearTextureCache();
+    timers.clear();
     cameras.clear();
     defaultCamera = std::make_shared<engine::Camera>();
     cameras = {defaultCamera};

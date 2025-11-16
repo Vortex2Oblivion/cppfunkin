@@ -42,6 +42,7 @@ class Sprite : public Object {
     float angle = 0.0f;
     raylib::Color color = WHITE;
     bool flipX = false;
+    bool visible = true;
 
     static void clearTextureCache();
 };

@@ -24,14 +24,14 @@ void engine::Sprite::loadGraphic(const std::string& path) {
 
 void engine::Sprite::update(float delta) {}
 
-void engine::Sprite::draw(float x, float y) {
-    if (!texture) {
+void engine::Sprite::draw(const float x, const float y) {
+    if (!visible || !texture) {
         return;
     }
     dest.x = (texture->width / 2.0f) + position.x + offset.x + x;
     dest.y = (texture->height / 2.0f) + position.y + offset.y + y;
-    dest.width = (float)(texture->width) * scale.x;
-    dest.height = (float)(texture->height) * scale.y;
+    dest.width = static_cast<float>(texture->width) * scale.x;
+    dest.height = static_cast<float>(texture->height) * scale.y;
 
     calculateScrollFactor();
 
@@ -57,7 +57,7 @@ void engine::Sprite::screenCenter() {
     position.y = (raylib::Window::GetHeight() - texture->height) / 2.0f;
 }
 
-void engine::Sprite::screenCenter(engine::Axes axes) {
+void engine::Sprite::screenCenter(const engine::Axes axes) {
     switch (axes) {
         case X:
             position.x = (raylib::Window::GetWidth() - texture->width) / 2.0f;

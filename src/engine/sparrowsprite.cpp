@@ -72,7 +72,7 @@ void engine::SparrowSprite::addAnimation(const std::string &name, const std::str
 void engine::SparrowSprite::update(const float delta) { engine::AnimatedSprite::update(delta); }
 
 void engine::SparrowSprite::draw(const float x, const float y) {
-    if (currentAnimation == nullptr || animations.empty()) {
+    if (!visible || currentAnimation == nullptr || animations.empty()) {
         engine::Sprite::draw(x, y);
         return;
     }

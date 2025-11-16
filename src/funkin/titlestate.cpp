@@ -1,7 +1,10 @@
 #include "titlestate.hpp"
 
+#include <iostream>
+
 #include "../engine/game.hpp"
 #include "songselectstate.hpp"
+#include "../engine/timer.hpp"
 
 funkin::TitleState::TitleState() : funkin::MusicBeatState() {}
 
@@ -10,11 +13,18 @@ funkin::TitleState::~TitleState() = default;
 void funkin::TitleState::create() {
     funkin::MusicBeatState::create();
 
+    introTextRaw = raylib::LoadFileText("assets/data/introText.txt");
+    introText = raylib::TextSplit(introTextRaw, '\n');
+
     freakyMenu = std::make_shared<raylib::Music>("assets/music/freakyMenu.ogg");
+    freakyMenu->looping = true;
     conductor->start({freakyMenu});
     conductor->bpm = 102.0f;
 
-    gfDance = std::make_shared<engine::SparrowSprite>(raylib::Window::GetWidth() * 0.4f, raylib::Window::GetHeight() * 0.07f);
+    const auto windowWidth = static_cast<float>(raylib::Window::GetWidth());
+    const auto windowHeight = static_cast<float>(raylib::Window::GetHeight());
+
+    gfDance = std::make_shared<engine::SparrowSprite>(windowWidth * 0.4f, windowHeight * 0.07f);
     gfDance->loadGraphic("assets/images/gfDanceTitle.png", "assets/images/gfDanceTitle.xml");
     gfDance->addAnimation("danceLeft", "gfDance", 24,  {30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14});
     gfDance->addAnimation("danceRight", "gfDance", 24,  {15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29});
@@ -25,11 +35,17 @@ void funkin::TitleState::create() {
     logoBumpin->addAnimation("bump", "logo bumpin", 24);
     add(logoBumpin);
 
-    titleText = std::make_shared<engine::SparrowSprite>(100, raylib::Window::GetHeight() * 0.8f);
+    titleText = std::make_shared<engine::SparrowSprite>(100, windowHeight * 0.8f);
     titleText->loadGraphic("assets/images/titleEnter.png", "assets/images/titleEnter.xml");
     titleText->addAnimation("idle", "Press Enter to Begin", 24, {}, true);
     titleText->playAnimation("idle");
+    titleText->visible = false;
     add(titleText);
+
+    auto timer = engine::Timer(2.0, [this]{
+        titleText->visible = true;
+    });
+    timer.start();
 
     beatHit();
 }
