@@ -18,8 +18,8 @@ void funkin::TitleState::create() {
 
     freakyMenu = std::make_shared<raylib::Music>("assets/music/freakyMenu.ogg");
     freakyMenu->looping = true;
-    conductor->start({freakyMenu});
     conductor->bpm = 102.0f;
+    conductor->start({freakyMenu});
 
     const auto windowWidth = static_cast<float>(raylib::Window::GetWidth());
     const auto windowHeight = static_cast<float>(raylib::Window::GetHeight());
@@ -46,7 +46,6 @@ void funkin::TitleState::create() {
         titleText->visible = true;
     });
     timer.start();
-
     beatHit();
 }
 

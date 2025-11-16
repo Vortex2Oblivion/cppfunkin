@@ -5,36 +5,40 @@
 #include <vector>
 
 namespace funkin {
-class Conductor {
-   private:
-    float lastAudioTime = 0;
-    int step = 0;
-    int beat = 0;
+    class Conductor {
+        friend class MusicBeatState;
+       private:
+        float lastAudioTime = 0.0f;
+        int step = 0;
+        int beat = 0;
 
-    void updateStep();
-    void updateBeat();
+        bool didProperStepUpdate = false;
+        bool didProperBeatUpdate = false;
 
-    void stepHit();
-    void beatHit();
+        void updateStep();
+        void updateBeat();
 
-   public:
-    explicit Conductor(const std::vector<std::shared_ptr<raylib::Music>> &tracks = {});
-    ~Conductor();
-    void start(std::vector<std::shared_ptr<raylib::Music>> tracks);
-    void start() const;
-    void stop() const;
-    void update(float delta);
+        void stepHit();
+        void beatHit();
 
-    [[nodiscard]] int getBeat() const;
-    [[nodiscard]] int getStep() const;
-    [[nodiscard]] float getCrochet() const;
-    [[nodiscard]] float getStepCrochet() const;
+       public:
+        explicit Conductor(const std::vector<std::shared_ptr<raylib::Music>> &tracks = {});
+        ~Conductor();
+        void start(std::vector<std::shared_ptr<raylib::Music>> tracks);
+        void start() const;
+        void stop() const;
+        void update(float delta);
 
-    [[nodiscard]] float getMaxAudioTime() const;
-    [[nodiscard]] float getMinAudioTime() const;
+        [[nodiscard]] int getBeat() const;
+        [[nodiscard]] int getStep() const;
+        [[nodiscard]] float getCrochet() const;
+        [[nodiscard]] float getStepCrochet() const;
 
-    std::vector<std::shared_ptr<raylib::Music>> tracks = {};
-    float time = -1.0f;
-    float bpm = 60.0f;
-};
+        [[nodiscard]] float getMaxAudioTime() const;
+        [[nodiscard]] float getMinAudioTime() const;
+
+        std::vector<std::shared_ptr<raylib::Music>> tracks = {};
+        float time = -1.0f;
+        float bpm = 60.0f;
+    };
 }  // namespace funkin

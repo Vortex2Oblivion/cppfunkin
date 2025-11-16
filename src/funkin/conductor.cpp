@@ -1,5 +1,6 @@
 #include "conductor.hpp"
 #include <cstdlib>
+#include <iostream>
 #include <raylib-cpp.hpp>
 #include <vector>
 
@@ -23,7 +24,7 @@ void funkin::Conductor::start() const {
     if (tracks.empty()) {
         return;
     }
-    for (const auto track : tracks) {
+    for (const auto& track : tracks) {
         track->Play();
     }
 }
@@ -63,13 +64,15 @@ void funkin::Conductor::update(const float delta) {
 
     const int oldStep = step;
     const int oldBeat = beat;
+
     updateStep();
     updateBeat();
-    if (oldStep < step) {
+
+    if (oldStep != step) {
         stepHit();
     }
 
-    if (oldBeat < beat) {
+    if (oldBeat != beat) {
         beatHit();
     }
 }
@@ -78,13 +81,25 @@ int funkin::Conductor::getBeat() const { return beat; }
 
 int funkin::Conductor::getStep() const { return step; }
 
-float funkin::Conductor::getCrochet() const { return (60.0f / bpm) * 1000.0f; }
+float funkin::Conductor::getCrochet() const {
+    return (60.0f / bpm) * 1000.0f;
+}
 
 float funkin::Conductor::getStepCrochet() const { return getCrochet() / 4; }
 
-void funkin::Conductor::updateStep() { step = static_cast<int>(time / getStepCrochet()); }
+void funkin::Conductor::updateStep() {
+    const int potentialNewStep = static_cast<int>(time / getCrochet());
+    if (potentialNewStep != step) {
+        step = potentialNewStep;
+    }
+}
 
-void funkin::Conductor::updateBeat() { beat = static_cast<int>(time / getCrochet()); }
+void funkin::Conductor::updateBeat() {
+    const int potentialNewBeat = static_cast<int>(time / getCrochet());
+    if (potentialNewBeat != beat) {
+        beat = potentialNewBeat;
+    }
+}
 
 void funkin::Conductor::stepHit() {}
 
