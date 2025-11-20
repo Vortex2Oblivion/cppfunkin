@@ -12,6 +12,7 @@ class TitleState final : public funkin::MusicBeatState {
     void create() override;
     void beatHit() override;
     void update(float delta) override;
+    void startIntro();
 
     std::shared_ptr<engine::SparrowSprite> logoBumpin = nullptr;
     std::shared_ptr<engine::SparrowSprite> gfDance = nullptr;

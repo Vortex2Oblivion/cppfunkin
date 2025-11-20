@@ -39,13 +39,8 @@ void funkin::TitleState::create() {
     titleText->loadGraphic("assets/images/titleEnter.png", "assets/images/titleEnter.xml");
     titleText->addAnimation("idle", "Press Enter to Begin", 24, {}, true);
     titleText->playAnimation("idle");
-    titleText->visible = false;
     add(titleText);
 
-    auto timer = engine::Timer(2.0, [this]{
-        titleText->visible = true;
-    });
-    timer.start();
     beatHit();
 }
 

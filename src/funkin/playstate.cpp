@@ -2,9 +2,7 @@
 
 #include <algorithm>
 #include <fstream>
-#include <iostream>
 #include <nlohmann/json.hpp>
-#include <raymath.hpp>
 #include <utility>
 
 #include "../engine/animatedsprite.hpp"
@@ -14,7 +12,6 @@
 #include "coolutil.hpp"
 #include "healthbar.hpp"
 #include "playfield.hpp"
-#include "raylib.h"
 #include "song.hpp"
 #include "songselectstate.hpp"
 
@@ -29,9 +26,9 @@ funkin::PlayState::~PlayState() {
 }
 
 void funkin::PlayState::create() {
-    HideCursor();
-
     funkin::MusicBeatState::create();
+
+    raylib::Window::HideCursor();
 
     camHUD = std::make_shared<engine::Camera>();
     engine::Game::cameras.push_back(camHUD);
@@ -99,6 +96,7 @@ void funkin::PlayState::create() {
 
     focusCamera();
     engine::Game::defaultCamera->cameraPosition = cameraTarget;
+
 }
 
 void funkin::PlayState::loadSong( const std::string& songName,  const std::string& difficulty) {
