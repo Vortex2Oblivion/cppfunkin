@@ -104,13 +104,11 @@ void funkin::PlayState::loadSong( const std::string& songName,  const std::strin
 
     song = funkin::Song::parseChart(songName, difficulty);
 
-    nlohmann::json_abi_v3_12_0::json parsedSong = song.parsedSong;
-
-    const bool needsVoices = parsedSong["needsVoices"];
-    scrollSpeed = parsedSong["speed"];
-    curStage = parsedSong["stage"];
-    player1 = parsedSong["player1"];
-    player2 = parsedSong["player2"];
+    const bool needsVoices = song.needsVoices;
+    scrollSpeed = song.scrollSpeed;
+    curStage = song.stage;
+    player1 = song.player1;
+    player2 = song.player2;
 
     // noteDatas = song.notes;
     totalPlayerNotes = song.playerNotes.size();
@@ -133,19 +131,23 @@ void funkin::PlayState::loadSong( const std::string& songName,  const std::strin
 
     conductor->start(tracks);
     // TODO: BPM Changes
-    conductor->bpm = parsedSong["bpm"];
+    conductor->bpm = song.bpm;
 }
 
 void funkin::PlayState::focusCamera() {
-    if (song.parsedSong.contains("notes")) {
-        auto notes = song.parsedSong["notes"];
-        const int targetSection = static_cast<int>(fminf(static_cast<float>(notes.size()) - 1.0f, fmaxf(0, floor(static_cast<float>(conductor->getBeat()) / 4.0f))));
+    if (!song.parsedSong.contains("notes")) {
+        return;
+    }
+    auto notes = song.parsedSong["notes"];
+    const int targetSection = static_cast<int>(fminf(static_cast<float>(notes.size()) - 1.0f, fmaxf(0, floor(static_cast<float>(conductor->getBeat()) / 4.0f))));
+    if (!notes.is_array() || !notes[targetSection].contains("mustHitSection")) {
+        return;
+    }
 
-        if (notes[targetSection]["mustHitSection"]) {
-            cameraTarget = boyfriend->getMidpoint() + boyfriend->cameraOffset - raylib::Vector2(100, 100);
-        } else {
-            cameraTarget = dad->getMidpoint() + dad->cameraOffset + raylib::Vector2(150, -100);
-        }
+    if (notes[targetSection]["mustHitSection"]) {
+        cameraTarget = boyfriend->getMidpoint() + boyfriend->cameraOffset - raylib::Vector2(100, 100);
+    } else {
+        cameraTarget = dad->getMidpoint() + dad->cameraOffset + raylib::Vector2(150, -100);
     }
 }
 

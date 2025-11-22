@@ -3,7 +3,7 @@
 #include "../engine/animatedsprite.hpp"
 
 namespace funkin {
-class HealthIcon : public engine::AnimatedSprite {
+class HealthIcon final : public engine::AnimatedSprite {
    public:
      HealthIcon(const std::string &character, float x, float y);
      ~HealthIcon() override;

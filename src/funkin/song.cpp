@@ -2,8 +2,69 @@
 
 #include <fstream>
 #include <iostream>
+#include <raylib-cpp.hpp>
 
-funkin::SongData funkin::Song::parseChart(const std::string& songName, const std::string& difficulty) {
+funkin::SongData funkin::Song::parseChart(const std::string& songName, const std::string& difficulty){
+    const std::string folderPath = "assets/songs/"+songName;
+    if(raylib::FileExists(folderPath + "/"+ songName + "-metadata.json")){
+        return parseVSlice(songName, difficulty);
+    }
+    else if(raylib::FileExists(folderPath + "/" + difficulty + ".json")){
+        return parseLegacy(songName, difficulty);
+    }
+    else{
+        throw std::runtime_error("Could not find chart file for song " + songName);
+    }
+    return {};
+}
+
+funkin::SongData funkin::Song::parseVSlice(const std::string& songName, const std::string& difficulty){
+    const std::string basePath = "assets/songs/" + songName + "/";
+
+    std::string chartPath = basePath + songName + "-chart.json";
+    std::string metaPath = basePath + songName + "-metadata.json";
+
+    std::ifstream chartFile(chartPath);
+    nlohmann::json parsedChart = nlohmann::json::parse(chartFile);
+    chartFile.close();
+
+    std::ifstream metaFile(metaPath);
+    nlohmann::json parsedMeta = nlohmann::json::parse(metaFile);
+    metaFile.close();
+
+    std::vector<NoteData> playerNotes = {};
+    std::vector<NoteData> opponentNotes = {};
+
+    for (auto note : parsedChart["notes"][difficulty]) {
+        bool playerNote = note["d"] < 4;
+        auto noteData = NoteData{
+            .time = note["t"],
+            .lane = static_cast<int>(note["d"]) % 4,
+            .isPlayer = playerNote,
+            .sustainLength = note["l"]
+        };
+        if (playerNote) {
+            playerNotes.push_back(noteData);
+        } else {
+            opponentNotes.push_back(noteData);
+        }
+    }
+
+    return {
+        .parsedSong = parsedChart,
+        .playerNotes = playerNotes,
+        .opponentNotes = opponentNotes,
+        .player1 = parsedMeta["playData"]["characters"]["player"],
+        .player2 = parsedMeta["playData"]["characters"]["opponent"],
+        .stage = parsedMeta["playData"]["stage"],
+        .needsVoices = true,
+        .scrollSpeed = parsedChart["scrollSpeed"][difficulty],
+        .bpm = parsedMeta["timeChanges"][0]["bpm"]
+    };
+}
+
+
+funkin::SongData funkin::Song::parseLegacy(const std::string& songName, const std::string& difficulty) {
     std::string basePath = "assets/songs/" + songName + "/";
     std::ifstream chartFile(basePath + difficulty + ".json");
     nlohmann::json parsedChart = nlohmann::json::parse(chartFile);
@@ -47,9 +108,15 @@ funkin::SongData funkin::Song::parseChart(const std::string& songName, const std
             }
         }
     }
+
     return {
         .parsedSong = song,
         .playerNotes = playerNotes,
         .opponentNotes = opponentNotes,
+        .player1 = song["player1"],
+        .player2 = song["player2"],
+        .stage = song["stage"],
+        .scrollSpeed = song["speed"],
+        .bpm = song["bpm"]
     };
 }
