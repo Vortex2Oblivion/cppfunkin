@@ -35,11 +35,11 @@ void funkin::PlayState::create() {
 
     loadSong(songName, difficulty);
 
-    dad = std::make_shared<Character>(0, 0, player2, false);
+    dad = std::make_shared<Character>(0, 0, player2, funkin::CharacterType::DAD);
 
-    boyfriend = std::make_shared<Character>(0, 0, player1, true);
+    boyfriend = std::make_shared<Character>(0, 0, player1, funkin::CharacterType::BF);
 
-    girlfriend = std::make_shared<Character>(0, 0, "gf", false);
+    girlfriend = std::make_shared<Character>(0, 0, spectator, funkin::CharacterType::GF);
     girlfriend->scrollFactor = raylib::Vector2(0.95f, 0.95f);
 
     stage = std::make_shared<funkin::Stage>(curStage, boyfriend, dad, girlfriend);
@@ -109,6 +109,7 @@ void funkin::PlayState::loadSong( const std::string& songName,  const std::strin
     curStage = song.stage;
     player1 = song.player1;
     player2 = song.player2;
+    spectator = song.spectator;
 
     // noteDatas = song.notes;
     totalPlayerNotes = song.playerNotes.size();

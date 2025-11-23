@@ -13,6 +13,7 @@ funkin::SongData funkin::Song::parseChart(const std::string& songName, const std
         return parseLegacy(songName, difficulty);
     }
     else{
+        std::cerr << "Could not find chart file for song " + songName << std::endl;
         throw std::runtime_error("Could not find chart file for song " + songName);
     }
     return {};
@@ -56,6 +57,7 @@ funkin::SongData funkin::Song::parseVSlice(const std::string& songName, const st
         .opponentNotes = opponentNotes,
         .player1 = parsedMeta["playData"]["characters"]["player"],
         .player2 = parsedMeta["playData"]["characters"]["opponent"],
+        .spectator = parsedMeta["playData"]["characters"]["girlfriend"],
         .stage = parsedMeta["playData"]["stage"],
         .needsVoices = true,
         .scrollSpeed = parsedChart["scrollSpeed"][difficulty],
@@ -109,12 +111,28 @@ funkin::SongData funkin::Song::parseLegacy(const std::string& songName, const st
         }
     }
 
+    std::string spectator = "gf";
+
+    if (song.contains("spectator")) {
+        spectator = song["spectator"];
+    }
+    else if (song.contains("gf")) {
+        spectator = song["gf"];
+    }
+    else if (song.contains("gfVersion")) {
+        spectator = song["gfVersion"];
+    }
+    else if (song.contains("player3")) {
+        spectator = song["player3"];
+    }
+
     return {
         .parsedSong = song,
         .playerNotes = playerNotes,
         .opponentNotes = opponentNotes,
         .player1 = song["player1"],
         .player2 = song["player2"],
+        .spectator = spectator,
         .stage = song["stage"],
         .scrollSpeed = song["speed"],
         .bpm = song["bpm"]

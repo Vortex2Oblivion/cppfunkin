@@ -55,6 +55,8 @@ namespace funkin
         std::string curStage = "stage";
         std::string player1 = "bf";
         std::string player2 = "dad";
+        std::string spectator = "gf";
+
         float scrollSpeed = 1.0f;
         float defaultCameraZoom = 1.0f;
         funkin::SongData song;

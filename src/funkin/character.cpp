@@ -6,13 +6,24 @@
 
 #include "../engine/animatedsprite.hpp"
 
-funkin::Character::Character(float x, float y, std::string characterName, bool isPlayer) : SparrowSprite(x, y) {
+funkin::Character::Character(float x, float y, std::string characterName, funkin::CharacterType type) : SparrowSprite(x, y) {
     this->characterName = std::move(characterName);
+    this->type = type;
     std::string characterBasePath = "assets/characters/" + this->characterName;
     std::ifstream characterFile(characterBasePath + "/character.json");
 
     if (characterFile.fail()) {
-        this->characterName = isPlayer ? "bf" : "dad";
+        switch (type) {
+            case BF:
+                this->characterName = "bf";
+                break;
+            case DAD:
+                this->characterName = "dad";
+                break;
+            case GF:
+                this->characterName = "gf";
+                break;
+        }
         characterBasePath = "assets/characters/" + this->characterName;
         characterFile = std::ifstream(characterBasePath + "/character.json");
     }

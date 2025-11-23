@@ -83,7 +83,7 @@ void funkin::PlayField::update(const float delta) {
             if (!justHitArray[lane]) {
                 continue;
             }
-            auto strum = strums->members[lane];
+            const auto strum = strums->members[lane];
             strum->playAnimation("press");
             strum->offset = strum->offset.Scale(0.0f);
         }

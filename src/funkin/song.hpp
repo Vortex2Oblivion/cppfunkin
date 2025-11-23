@@ -16,6 +16,7 @@ struct SongData {
 
     std::string player1;
     std::string player2;
+    std::string spectator;
     std::string stage;
 
     bool needsVoices = true;
