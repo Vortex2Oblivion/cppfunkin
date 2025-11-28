@@ -1,12 +1,9 @@
 cmake_minimum_required(VERSION 3.10.0)
 project(cppfunkin VERSION 0.1.0 LANGUAGES C CXX)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(CMAKE_CXX_STANDARD 20)
 
-set(MAIN src/main.cpp)
-file(GLOB FUNKIN "src/funkin/*.cpp")
-file(GLOB ENGINE "src/engine/*.cpp")
+file(GLOB_RECURSE SRC "src/*.cpp")
 
 set(OS)
 
@@ -16,7 +13,7 @@ if(APPLE)
     )
 endif()
 
-add_executable(${PROJECT_NAME} ${MAIN} ${FUNKIN} ${ENGINE} ${OS})
+add_executable(${PROJECT_NAME} ${SRC} ${OS})
 
 
 add_subdirectory(external/raylib)
