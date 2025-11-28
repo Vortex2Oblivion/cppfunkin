@@ -4,9 +4,6 @@
 #include "engine/memorycounter.hpp"
 #include "funkin/titlestate.hpp"
 
-#if __APPLE__
-#include "engine/macos.hpp"
-#endif
 #include <iostream>
 #include "funkin/coolutil.hpp"
 
@@ -14,6 +11,9 @@
 #include <gamemode_client.h>
 #endif
 
+#if __APPLE__
+#include "engine/macos.hpp"
+#endif
 
 int main() {
 
@@ -31,7 +31,7 @@ int main() {
     MacOSUtil::fixWindowColorSpace();
     #endif
 
-    window.SetTargetFPS(GetMonitorRefreshRate(window.GetMonitor()) * 2);
+    window.SetTargetFPS(GetMonitorRefreshRate(raylib::Window::GetMonitor()) * 2);
 
     {
         auto iconOG = raylib::Image("assets/images/iconOG.png");
@@ -44,17 +44,14 @@ int main() {
 
     auto game = engine::Game(std::make_unique<funkin::TitleState>());
 
-    while (!window.ShouldClose()) {
+    while (!raylib::Window::ShouldClose()) {
         window.BeginDrawing();
         window.ClearBackground(BLACK);
-        game.update(window.GetFrameTime());
-        window.DrawFPS(10, 10);
+        game.update(raylib::Window::GetFrameTime());
+        raylib::Window::DrawFPS(10, 10);
         raylib::Text::Draw(funkin::CoolUtil::formatBytes(getCurrentRSS()) + " / " + funkin::CoolUtil::formatBytes(getPeakRSS()), 10, 30, 20, LIME);
         window.EndDrawing();
     }
-
-    audioDevice.Close();
-    window.Close();
 
     #if __linux__
     if (gamemode_request_end()) {

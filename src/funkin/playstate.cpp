@@ -48,7 +48,7 @@ void funkin::PlayState::create() {
 
     engine::Game::defaultCamera->zoom = defaultCameraZoom = stage->zoom;
 
-    dadField = std::shared_ptr<funkin::PlayField>(new funkin::PlayField(0, 0, this->song.opponentNotes, {dad}, true));
+    dadField = std::make_shared<funkin::PlayField>(0, 0, song.opponentNotes, (std::vector<std::shared_ptr<funkin::Character>>){dad}, true);
     dadField->camera = camHUD;
     dadField->conductor = conductor;
     dadField->scrollSpeed = scrollSpeed;
@@ -56,7 +56,7 @@ void funkin::PlayState::create() {
 
     playfields.push_back(dadField);
 
-    playerField = std::shared_ptr<funkin::PlayField>(new PlayField(static_cast<float>(raylib::Window::GetWidth()) / 2.0f, 0, this->song.playerNotes, {boyfriend}, false));
+    playerField = std::make_shared<PlayField>(static_cast<float>(raylib::Window::GetWidth()) / 2.0f, 0, song.playerNotes, (std::vector<std::shared_ptr<funkin::Character>>){boyfriend}, false);
     playerField->camera = camHUD;
     playerField->conductor = conductor;
     playerField->scrollSpeed = scrollSpeed;

@@ -44,15 +44,13 @@ void funkin::PlayField::update(const float delta) {
 
         lastSpawnedNotes[lane] = note;
 
-        const auto roundSustainLength = static_cast<size_t>(roundf(sustainLength / conductor->getStepCrochet()));
-
-        if (roundSustainLength > 0) {
+        if (const auto roundSustainLength = static_cast<size_t>(roundf(sustainLength / conductor->getStepCrochet())); roundSustainLength > 0) {
             for (size_t i = 0; i < roundSustainLength; i++) {
-                const auto sustainNote = std::make_shared<funkin::Note>(time + (conductor->getStepCrochet() * i), lane, scrollSpeed);
+                const auto sustainNote = std::make_shared<funkin::Note>(time + (conductor->getStepCrochet() * static_cast<float>(i)), lane, scrollSpeed);
                 sustainNote->isPlayer = isPlayer;
                 sustainNote->playAnimation("hold");
                 sustainNote->isSustain = true;
-                sustainNote->scale.y = conductor->getStepCrochet() * 0.45f * scrollSpeed / 44.0f;
+                sustainNote->scale.y = conductor->getStepCrochet() * 0.45f * scrollSpeed / sustainNote->getFrameSize().y;
                 sustainNote->originFactor = raylib::Vector2(0.5, 0.0);
                 sustainNote->parentNote = lastSpawnedNotes[lane];
                 lastSpawnedNotes[lane] = sustainNote;
