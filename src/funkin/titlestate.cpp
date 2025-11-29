@@ -1,10 +1,8 @@
 #include "titlestate.hpp"
 
-#include <iostream>
-
 #include "../engine/game.hpp"
 #include "songselectstate.hpp"
-#include "../engine/timer.hpp"
+#include "script.hpp"
 
 funkin::TitleState::TitleState() : funkin::MusicBeatState() {}
 
@@ -40,6 +38,10 @@ void funkin::TitleState::create() {
     titleText->addAnimation("idle", "Press Enter to Begin", 24, {}, true);
     titleText->playAnimation("idle");
     add(titleText);
+
+    const auto script = new funkin::Script("assets/scripts/script.wren");
+    delete script;
+
 
     beatHit();
 }

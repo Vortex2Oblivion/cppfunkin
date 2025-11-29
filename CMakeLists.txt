@@ -15,7 +15,6 @@ endif()
 
 add_executable(${PROJECT_NAME} ${SRC} ${OS})
 
-
 add_subdirectory(external/raylib)
 target_link_libraries(${PROJECT_NAME} raylib)
 
@@ -27,6 +26,9 @@ target_link_libraries(${PROJECT_NAME} nlohmann_json)
 
 add_subdirectory(external/pugixml)
 target_link_libraries(${PROJECT_NAME} pugixml)
+
+add_subdirectory(external/wren-cmake/projects/cmake)
+target_link_libraries(${PROJECT_NAME} wren-lang:wren)
 
 if (UNIX AND NOT APPLE)
 include_directories(external/gamemode/lib)

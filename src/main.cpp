@@ -1,11 +1,11 @@
 #include <raylib-cpp.hpp>
+#include <iostream>
 
 #include "engine/game.hpp"
 #include "engine/memorycounter.hpp"
+#include "funkin/coolutil.hpp"
 #include "funkin/titlestate.hpp"
 
-#include <iostream>
-#include "funkin/coolutil.hpp"
 
 #if __linux__
 #include <gamemode_client.h>
