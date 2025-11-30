@@ -1,7 +1,7 @@
 #pragma once
-#include <functional>
 
 #include "object.hpp"
+#include <functional>
 
 namespace engine {
     class Timer final{

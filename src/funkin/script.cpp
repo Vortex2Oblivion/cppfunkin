@@ -1,8 +1,7 @@
 #include "script.hpp"
-
+#include <raylib-cpp.hpp>
 #include <iostream>
 #include <ostream>
-#include <raylib-cpp.hpp>
 
 funkin::Script::Script(const std::string &path) {
     this->path = path;

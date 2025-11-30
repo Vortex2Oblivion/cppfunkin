@@ -1,26 +1,27 @@
 #pragma once
 
-#include "../engine/sparrowsprite.hpp"
+#include <sparrowsprite.hpp>
 
 namespace funkin {
 
-    enum CharacterType {
-        BF,
-        DAD,
-        GF
-    };
+enum CharacterType { 
+	BF, 
+	DAD, 
+	GF 
+};
 
-    class Character final : public engine::SparrowSprite {
-       protected:
-        bool danceLeft = true;
-       public:
-        Character(float x, float y, std::string characterName, funkin::CharacterType type = DAD);
+class Character final : public engine::SparrowSprite {
+	protected:
+		bool danceLeft = true;
 
-        ~Character() override;
-        void dance();
+	public:
+		Character(float x, float y, std::string characterName, funkin::CharacterType type = DAD);
 
-        std::string characterName;
-        funkin::CharacterType type = DAD;
-        raylib::Vector2 cameraOffset = raylib::Vector2::Zero();
-    };
+		~Character() override;
+		void dance();
+
+		std::string characterName;
+		funkin::CharacterType type = DAD;
+		raylib::Vector2 cameraOffset = raylib::Vector2::Zero();
+	};
 }  // namespace funkin

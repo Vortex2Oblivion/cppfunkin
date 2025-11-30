@@ -20,4 +20,5 @@ funkin::StrumNote::StrumNote(const float x, const float y, const int lane) : eng
 }
 
 funkin::StrumNote::~StrumNote() = default;
+
 void funkin::StrumNote::setPosition() { position.x += (160.0f * scale.x) * static_cast<float>(lane) + 50.0f; }

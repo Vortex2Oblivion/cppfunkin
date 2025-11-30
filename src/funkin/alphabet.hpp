@@ -1,10 +1,8 @@
 #pragma once
 
-#include <array>
-
-#include "../engine/group.hpp"
-#include "../engine/sparrowsprite.hpp"
 #include "alphabetcharacter.hpp"
+#include <group.hpp>
+#include <array>
 
 namespace funkin {
 class Alphabet final : public engine::Group<funkin::AlphabetCharacter> {

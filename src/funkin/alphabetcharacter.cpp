@@ -1,7 +1,4 @@
 #include "alphabetcharacter.hpp"
-
-#include "../engine/sparrowsprite.hpp"
-
 #include <iostream>
 
 funkin::AlphabetCharacter::AlphabetCharacter(const float x, const float y, const char &character) : engine::SparrowSprite(x, y) {

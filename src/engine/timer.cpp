@@ -1,7 +1,5 @@
 #include "timer.hpp"
 
-#include <functional>
-
 #include "game.hpp"
 
 engine::Timer::Timer(const double length, const std::function<void()> &onComplete) {

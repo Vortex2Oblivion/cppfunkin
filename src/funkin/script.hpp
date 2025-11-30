@@ -1,7 +1,7 @@
 #pragma once
 
-#include <string>
 #include <wren.hpp>
+#include <string>
 
 namespace funkin {
     class Script {

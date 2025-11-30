@@ -1,19 +1,16 @@
 #include "playstate.hpp"
 
-#include <algorithm>
-#include <fstream>
-#include <nlohmann/json.hpp>
-#include <utility>
 
-#include "../engine/animatedsprite.hpp"
-#include "../engine/camera.hpp"
-#include "../engine/game.hpp"
-#include "../engine/text.hpp"
 #include "coolutil.hpp"
 #include "healthbar.hpp"
 #include "playfield.hpp"
 #include "song.hpp"
 #include "songselectstate.hpp"
+#include <game.hpp>
+#include <nlohmann/json.hpp>
+#include <algorithm>
+#include <fstream>
+#include <utility>
 
 funkin::PlayState::PlayState(std::string songName, std::string difficulty) : MusicBeatState() {
     this->songName = std::move(songName);

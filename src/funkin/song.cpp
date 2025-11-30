@@ -13,7 +13,7 @@ funkin::SongData funkin::Song::parseChart(const std::string& songName, const std
         return parseLegacy(songName, difficulty);
     }
     else{
-        std::cerr << "Could not find chart file for song " + songName << std::endl;
+        TraceLog(LOG_ERROR, ("Could not find chart file for song " + songName).c_str());
         throw std::runtime_error("Could not find chart file for song " + songName);
     }
     return {};

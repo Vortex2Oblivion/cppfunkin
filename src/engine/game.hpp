@@ -6,7 +6,6 @@
 
 #include <memory>
 
-
 namespace engine {
     class Game {
     private:

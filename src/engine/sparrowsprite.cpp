@@ -1,11 +1,11 @@
 #include "sparrowsprite.hpp"
 
+#include "animatedsprite.hpp"
+
 #include <algorithm>
 #include <cstring>
 #include <iostream>
 
-#include "animatedsprite.hpp"
-#include "raylib.h"
 
 engine::SparrowSprite::SparrowSprite(const float x, const float y) : AnimatedSprite(x, y) {}
 

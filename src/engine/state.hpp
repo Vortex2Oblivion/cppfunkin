@@ -1,11 +1,10 @@
 #pragma once
-#include <vector>
 
 #include "group.hpp"
 
 namespace engine {
 
-class State : public Group<Object> {
+class State : public engine::Group<engine::Object> {
    public:
     State();
     ~State() override;

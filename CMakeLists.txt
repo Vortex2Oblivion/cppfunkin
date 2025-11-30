@@ -4,6 +4,7 @@ project(cppfunkin VERSION 0.1.0 LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 20)
 
 file(GLOB_RECURSE SRC "src/*.cpp")
+include_directories("src/engine" "src/funkin")
 
 set(OS)
 

@@ -1,6 +1,4 @@
 #include "animatedsprite.hpp"
-#include "Vector2.hpp"
-#include "raylib.h"
 
 #include <iostream>
 

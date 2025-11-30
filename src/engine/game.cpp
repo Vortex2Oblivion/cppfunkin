@@ -34,9 +34,7 @@ void engine::Game::update(const float delta) {
     for (auto timer : timers) {
         timer.update();
     }
-    const auto timerToRemove = std::ranges::find_if(timers, [](const auto& t) {
-        return t.isDone();
-    });
+    const auto timerToRemove = std::ranges::find_if(timers, [](const auto& t) { return t.isDone(); });
     timers.erase(timerToRemove, timers.end());
 }
 

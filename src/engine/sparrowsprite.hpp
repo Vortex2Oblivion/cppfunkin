@@ -1,11 +1,11 @@
 #pragma once
 
-#include <pugixml.hpp>
-
-#include "Vector2.hpp"
 #include "animatedsprite.hpp"
 #include "animation.hpp"
-#include "raylib.h"
+
+#include <raylib-cpp.hpp>
+#include <pugixml.hpp>
+
 
 namespace engine {
 class SparrowSprite : public AnimatedSprite {

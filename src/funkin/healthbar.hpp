@@ -1,9 +1,8 @@
 #pragma once
 
-#include "../engine/bar.hpp"
-#include "../engine/group.hpp"
-
 #include "healthicon.hpp"
+#include <bar.hpp>
+#include <group.hpp>
 
 namespace funkin {
 class HealthBar : public engine::Group<engine::Object> {

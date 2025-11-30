@@ -1,8 +1,9 @@
 #include "titlestate.hpp"
 
-#include "../engine/game.hpp"
 #include "songselectstate.hpp"
 #include "script.hpp"
+
+#include <game.hpp>
 
 funkin::TitleState::TitleState() : funkin::MusicBeatState() {}
 

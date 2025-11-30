@@ -15,15 +15,19 @@ void funkin::MusicBeatState::create() {
 
 void funkin::MusicBeatState::update(const float delta) {
     engine::State::update(delta);
+    
     const int lastStep = conductor->getStep();
     const int lastBeat = conductor->getBeat();
+
     conductor->update(delta);
+
     if (lastStep != conductor->getStep() || forceConductorUpdate) {
         stepHit();
     }
     if (lastBeat != conductor->getBeat() || forceConductorUpdate) {
         beatHit();
     }
+
     forceConductorUpdate = false;
 }
 

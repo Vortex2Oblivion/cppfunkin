@@ -1,7 +1,7 @@
 #include "conductor.hpp"
+#include <raylib-cpp.hpp>
 #include <cstdlib>
 #include <iostream>
-#include <raylib-cpp.hpp>
 #include <vector>
 
 

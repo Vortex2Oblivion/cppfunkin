@@ -7,16 +7,15 @@
 
 namespace funkin {
 class Stage final : public engine::Group<engine::Object> {
-   protected:
-    nlohmann::json parsedStage;
+	public:
+		Stage(const std::string& name, std::shared_ptr<funkin::Character> boyfriend, std::shared_ptr<funkin::Character> dad,
+			std::shared_ptr<funkin::Character> girlfriend, float x = 0.0f, float y = 0.0f);
 
-   public:
-    Stage(const std::string &name,std::shared_ptr<funkin::Character> boyfriend, std::shared_ptr<funkin::Character> dad, std::shared_ptr<funkin::Character> girlfriend,
-          float x = 0.0f, float y = 0.0f);
+		~Stage() override;
 
-    ~Stage() override;
-
-    std::string name = "stage";
-    float zoom = 1.0f;
-};
+		std::string name = "stage";
+		float zoom = 1.0f;
+		
+		nlohmann::json parsedStage;
+	};
 }  // namespace funkin

@@ -1,12 +1,11 @@
 #include "songselectstate.hpp"
 
-#include "../engine/game.hpp"
-#include "Functions.hpp"
 #include "alphabet.hpp"
 #include "playstate.hpp"
 
-funkin::SongSelectState::SongSelectState() : MusicBeatState() {
-}
+#include <game.hpp>
+
+funkin::SongSelectState::SongSelectState() : MusicBeatState() {}
 
 funkin::SongSelectState::~SongSelectState() { songs.clear(); }
 

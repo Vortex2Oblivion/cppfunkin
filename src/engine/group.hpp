@@ -1,9 +1,8 @@
 #pragma once
 
-#include <algorithm>
-
 #include "object.hpp"
 
+#include <algorithm>
 #include <memory>
 
 namespace engine {

@@ -1,22 +1,15 @@
 #pragma once
 
-#include <nlohmann/json.hpp>
-
-#include "../engine/camera.hpp"
-#include "../engine/sparrowsprite.hpp"
-#include "../engine/text.hpp"
-#include "character.hpp"
-#include "conductor.hpp"
 #include "healthbar.hpp"
 #include "musicbeatstate.hpp"
 #include "playfield.hpp"
-#include "song.hpp"
 #include "stage.hpp"
+#include <text.hpp>
 
 namespace funkin
 {
 
-    class PlayState final : public MusicBeatState
+    class PlayState final : public funkin::MusicBeatState
     {
     private:
         void updateScoreText() const;
@@ -46,9 +39,10 @@ namespace funkin
         std::shared_ptr<funkin::Character>dad = nullptr;
         std::shared_ptr<funkin::Character> girlfriend = nullptr;
 
-        std::shared_ptr<funkin::HealthBar> healthBar = nullptr;
-
         std::shared_ptr<engine::Camera> camHUD = nullptr;
+
+        std::shared_ptr<funkin::HealthBar> healthBar = nullptr;
+        std::shared_ptr<engine::Text> scoreText = nullptr;
 
         std::string songName;
         std::string difficulty;
@@ -57,13 +51,13 @@ namespace funkin
         std::string player2 = "dad";
         std::string spectator = "gf";
 
+        raylib::Vector2 cameraTarget = raylib::Vector2();
+
         float scrollSpeed = 1.0f;
         float defaultCameraZoom = 1.0f;
         funkin::SongData song;
-        std::shared_ptr<engine::Text> scoreText = nullptr;
         int score = 0;
         float accuracy = 100.0f;
-        raylib::Vector2 cameraTarget = raylib::Vector2();
         size_t totalPlayerNotes = 0;
         uint16_t misses = 0;
         float health = 50.0f;

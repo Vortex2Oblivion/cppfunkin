@@ -1,10 +1,9 @@
 #include "character.hpp"
-
-#include <fstream>
+#include <animatedsprite.hpp>
 #include <nlohmann/json.hpp>
+#include <fstream>
 #include <utility>
 
-#include "../engine/animatedsprite.hpp"
 
 funkin::Character::Character(float x, float y, std::string characterName, funkin::CharacterType type) : SparrowSprite(x, y) {
     this->characterName = std::move(characterName);

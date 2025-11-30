@@ -1,10 +1,10 @@
 #pragma once
-#include <cstdint>
-#include <vector>
 
 #include "frame.hpp"
 
+#include <cstdint>
 #include <memory>
+#include <vector>
 
 namespace engine {
 class Animation {

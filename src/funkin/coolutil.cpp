@@ -1,9 +1,9 @@
 #include "coolutil.hpp"
 
+#include <raylib-cpp.hpp>
 #include <array>
 #include <cstdlib>
 #include <cstring>
-#include <raylib-cpp.hpp>
 #include <string>
 #include <vector>
 

@@ -1,8 +1,6 @@
 #pragma once
 
-#include <raylib-cpp.hpp>
-#include "../engine/camera.hpp"
-
+#include <camera.hpp>
 #include <memory>
 
 namespace engine {

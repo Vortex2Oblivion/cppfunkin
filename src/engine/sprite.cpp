@@ -2,8 +2,6 @@
 
 #include <iostream>
 
-#include "Vector2.hpp"
-
 std::unordered_map<std::string, std::shared_ptr<raylib::Texture>> engine::Sprite::texturePool;
 
 engine::Sprite::Sprite(const float x, const float y) : Object(x, y) {}
