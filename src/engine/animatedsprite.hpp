@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Vector2.hpp"
 #include "animation.hpp"
 #include "sprite.hpp"
 
@@ -15,6 +16,7 @@ namespace engine {
             bool hasAnimation(const std::string &name) const;
             void playAnimation(const std::string &name);
 
+            void updateHitbox();
             void centerOffsets();
 
             raylib::Vector2 getMidpoint() override;
@@ -26,6 +28,7 @@ namespace engine {
             std::shared_ptr<engine::Animation> currentAnimation = nullptr;
             std::map<std::string, raylib::Vector2> offsets = {};
             raylib::Vector2 animationOffset = raylib::Vector2::Zero();
+            raylib::Vector2 offsetHitbox = raylib::Vector2::Zero();
 
         protected:
             raylib::Vector2 maxFrameSize = raylib::Vector2::Zero();

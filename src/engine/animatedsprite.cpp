@@ -34,16 +34,33 @@ void engine::AnimatedSprite::playAnimation(const std::string& name) {
         return;
     }
 
+    bool setFirstHitbox = currentAnimation == nullptr;
+
     currentAnimation = animations[name];
     currentAnimation->resetFrame();
     if (offsets.contains(name)) {
         animationOffset = offsets[name];
     }
+
+    if (setFirstHitbox) {
+        updateHitbox();
+    }
+}
+
+void engine::AnimatedSprite::updateHitbox() {
+    if (currentAnimation != nullptr) {
+        const size_t frame = currentAnimation->currentFrame;
+        offsetHitbox.x = currentAnimation->frames[frame]->width;
+        offsetHitbox.y = currentAnimation->frames[frame]->height;
+    }
 }
 
 void engine::AnimatedSprite::centerOffsets() {
-    offset.x = (dest.width / scale.x - currentAnimation->frames[0]->frameWidth) * 0.5f;
-    offset.y = (dest.height / scale.y - currentAnimation->frames[0]->frameHeight) * 0.5f;
+    if (currentAnimation != nullptr) {
+        const size_t frame = currentAnimation->currentFrame;
+        offset.x = (offsetHitbox.x - currentAnimation->frames[frame]->frameWidth) * 0.5f;
+        offset.y = (offsetHitbox.y - currentAnimation->frames[frame]->frameHeight) * 0.5f;
+    }
 }
 
 bool engine::AnimatedSprite::isOnScreen(const float x, const float y) {

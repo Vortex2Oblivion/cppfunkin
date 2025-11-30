@@ -197,7 +197,6 @@ void funkin::PlayField::update(const float delta) {
 
     for (const auto& strum : strums->members) {
         const auto animation = strum->currentAnimation;
-
         bool playStaticAnimation = cpuControlled ? animation->currentFrame >= animation->frames.size() - 1 : !pressedArray[strum->lane];
 
         if (!playStaticAnimation) {
@@ -205,6 +204,7 @@ void funkin::PlayField::update(const float delta) {
         }
 
         strum->playAnimation("static");
+        strum->updateHitbox();
         strum->centerOffsets();
     }
 }
