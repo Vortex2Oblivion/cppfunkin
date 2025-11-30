@@ -25,7 +25,7 @@ funkin::PlayField::PlayField(const float x, const float y, std::vector<NoteData>
     add(strums);
     add(notes);
 
-    generateStaticArrows(cpuControlled);
+    generateStaticArrows();
 }
 
 funkin::PlayField::~PlayField(){
@@ -218,9 +218,9 @@ void funkin::PlayField::invalidateNote(
     //delete note;
 }
 
-void funkin::PlayField::generateStaticArrows(const bool player) const {
+void funkin::PlayField::generateStaticArrows() const {
     for (int i = 0; i < 4; i++) {
-        const auto babyArrow = std::make_shared<funkin::StrumNote>(42, 50, i, player);
+        const auto babyArrow = std::make_shared<funkin::StrumNote>(42, 50, i);
         babyArrow->setPosition();
         strums->add(babyArrow);
     }

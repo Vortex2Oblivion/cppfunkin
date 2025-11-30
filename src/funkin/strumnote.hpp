@@ -8,12 +8,11 @@ class StrumNote final : public engine::SparrowSprite {
    private:
     /* data */
    public:
-    StrumNote(float x, float y, int lane, bool player);
+    StrumNote(float x, float y, int lane);
 
     ~StrumNote() override;
     void setPosition();
 
     int lane;
-    bool player;
 };
 }  // namespace funkin

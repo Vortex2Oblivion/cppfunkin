@@ -1,12 +1,8 @@
 #include "strumnote.hpp"
-
-#include "raylib.h"
-
 #include <array>
 
-funkin::StrumNote::StrumNote(float x, float y, int lane, bool player) : SparrowSprite(x, y) {
+funkin::StrumNote::StrumNote(const float x, const float y, const int lane) : engine::SparrowSprite(x, y) {
     this->lane = lane;
-    this->player = player;
 
     const std::array<std::string, 4> directions = {"left", "down", "up", "right"};
 

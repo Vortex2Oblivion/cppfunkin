@@ -40,7 +40,7 @@ class PlayField final : public engine::Group<engine::Object> {
 
     std::shared_ptr<funkin::Conductor> conductor = nullptr;
 
-    void generateStaticArrows(bool player) const;
+    void generateStaticArrows() const;
     void update(float delta) override;
 };
 }  // namespace funkin

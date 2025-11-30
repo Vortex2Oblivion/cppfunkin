@@ -34,7 +34,7 @@ void engine::AnimatedSprite::playAnimation(const std::string& name) {
         return;
     }
 
-    bool setFirstHitbox = currentAnimation == nullptr;
+    const bool setFirstHitbox = currentAnimation == nullptr;
 
     currentAnimation = animations[name];
     currentAnimation->resetFrame();
@@ -58,8 +58,9 @@ void engine::AnimatedSprite::updateHitbox() {
 void engine::AnimatedSprite::centerOffsets() {
     if (currentAnimation != nullptr) {
         const size_t frame = currentAnimation->currentFrame;
-        offset.x = (offsetHitbox.x - currentAnimation->frames[frame]->frameWidth) * 0.5f;
-        offset.y = (offsetHitbox.y - currentAnimation->frames[frame]->frameHeight) * 0.5f;
+        const auto currentFrame = currentAnimation->frames[frame];
+        offset.x = (offsetHitbox.x - currentFrame->frameWidth) * 0.5f;
+        offset.y = (offsetHitbox.y - currentFrame->frameHeight) * 0.5f;
     }
 }
 

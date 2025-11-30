@@ -7,6 +7,12 @@ file(GLOB_RECURSE SRC "src/*.cpp")
 
 set(OS)
 
+if(CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo" OR CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "release")
+else()
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "debug")
+endif()
+
 if(APPLE)
     set(OS ${OS}
         src/engine/macos.mm
@@ -39,6 +45,6 @@ add_dependencies(${PROJECT_NAME} copy_assets)
 add_custom_target(copy_assets ALL
 COMMAND ${CMAKE_COMMAND} -E copy_directory
 ${CMAKE_SOURCE_DIR}/assets
-${CMAKE_CURRENT_BINARY_DIR}/assets
+${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/assets
 COMMENT "COPYING ASSETS"
 )
