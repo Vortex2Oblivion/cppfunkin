@@ -26,14 +26,14 @@ void engine::SparrowSprite::addAnimation(const std::string &name, const std::str
     std::vector<std::shared_ptr<engine::Frame>> foundFrames = {};
     uint8_t frameIndex = 0;
     for (auto frame : doc.child("TextureAtlas").children("SubTexture")) {
-        auto animationName = frame.attribute("name").as_string();
+        const auto animationName = frame.attribute("name").as_string();
 
-        if (strncmp(prefix.c_str(), animationName, strlen(prefix.c_str())) != 0)  // find all animations that start with `prefix`
-        {
+        if (strncmp(prefix.c_str(), animationName, strlen(prefix.c_str())) != 0) { // find all animations that start with `prefix`
             continue;
         }
 
         bool addFrame = true;
+
         if (!indices.empty()) {
             addFrame = std::ranges::find(indices, frameIndex) != indices.end();
         }
@@ -55,7 +55,14 @@ void engine::SparrowSprite::addAnimation(const std::string &name, const std::str
 
         if (addFrame) {
             foundFrames.push_back(std::make_shared<engine::Frame>(rect, sourceSize, offset));
+
+            maxFrameSize.x = std::max(maxFrameSize.x, rect.width);
+            maxFrameSize.y = std::max(maxFrameSize.y, rect.height);
+
+            minFrameSize.x = std::min(minFrameSize.x, rect.width);
+            minFrameSize.y = std::min(minFrameSize.y, rect.height);
         }
+
         frameIndex++;
     }
 
@@ -70,6 +77,7 @@ void engine::SparrowSprite::addAnimation(const std::string &name, const std::str
 }
 
 void engine::SparrowSprite::update(const float delta) { engine::AnimatedSprite::update(delta); }
+
 
 void engine::SparrowSprite::draw(const float x, const float y) {
     if (!visible || currentAnimation == nullptr || animations.empty()) {

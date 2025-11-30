@@ -11,10 +11,10 @@ namespace funkin {
 
             std::string path;
         private:
-            WrenConfiguration config;
+            WrenConfiguration config{};
             WrenVM* vm;
             WrenInterpretResult result;
             static void writeFn(WrenVM* vm, const char * text);
-            static void errorFn(WrenVM* vm, const WrenErrorType errorType, const char* module, int line, const char* msg);
+            static void errorFn(WrenVM* vm, WrenErrorType errorType, const char* module, int line, const char* msg);
     };
 }

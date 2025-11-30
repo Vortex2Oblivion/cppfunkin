@@ -83,7 +83,7 @@ void funkin::PlayField::update(const float delta) {
             }
             const auto strum = strums->members[lane];
             strum->playAnimation("press");
-            strum->offset = strum->offset.Scale(0.0f);
+            strum->centerOffsets();
         }
     } else {
         for (bool & i : pressedArray) {
@@ -180,8 +180,7 @@ void funkin::PlayField::update(const float delta) {
         health = Clamp(health + (addScore / 200.0f), 0, 100);
 
         strum->playAnimation("confirm");
-        strum->offset.x = -30;
-        strum->offset.y = -30;
+        strum->centerOffsets();
 
         note->wasHit = true;
 
@@ -206,7 +205,7 @@ void funkin::PlayField::update(const float delta) {
         }
 
         strum->playAnimation("static");
-        strum->offset.x = strum->offset.y = 0.0;
+        strum->centerOffsets();
     }
 }
 

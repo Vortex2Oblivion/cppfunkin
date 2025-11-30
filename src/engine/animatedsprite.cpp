@@ -42,10 +42,8 @@ void engine::AnimatedSprite::playAnimation(const std::string& name) {
 }
 
 void engine::AnimatedSprite::centerOffsets() {
-    const size_t frame = currentAnimation->currentFrame;
-
-    offset.x = (dest.width - currentAnimation->frames[frame]->width) / 2;
-    offset.y = (dest.height - currentAnimation->frames[frame]->height) / 2;
+    offset.x = (dest.width / scale.x - currentAnimation->frames[0]->frameWidth) * 0.5f;
+    offset.y = (dest.height / scale.y - currentAnimation->frames[0]->frameHeight) * 0.5f;
 }
 
 bool engine::AnimatedSprite::isOnScreen(const float x, const float y) {
