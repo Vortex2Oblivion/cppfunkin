@@ -1,7 +1,9 @@
 #pragma once
 
-#include <wren.hpp>
+#include <wrenbind17/wrenbind17.hpp>
 #include <string>
+
+namespace wren = wrenbind17;
 
 namespace funkin {
     class Script {
@@ -11,10 +13,6 @@ namespace funkin {
 
             std::string path;
         private:
-            WrenConfiguration config{};
-            WrenVM* vm;
-            WrenInterpretResult result;
-            static void writeFn(WrenVM* vm, const char * text);
-            static void errorFn(WrenVM* vm, WrenErrorType errorType, const char* module, int line, const char* msg);
+            wren::VM vm;
     };
 }

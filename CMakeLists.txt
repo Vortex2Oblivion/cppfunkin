@@ -34,8 +34,10 @@ target_link_libraries(${PROJECT_NAME} nlohmann_json)
 add_subdirectory(external/pugixml)
 target_link_libraries(${PROJECT_NAME} pugixml)
 
+set(WRENBIND17_BUILD_WREN ON CACHE BOOL "" FORCE)
 add_subdirectory(external/wrenbind17)
 target_link_libraries(${PROJECT_NAME} WrenBind17)
+target_link_libraries(${PROJECT_NAME} Wren)
 
 if (UNIX AND NOT APPLE)
 include_directories(external/gamemode/lib)
