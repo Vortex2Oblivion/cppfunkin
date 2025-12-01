@@ -13,6 +13,6 @@
 [submodule "external/gamemode"]
 	path = external/gamemode
 	url = https://github.com/FeralInteractive/gamemode.git
-[submodule "wren-cmake"]
-	path = external/wren-cmake
-	url = https://github.com/Sayama3/wren-cmake
+[submodule "external/wrenbind17"]
+	path = external/wrenbind17
+	url = https://github.com/Vortex2Oblivion/wrenbind17.git
