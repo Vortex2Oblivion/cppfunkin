@@ -1,10 +1,12 @@
 #include "script.hpp"
+
 #include <raylib-cpp.hpp>
-#include <iostream>
-#include <ostream>
 
 funkin::Script::Script(const std::string &path) {
     this->path = path;
+    const std::string code = raylib::LoadFileText(path);
+
+    vm.runFromSource("main", code);
 }
 
 funkin::Script::~Script() {

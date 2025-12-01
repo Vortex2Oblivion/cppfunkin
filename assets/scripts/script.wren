@@ -1,1 +1,1 @@
-System.print("Hello, world!\n")
+System.print("Hello, world!")
