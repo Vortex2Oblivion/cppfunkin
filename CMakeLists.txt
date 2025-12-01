@@ -34,8 +34,8 @@ target_link_libraries(${PROJECT_NAME} nlohmann_json)
 add_subdirectory(external/pugixml)
 target_link_libraries(${PROJECT_NAME} pugixml)
 
-add_subdirectory(external/wren-cmake/projects/cmake)
-target_link_libraries(${PROJECT_NAME} wren-lang:wren)
+add_subdirectory(external/wrenbind17)
+target_link_libraries(${PROJECT_NAME} WrenBind17)
 
 if (UNIX AND NOT APPLE)
 include_directories(external/gamemode/lib)
