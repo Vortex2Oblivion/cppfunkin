@@ -45,10 +45,10 @@ int main() {
 
     while (!raylib::Window::ShouldClose()) {
         window.BeginDrawing();
-        window.ClearBackground(BLACK);
+        window.ClearBackground(raylib::BLACK);
         game.update(raylib::Window::GetFrameTime());
         raylib::Window::DrawFPS(10, 10);
-        raylib::Text::Draw(funkin::CoolUtil::formatBytes(getCurrentRSS()) + " / " + funkin::CoolUtil::formatBytes(getPeakRSS()), 10, 30, 20, LIME);
+        raylib::Text::Draw(funkin::CoolUtil::formatBytes(getCurrentRSS()) + " / " + funkin::CoolUtil::formatBytes(getPeakRSS()), 10, 30, 20, raylib::LIME);
         window.EndDrawing();
     }
 
