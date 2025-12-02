@@ -20,7 +20,10 @@ funkin::Script::Script(const std::string &path) {
 
         auto res = main();
     }
-    catch (const std::exception& e) {
+    catch (wren::NotFound& e) {
+        std::cerr << e.what() << std::endl;
+    }
+    catch (wren::RuntimeError& e) {
         std::cerr << e.what() << std::endl;
     }
 
