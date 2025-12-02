@@ -13,6 +13,11 @@ engine::Game::Game(std::unique_ptr<State> initialState) {
     _state->create();
 }
 
+std::unique_ptr<engine::State> engine::Game::getState() {
+    return std::move(_state);
+}
+
+
 void engine::Game::update(const float delta) {
     if (!_state->initialized) {
         return;

@@ -6,6 +6,7 @@
 
 #include <memory>
 
+
 namespace engine {
     class Game {
     private:
@@ -18,6 +19,8 @@ namespace engine {
         static std::vector<std::shared_ptr<engine::Camera>> cameras;
         static std::shared_ptr<engine::Camera> defaultCamera;
         static std::vector<engine::Timer> timers;
+
+        static std::unique_ptr<engine::State> getState();
 
     };  // namespace engine
 }
