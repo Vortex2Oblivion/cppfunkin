@@ -100,7 +100,7 @@ void funkin::PlayState::create() {
 
 }
 
-void funkin::PlayState::loadSong( const std::string& songName,  const std::string& difficulty) {
+void funkin::PlayState::loadSong(const std::string &songName, const std::string &difficulty) {
     const std::string basePath = "assets/songs/" + songName + "/";
 
     song = funkin::Song::parseChart(songName, difficulty);

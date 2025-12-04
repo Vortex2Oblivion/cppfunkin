@@ -13,10 +13,9 @@ engine::Game::Game(std::unique_ptr<State> initialState) {
     _state->create();
 }
 
-std::unique_ptr<engine::State> engine::Game::getState() {
-    return std::move(_state);
+void engine::Game::add(const std::shared_ptr<Sprite> &obj) {
+    _state->add(obj);
 }
-
 
 void engine::Game::update(const float delta) {
     if (!_state->initialized) {

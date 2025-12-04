@@ -3,14 +3,28 @@
 #include <sprite.hpp>
 #include <raylib-cpp.hpp>
 
+#include "game.hpp"
+
 
 funkin::Script::Script(const std::string &path) {
     this->path = path;
+
+    auto& raylib = vm.module("raylib");
+
+    auto& vector2 = raylib.klass<raylib::Vector2>("Vector2");
+    vector2.ctor<float, float>("new");
+
     
-    auto& m = vm.module("engine");
-    auto& cls = m.klass<engine::Sprite>("Sprite");
-    cls.ctor<float, float>("new");
-    cls.func<&engine::Sprite::loadGraphic>("loadGraphic");
+    auto& engine = vm.module("engine");
+
+    auto& sprite = engine.klass<engine::Sprite>("Sprite");
+    sprite.ctor<float, float>("new");
+    sprite.func<&engine::Sprite::loadGraphic>("loadGraphic");
+    sprite.func<&engine::Sprite::centerOrigin>("centerOrigin");
+    sprite.var<&engine::Sprite::scale>("scale");
+
+    auto& game = engine.klass<engine::Game>("Game");
+    game.funcStatic<&engine::Game::add>("add");
 
     try {
         vm.runFromFile("main", path);

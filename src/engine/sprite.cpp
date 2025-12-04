@@ -51,8 +51,8 @@ bool engine::Sprite::isOnScreen(float x, float y) {
 raylib::Vector2 engine::Sprite::getMidpoint() { return raylib::Vector2(position.x + texture->width * 0.5f, position.y + texture->height * 0.5f); }
 
 void engine::Sprite::screenCenter() {
-    position.x = (raylib::Window::GetWidth() - texture->width) / 2.0f;
-    position.y = (raylib::Window::GetHeight() - texture->height) / 2.0f;
+    position.x = (raylib::Window::GetWidth() - dest.width) / 2.0f;
+    position.y = (raylib::Window::GetHeight() - dest.height) / 2.0f;
 }
 
 void engine::Sprite::screenCenter(const engine::Axes axes) {

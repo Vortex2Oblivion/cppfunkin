@@ -23,9 +23,8 @@ namespace funkin
         void beatHit() override;
         void stepHit() override;
 
-        void loadSong(const std::string &songName,
-                      const std::string &difficulty);
-        void focusCamera(void);
+        void loadSong(const std::string &songName, const std::string &difficulty);
+        void focusCamera();
 
         std::vector<std::shared_ptr<raylib::Music>> tracks = {};
         std::vector<std::shared_ptr<funkin::PlayField>> playfields = {};
