@@ -52,6 +52,9 @@ int main() {
         window.EndDrawing();
     }
 
+    // really stupid fix for the game crashing when closing the window
+    engine::Game::switchState(std::make_unique<engine::State>());
+
     #if __linux__
     if (gamemode_request_end()) {
         std::cerr << "Failed to request gamemode end: " << gamemode_error_string() << std::endl;
