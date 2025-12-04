@@ -48,8 +48,8 @@ void engine::AnimatedSprite::playAnimation(const std::string& name) {
 void engine::AnimatedSprite::updateHitbox() {
     if (currentAnimation != nullptr) {
         const size_t frame = currentAnimation->currentFrame;
-        offsetHitbox.x = currentAnimation->frames[frame]->width;
-        offsetHitbox.y = currentAnimation->frames[frame]->height;
+        offsetHitbox.x = currentAnimation->frames[frame]->frameWidth;
+        offsetHitbox.y = currentAnimation->frames[frame]->frameHeight;
     }
 }
 
@@ -57,8 +57,8 @@ void engine::AnimatedSprite::centerOffsets() {
     if (currentAnimation != nullptr) {
         const size_t frame = currentAnimation->currentFrame;
         const auto currentFrame = currentAnimation->frames[frame];
-        offset.x = (offsetHitbox.x - currentFrame->frameWidth) * 0.5f;
-        offset.y = (offsetHitbox.y - currentFrame->frameHeight) * 0.5f;
+        offset.x = (offsetHitbox.x - currentFrame->width) * 0.5f + (currentFrame->width - currentFrame->frameWidth + currentFrame->frameX * 0.5f) * 0.5f;
+        offset.y = (offsetHitbox.y - currentFrame->height) * 0.5f + (currentFrame->height - currentFrame->frameHeight + currentFrame->frameY * 0.5f) * 0.5f;
     }
 }
 
