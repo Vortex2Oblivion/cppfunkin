@@ -8,7 +8,7 @@ funkin::StrumNote::StrumNote(const float x, const float y, const int lane) : eng
 
     const std::string& direction = directions[lane % 4];
 
-    loadGraphic("assets/images/notes.png", "assets/images/notes.xml");
+    loadGraphic("assets/images/NOTE_assets.png", "assets/images/NOTE_assets.xml");
 
     addAnimation("press", direction + " press", 24);
     addAnimation("confirm", direction + " confirm", 24);

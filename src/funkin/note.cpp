@@ -13,7 +13,7 @@ funkin::Note::Note(const float strumTime, const int lane, const float speed) : e
 
     const std::string& direction = directions[lane % 4];
 
-    loadGraphic("assets/images/notes.png", "assets/images/notes.xml");
+    loadGraphic("assets/images/NOTE_assets.png", "assets/images/NOTE_assets.xml");
     addAnimation("default", direction + " instance", 24);
     addAnimation("hold", direction + " hold piece instance", 24);
     addAnimation("hold_end", direction + " hold end instance", 24);
