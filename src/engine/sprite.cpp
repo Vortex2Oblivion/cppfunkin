@@ -14,9 +14,11 @@ void engine::Sprite::loadGraphic(const std::string& path) {
     engine::Sprite::cacheTexture(path);
 
     texture = engine::Sprite::texturePool[path];
-    texture->SetFilter(TEXTURE_FILTER_BILINEAR);
-    source = raylib::Rectangle(0, 0, static_cast<float>(texture->width), static_cast<float>(texture->height));
-    dest = raylib::Rectangle(0, 0, static_cast<float>(texture->width), static_cast<float>(texture->height));
+	if (texture != nullptr) {
+		texture->SetFilter(TEXTURE_FILTER_BILINEAR);
+		source = raylib::Rectangle(0, 0, static_cast<float>(texture->width), static_cast<float>(texture->height));
+		dest = raylib::Rectangle(0, 0, static_cast<float>(texture->width), static_cast<float>(texture->height));
+	}
     centerOrigin();
     angle = 0;
     color = WHITE;

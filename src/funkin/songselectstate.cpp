@@ -27,7 +27,7 @@ void funkin::SongSelectState::create() {
     slungus->loadGraphic("assets/images/slungus.png");
     add(slungus);
 
-    auto alphabet = std::make_shared<funkin::Alphabet>("SKIBIDI", 100, 500);
+	const auto alphabet = std::make_shared<funkin::Alphabet>("SKIBIDI", 100, 500);
     add(alphabet);
 }
 
@@ -35,13 +35,13 @@ void funkin::SongSelectState::update(const float delta) {
     funkin::MusicBeatState::update(delta);
     if (IsKeyPressed(KEY_RIGHT)) {
         selectedSong++;
-        if (selectedSong >= static_cast<int>(songs.size())) {
+        if (selectedSong >= static_cast<int8_t>(songs.size())) {
             selectedSong = 0;
         }
     } else if (IsKeyPressed(KEY_LEFT)) {
         selectedSong--;
         if (selectedSong < 0) {
-            selectedSong = static_cast<int>(songs.size()) - 1;
+            selectedSong = static_cast<int8_t>(songs.size() - 1);
         }
     }
     songText->text = songs[selectedSong];

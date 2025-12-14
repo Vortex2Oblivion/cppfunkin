@@ -16,7 +16,7 @@ namespace funkin {
 
             std::shared_ptr<engine::Sprite> menuBG = nullptr;
             std::shared_ptr<engine::Group<engine::SparrowSprite>> menuButtons = nullptr;
-            std::array<std::string, 5> menuItems = {"storymode", "freeplay", "options", "credits", "merch"};
+            std::array<std::string, 3> menuItems = {"storymode", "freeplay", "options"};
 
         protected:
             uint8_t currentSelected = 0;

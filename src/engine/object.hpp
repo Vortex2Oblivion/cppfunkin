@@ -13,7 +13,7 @@ namespace engine {
         raylib::Vector2 position = raylib::Vector2::Zero();
         raylib::Vector2 scrollFactor = raylib::Vector2::One();
         std::shared_ptr<engine::Camera> camera = nullptr;
-        bool alive = true;
+        bool alive = false;
         virtual void add();
         size_t ID = 0;
 

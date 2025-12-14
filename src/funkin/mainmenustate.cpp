@@ -50,8 +50,6 @@ void funkin::MainMenuState::update(const float delta) {
     }
     else if (raylib::Keyboard::IsKeyPressed(KEY_ENTER)) {
         switch (funkin::CoolUtil::str2int(menuItems[currentSelected])) {
-            case funkin::CoolUtil::str2int("storymode"):
-                break;
             case funkin::CoolUtil::str2int("freeplay"):
                 engine::Game::switchState(std::make_unique<funkin::SongSelectState>());
                 break;
@@ -59,6 +57,12 @@ void funkin::MainMenuState::update(const float delta) {
                 break;
         }
     }
+
+	if (alive) {
+		engine::Game::defaultCamera->cameraPosition = engine::Game::defaultCamera->cameraPosition.Lerp(
+			menuButtons->members[currentSelected]->getMidpoint(),
+			1.0f - powf(1.0f - 0.06f, delta * 60.0f));
+	}
 }
 
 void funkin::MainMenuState::changeSelection(const int8_t selection) {
@@ -67,7 +71,6 @@ void funkin::MainMenuState::changeSelection(const int8_t selection) {
         const auto menuButton = menuButtons->members[i];
         if (menuButton->ID == currentSelected && menuButton->currentAnimation->name == "idle") {
             menuButton->playAnimation("selected");
-            engine::Game::defaultCamera->cameraPosition = menuButton->getMidpoint();
         }
         else if (menuButton->currentAnimation->name == "selected") {
             menuButton->playAnimation("idle");

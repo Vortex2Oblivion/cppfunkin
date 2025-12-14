@@ -18,7 +18,7 @@ void engine::Game::add(const std::shared_ptr<engine::Object> &obj) {
 }
 
 void engine::Game::update(const float delta) {
-    if (!_state->initialized) {
+    if (!_state->initialized || !_state->alive) {
         return;
     }
     _state->update(delta);
@@ -43,12 +43,12 @@ void engine::Game::update(const float delta) {
 }
 
 void engine::Game::switchState(std::unique_ptr<State> nextState) {
+    _state->alive = false;
     engine::Sprite::clearTextureCache();
     timers.clear();
     cameras.clear();
     defaultCamera = std::make_shared<engine::Camera>();
     cameras = {defaultCamera};
-    _state->alive = false;
     _state = std::move(nextState);
     _state->create();
 }
