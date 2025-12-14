@@ -21,8 +21,8 @@ void funkin::TitleState::create() {
     conductor->bpm = 102.0f;
     conductor->start({freakyMenu});
 
-    const auto windowWidth = static_cast<float>(raylib::Window::GetWidth());
-    const auto windowHeight = static_cast<float>(raylib::Window::GetHeight());
+    const auto windowWidth = raylib::Window::GetSize().x;
+    const auto windowHeight = raylib::Window::GetSize().y;
 
     gfDance = std::make_shared<engine::SparrowSprite>(windowWidth * 0.4f, windowHeight * 0.07f);
     gfDance->loadGraphic("assets/images/gfDanceTitle.png", "assets/images/gfDanceTitle.xml");

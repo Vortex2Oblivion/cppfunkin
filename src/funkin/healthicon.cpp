@@ -1,6 +1,6 @@
 #include "healthicon.hpp"
 
-funkin::HealthIcon::HealthIcon(const std::string& character, float x, float y) : engine::AnimatedSprite(x, y) {
+funkin::HealthIcon::HealthIcon(const std::string& character, const float x, const float y) : engine::AnimatedSprite(x, y) {
     std::string iconPath = "assets/characters/" + character + "/icon.png";
     
     if (!raylib::FileExists(iconPath)) {
@@ -8,8 +8,8 @@ funkin::HealthIcon::HealthIcon(const std::string& character, float x, float y) :
     }
 
     loadGraphic(iconPath);
-    addAnimation("default", {raylib::Rectangle(0.0f, 0.0f, texture->width / 2.0f, static_cast<float>(texture->height))}, 0);
-    addAnimation("losing", {raylib::Rectangle(texture->width / 2.0f, 0.0f, texture->width / 2.0f,  static_cast<float>(texture->height))}, 0);
+    addAnimation("default", {raylib::Rectangle(0.0f, 0.0f, texture->GetSize().x / 2.0f, texture->GetSize().y)}, 0);
+    addAnimation("losing", {raylib::Rectangle(texture->GetSize().x / 2.0f, 0.0f, texture->GetSize().x / 2.0f,  texture->GetSize().y)}, 0);
     playAnimation("default");
 }
 

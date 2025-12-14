@@ -28,8 +28,8 @@ void engine::Sprite::draw(const float x, const float y) {
     if (!visible || !texture) {
         return;
     }
-    dest.x = (texture->width / 2.0f) + position.x + offset.x + x;
-    dest.y = (texture->height / 2.0f) + position.y + offset.y + y;
+    dest.x = (texture->GetSize().x / 2.0f) + position.x + offset.x + x;
+    dest.y = (texture->GetSize().y / 2.0f) + position.y + offset.y + y;
     dest.width = static_cast<float>(texture->width) * scale.x;
     dest.height = static_cast<float>(texture->height) * scale.y;
 

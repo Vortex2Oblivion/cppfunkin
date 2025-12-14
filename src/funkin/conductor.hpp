@@ -6,39 +6,38 @@
 
 namespace funkin {
     class Conductor {
-        friend class MusicBeatState;
-       private:
-        float lastAudioTime = 0.0f;
-        int step = 0;
-        int beat = 0;
+    	friend class MusicBeatState;
+		public:
+	        explicit Conductor(const std::vector<std::shared_ptr<raylib::Music>> &tracks = {});
+	        ~Conductor();
+	        void start(std::vector<std::shared_ptr<raylib::Music>> tracks);
+	        void start() const;
+	        void stop() const;
+	        void update(float delta);
 
-        bool didProperStepUpdate = false;
-        bool didProperBeatUpdate = false;
+	        [[nodiscard]] int getBeat() const;
+	        [[nodiscard]] int getStep() const;
+	        [[nodiscard]] float getCrochet() const;
+	        [[nodiscard]] float getStepCrochet() const;
 
-        void updateStep();
-        void updateBeat();
+	        [[nodiscard]] float getMaxAudioTime() const;
+	        [[nodiscard]] float getMinAudioTime() const;
 
-        void stepHit();
-        void beatHit();
+	        std::vector<std::shared_ptr<raylib::Music>> tracks = {};
+	        float time = -1.0f;
+	        float bpm = 60.0f;
+		private:
+	        float lastAudioTime = 0.0f;
+	        int step = 0;
+	        int beat = 0;
 
-       public:
-        explicit Conductor(const std::vector<std::shared_ptr<raylib::Music>> &tracks = {});
-        ~Conductor();
-        void start(std::vector<std::shared_ptr<raylib::Music>> tracks);
-        void start() const;
-        void stop() const;
-        void update(float delta);
+	        bool didProperStepUpdate = false;
+	        bool didProperBeatUpdate = false;
 
-        [[nodiscard]] int getBeat() const;
-        [[nodiscard]] int getStep() const;
-        [[nodiscard]] float getCrochet() const;
-        [[nodiscard]] float getStepCrochet() const;
+	        void updateStep();
+	        void updateBeat();
 
-        [[nodiscard]] float getMaxAudioTime() const;
-        [[nodiscard]] float getMinAudioTime() const;
-
-        std::vector<std::shared_ptr<raylib::Music>> tracks = {};
-        float time = -1.0f;
-        float bpm = 60.0f;
+	        void stepHit();
+	        void beatHit();
     };
 }  // namespace funkin
