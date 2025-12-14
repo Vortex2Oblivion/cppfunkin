@@ -45,9 +45,9 @@ void engine::Sprite::draw(const float x, const float y) {
 }
 
 bool engine::Sprite::isOnScreen(const float x, const float y) {
-    const raylib::Vector2 pos = camera->GetWorldToScreen(position + offset - origin*scale + raylib::Vector2(x, y) + (texture->GetSize().Scale(0.5f)));
-    return !((pos.y + (texture->GetSize().x * scale.y) < 0 || pos.y > raylib::Window::GetSize().x / camera->zoom) ||
-             (pos.x + (texture->GetSize().y * scale.x) < 0 || pos.x > raylib::Window::GetSize().y / camera->zoom));
+    const raylib::Vector2 pos = camera->GetWorldToScreen(position + offset - origin*scale + raylib::Vector2(x, y) + (dest.GetSize().Scale(0.5f)));
+    return !((pos.y + (dest.GetHeight() * scale.y) < 0 || pos.y > raylib::Window::GetSize().y / camera->zoom) ||
+             (pos.x + (dest.GetWidth() * scale.x) < 0 || pos.x > raylib::Window::GetSize().x / camera->zoom));
 }
 
 raylib::Vector2 engine::Sprite::getMidpoint() { return {position.x + texture->GetSize().x * 0.5f, position.y + texture->GetSize().y * 0.5f}; }
