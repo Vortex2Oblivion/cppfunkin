@@ -17,6 +17,7 @@ namespace engine {
 
             void updateHitbox();
             void centerOffsets();
+            void screenCenter(engine::Axes axes = engine::Axes::XY) override;
 
             raylib::Vector2 getMidpoint() override;
             bool isOnScreen(float x, float y) override;

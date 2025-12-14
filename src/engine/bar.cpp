@@ -18,21 +18,18 @@ engine::Bar::Bar(float x, float y, float width, float height,
 
 engine::Bar::~Bar() = default;
 
-void engine::Bar::screenCenter() {
-    screenCenter(X);
-    screenCenter(Y);
-}
 
 void engine::Bar::screenCenter(const engine::Axes axes) {
     switch (axes) {
         case X:
-            position.x = (raylib::Window::GetWidth() - rectOutline->width) / 2;
+            position.x = (raylib::Window::GetSize().x - rectOutline->width) / 2;
             break;
         case Y:
-            position.y = (raylib::Window::GetHeight() - rectOutline->height) / 2;
+            position.y = (raylib::Window::GetSize().y - rectOutline->height) / 2;
             break;
         default:
-            screenCenter();
+            screenCenter(engine::Axes::X);
+            screenCenter(engine::Axes::Y);
     }
 }
 

@@ -70,7 +70,7 @@ bool engine::AnimatedSprite::isOnScreen(const float x, const float y) {
 
 raylib::Vector2 engine::AnimatedSprite::getMidpoint() {
     const auto animFrame = animations[animations.begin()->first]->frames[0];
-    auto returnPos = raylib::Vector2(position.x + (animFrame->width / 2.0f), position.y + (animFrame->height / 2.0f));
+    auto returnPos = raylib::Vector2(position.x + (offsetHitbox.x / 2.0f), position.y + (offsetHitbox.y / 2.0f));
     returnPos -= raylib::Vector2(1280.0f / 2.0f, 720.0f / 2.0f);
     return returnPos;
 }
@@ -102,3 +102,18 @@ void engine::AnimatedSprite::draw(const float x, const float y) {
         texture->Draw(source, dest, origin * scale, angle, color);
     }
 }
+
+void engine::AnimatedSprite::screenCenter(const engine::Axes axes) {
+    switch (axes) {
+        case X:
+            position.x = (raylib::Window::GetSize() - offsetHitbox).x / 2.0f;
+            break;
+        case Y:
+            position.y = (raylib::Window::GetSize() - offsetHitbox).y / 2.0f;
+            break;
+        default:
+            screenCenter(engine::Axes::X);
+            screenCenter(engine::Axes::Y);
+    }
+}
+

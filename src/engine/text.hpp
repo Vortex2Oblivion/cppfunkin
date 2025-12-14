@@ -21,8 +21,6 @@ class Text : public Sprite {
     float spacing = 1.0f;
 
     void draw(float x, float y) override;
-
-    void screenCenter() override;
-    void screenCenter(engine::Axes axes) override;
+    void screenCenter(engine::Axes axes = engine::Axes::XY) override;
 };
 }  // namespace engine

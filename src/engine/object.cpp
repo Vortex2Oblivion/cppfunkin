@@ -18,3 +18,7 @@ engine::Object::~Object() {
 void engine::Object::update(const float delta) {}
 
 void engine::Object::draw(float x, float y) {}
+
+void engine::Object::add() {
+    engine::Game::add(std::shared_ptr<engine::Object>(this));
+}

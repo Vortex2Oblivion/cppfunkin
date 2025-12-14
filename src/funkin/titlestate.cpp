@@ -1,9 +1,10 @@
 #include "titlestate.hpp"
 
-#include "songselectstate.hpp"
+#include "mainmenustate.hpp"
 #include "script.hpp"
 
 #include <game.hpp>
+
 
 funkin::TitleState::TitleState() : funkin::MusicBeatState() {}
 
@@ -40,28 +41,20 @@ void funkin::TitleState::create() {
     titleText->playAnimation("idle");
     add(titleText);
 
-    const auto script = new funkin::Script("assets/scripts/script.wren");
-    delete script;
-
-
+    //const auto script = new funkin::Script("assets/scripts/script.wren");
     beatHit();
 }
 
 void funkin::TitleState::beatHit() {
     funkin::MusicBeatState::beatHit();
     logoBumpin->playAnimation("bump");
-    if (danceLeft) {
-        gfDance->playAnimation("danceLeft");
-    }
-    else {
-        gfDance->playAnimation("danceRight");
-    }
+    gfDance->playAnimation(danceLeft ? "danceLeft" : "danceRight");
     danceLeft = !danceLeft;
 }
 
 void funkin::TitleState::update(const float delta) {
     funkin::MusicBeatState::update(delta);
     if (raylib::Keyboard::IsKeyPressed(KEY_ENTER)) {
-        engine::Game::switchState(std::make_unique<funkin::SongSelectState>());
+        engine::Game::switchState(std::make_unique<funkin::MainMenuState>());
     }
 }

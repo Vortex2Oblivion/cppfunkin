@@ -7,7 +7,7 @@ class Main {
         sprite.loadGraphic("assets/images/slungus.png")
         sprite.scale = Vector2.new(2.0, 2.0)
         sprite.centerOrigin()
+        sprite.add()
         System.print(sprite.type)
-        Game.add(sprite)
     }
 }

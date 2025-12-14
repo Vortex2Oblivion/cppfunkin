@@ -13,7 +13,7 @@ engine::Game::Game(std::unique_ptr<State> initialState) {
     _state->create();
 }
 
-void engine::Game::add(const std::shared_ptr<Sprite> &obj) {
+void engine::Game::add(const std::shared_ptr<engine::Object> &obj) {
     _state->add(obj);
 }
 

@@ -24,16 +24,16 @@ class Sprite : public Object {
     void calculateScrollFactor();
 
    public:
-    Sprite(float x, float y);
+    explicit Sprite(float x = 0.0f, float y = 0.0f);
     ~Sprite() override;
     void loadGraphic(const std::string &path);
     void update(float delta) override;
     virtual bool isOnScreen(float x = 0.0f, float y = 0.0f);
 
     virtual raylib::Vector2 getMidpoint();
-    virtual void screenCenter();
-    virtual void screenCenter(engine::Axes axes);
+    virtual void screenCenter(engine::Axes axes = engine::Axes::XY);
     void draw(float x = 0.0f, float y = 0.0f) override;
+    void add() override;
     virtual void centerOrigin();
 
     raylib::Vector2 origin = raylib::Vector2();

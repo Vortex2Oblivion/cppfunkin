@@ -4,6 +4,7 @@
 #include <raylib-cpp.hpp>
 
 #include "game.hpp"
+#include "playfield.hpp"
 
 
 funkin::Script::Script(const std::string &path) {
@@ -21,6 +22,7 @@ funkin::Script::Script(const std::string &path) {
     sprite.ctor<float, float>("new");
     sprite.func<&engine::Sprite::loadGraphic>("loadGraphic");
     sprite.func<&engine::Sprite::centerOrigin>("centerOrigin");
+    sprite.func<&engine::Sprite::add>("add");
     sprite.var<&engine::Sprite::scale>("scale");
 
     auto& game = engine.klass<engine::Game>("Game");

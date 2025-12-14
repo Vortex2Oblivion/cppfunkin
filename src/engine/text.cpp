@@ -27,19 +27,17 @@ void engine::Text::draw(float x, float y) {
     _text->Draw(font, text, position, origin, angle, size, spacing, color);
 }
 
-void engine::Text::screenCenter() {
-    screenCenter(X);
-    screenCenter(Y);
-}
-void engine::Text::screenCenter(engine::Axes axes) {
+
+void engine::Text::screenCenter(const engine::Axes axes) {
     switch (axes) {
         case X:
-            position.x = (raylib::Window::GetWidth() - MeasureTextEx(font, text.c_str(), size, spacing).x) / 2;
+            position.x = (raylib::Window::GetSize() - MeasureTextEx(font, text.c_str(), size, spacing)).x / 2;
             break;
         case Y:
-            position.y = (raylib::Window::GetHeight() - MeasureTextEx(font, text.c_str(), size, spacing).y) / 2;
+            position.y = (raylib::Window::GetSize() - MeasureTextEx(font, text.c_str(), size, spacing)).y / 2;
             break;
         default:
-            screenCenter();
+            screenCenter(engine::Axes::X);
+            screenCenter(engine::Axes::Y);
     }
 }

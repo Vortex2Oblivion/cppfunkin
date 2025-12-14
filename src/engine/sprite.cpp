@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "game.hpp"
+
 std::unordered_map<std::string, std::shared_ptr<raylib::Texture>> engine::Sprite::texturePool;
 
 engine::Sprite::Sprite(const float x, const float y) : Object(x, y) {}
@@ -42,29 +44,25 @@ void engine::Sprite::draw(const float x, const float y) {
     }
 }
 
-bool engine::Sprite::isOnScreen(float x, float y) {
-    raylib::Vector2 pos = camera->GetWorldToScreen(position + offset - origin*scale + raylib::Vector2(x, y) + (texture->GetSize().Scale(0.5f)));
-    return !((pos.y + (texture->height * scale.y) < 0 || pos.y > raylib::Window::GetHeight() / camera->zoom) ||
-             (pos.x + (texture->width * scale.x) < 0 || pos.x > raylib::Window::GetWidth() / camera->zoom));
+bool engine::Sprite::isOnScreen(const float x, const float y) {
+    const raylib::Vector2 pos = camera->GetWorldToScreen(position + offset - origin*scale + raylib::Vector2(x, y) + (texture->GetSize().Scale(0.5f)));
+    return !((pos.y + (texture->GetSize().x * scale.y) < 0 || pos.y > raylib::Window::GetSize().x / camera->zoom) ||
+             (pos.x + (texture->GetSize().y * scale.x) < 0 || pos.x > raylib::Window::GetSize().y / camera->zoom));
 }
 
-raylib::Vector2 engine::Sprite::getMidpoint() { return raylib::Vector2(position.x + texture->width * 0.5f, position.y + texture->height * 0.5f); }
-
-void engine::Sprite::screenCenter() {
-    position.x = (raylib::Window::GetWidth() - dest.width) / 2.0f;
-    position.y = (raylib::Window::GetHeight() - dest.height) / 2.0f;
-}
+raylib::Vector2 engine::Sprite::getMidpoint() { return {position.x + texture->GetSize().x * 0.5f, position.y + texture->GetSize().y * 0.5f}; }
 
 void engine::Sprite::screenCenter(const engine::Axes axes) {
     switch (axes) {
         case X:
-            position.x = (raylib::Window::GetWidth() - texture->width) / 2.0f;
+            position.x = (raylib::Window::GetSize().x - dest.GetSize().x) / 2.0f;
             break;
         case Y:
-            position.y = (raylib::Window::GetHeight() - texture->height) / 2.0f;
+            position.y = (raylib::Window::GetSize() - dest.GetSize()).y / 2.0f;
             break;
         default:
-            screenCenter();
+            screenCenter(engine::Axes::X);
+            screenCenter(engine::Axes::Y);
     }
 }
 
@@ -88,4 +86,8 @@ void engine::Sprite::cacheTexture(const std::string& path) {
 void engine::Sprite::calculateScrollFactor() {
     dest.x += -camera->cameraPosition.x * (scrollFactor.x - 1.0f);
     dest.y += -camera->cameraPosition.y * (scrollFactor.y - 1.0f);
+}
+
+void engine::Sprite::add() {
+    engine::Game::add(std::shared_ptr<engine::Sprite>(this));
 }

@@ -7,8 +7,6 @@
 
 #include <memory>
 
-#include "sprite.hpp"
-
 
 namespace engine {
     class Game {
@@ -19,7 +17,7 @@ namespace engine {
         static std::vector<std::shared_ptr<engine::Camera>> cameras;
         static std::shared_ptr<engine::Camera> defaultCamera;
         static std::vector<engine::Timer> timers;
-        static void add(const std::shared_ptr<engine::Sprite> &obj);
+        static void add(const std::shared_ptr<engine::Object> &obj);
 
     private:
         static std::unique_ptr<engine::State> _state;

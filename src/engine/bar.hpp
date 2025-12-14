@@ -22,12 +22,11 @@ class Bar final : public Sprite {
     Bar(float x, float y, float width, float height, raylib::Color colorLeft, raylib::Color colorRight, float outlineSize = 0,
         raylib::Color colorOutline = raylib::Color::Black());
     ~Bar() override;
-    void screenCenter() override;
     void screenCenter(engine::Axes axes) override;
     void update(float delta) override;
     void draw(float x, float y) override;
 
-    float getIntersection() const;
+    [[nodiscard]] float getIntersection() const;
 
     raylib::Color colorOutline;
     raylib::Color colorLeft;
