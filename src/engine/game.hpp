@@ -11,8 +11,8 @@
 namespace engine {
     class Game {
     public:
-        explicit Game(std::unique_ptr<State> initialState);
-        void update(float delta);
+        static void start(std::unique_ptr<State> initialState);
+		static void update(float delta);
         static void switchState(std::unique_ptr<State> nextState);
         static std::vector<std::shared_ptr<engine::Camera>> cameras;
         static std::shared_ptr<engine::Camera> defaultCamera;

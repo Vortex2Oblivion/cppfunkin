@@ -8,7 +8,7 @@ std::shared_ptr<engine::Camera> engine::Game::defaultCamera = std::make_shared<e
 std::vector<std::shared_ptr<engine::Camera>> engine::Game::cameras = {engine::Game::defaultCamera};
 std::vector<engine::Timer> engine::Game::timers = {};
 
-engine::Game::Game(std::unique_ptr<State> initialState) {
+void engine::Game::start(std::unique_ptr<State> initialState) {
     _state = std::move(initialState);
     _state->create();
 }
@@ -18,10 +18,9 @@ void engine::Game::add(const std::shared_ptr<engine::Object> &obj) {
 }
 
 void engine::Game::update(const float delta) {
-    if (!_state->initialized || !_state->alive) {
-        return;
+    if (_state->initialized && _state->alive) {
+	    _state->update(delta);
     }
-    _state->update(delta);
     for (const auto& camera : engine::Game::cameras) {
         if (camera == nullptr) {
             continue;
@@ -44,6 +43,7 @@ void engine::Game::update(const float delta) {
 
 void engine::Game::switchState(std::unique_ptr<State> nextState) {
     _state->alive = false;
+	_state->initialized = false;
     engine::Sprite::clearTextureCache();
     timers.clear();
     cameras.clear();

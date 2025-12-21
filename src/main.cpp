@@ -42,12 +42,12 @@ int main() {
     auto audioDevice = raylib::AudioDevice();
     audioDevice.SetVolume(0.25f);
 
-    auto game = engine::Game(std::make_unique<funkin::TitleState>());
+    engine::Game::start(std::make_unique<funkin::TitleState>());
 
     while (!raylib::Window::ShouldClose()) {
         window.BeginDrawing();
         window.ClearBackground(raylib::BLACK);
-        game.update(raylib::Window::GetFrameTime());
+        engine::Game::update(raylib::Window::GetFrameTime());
         raylib::Window::DrawFPS(10, 10);
         raylib::Text::Draw(funkin::CoolUtil::formatBytes(getCurrentRSS()) + " / " + funkin::CoolUtil::formatBytes(getPeakRSS()), 10, 30, 20, raylib::LIME);
         window.EndDrawing();
