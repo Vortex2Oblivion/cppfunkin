@@ -33,5 +33,6 @@ namespace engine {
         protected:
             raylib::Vector2 maxFrameSize = raylib::Vector2::Zero();
             raylib::Vector2 minFrameSize = raylib::Vector2(INFINITY, INFINITY);
+    		std::shared_ptr<engine::Frame> firstFrame = nullptr;
     };
 }  // namespace engine

@@ -25,6 +25,7 @@ int main() {
     constexpr int windowWidth = 1280;
     constexpr int windowHeight = 720;
     auto window = raylib::Window(windowWidth, windowHeight, "Friday Night Funkin'", FLAG_WINDOW_HIGHDPI);
+	raylib::Window::SetExitKey(KEY_NULL);
 
     #if __APPLE__
     MacOSUtil::fixWindowColorSpace();

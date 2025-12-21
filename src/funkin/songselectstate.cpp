@@ -5,6 +5,8 @@
 
 #include <game.hpp>
 
+#include "mainmenustate.hpp"
+
 funkin::SongSelectState::SongSelectState() : MusicBeatState() {}
 
 funkin::SongSelectState::~SongSelectState() { songs.clear(); }
@@ -48,6 +50,8 @@ void funkin::SongSelectState::update(const float delta) {
     slungus->scale.x = static_cast<float>(sin(raylib::Window::GetTime())) + 2.0f;
     slungus->scale.y = static_cast<float>(cos(raylib::Window::GetTime())) + 2.0f;
     if (raylib::Keyboard::IsKeyPressed(KEY_ENTER)) {
-        engine::Game::switchState(std::make_unique<funkin::PlayState>(songs[selectedSong], "hard"));
-    }
+	    engine::Game::switchState(std::make_unique<funkin::PlayState>(songs[selectedSong], "hard"));
+    } else if (raylib::Keyboard::IsKeyPressed(KEY_ESCAPE)) {
+		engine::Game::switchState(std::make_unique<funkin::MainMenuState>());
+	}
 }

@@ -21,7 +21,10 @@ void engine::AnimatedSprite::addAnimation(const std::string& name, const std::ve
     for (const auto rect : rects) {
         foundFrames.push_back(std::make_shared<engine::Frame>(rect));
     }
-    animations[name] = std::make_shared<engine::Animation>(foundFrames, framerate, name, looped);
+	animations[name] = std::make_shared<engine::Animation>(foundFrames, framerate, name, looped);
+	if (firstFrame == nullptr) {
+		firstFrame = animations[animations.begin()->first]->frames[0];
+	}
 }
 
 bool engine::AnimatedSprite::hasAnimation(const std::string& name) const { return animations.contains(name); }
@@ -69,7 +72,6 @@ bool engine::AnimatedSprite::isOnScreen(const float x, const float y) {
 }
 
 raylib::Vector2 engine::AnimatedSprite::getMidpoint() {
-    const auto animFrame = animations[animations.begin()->first]->frames[0];
     auto returnPos = raylib::Vector2(position.x + (offsetHitbox.x / 2.0f), position.y + (offsetHitbox.y / 2.0f));
     returnPos -= raylib::Vector2(1280.0f / 2.0f, 720.0f / 2.0f);
     return returnPos;
